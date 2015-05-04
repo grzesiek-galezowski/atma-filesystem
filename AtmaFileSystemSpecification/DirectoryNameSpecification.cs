@@ -17,6 +17,20 @@ namespace AtmaFileSystemSpecification
       XAssert.IsValue<DirectoryName>();
     }
 
+    [Fact]
+    public void ShouldFormRelativeDirectoryPathWhenAddedToAnotherDirectoryName()
+    {
+      //GIVEN
+      var directoryName = new DirectoryName("Dir1");
+      var subdirectoryName = new DirectoryName("Dir2");
+
+      //WHEN
+      RelativeDirectoryPath relativePath = directoryName + subdirectoryName;
+
+      //THEN
+      Assert.Equal(relativePath.ToString(), @"Dir1\Dir2");
+    }
+
 
   }
 }

@@ -48,7 +48,7 @@ namespace AtmaFileSystem
       _path = Path.Combine(dirPath.ToString(), fileName.ToString());
     }
 
-    public static PathWithFileName To(string path)
+    public static PathWithFileName Value(string path)
     {
       if (null == path)
       {
@@ -92,6 +92,7 @@ namespace AtmaFileSystem
     {
       return new DirectoryPath(Path.GetPathRoot(_path));
     }
+
   }
 
 

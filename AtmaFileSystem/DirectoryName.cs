@@ -1,4 +1,5 @@
 ﻿using System;
+using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
@@ -45,5 +46,23 @@ namespace AtmaFileSystem
     {
       return _directoryName;
     }
+
+    public static DirectoryName Value(string value)
+    {
+      return new DirectoryName(value);
+    }
+
+    public static DirectoryPath From(DirectoryPath path, DirectoryName directoryName)
+    {
+      return new DirectoryPath(path, directoryName);
+    }
+
+    public static RelativeDirectoryPath operator+(DirectoryName dir, DirectoryName subdir)
+    {
+     return new RelativeDirectoryPath(dir, subdir); 
+    }
+
   }
+
+  //bug RelativeDirectoryPath should be value
 }

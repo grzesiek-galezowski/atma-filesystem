@@ -12,19 +12,19 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldNotAllowToBeCreatedWithNullValue()
     {
-      Assert.Throws<ArgumentNullException>(() => PathWithFileName.To(null));
+      Assert.Throws<ArgumentNullException>(() => PathWithFileName.Value(null));
     }
 
     [Fact]
     public void ShouldReturnNonNullFileNameWhenCreatedWithWellFormedPathString()
     {
-      Assert.NotNull(PathWithFileName.To(@"c:\\lolek\\lolki2.txt"));
+      Assert.NotNull(PathWithFileName.Value(@"c:\\lolek\\lolki2.txt"));
     }
 
     [Fact]
     public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithNotWellFormedUri()
     {
-      Assert.Throws<ArgumentException>(() => PathWithFileName.To(@"C:\?||\|\\|\"));
+      Assert.Throws<ArgumentException>(() => PathWithFileName.Value(@"C:\?||\|\\|\"));
     }
 
     [Fact]
@@ -96,7 +96,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToFileInfo()
     {
       //GIVEN
-      var pathWithFilename = PathWithFileName.To(@"C:\lolek\lol.txt");
+      var pathWithFilename = PathWithFileName.Value(@"C:\lolek\lol.txt");
 
       //WHEN
       var fileInfo = pathWithFilename.Info();
@@ -110,7 +110,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var pathString = @"C:\lolek\lol.txt";
-      var pathWithFilename = PathWithFileName.To(pathString);
+      var pathWithFilename = PathWithFileName.Value(pathString);
 
       //WHEN
       var root = pathWithFilename.Root();

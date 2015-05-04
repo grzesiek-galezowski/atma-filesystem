@@ -14,7 +14,12 @@ namespace AtmaFileSystem
       _directoryInfo = new DirectoryInfo(_path);
     }
 
-    public static DirectoryPath To(string path)
+    public DirectoryPath(DirectoryPath path, DirectoryName directoryName)
+      : this(Path.Combine(path.ToString(), directoryName.ToString()))
+    {
+    }
+
+    public static DirectoryPath Value(string path)
     {
       if (null == path)
       {
@@ -58,6 +63,11 @@ namespace AtmaFileSystem
     public static PathWithFileName operator +(DirectoryPath path, FileName fileName)
     {
       return PathWithFileName.From(path, fileName);
+    }
+
+    public static DirectoryPath operator +(DirectoryPath path, DirectoryName directoryName)
+    {
+      return AtmaFileSystem.DirectoryName.From(path, directoryName);
     }
 
     public bool Equals(DirectoryPath other)

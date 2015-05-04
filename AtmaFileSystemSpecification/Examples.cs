@@ -12,13 +12,14 @@ namespace AtmaFileSystemSpecification
       // Disassembling:
       ////////////////////////
       
-      PathWithFileName fullPath = PathWithFileName.To(@"C:\Program Files\Lolokimono\Config.txt");
+      PathWithFileName fullPath = PathWithFileName.Value(@"C:\Program Files\Lolokimono\Config.txt");
       DirectoryPath directoryPath = fullPath.Directory();
       FileName fileName = fullPath.FileName();
       FileNameWithoutExtension fileNameWithoutExtension = fileName.WithoutExtension();
       Maybe<FileExtension> extension = fileName.Extension();
       DirectoryPath rootFromFullPath = fullPath.Root();
       DirectoryPath rootFromDirectoryPath = directoryPath.Root();
+
 
       ////////////////////////
       // Assembling:
@@ -27,8 +28,11 @@ namespace AtmaFileSystemSpecification
       
       PathWithFileName fullPathAssembled = directoryPath + fileNameWithoutExtension.With(extension.Value());
 
-      //TODO
-      // - add directory names
+      DirectoryName dirName = DirectoryName.Value("Subdirectory");
+      PathWithFileName fileMovedToSubdirectory = directoryPath + dirName + fileName;
+
+
+      // TODO
       // - add relative paths
       // - add WithoutRoot() to PathWithFileName method that returns relative directory
       // - add WithoutRoot() to PathToDirectory method that returns relative directory
@@ -38,7 +42,7 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void Example1_ParentDirectories()
     {
-      PathWithFileName fullPath = PathWithFileName.To(@"C:\Program Files\Lolokimono\Config.txt");
+      PathWithFileName fullPath = PathWithFileName.Value(@"C:\Program Files\Lolokimono\Config.txt");
       DirectoryPath directoryPath = fullPath.Directory();
 
       Maybe<DirectoryPath> parent = directoryPath.Parent();

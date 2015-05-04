@@ -42,6 +42,7 @@
     <Compile Include="PathWithFileNameSpecification.cs" />
     <Compile Include="FileNameSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelativeDirectoryPathSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -12,19 +12,19 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldNotAllowToBeCreatedWithNullValue()
     {
-      Assert.Throws<ArgumentNullException>(() => DirectoryPath.To(null));
+      Assert.Throws<ArgumentNullException>(() => DirectoryPath.Value(null));
     }
 
     [Fact]
     public void ShouldReturnNonNullPathToFileNameWhenCreatedWithWellFormedPathString()
     {
-      Assert.NotNull(DirectoryPath.To(@"c:\lolek\"));
+      Assert.NotNull(DirectoryPath.Value(@"c:\lolek\"));
     }
 
     [Fact]
     public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithNotWellFormedUri()
     {
-      Assert.Throws<ArgumentException>(() => DirectoryPath.To(@"C:\?||\|\\|\"));
+      Assert.Throws<ArgumentException>(() => DirectoryPath.Value(@"C:\?||\|\\|\"));
     }
 
     [Fact]
@@ -67,7 +67,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToDirectoryInfo()
     {
       //GIVEN
-      var directoryPath = DirectoryPath.To(@"C:\lolek\");
+      var directoryPath = DirectoryPath.Value(@"C:\lolek\");
 
       //WHEN
       var directoryInfo = directoryPath.Info();
@@ -81,7 +81,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var pathString = @"C:\lolek\";
-      var dir = DirectoryPath.To(pathString);
+      var dir = DirectoryPath.Value(pathString);
 
       //WHEN
       DirectoryPath root = dir.Root();
@@ -96,7 +96,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowGettingProperParentDirectoryWhenItExists(string input, string expected)
     {
       //GIVEN
-      var dir = DirectoryPath.To(input);
+      var dir = DirectoryPath.Value(input);
 
       //WHEN
       var parent = dir.Parent();
@@ -111,7 +111,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       const string pathString = @"C:\";
-      var dir = DirectoryPath.To(pathString);
+      var dir = DirectoryPath.Value(pathString);
 
       //WHEN
       var parent = dir.Parent();
@@ -124,7 +124,7 @@ namespace AtmaFileSystemSpecification
     [Theory,
       InlineData(@"F:\Segment1\Segment2\", "Segment2"),
       InlineData(@"F:\Segment1\", "Segment1"),
-      InlineData(@"F:\", @"F:\"), //bug is this OK? Directory names will be added, so "F:\" + "F:\"... maybe introduce a root element?
+      InlineData(@"F:\", @"F:\"),
       ]
     public void ShouldAllowGettingTheNameOfCurrentDirectory(string fullPath, string expectedDirectoryName)
     {
@@ -138,9 +138,35 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(expectedDirectoryName, dirName.ToString());
     }
 
+    [Fact]
+    public void ShouldAllowAddingDirectoryName()
+    {
+      //GIVEN
+      var directoryPath = new DirectoryPath(@"G:\Directory\Subdirectory");
 
-  //bug directoryName should be value
+      //WHEN
+      DirectoryPath directoryPathWithAnotherDirectoryName = directoryPath + DirectoryName.Value("Lolek");
 
+      //THEN
+      Assert.Equal(@"G:\Directory\Subdirectory\Lolek", directoryPathWithAnotherDirectoryName.ToString());
+
+    }
+
+    [Fact]
+    public void ShouldAllowAddingDirectoryNameAndFileName()
+    {
+      //GIVEN
+      var directoryPath = new DirectoryPath(@"G:\Directory\Subdirectory");
+
+      //WHEN
+      var directoryName = DirectoryName.Value("Lolek");
+      var directoryName2 = DirectoryName.Value("Lolek2");
+      var fileName = FileName.Value("File.txt");
+      PathWithFileName pathWithFileName = directoryPath + directoryName + directoryName2 + fileName;
+
+      //THEN
+      Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2\File.txt", pathWithFileName.ToString());
+    }
 
   }
 }

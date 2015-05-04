@@ -100,12 +100,9 @@ namespace AtmaFileSystemSpecification
 
 
     /* 
-    TODO GetFileNameWithoutExtension Returns the file name of the specified path string without the extension.
     TODO GetRandomFileName Returns a random folder name or file name.
     TODO GetTempFileName Creates a uniquely named, zero-byte temporary file on disk and returns the full path of that file.
     TODO GetTempPath Returns the path of the current user's temporary folder.
-    TODO HasExtension  Determines whether a path includes a file name extension.
-    TODO IsPathRooted
     */
   }
 }
