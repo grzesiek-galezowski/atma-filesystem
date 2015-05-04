@@ -1,5 +1,5 @@
 using System;
-using System.IO;
+using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
@@ -16,7 +16,7 @@ namespace AtmaFileSystem
     {
       if (null == path)
       {
-        throw new ArgumentNullException(path);
+        throw new ArgumentNullException("path");
       }
 
       if (Path.GetFileName(path) != path)
@@ -79,9 +79,6 @@ namespace AtmaFileSystem
     }
   }
 
-  //TODO implement ValueOr()
-
   //TODO validate against using empty strings everywhere
-  //TODO check Pri.LongPath to handle long paths
   //TODO implement file system
 }

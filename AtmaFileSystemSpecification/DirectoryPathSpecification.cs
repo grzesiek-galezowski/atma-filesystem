@@ -70,7 +70,7 @@ namespace AtmaFileSystemSpecification
       var directoryPath = DirectoryPath.To(@"C:\lolek\");
 
       //WHEN
-      DirectoryInfo directoryInfo = directoryPath.Info();
+      var directoryInfo = directoryPath.Info();
 
       //THEN
       Assert.Equal(directoryInfo.FullName, directoryPath.ToString());

@@ -1,5 +1,5 @@
 using System;
-using System.IO;
+using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
@@ -34,9 +34,9 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public DirectoryInfo Info()
+    public System.IO.DirectoryInfo Info()
     {
-      return _directoryInfo;
+      return new System.IO.DirectoryInfo(_path);
     }
 
     public Maybe<DirectoryPath> Parent()

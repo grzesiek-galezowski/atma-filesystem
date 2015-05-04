@@ -71,7 +71,7 @@ namespace AtmaFileSystemSpecification
       var pathWithFileName = PathWithFileName.From(dirPath, fileName);
       
       //WHEN
-      var dirObtainedFromPath = pathWithFileName.WithoutFileName();
+      var dirObtainedFromPath = pathWithFileName.Directory();
 
       //THEN
       Assert.Equal(dirPath, dirObtainedFromPath);
@@ -118,9 +118,6 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.Equal(new DirectoryPath(Path.GetPathRoot(pathString)), root);
     }
-
-
-    //TODO add the rest of the methods from Path, introduce class extension and path segment
 
   }
 }

@@ -1,5 +1,6 @@
 using System;
-using System.IO;
+using Pri.LongPath;
+
 
 namespace AtmaFileSystem
 {
@@ -72,14 +73,14 @@ namespace AtmaFileSystem
       return new PathWithFileName(dirPath, fileName);
     }
 
-    public DirectoryPath WithoutFileName()
+    public DirectoryPath Directory()
     {
       return new DirectoryPath(Path.GetDirectoryName(_path));
     }
 
-    public FileInfo Info()
+    public System.IO.FileInfo Info()
     {
-      return new FileInfo(_path);
+      return new System.IO.FileInfo(_path);
     }
 
     public FileName FileName()
