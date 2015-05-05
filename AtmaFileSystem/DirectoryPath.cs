@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Pri.LongPath;
 
 namespace AtmaFileSystem
@@ -17,6 +18,7 @@ namespace AtmaFileSystem
     public DirectoryPath(DirectoryPath path, DirectoryName directoryName)
       : this(Path.Combine(path.ToString(), directoryName.ToString()))
     {
+
     }
 
     public static DirectoryPath Value(string path)
