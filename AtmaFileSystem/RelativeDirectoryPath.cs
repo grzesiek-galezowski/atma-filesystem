@@ -13,9 +13,21 @@ namespace AtmaFileSystem
       
     }
 
-    private RelativeDirectoryPath(string relativePath)
+    public RelativeDirectoryPath(string relativePath)
     {
       _relativePath = relativePath;
+    }
+
+    public RelativeDirectoryPath(RelativeDirectoryPath relativePath, DirectoryName dirName)
+      : this(Path.Combine(relativePath.ToString(), dirName.ToString()))
+    {
+      
+    }
+
+    public RelativeDirectoryPath(DirectoryName relativePath, RelativeDirectoryPath dirName)
+      : this(Path.Combine(relativePath.ToString(), dirName.ToString()))
+    {
+      
     }
 
     public override string ToString()
@@ -51,6 +63,21 @@ namespace AtmaFileSystem
     public static bool operator !=(RelativeDirectoryPath left, RelativeDirectoryPath right)
     {
       return !Equals(left, right);
+    }
+
+    public static RelativeDirectoryPath operator +(RelativeDirectoryPath path, DirectoryName dirName)
+    {
+      return new RelativeDirectoryPath(path, dirName);
+    }
+
+    public Maybe<RelativeDirectoryPath> Parent()
+    {
+      var directoryName = Path.GetDirectoryName(_relativePath);
+      if (directoryName == string.Empty)
+      {
+        return Maybe<RelativeDirectoryPath>.Not;
+      }
+      return Maybe.Wrap(new RelativeDirectoryPath(directoryName));
     }
   }
 }

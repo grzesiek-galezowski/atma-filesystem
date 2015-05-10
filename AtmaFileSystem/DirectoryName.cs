@@ -52,17 +52,17 @@ namespace AtmaFileSystem
       return new DirectoryName(value);
     }
 
-    public static DirectoryPath From(DirectoryPath path, DirectoryName directoryName)
-    {
-      return new DirectoryPath(path, directoryName);
-    }
 
     public static RelativeDirectoryPath operator+(DirectoryName dir, DirectoryName subdir)
     {
      return new RelativeDirectoryPath(dir, subdir); 
     }
 
+    public static RelativeDirectoryPath operator +(DirectoryName dir, RelativeDirectoryPath subdirs)
+    {
+      return new RelativeDirectoryPath(dir, subdirs);
+    }
+
   }
 
-  //bug RelativeDirectoryPath should be value
 }

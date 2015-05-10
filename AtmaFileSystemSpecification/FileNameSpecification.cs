@@ -16,7 +16,7 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldThrowExceptionWhenCreatedWithStringContainingMoreThanJustAFileName()
     {
-      Assert.Throws<ArgumentException>(() => FileName.Value(@"c:\\lolek\\lolki2.txt"));
+      Assert.Throws<ArgumentException>(() => FileName.Value(@"c:\lolek\lolki2.txt"));
     }
 
     [Fact]
@@ -96,13 +96,5 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(new FileNameWithoutExtension(fileNameWithoutExtensionString), fileNameWithoutExtension);
 
     }
-
-
-
-    /* 
-    TODO GetRandomFileName Returns a random folder name or file name.
-    TODO GetTempFileName Creates a uniquely named, zero-byte temporary file on disk and returns the full path of that file.
-    TODO GetTempPath Returns the path of the current user's temporary folder.
-    */
   }
 }

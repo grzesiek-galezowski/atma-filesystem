@@ -168,5 +168,20 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2\File.txt", pathWithFileName.ToString());
     }
 
+    [Fact]
+    public void ShouldAllowAddingRelativeDirectory()
+    {
+      //GIVEN
+      var directoryPath = new DirectoryPath(@"G:\Directory\Subdirectory");
+
+      //WHEN
+      var relativePath = new RelativeDirectoryPath(@"Lolek\Lolek2");
+      DirectoryPath pathWithFileName = directoryPath + relativePath;
+
+      //THEN
+      Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2", pathWithFileName.ToString());
+    }
+
+
   }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using Pri.LongPath;
 
 namespace AtmaFileSystem
@@ -21,6 +20,12 @@ namespace AtmaFileSystem
 
     }
 
+    public DirectoryPath(DirectoryPath path, RelativeDirectoryPath directoryName)
+      : this(Path.Combine(path.ToString(), directoryName.ToString()))
+    {
+      
+    }
+
     public static DirectoryPath Value(string path)
     {
       if (null == path)
@@ -35,6 +40,12 @@ namespace AtmaFileSystem
 
       else return new DirectoryPath(path);
     }
+
+    public static DirectoryPath From(DirectoryPath path, DirectoryName directoryName)
+    {
+      return new DirectoryPath(path, directoryName);
+    }
+
 
     public override string ToString()
     {
@@ -69,8 +80,14 @@ namespace AtmaFileSystem
 
     public static DirectoryPath operator +(DirectoryPath path, DirectoryName directoryName)
     {
-      return AtmaFileSystem.DirectoryName.From(path, directoryName);
+      return From(path, directoryName);
     }
+
+    public static DirectoryPath operator +(DirectoryPath path, RelativeDirectoryPath relativePath)
+    {
+      return new DirectoryPath(path, relativePath);
+    }
+
 
     public bool Equals(DirectoryPath other)
     {
@@ -108,3 +125,6 @@ namespace AtmaFileSystem
     }
   }
 }
+
+
+//bug only string constructors should be validated. The rest assumes that parts are already valid!
