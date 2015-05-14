@@ -1,10 +1,43 @@
 using System;
+using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
   public class FileExtension //bug implement factory methods
     : IEquatable<FileExtension>
   {
+    private readonly string _extension;
+
+    public FileExtension(string extension)
+    {
+      this._extension = extension;
+    }
+
+    public override string ToString()
+    {
+      return _extension;
+    }
+
+    public static FileExtension Value(string extensionString)
+    {
+      if (extensionString == null)
+      {
+        throw new ArgumentException("Tried to create an extension with null value");
+      }
+      if (extensionString == string.Empty)
+      {
+        throw new ArgumentException("Tried to create an extension with empty value");
+      }
+      if (Path.GetExtension(extensionString) != extensionString)
+      {
+        throw new ArgumentException("Invalid extensionString " + extensionString ?? "null");
+      }
+      else
+      {
+        return new FileExtension(extensionString);
+      }
+    }
+
     public bool Equals(FileExtension other)
     {
       if (ReferenceEquals(null, other)) return false;
@@ -17,7 +50,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((FileExtension) obj);
+      return Equals((FileExtension)obj);
     }
 
     public override int GetHashCode()
@@ -35,16 +68,6 @@ namespace AtmaFileSystem
       return !Equals(left, right);
     }
 
-    private readonly string _extension;
-
-    public FileExtension(string extension)
-    {
-      this._extension = extension;
-    }
-
-    public override string ToString()
-    {
-      return _extension;
-    }
   }
+
 }

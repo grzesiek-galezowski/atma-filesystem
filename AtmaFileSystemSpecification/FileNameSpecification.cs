@@ -60,7 +60,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.True(maybeExtension.Found);
-      Assert.Equal(new FileExtension(extensionString), maybeExtension.Value());
+      Assert.Equal(FileExtension.Value(extensionString), maybeExtension.Value());
     }
 
     [Fact]

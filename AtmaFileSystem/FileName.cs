@@ -70,7 +70,7 @@ namespace AtmaFileSystem
 
     private static Maybe<FileExtension> AsMaybe(string extension)
     {
-      return extension == string.Empty ? Maybe<FileExtension>.Not : Maybe.Wrap(new FileExtension(extension));
+      return extension == string.Empty ? Maybe<FileExtension>.Not : Maybe.Wrap(FileExtension.Value(extension));
     }
 
     public FileNameWithoutExtension WithoutExtension()

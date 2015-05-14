@@ -33,7 +33,7 @@ namespace AtmaFileSystemSpecification
       var fileNameWithoutExtensionString = Any.String();
       var extensionString = "." + Any.String();
       var fileNameWithoutExtension = new FileNameWithoutExtension(fileNameWithoutExtensionString);
-      var extension = new FileExtension(extensionString);
+      var extension = FileExtension.Value(extensionString);
 
       //WHEN
       FileName nameObtainedFromConversion = fileNameWithoutExtension.With(extension);
