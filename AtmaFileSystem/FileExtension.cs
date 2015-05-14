@@ -3,7 +3,7 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class FileExtension //bug implement factory methods
+  public class FileExtension
     : IEquatable<FileExtension>
   {
     private readonly string _extension;
