@@ -1,5 +1,4 @@
 ﻿using System;
-using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
@@ -37,7 +36,7 @@ namespace AtmaFileSystem
 
     private readonly string _directoryName;
 
-    public DirectoryName(string directoryName)
+    internal DirectoryName(string directoryName)
     {
       _directoryName = directoryName;
     }

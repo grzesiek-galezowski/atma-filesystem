@@ -21,8 +21,8 @@ namespace AtmaFileSystemSpecification
     public void ShouldFormRelativeDirectoryPathWhenAddedToAnotherDirectoryName()
     {
       //GIVEN
-      var directoryName = new DirectoryName("Dir1");
-      var subdirectoryName = new DirectoryName("Dir2");
+      var directoryName = DirectoryName.Value("Dir1");
+      var subdirectoryName = DirectoryName.Value("Dir2");
 
       //WHEN
       RelativeDirectoryPath relativePath = directoryName + subdirectoryName;
@@ -35,7 +35,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAddingRelativeDirectoryName()
     {
       //GIVEN
-      var directoryName = new DirectoryName("Dir1");
+      var directoryName = DirectoryName.Value("Dir1");
       var subdirectories = new RelativeDirectoryPath(@"Dir2\Dir3");
 
       //WHEN

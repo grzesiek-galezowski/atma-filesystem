@@ -18,7 +18,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var relativeDir = new RelativeDirectoryPath(@"lolek\bolek");
-      var dirName = new DirectoryName("zenek");
+      var dirName = DirectoryName.Value("zenek");
 
       //WHEN
       RelativeDirectoryPath mergedPath = relativeDir + dirName;
