@@ -116,7 +116,7 @@ namespace AtmaFileSystemSpecification
       var root = pathWithFilename.Root();
 
       //THEN
-      Assert.Equal(new DirectoryPath(Path.GetPathRoot(pathString)), root);
+      Assert.Equal(DirectoryPath.Value(Path.GetPathRoot(pathString)), root);
     }
 
   }

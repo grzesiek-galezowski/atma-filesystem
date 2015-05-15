@@ -37,8 +37,8 @@ namespace AtmaFileSystemSpecification
     public void ShouldReturnTheStringItWasCreatedWithWhenConvertedToString()
     {
       //GIVEN
-      var initialValue = Any.String();
-      var path = new DirectoryPath(initialValue);
+      var initialValue = Path.Combine(@"C:\", Any.String());
+      var path = DirectoryPath.Value(initialValue);
 
       //WHEN
       var convertedToString = path.ToString();
@@ -87,7 +87,7 @@ namespace AtmaFileSystemSpecification
       DirectoryPath root = dir.Root();
 
       //THEN
-      Assert.Equal(new DirectoryPath(Path.GetPathRoot(pathString)), root);
+      Assert.Equal(DirectoryPath.Value(Path.GetPathRoot(pathString)), root);
     }
 
     [Theory, 
@@ -103,7 +103,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.True(parent.Found);
-      Assert.Equal(new DirectoryPath(expected), parent.Value());
+      Assert.Equal(DirectoryPath.Value(expected), parent.Value());
     }
 
     [Fact]
@@ -129,7 +129,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowGettingTheNameOfCurrentDirectory(string fullPath, string expectedDirectoryName)
     {
       //GIVEN
-      var directoryPath = new DirectoryPath(fullPath);
+      var directoryPath = DirectoryPath.Value(fullPath);
 
       //WHEN
       DirectoryName dirName = directoryPath.DirectoryName();
@@ -142,7 +142,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAddingDirectoryName()
     {
       //GIVEN
-      var directoryPath = new DirectoryPath(@"G:\Directory\Subdirectory");
+      var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
       DirectoryPath directoryPathWithAnotherDirectoryName = directoryPath + DirectoryName.Value("Lolek");
@@ -156,7 +156,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAddingDirectoryNameAndFileName()
     {
       //GIVEN
-      var directoryPath = new DirectoryPath(@"G:\Directory\Subdirectory");
+      var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
       var directoryName = DirectoryName.Value("Lolek");
@@ -172,7 +172,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAddingRelativeDirectory()
     {
       //GIVEN
-      var directoryPath = new DirectoryPath(@"G:\Directory\Subdirectory");
+      var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
       var relativePath = new RelativeDirectoryPath(@"Lolek\Lolek2");
