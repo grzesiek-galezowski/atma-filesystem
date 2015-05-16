@@ -8,7 +8,7 @@ namespace AtmaFileSystem
     private readonly string _path;
     private readonly DirectoryInfo _directoryInfo;
 
-    public DirectoryPath(string path)
+    internal DirectoryPath(string path)
     {
       _path = path;
       _directoryInfo = new DirectoryInfo(_path);
