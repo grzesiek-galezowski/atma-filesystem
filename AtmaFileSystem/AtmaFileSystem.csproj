@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectoryName.cs" />
+    <Compile Include="Assertions\DirectoryNameAssert.cs" />
     <Compile Include="DirectoryPath.cs" />
     <Compile Include="Assertions\DirectoryPathAssert.cs" />
     <Compile Include="FileExtension.cs" />
