@@ -45,6 +45,14 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(relativePath.ToString(), @"Dir1\Dir2\Dir3");
     }
 
+    [Theory,
+      InlineData(null),
+      InlineData(""),
+      InlineData(@"C:\a")]
+    public void ShouldNotLetCreateInvalidInstance(string input)
+    {
+      Assert.Throws<ArgumentException>(() => DirectoryName.Value(input));
+    }
 
 
   }
