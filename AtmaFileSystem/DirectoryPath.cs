@@ -1,4 +1,5 @@
 using System;
+using AtmaFileSystem.Assertions;
 using Pri.LongPath;
 
 namespace AtmaFileSystem
@@ -28,17 +29,10 @@ namespace AtmaFileSystem
 
     public static DirectoryPath Value(string path)
     {
-      if (null == path)
-      {
-        throw new ArgumentNullException(path);
-      }
+      DirectoryPathAssert.NotNull(path);
+      DirectoryPathAssert.Valid(path);
 
-      if (!Path.IsPathRooted(path))
-      {
-        throw new ArgumentException(path);
-      }
-
-      else return new DirectoryPath(path);
+      return new DirectoryPath(path);
     }
 
     public static DirectoryPath From(DirectoryPath path, DirectoryName directoryName)

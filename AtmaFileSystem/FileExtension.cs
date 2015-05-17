@@ -1,4 +1,5 @@
 using System;
+using AtmaFileSystem.Assertions;
 using Pri.LongPath;
 
 namespace AtmaFileSystem
@@ -20,22 +21,11 @@ namespace AtmaFileSystem
 
     public static FileExtension Value(string extensionString)
     {
-      if (extensionString == null)
-      {
-        throw new ArgumentException("Tried to create an extension with null value");
-      }
-      if (extensionString == string.Empty)
-      {
-        throw new ArgumentException("Tried to create an extension with empty value");
-      }
-      if (Path.GetExtension(extensionString) != extensionString)
-      {
-        throw new ArgumentException("Invalid extensionString " + extensionString ?? "null");
-      }
-      else
-      {
-        return new FileExtension(extensionString);
-      }
+      FileExtensionAssert.NotNull(extensionString);
+      FileExtensionAssert.NotEmpty(extensionString);
+      FileExtensionAssert.Valid(extensionString);
+
+      return new FileExtension(extensionString);
     }
 
     public bool Equals(FileExtension other)

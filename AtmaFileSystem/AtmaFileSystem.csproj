@@ -39,8 +39,11 @@
   <ItemGroup>
     <Compile Include="DirectoryName.cs" />
     <Compile Include="DirectoryPath.cs" />
+    <Compile Include="Assertions\DirectoryPathAssert.cs" />
     <Compile Include="FileExtension.cs" />
+    <Compile Include="Assertions\FileExtensionAssert.cs" />
     <Compile Include="FileName.cs" />
+    <Compile Include="Assertions\FileNameAssert.cs" />
     <Compile Include="FileNameWithoutExtension.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="PathWithFileName.cs" />

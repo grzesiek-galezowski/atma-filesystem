@@ -18,6 +18,9 @@ namespace AtmaFileSystem
 
     public static DirectoryName Value(string value) //bug validation
     {
+      DirectoryNameAssert.NotNull(value);
+      DirectoryNameAssert.NotEmpty(value);
+      DirectoryNameAssert.Valid(value);
       return new DirectoryName(value);
     }
 
@@ -62,4 +65,21 @@ namespace AtmaFileSystem
     }
   }
 
+  public static class DirectoryNameAssert
+  {
+    public static void NotNull(string value)
+    {
+      //bug implement
+    }
+
+    public static void NotEmpty(string value)
+    {
+      //bug implement
+    }
+
+    public static void Valid(string value)
+    {
+      //bug implement
+    }
+  }
 }
