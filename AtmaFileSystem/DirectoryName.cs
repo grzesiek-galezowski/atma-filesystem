@@ -4,6 +4,33 @@ namespace AtmaFileSystem
 {
   public class DirectoryName : IEquatable<DirectoryName>
   {
+    private readonly string _directoryName;
+
+    internal DirectoryName(string directoryName)
+    {
+      _directoryName = directoryName;
+    }
+
+    public override string ToString()
+    {
+      return _directoryName;
+    }
+
+    public static DirectoryName Value(string value) //bug validation
+    {
+      return new DirectoryName(value);
+    }
+
+
+    public static RelativeDirectoryPath operator+(DirectoryName dir, DirectoryName subdir)
+    {
+     return new RelativeDirectoryPath(dir, subdir); 
+    }
+
+    public static RelativeDirectoryPath operator +(DirectoryName dir, RelativeDirectoryPath subdirs)
+    {
+      return new RelativeDirectoryPath(dir, subdirs);
+    }
     public bool Equals(DirectoryName other)
     {
       if (ReferenceEquals(null, other)) return false;
@@ -16,7 +43,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((DirectoryName) obj);
+      return Equals((DirectoryName)obj);
     }
 
     public override int GetHashCode()
@@ -33,35 +60,6 @@ namespace AtmaFileSystem
     {
       return !Equals(left, right);
     }
-
-    private readonly string _directoryName;
-
-    internal DirectoryName(string directoryName)
-    {
-      _directoryName = directoryName;
-    }
-
-    public override string ToString()
-    {
-      return _directoryName;
-    }
-
-    public static DirectoryName Value(string value)
-    {
-      return new DirectoryName(value);
-    }
-
-
-    public static RelativeDirectoryPath operator+(DirectoryName dir, DirectoryName subdir)
-    {
-     return new RelativeDirectoryPath(dir, subdir); 
-    }
-
-    public static RelativeDirectoryPath operator +(DirectoryName dir, RelativeDirectoryPath subdirs)
-    {
-      return new RelativeDirectoryPath(dir, subdirs);
-    }
-
   }
 
 }

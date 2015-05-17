@@ -36,7 +36,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var initialValue = Any.String();
-      var path = new FileName(initialValue);
+      var path = FileName.Value(initialValue);
 
       //WHEN
       var convertedToString = path.ToString();
@@ -53,7 +53,7 @@ namespace AtmaFileSystemSpecification
       var extensionString = "." + Any.String();
       var fileNameWithExtensionString = fileNameWithoutExtensionString + extensionString;
 
-      var fileNameWithExtension = new FileName(fileNameWithExtensionString);
+      var fileNameWithExtension = FileName.Value(fileNameWithExtensionString);
 
       //WHEN
       var maybeExtension = fileNameWithExtension.Extension();
@@ -69,7 +69,7 @@ namespace AtmaFileSystemSpecification
       //GIVEN
       var fileNameWithoutExtensionString = Any.String();
 
-      var fileNameWithoutExtension = new FileName(fileNameWithoutExtensionString);
+      var fileNameWithoutExtension = FileName.Value(fileNameWithoutExtensionString);
 
       //WHEN
       var maybeExtension = fileNameWithoutExtension.Extension();
@@ -87,13 +87,13 @@ namespace AtmaFileSystemSpecification
       var extensionString = "." + Any.String();
       var fileNameWithExtensionString = fileNameWithoutExtensionString + extensionString;
 
-      var fileNameWithExtension = new FileName(fileNameWithExtensionString);
+      var fileNameWithExtension = FileName.Value(fileNameWithExtensionString);
 
       //WHEN
       var fileNameWithoutExtension = fileNameWithExtension.WithoutExtension();
 
       //THEN
-      Assert.Equal(new FileNameWithoutExtension(fileNameWithoutExtensionString), fileNameWithoutExtension);
+      Assert.Equal(FileNameWithoutExtension.Value(fileNameWithoutExtensionString), fileNameWithoutExtension);
 
     }
   }

@@ -17,7 +17,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAddingDirectoryNameToIt()
     {
       //GIVEN
-      var relativeDir = new RelativeDirectoryPath(@"lolek\bolek");
+      var relativeDir = RelativeDirectoryPath.Value(@"lolek\bolek");
       var dirName = DirectoryName.Value("zenek");
 
       //WHEN
@@ -31,14 +31,14 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowGettingPathWithoutLastDirectory()
     {
       //GIVEN
-      var relativePath = new RelativeDirectoryPath(@"Directory\Subdirectory\Subsubdirectory");
+      var relativePath = RelativeDirectoryPath.Value(@"Directory\Subdirectory\Subsubdirectory");
       
       //WHEN
       AtmaFileSystem.Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.Parent();
 
       //THEN
       Assert.True(pathWithoutLastDir.Found);
-      Assert.Equal(new RelativeDirectoryPath(@"Directory\Subdirectory"), pathWithoutLastDir.Value());
+      Assert.Equal(RelativeDirectoryPath.Value(@"Directory\Subdirectory"), pathWithoutLastDir.Value());
 
     }
 
@@ -46,7 +46,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldReturnNothingWhenGettingPathWithoutLastDirectoryButCurrentDirectoryIsTheOnlyLeft()
     {
       //GIVEN
-      var relativePath = new RelativeDirectoryPath(@"Directory");
+      var relativePath = RelativeDirectoryPath.Value(@"Directory");
 
       //WHEN
       AtmaFileSystem.Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.Parent();

@@ -36,7 +36,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var directoryName = DirectoryName.Value("Dir1");
-      var subdirectories = new RelativeDirectoryPath(@"Dir2\Dir3");
+      var subdirectories = RelativeDirectoryPath.Value(@"Dir2\Dir3");
 
       //WHEN
       RelativeDirectoryPath relativePath = directoryName + subdirectories;

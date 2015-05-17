@@ -6,11 +6,16 @@ namespace AtmaFileSystem
 {
   public class FileNameWithoutExtension : IEquatable<FileNameWithoutExtension>
   {
-    private readonly string _fileNameWithoutExtensionString;
-
-    public FileNameWithoutExtension(string fileNameWithoutExtensionString)
+    public static FileNameWithoutExtension Value(string fileNameWithoutExtensionString)
     {
-      _fileNameWithoutExtensionString = fileNameWithoutExtensionString;
+      return new FileNameWithoutExtension(fileNameWithoutExtensionString);
+    }
+
+    private readonly string _value;
+
+    internal FileNameWithoutExtension(string value)
+    {
+      _value = value;
     }
 
     public override bool Equals(object obj)
@@ -25,12 +30,12 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_fileNameWithoutExtensionString, other._fileNameWithoutExtensionString);
+      return string.Equals(_value, other._value);
     }
 
     public override int GetHashCode()
     {
-      return _fileNameWithoutExtensionString.GetHashCode();
+      return _value.GetHashCode();
     }
 
     public static bool operator ==(FileNameWithoutExtension left, FileNameWithoutExtension right)
@@ -45,12 +50,12 @@ namespace AtmaFileSystem
 
     public override string ToString()
     {
-      return _fileNameWithoutExtensionString;
+      return _value;
     }
 
     public FileName With(FileExtension extension)
     {
-      return new FileName(Path.ChangeExtension(_fileNameWithoutExtensionString, extension.ToString()));
+      return new FileName(Path.ChangeExtension(_value, extension.ToString()));
     }
   }
 }

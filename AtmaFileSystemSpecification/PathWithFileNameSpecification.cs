@@ -37,8 +37,8 @@ namespace AtmaFileSystemSpecification
     public void ShouldReturnTheStringItWasCreatedWithWhenConvertedToString()
     {
       //GIVEN
-      var initialValue = Any.String();
-      var path = new PathWithFileName(initialValue);
+      var initialValue = @"C:\Dir\Subdir\file.csproj";
+      var path = PathWithFileName.Value(initialValue);
 
       //WHEN
       var convertedToString = path.ToString();

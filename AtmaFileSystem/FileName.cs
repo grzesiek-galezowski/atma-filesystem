@@ -7,7 +7,7 @@ namespace AtmaFileSystem
   {
     private readonly string _path;
 
-    public FileName(string path)
+    internal FileName(string path)
     {
       _path = path;
     }
@@ -75,7 +75,7 @@ namespace AtmaFileSystem
 
     public FileNameWithoutExtension WithoutExtension()
     {
-      return new FileNameWithoutExtension(Path.GetFileNameWithoutExtension(_path));
+      return FileNameWithoutExtension.Value(Path.GetFileNameWithoutExtension(_path));
     }
   }
 

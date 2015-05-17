@@ -5,17 +5,18 @@ namespace AtmaFileSystem
 {
   public class RelativeDirectoryPath : IEquatable<RelativeDirectoryPath>
   {
+    public static RelativeDirectoryPath Value(string relativePath)
+    {
+      //bug add validations
+      return new RelativeDirectoryPath(relativePath);
+    }
+
     private readonly string _relativePath;
 
     public RelativeDirectoryPath(DirectoryName dir, DirectoryName subdir)
       : this(Path.Combine(dir.ToString(), subdir.ToString()))
     {
       
-    }
-
-    public RelativeDirectoryPath(string relativePath)
-    {
-      _relativePath = relativePath;
     }
 
     public RelativeDirectoryPath(RelativeDirectoryPath relativePath, DirectoryName dirName)
@@ -28,6 +29,11 @@ namespace AtmaFileSystem
       : this(Path.Combine(relativePath.ToString(), dirName.ToString()))
     {
       
+    }
+
+    internal RelativeDirectoryPath(string relativePath)
+    {
+      _relativePath = relativePath;
     }
 
     public override string ToString()
@@ -77,7 +83,7 @@ namespace AtmaFileSystem
       {
         return Maybe<RelativeDirectoryPath>.Not;
       }
-      return Maybe.Wrap(new RelativeDirectoryPath(directoryName));
+      return Maybe.Wrap(Value(directoryName));
     }
   }
 }

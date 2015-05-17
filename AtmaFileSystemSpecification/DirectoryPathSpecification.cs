@@ -175,7 +175,7 @@ namespace AtmaFileSystemSpecification
       var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
-      var relativePath = new RelativeDirectoryPath(@"Lolek\Lolek2");
+      var relativePath = RelativeDirectoryPath.Value(@"Lolek\Lolek2");
       DirectoryPath pathWithFileName = directoryPath + relativePath;
 
       //THEN
