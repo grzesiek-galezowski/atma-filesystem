@@ -1,5 +1,6 @@
 ﻿using System;
 using AtmaFileSystem;
+using AtmaFileSystem.Assertions;
 using TddEbook.TddToolkit;
 using Xunit;
 
@@ -55,6 +56,18 @@ namespace AtmaFileSystemSpecification
       Assert.False(pathWithoutLastDir.Found);
       Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value());
     }
+
+    [Theory,
+      InlineData(null),
+      InlineData(""),
+      InlineData(@"C:\")]
+    public void ShouldNotAllowCreatingInvalidInstance(string input)
+    {
+      Assert.Throws<ArgumentException>(() => RelativeDirectoryPath.Value(input));
+
+    }
+
+
 
   }
 

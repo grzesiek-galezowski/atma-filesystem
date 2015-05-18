@@ -1,7 +1,7 @@
 using System;
 using Pri.LongPath;
 
-namespace AtmaFileSystem
+namespace AtmaFileSystem.Assertions
 {
   public static class DirectoryNameAssert
   {

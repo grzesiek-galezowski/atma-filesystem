@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AtmaFileSystem;
+using AtmaFileSystem.Assertions;
 using TddEbook.TddToolkit;
 using Xunit;
 

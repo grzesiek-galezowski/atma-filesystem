@@ -1,4 +1,5 @@
 using System;
+using AtmaFileSystem.Assertions;
 using Pri.LongPath;
 
 
@@ -20,17 +21,10 @@ namespace AtmaFileSystem
 
     public static PathWithFileName Value(string path)
     {
-      if (null == path)
-      {
-        throw new ArgumentNullException(path);
-      }
+      PathWithFileNameAssert.NotNull(path);
+      PathWithFileNameAssert.Valid(path);
 
-      if (!Path.IsPathRooted(path))
-      {
-        throw new ArgumentException(path);
-      }
-
-      else return new PathWithFileName(path);
+      return new PathWithFileName(path);
     }
 
     public override string ToString()

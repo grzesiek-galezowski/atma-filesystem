@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using AtmaFileSystem;
+using AtmaFileSystem.Assertions;
 using TddEbook.TddToolkit;
 using Xunit;
 

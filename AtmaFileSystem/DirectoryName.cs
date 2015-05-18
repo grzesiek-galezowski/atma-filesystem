@@ -1,4 +1,5 @@
 ﻿using System;
+using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
@@ -16,7 +17,7 @@ namespace AtmaFileSystem
       return _directoryName;
     }
 
-    public static DirectoryName Value(string value) //bug validation
+    public static DirectoryName Value(string value)
     {
       DirectoryNameAssert.NotNull(value);
       DirectoryNameAssert.NotEmpty(value);

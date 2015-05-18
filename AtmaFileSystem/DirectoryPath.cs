@@ -119,6 +119,3 @@ namespace AtmaFileSystem
     }
   }
 }
-
-
-//bug only string constructors should be validated. The rest assumes that parts are already valid!

@@ -1,13 +1,16 @@
 using System;
 using Pri.LongPath;
 
-namespace AtmaFileSystem
+namespace AtmaFileSystem.Assertions
 {
   public class RelativeDirectoryPath : IEquatable<RelativeDirectoryPath>
   {
     public static RelativeDirectoryPath Value(string relativePath)
     {
-      //bug add validations
+      RelativeDirectoryPathAssert.NotNull(relativePath);
+      RelativeDirectoryPathAssert.NotEmpty(relativePath);
+      RelativeDirectoryPathAssert.Valid(relativePath);
+
       return new RelativeDirectoryPath(relativePath);
     }
 
