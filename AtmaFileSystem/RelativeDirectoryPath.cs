@@ -1,7 +1,8 @@
 using System;
+using AtmaFileSystem.Assertions;
 using Pri.LongPath;
 
-namespace AtmaFileSystem.Assertions
+namespace AtmaFileSystem
 {
   public class RelativeDirectoryPath : IEquatable<RelativeDirectoryPath>
   {

@@ -53,7 +53,5 @@ namespace AtmaFileSystemSpecification
 
     //TODO add method called ExtractFrom() that extracts extension from string
 
-    //bug add factory method that validates everything, especially dot at beginning
-
   }
 }
