@@ -42,9 +42,47 @@ namespace AtmaFileSystem
       _path = Path.Combine(relativeDirectoryPath.ToString(), fileName.ToString());
     }
 
+    internal RelativePathWithFileName(string pathString)
+    {
+      _path = pathString;
+    }
+
     public override string ToString()
     {
       return _path;
+    }
+
+    public static RelativePathWithFileName From(RelativeDirectoryPath dirPath, FileName fileName)
+    {
+      return new RelativePathWithFileName(dirPath, fileName);
+    }
+
+    public RelativeDirectoryPath Directory()
+    {
+      return new RelativeDirectoryPath(Path.GetDirectoryName(_path));
+    }
+
+    public FileName FileName()
+    {
+      return new FileName(Path.GetFileName(_path));
+    }
+
+    public static RelativePathWithFileName Value(string path)
+    {
+      if (path == null)
+      {
+        throw new ArgumentNullException("path");
+      }
+      if (Path.IsPathRooted(path))
+      {
+        throw new InvalidOperationException("Rooted paths are illegal, please pass a relative path");
+      }
+      return new RelativePathWithFileName(path);
+    }
+
+    public FileInfo Info()
+    {
+      return new FileInfo(_path);
     }
   }
 }
