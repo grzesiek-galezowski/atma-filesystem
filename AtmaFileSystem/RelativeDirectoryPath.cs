@@ -89,5 +89,10 @@ namespace AtmaFileSystem
       }
       return Maybe.Wrap(Value(directoryName));
     }
+
+    public RelativePathWithFileName With(FileName fileName)
+    {
+      return new RelativePathWithFileName(this, fileName);
+    }
   }
 }

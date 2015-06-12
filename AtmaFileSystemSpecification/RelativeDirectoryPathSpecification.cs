@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using AtmaFileSystem;
 using AtmaFileSystem.Assertions;
 using TddEbook.TddToolkit;
@@ -65,6 +66,20 @@ namespace AtmaFileSystemSpecification
     {
       Assert.Throws<ArgumentException>(() => RelativeDirectoryPath.Value(input));
 
+    }
+
+    [Fact]
+    public void ShouldBeConvertibleToRelativePathWithFileNameWhenFileNameIsAddedToIt()
+    {
+      //GIVEN
+      var relativePath = RelativeDirectoryPath.Value(@"Dir\subdir");
+      var fileName = FileName.Value("file.txt");
+
+      //WHEN
+      RelativePathWithFileName pathWithFileName = relativePath.With(fileName);
+
+      //THEN
+      Assert.Equal(@"Dir\subdir\file.txt", pathWithFileName.ToString());
     }
 
 
