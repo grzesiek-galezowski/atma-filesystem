@@ -38,6 +38,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RelativePathWithFileNameAssertions.cs" />
     <Compile Include="DirectoryName.cs" />
     <Compile Include="Assertions\DirectoryNameAssert.cs" />
     <Compile Include="DirectoryPath.cs" />

@@ -69,14 +69,9 @@ namespace AtmaFileSystem
 
     public static RelativePathWithFileName Value(string path)
     {
-      if (path == null)
-      {
-        throw new ArgumentNullException("path");
-      }
-      if (Path.IsPathRooted(path))
-      {
-        throw new InvalidOperationException("Rooted paths are illegal, please pass a relative path");
-      }
+      RelativePathWithFileNameAssertions.NotNull(path);
+      RelativePathWithFileNameAssertions.NotEmpty(path);
+      RelativePathWithFileNameAssertions.Valid(path);
       return new RelativePathWithFileName(path);
     }
 

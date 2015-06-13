@@ -46,9 +46,9 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public System.IO.DirectoryInfo Info()
+    public DirectoryInfo Info()
     {
-      return new System.IO.DirectoryInfo(_path);
+      return new DirectoryInfo(_path);
     }
 
     public Maybe<DirectoryPath> Parent()

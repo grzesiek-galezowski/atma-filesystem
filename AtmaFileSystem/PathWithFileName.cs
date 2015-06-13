@@ -42,9 +42,9 @@ namespace AtmaFileSystem
       return new DirectoryPath(Path.GetDirectoryName(_path));
     }
 
-    public System.IO.FileInfo Info()
+    public FileInfo Info()
     {
-      return new System.IO.FileInfo(_path);
+      return new FileInfo(_path);
     }
 
     public FileName FileName()

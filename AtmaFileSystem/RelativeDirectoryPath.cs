@@ -94,5 +94,10 @@ namespace AtmaFileSystem
     {
       return new RelativePathWithFileName(this, fileName);
     }
+
+    public DirectoryInfo Info()
+    {
+      return new DirectoryInfo(_relativePath);
+    }
   }
 }

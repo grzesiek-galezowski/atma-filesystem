@@ -21,15 +21,15 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithNotWellFormedUri()
-    {
-      Assert.Throws<ArgumentException>(() => RelativePathWithFileName.Value(@"C:\?||\|\\|\"));
-    }
-
-    [Fact]
     public void ShouldThrowExceptionWhenTryingToCreateInstanceWithRootedPath()
     {
       Assert.Throws<InvalidOperationException>(() => RelativePathWithFileName.Value(@"C:\Dir\Subdir"));
+    }
+
+    [Fact]
+    public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithEmptyValue()
+    {
+      Assert.Throws<ArgumentException>(() => RelativePathWithFileName.Value(string.Empty));
     }
 
     [Fact]
