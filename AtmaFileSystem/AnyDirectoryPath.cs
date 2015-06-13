@@ -56,23 +56,11 @@ namespace AtmaFileSystem
 
     public static AnyDirectoryPath Value(string path)
     {
-      RelativeDirectoryPathAssert.NotNull(path);
-      RelativeDirectoryPathAssert.NotEmpty(path);
-      AssertPathValid(path);
+      AnyDirectoryPathAssertions.NotNull(path);
+      AnyDirectoryPathAssertions.NotEmpty(path);
+      AnyDirectoryPathAssertions.AssertPathValid(path);
 
       return new AnyDirectoryPath(path);
-    }
-
-    private static void AssertPathValid(string path) //TODO refactor all assertions
-    {
-      try
-      {
-        Path.IsPathRooted(path);
-      }
-      catch (ArgumentException e)
-      {
-        throw new ArgumentException("The value is invalid", "path", e);
-      }
     }
   }
 }
