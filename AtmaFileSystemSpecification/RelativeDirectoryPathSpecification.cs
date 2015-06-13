@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using AtmaFileSystem;
 using AtmaFileSystem.Assertions;
@@ -60,12 +61,12 @@ namespace AtmaFileSystemSpecification
     }
 
     [Theory,
-      InlineData(null),
-      InlineData(""),
-      InlineData(@"C:\")]
-    public void ShouldNotAllowCreatingInvalidInstance(string input)
+      InlineData(null, typeof(ArgumentNullException)),
+      InlineData("", typeof(ArgumentException)),
+      InlineData(@"C:\", typeof(ArgumentException))]
+    public void ShouldNotAllowCreatingInvalidInstance(string input, Type exceptionType)
     {
-      Assert.Throws<ArgumentException>(() => RelativeDirectoryPath.Value(input));
+      Assert.Throws(exceptionType, () => RelativeDirectoryPath.Value(input));
 
     }
 

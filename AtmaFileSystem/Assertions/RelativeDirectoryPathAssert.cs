@@ -17,7 +17,7 @@ namespace AtmaFileSystem.Assertions
 
     public static void NotNull(string relativePath)
     {
-      if (relativePath == null) throw new ArgumentException("relative path cannot be null");
+      if (relativePath == null) throw new ArgumentNullException("relative path cannot be null");
     }
   }
 }

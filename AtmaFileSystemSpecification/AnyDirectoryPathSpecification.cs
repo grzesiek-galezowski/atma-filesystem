@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,30 @@ namespace AtmaFileSystemSpecification
 {
   public class AnyDirectoryPathSpecification
   {
+    [Theory,
+      InlineData(null, typeof(ArgumentNullException)),
+      InlineData("", typeof(ArgumentException)),
+      InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+      ]
+    public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
+    {
+      Assert.Throws(exceptionType, () => AnyDirectoryPath.Value(invalidInput));
+    }
+
+    [Fact]
+    public void ShouldReturnNonNullValueWhenValidPathIsPassed()
+    {
+      //GIVEN
+      const string relativePath = @"Dir\Subdir";
+      const string absolutePath = @"C:\Dir\Subdir";
+      var path = AnyDirectoryPath.Value(relativePath);
+      var path2 = AnyDirectoryPath.Value(absolutePath);
+
+      //THEN
+      Assert.Equal(relativePath, path.ToString());
+      Assert.Equal(absolutePath, path2.ToString());
+    }
+
     [Fact]
     public void ShouldBehaveLikeValue()
     {

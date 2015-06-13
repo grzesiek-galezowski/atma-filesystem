@@ -1,4 +1,6 @@
 ﻿using System;
+using AtmaFileSystem.Assertions;
+using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
@@ -50,6 +52,27 @@ namespace AtmaFileSystem
     public AnyPath AsAnyPath()
     {
       return new AnyPath(_path);
+    }
+
+    public static AnyDirectoryPath Value(string path)
+    {
+      RelativeDirectoryPathAssert.NotNull(path);
+      RelativeDirectoryPathAssert.NotEmpty(path);
+      AssertPathValid(path);
+
+      return new AnyDirectoryPath(path);
+    }
+
+    private static void AssertPathValid(string path) //TODO refactor all assertions
+    {
+      try
+      {
+        Path.IsPathRooted(path);
+      }
+      catch (ArgumentException e)
+      {
+        throw new ArgumentException("The value is invalid", "path", e);
+      }
     }
   }
 }

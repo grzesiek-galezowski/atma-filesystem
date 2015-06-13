@@ -52,5 +52,10 @@ namespace AtmaFileSystem
     {
       return new AnyPath(_path);
     }
+
+    public static AnyPathWithFileName Value(string path)
+    {
+      return new AnyPathWithFileName(path);
+    }
   }
 }
