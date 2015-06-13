@@ -33,6 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnyDirectoryPathSpecification.cs" />
+    <Compile Include="AnyPathWithFileNameSpecification.cs" />
     <Compile Include="DirectoryNameSpecification.cs" />
     <Compile Include="DirectoryPathSpecification.cs" />
     <Compile Include="Examples.cs" />

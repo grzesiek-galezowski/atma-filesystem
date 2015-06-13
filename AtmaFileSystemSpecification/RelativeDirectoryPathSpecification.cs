@@ -96,10 +96,38 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(directoryInfo.FullName, FullNameFrom(path));
     }
 
+    [Fact]
+    public void ShouldBeConvertibleToAnyDirectoryPath()
+    {
+      //GIVEN
+      var dirPath = Any.Instance<RelativeDirectoryPath>();
+
+      //WHEN
+      AnyDirectoryPath anyDirectoryPath = dirPath.AsAnyDirectoryPath();
+
+      //THEN
+      Assert.Equal(dirPath.ToString(), anyDirectoryPath.ToString());
+    }
+
+    [Fact]
+    public void ShouldBeConvertibleToAnyPath()
+    {
+      //GIVEN
+      var directorypath = Any.Instance<RelativeDirectoryPath>();
+
+      //WHEN
+      AnyPath anyPathWithFileName = directorypath.AsAnyPath();
+
+      //THEN
+      Assert.Equal(directorypath.ToString(), anyPathWithFileName.ToString());
+    }
+
     private static string FullNameFrom(RelativeDirectoryPath path)
     {
       return Path.Combine(new DirectoryInfo(".").FullName, path.ToString());
     }
+
+
   }
 
   //todo cut out first directory from relative directory path = relative directory path

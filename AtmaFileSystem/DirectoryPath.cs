@@ -117,5 +117,15 @@ namespace AtmaFileSystem
     {
       return new DirectoryName(_directoryInfo.Name);
     }
+
+    public AnyDirectoryPath AsAnyDirectoryPath()
+    {
+      return new AnyDirectoryPath(_path);
+    }
+
+    public AnyPath AsAnyPath()
+    {
+      return new AnyPath(_path);
+    }
   }
 }

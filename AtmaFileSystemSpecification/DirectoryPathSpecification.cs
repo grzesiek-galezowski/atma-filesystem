@@ -183,6 +183,32 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2", pathWithFileName.ToString());
     }
 
+    [Fact]
+    public void ShouldBeConvertibleToAnyDirectoryPath()
+    {
+      //GIVEN
+      var dirPath = Any.Instance<DirectoryPath>();
+
+      //WHEN
+      AnyDirectoryPath anyDirectoryPath = dirPath.AsAnyDirectoryPath();
+
+      //THEN
+      Assert.Equal(dirPath.ToString(), anyDirectoryPath.ToString());
+    }
+
+    [Fact]
+    public void ShouldBeConvertibleToAnyPath()
+    {
+      //GIVEN
+      var directorypath = Any.Instance<DirectoryPath>();
+
+      //WHEN
+      AnyPath anyPathWithFileName = directorypath.AsAnyPath();
+
+      //THEN
+      Assert.Equal(directorypath.ToString(), anyPathWithFileName.ToString());
+    }
+
 
   }
 }

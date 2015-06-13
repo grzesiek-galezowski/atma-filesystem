@@ -119,5 +119,30 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(DirectoryPath.Value(Path.GetPathRoot(pathString)), root);
     }
 
+    [Fact]
+    public void ShouldBeConvertibleToAnyPathWithFileName()
+    {
+      //GIVEN
+      var pathWithFileName = Any.Instance<PathWithFileName>();
+
+      //WHEN
+      AnyPathWithFileName anyPathWithFileName = pathWithFileName.AsAnyPathWithFileName();
+
+      //THEN
+      Assert.Equal(pathWithFileName.ToString(), anyPathWithFileName.ToString());
+    }
+
+    [Fact]
+    public void ShouldBeConvertibleToAnyPath()
+    {
+      //GIVEN
+      var pathWithFileName = Any.Instance<PathWithFileName>();
+
+      //WHEN
+      AnyPath anyPathWithFileName = pathWithFileName.AsAnyPath();
+
+      //THEN
+      Assert.Equal(pathWithFileName.ToString(), anyPathWithFileName.ToString());
+    }
   }
 }

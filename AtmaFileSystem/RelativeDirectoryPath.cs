@@ -99,5 +99,15 @@ namespace AtmaFileSystem
     {
       return new DirectoryInfo(_relativePath);
     }
+
+    public AnyDirectoryPath AsAnyDirectoryPath()
+    {
+      return new AnyDirectoryPath(_relativePath);
+    }
+
+    public AnyPath AsAnyPath()
+    {
+      return new AnyPath(_relativePath);
+    }
   }
 }

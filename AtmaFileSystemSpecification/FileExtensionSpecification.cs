@@ -28,7 +28,6 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(extensionString, obtainedExtensionString);
     }
 
-
     [Theory,
     InlineData("zip"),
     InlineData("..zip"),
@@ -51,7 +50,9 @@ namespace AtmaFileSystemSpecification
       XAssert.Equal(extensionString, extension.ToString());
     }
 
-    //TODO add method called ExtractFrom() that extracts extension from string
+
+
+    //TODO add method called ExtractFrom() or Of() that extracts extension from string
 
   }
 }

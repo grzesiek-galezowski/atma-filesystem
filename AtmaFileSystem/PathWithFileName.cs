@@ -85,6 +85,16 @@ namespace AtmaFileSystem
     {
       return !Equals(left, right);
     }
+
+    public AnyPathWithFileName AsAnyPathWithFileName()
+    {
+      return new AnyPathWithFileName(_path);
+    }
+
+    public AnyPath AsAnyPath()
+    {
+      return new AnyPath(_path);
+    }
   }
 
 
