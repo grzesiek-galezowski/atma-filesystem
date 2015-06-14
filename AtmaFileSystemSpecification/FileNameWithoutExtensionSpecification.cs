@@ -36,7 +36,7 @@ namespace AtmaFileSystemSpecification
       var extension = FileExtension.Value(extensionString);
 
       //WHEN
-      FileName nameObtainedFromConversion = fileNameWithoutExtension.With(extension);
+      FileName nameObtainedFromConversion = fileNameWithoutExtension + extension;
 
       //THEN
       Assert.Equal(fileNameWithoutExtensionString + extensionString, nameObtainedFromConversion.ToString());

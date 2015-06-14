@@ -9,6 +9,7 @@ namespace AtmaFileSystem
   {
     private readonly string _path;
 
+    // ReSharper disable once MemberCanBePrivate.Global
     internal PathWithFileName(string path)
     {
       _path = path;
@@ -25,11 +26,6 @@ namespace AtmaFileSystem
       PathWithFileNameAssert.Valid(path);
 
       return new PathWithFileName(path);
-    }
-
-    public override string ToString()
-    {
-      return _path;
     }
 
     public static PathWithFileName From(DirectoryPath dirPath, FileName fileName)
@@ -56,6 +52,23 @@ namespace AtmaFileSystem
     {
       return new DirectoryPath(Path.GetPathRoot(_path));
     }
+
+    public AnyPathWithFileName AsAnyPathWithFileName()
+    {
+      return new AnyPathWithFileName(_path);
+    }
+
+    public AnyPath AsAnyPath()
+    {
+      return new AnyPath(_path);
+    }
+
+    #region Generated members
+    public override string ToString()
+    {
+      return _path;
+    }
+
     public bool Equals(PathWithFileName other)
     {
       if (ReferenceEquals(null, other)) return false;
@@ -86,15 +99,8 @@ namespace AtmaFileSystem
       return !Equals(left, right);
     }
 
-    public AnyPathWithFileName AsAnyPathWithFileName()
-    {
-      return new AnyPathWithFileName(_path);
-    }
 
-    public AnyPath AsAnyPath()
-    {
-      return new AnyPath(_path);
-    }
+    #endregion
   }
 
 

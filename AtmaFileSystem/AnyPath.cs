@@ -1,8 +1,9 @@
 using System;
+using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
-  public class AnyPath //bug behave like value
+  public class AnyPath
     : IEquatable<AnyPath>
   {
     public bool Equals(AnyPath other)
@@ -45,6 +46,15 @@ namespace AtmaFileSystem
     public override string ToString()
     {
       return _path;
+    }
+
+    public static AnyPath Value(string path)
+    {
+      AnyDirectoryPathAndPathWithFileNameAssertions.NotNull(path);
+      AnyDirectoryPathAndPathWithFileNameAssertions.NotEmpty(path);
+      AnyDirectoryPathAndPathWithFileNameAssertions.AssertPathValid(path);
+
+      return new AnyPath(path);
     }
   }
 }

@@ -13,6 +13,12 @@ namespace AtmaFileSystem
       _path = path;
     }
 
+    public FileName(FileNameWithoutExtension nameWithoutExtension, FileExtension extension)
+      : this(nameWithoutExtension.ToString() + extension.ToString())
+    {
+      
+    }
+
     public static FileName Value(string path)
     {
       FileNameAssert.NotEmpty(path);
@@ -64,7 +70,7 @@ namespace AtmaFileSystem
 
     private static Maybe<FileExtension> AsMaybe(string extension)
     {
-      return extension == string.Empty ? Maybe<FileExtension>.Not : Maybe.Wrap(FileExtension.Value(extension));
+      return extension == string.Empty ? Maybe<FileExtension>.Not : Maybe.Wrap(new FileExtension(extension));
     }
 
     public FileNameWithoutExtension WithoutExtension()

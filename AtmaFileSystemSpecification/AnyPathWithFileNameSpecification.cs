@@ -12,10 +12,10 @@ namespace AtmaFileSystemSpecification
   public class AnyPathWithFileNameSpecification
   {
     [Theory,
-  InlineData(null, typeof(ArgumentNullException)),
-  InlineData("", typeof(ArgumentException)),
-  InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
-  ]
+      InlineData(null, typeof(ArgumentNullException)),
+      InlineData("", typeof(ArgumentException)),
+      InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+    ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
       Assert.Throws(exceptionType, () => AnyPathWithFileName.Value(invalidInput));

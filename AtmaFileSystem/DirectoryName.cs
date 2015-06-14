@@ -12,11 +12,6 @@ namespace AtmaFileSystem
       _directoryName = directoryName;
     }
 
-    public override string ToString()
-    {
-      return _directoryName;
-    }
-
     public static DirectoryName Value(string value)
     {
       DirectoryNameAssert.NotNull(value);
@@ -25,16 +20,16 @@ namespace AtmaFileSystem
       return new DirectoryName(value);
     }
 
+    //operators cannot return relative or non relative because dir name can be root as well
 
-    public static RelativeDirectoryPath operator+(DirectoryName dir, DirectoryName subdir)
+
+
+    #region Generated members
+    public override string ToString()
     {
-     return new RelativeDirectoryPath(dir, subdir); 
+      return _directoryName;
     }
 
-    public static RelativeDirectoryPath operator +(DirectoryName dir, RelativeDirectoryPath subdirs)
-    {
-      return new RelativeDirectoryPath(dir, subdirs);
-    }
     public bool Equals(DirectoryName other)
     {
       if (ReferenceEquals(null, other)) return false;
@@ -64,5 +59,6 @@ namespace AtmaFileSystem
     {
       return !Equals(left, right);
     }
+    #endregion
   }
 }

@@ -1,4 +1,5 @@
 using System;
+using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
@@ -55,6 +56,10 @@ namespace AtmaFileSystem
 
     public static AnyPathWithFileName Value(string path)
     {
+      AnyDirectoryPathAndPathWithFileNameAssertions.NotNull(path);
+      AnyDirectoryPathAndPathWithFileNameAssertions.NotEmpty(path);
+      AnyDirectoryPathAndPathWithFileNameAssertions.AssertPathValid(path);
+
       return new AnyPathWithFileName(path);
     }
   }

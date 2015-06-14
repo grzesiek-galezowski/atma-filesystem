@@ -107,5 +107,35 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(pathWithFileName.ToString(), anyPathWithFileName.ToString());
     }
 
+    [Fact] //bug rename
+    public void ShouldFormRelativePathWithFileNameWhenFileNameIsAddedToIt()
+    {
+      //GIVEN
+      var directoryName = DirectoryName.Value("Dir1");
+      var fileName = FileName.Value("file.txt");
+
+      //WHEN
+      RelativePathWithFileName relativePath = RelativePathWithFileName.From(directoryName, fileName);
+
+      //THEN
+      Assert.Equal(relativePath.ToString(), @"Dir1\file.txt");
+    }
+
+    [Fact] //bug rename
+    public void ShouldFormRelativePathWithFileNameWhenRelativePathWithFileNameIsAddedToIt()
+    {
+      //GIVEN
+      var directoryName = DirectoryName.Value("Dir1");
+      var relativePathWithFileName = RelativePathWithFileName.Value(@"Subdir\file.txt");
+
+      //WHEN
+      RelativePathWithFileName relativePath = RelativePathWithFileName.From(directoryName, relativePathWithFileName);
+
+      //THEN
+      Assert.Equal(relativePath.ToString(), @"Dir1\Subdir\file.txt");
+    }
+
+    //bug add additional check to From() methods
+
   }
 }

@@ -17,5 +17,15 @@ namespace AtmaFileSystemSpecification
       XAssert.IsValue<AnyPath>();
     }
 
+    [Theory,
+  InlineData(null, typeof(ArgumentNullException)),
+  InlineData("", typeof(ArgumentException)),
+  InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+]
+    public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string invalidInput, Type exceptionType)
+    {
+      Assert.Throws(exceptionType, () => AnyPath.Value(invalidInput));
+    }
+
   }
 }

@@ -6,35 +6,6 @@ namespace AtmaFileSystem
 {
   public class RelativePathWithFileName : IEquatable<RelativePathWithFileName>
   {
-    public bool Equals(RelativePathWithFileName other)
-    {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
-    }
-
-    public override bool Equals(object obj)
-    {
-      if (ReferenceEquals(null, obj)) return false;
-      if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != this.GetType()) return false;
-      return Equals((RelativePathWithFileName) obj);
-    }
-
-    public override int GetHashCode()
-    {
-      return (_path != null ? _path.GetHashCode() : 0);
-    }
-
-    public static bool operator ==(RelativePathWithFileName left, RelativePathWithFileName right)
-    {
-      return Equals(left, right);
-    }
-
-    public static bool operator !=(RelativePathWithFileName left, RelativePathWithFileName right)
-    {
-      return !Equals(left, right);
-    }
 
     private readonly string _path;
 
@@ -48,15 +19,39 @@ namespace AtmaFileSystem
       _path = pathString;
     }
 
-    public override string ToString()
+    public RelativePathWithFileName(DirectoryName directoryName, FileName fileName)
+      : this(Path.Combine(directoryName.ToString(), fileName.ToString()))
     {
-      return _path;
+      
+    }
+
+    public RelativePathWithFileName(DirectoryName directoryName, RelativePathWithFileName pathWithFileName)
+      : this(Path.Combine(directoryName.ToString(), pathWithFileName.ToString()))
+    {
+
+    }
+
+    public RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, RelativePathWithFileName relativePathWithFileName)
+      : this(Path.Combine(relativeDirectoryPath.ToString(), relativePathWithFileName.ToString()))
+    {
+      
     }
 
     public static RelativePathWithFileName From(RelativeDirectoryPath dirPath, FileName fileName)
     {
       return new RelativePathWithFileName(dirPath, fileName);
     }
+
+    public static RelativePathWithFileName From(DirectoryName dir, FileName fileName)
+    {
+      return new RelativePathWithFileName(dir, fileName);
+    }
+
+    public static RelativePathWithFileName From(DirectoryName dir, RelativePathWithFileName pathWithFileName)
+    {
+      return new RelativePathWithFileName(dir, pathWithFileName);
+    }
+
 
     public RelativeDirectoryPath Directory()
     {
@@ -90,5 +85,43 @@ namespace AtmaFileSystem
     {
       return new AnyPath(_path);
     }
+
+    #region Generated members
+
+    public override string ToString()
+    {
+      return _path;
+    }
+
+    public bool Equals(RelativePathWithFileName other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return string.Equals(_path, other._path);
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return false;
+      if (ReferenceEquals(this, obj)) return true;
+      if (obj.GetType() != this.GetType()) return false;
+      return Equals((RelativePathWithFileName)obj);
+    }
+
+    public override int GetHashCode()
+    {
+      return (_path != null ? _path.GetHashCode() : 0);
+    }
+
+    public static bool operator ==(RelativePathWithFileName left, RelativePathWithFileName right)
+    {
+      return Equals(left, right);
+    }
+
+    public static bool operator !=(RelativePathWithFileName left, RelativePathWithFileName right)
+    {
+      return !Equals(left, right);
+    }
+    #endregion
   }
 }

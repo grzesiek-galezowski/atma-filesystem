@@ -9,7 +9,7 @@ namespace AtmaFileSystem.Assertions
     {
       if (Path.GetExtension(extensionString) != extensionString)
       {
-        throw new ArgumentException("Invalid extensionString " + extensionString);
+        throw new ArgumentException("Invalid extension " + extensionString, "extensionString");
       }
     }
 

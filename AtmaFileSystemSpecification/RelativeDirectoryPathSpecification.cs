@@ -32,6 +32,48 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
+    public void ShouldAllowAddingFileNameToIt()
+    {
+      //GIVEN
+      var relativeDir = RelativeDirectoryPath.Value(@"lolek\bolek");
+      var fileName = FileName.Value("zenek.txt");
+
+      //WHEN
+      RelativePathWithFileName mergedPath = relativeDir + fileName;
+
+      //THEN
+      Assert.Equal(@"lolek\bolek\zenek.txt", mergedPath.ToString());
+    }
+
+    [Fact]
+    public void ShouldAllowAddingRelativeDirectoryPathToIt()
+    {
+      //GIVEN
+      var relativeDir1 = RelativeDirectoryPath.Value(@"Dir1\dir2");
+      var relativeDir2 = RelativeDirectoryPath.Value(@"dir3\dir4");
+
+      //WHEN
+      RelativeDirectoryPath mergedPath = relativeDir1 + relativeDir2;
+
+      //THEN
+      Assert.Equal(@"Dir1\dir2\dir3\dir4", mergedPath.ToString());
+    }
+
+    [Fact]
+    public void ShouldAllowAddingRelativePathWithFileNameToIt()
+    {
+      //GIVEN
+      var relativeDir1 = RelativeDirectoryPath.Value(@"Dir1\dir2");
+      var relativePathWithFileName = RelativePathWithFileName.Value(@"dir3\dir4\file.txt");
+
+      //WHEN
+      RelativePathWithFileName mergedPath = relativeDir1 + relativePathWithFileName;
+
+      //THEN
+      Assert.Equal(@"Dir1\dir2\dir3\dir4\file.txt", mergedPath.ToString());
+    }
+
+    [Fact]
     public void ShouldAllowGettingPathWithoutLastDirectory()
     {
       //GIVEN
@@ -121,6 +163,34 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(directorypath.ToString(), anyPathWithFileName.ToString());
+    }
+
+    [Fact] //bug rename
+    public void ShouldAllowAddingRelativeDirectoryName()
+    {
+      //GIVEN
+      var directoryName = DirectoryName.Value("Dir1");
+      var subdirectories = RelativeDirectoryPath.Value(@"Dir2\Dir3");
+
+      //WHEN
+      RelativeDirectoryPath relativePath = RelativeDirectoryPath.From(directoryName, subdirectories);
+
+      //THEN
+      Assert.Equal(relativePath.ToString(), @"Dir1\Dir2\Dir3");
+    }
+
+    [Fact] //bug rename
+    public void ShouldFormRelativeDirectoryPathWhenAddedToAnotherDirectoryName()
+    {
+      //GIVEN
+      var directoryName = DirectoryName.Value("Dir1");
+      var subdirectoryName = DirectoryName.Value("Dir2");
+
+      //WHEN
+      RelativeDirectoryPath relativePath = RelativeDirectoryPath.From(directoryName, subdirectoryName);
+
+      //THEN
+      Assert.Equal(relativePath.ToString(), @"Dir1\Dir2");
     }
 
     private static string FullNameFrom(RelativeDirectoryPath path)

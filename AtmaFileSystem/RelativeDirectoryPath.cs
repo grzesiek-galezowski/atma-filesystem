@@ -6,6 +6,8 @@ namespace AtmaFileSystem
 {
   public class RelativeDirectoryPath : IEquatable<RelativeDirectoryPath>
   {
+    private readonly string _relativePath;
+
     public static RelativeDirectoryPath Value(string relativePath)
     {
       RelativeDirectoryPathAssert.NotNull(relativePath);
@@ -15,7 +17,15 @@ namespace AtmaFileSystem
       return new RelativeDirectoryPath(relativePath);
     }
 
-    private readonly string _relativePath;
+    public static RelativeDirectoryPath From(DirectoryName dir, DirectoryName subdir)
+    {
+      return new RelativeDirectoryPath(dir, subdir);
+    }
+
+    public static RelativeDirectoryPath From(DirectoryName dir, RelativeDirectoryPath subdirs)
+    {
+      return new RelativeDirectoryPath(dir, subdirs);
+    }
 
     public RelativeDirectoryPath(DirectoryName dir, DirectoryName subdir)
       : this(Path.Combine(dir.ToString(), subdir.ToString()))
@@ -40,9 +50,69 @@ namespace AtmaFileSystem
       _relativePath = relativePath;
     }
 
+    public RelativeDirectoryPath(RelativeDirectoryPath relativeDirectoryPath, RelativeDirectoryPath relativeDirectoryPath2)
+      : this(Path.Combine(relativeDirectoryPath.ToString(), relativeDirectoryPath2.ToString()))
+    {
+
+    }
+
+    public static RelativeDirectoryPath operator+(RelativeDirectoryPath path, DirectoryName dirName)
+    {
+      return new RelativeDirectoryPath(path, dirName);
+    }
+
+    public static RelativePathWithFileName operator +(RelativeDirectoryPath path, FileName dirName)
+    {
+      return new RelativePathWithFileName(path, dirName);
+    }
+
+    public static RelativeDirectoryPath operator +(RelativeDirectoryPath path, RelativeDirectoryPath path2)
+    {
+      return new RelativeDirectoryPath(path, path2);
+    }
+
+    public static RelativePathWithFileName operator +(RelativeDirectoryPath path, RelativePathWithFileName relativePathWithFileName)
+    {
+      return new RelativePathWithFileName(path, relativePathWithFileName);
+    }
+
+
+    public Maybe<RelativeDirectoryPath> Parent()
+    {
+      var directoryName = Path.GetDirectoryName(_relativePath);
+      if (directoryName == string.Empty)
+      {
+        return Maybe<RelativeDirectoryPath>.Not;
+      }
+      return Maybe.Wrap(Value(directoryName));
+    }
+
+    public RelativePathWithFileName With(FileName fileName)
+    {
+      return new RelativePathWithFileName(this, fileName);
+    }
+
+    public DirectoryInfo Info()
+    {
+      return new DirectoryInfo(_relativePath);
+    }
+
+    public AnyDirectoryPath AsAnyDirectoryPath()
+    {
+      return new AnyDirectoryPath(_relativePath);
+    }
+
+    public AnyPath AsAnyPath()
+    {
+      return new AnyPath(_relativePath);
+    }
+
+
+    #region Generated members
+
     public override string ToString()
     {
-      return _relativePath;
+      return _relativePath; 
     }
 
     public bool Equals(RelativeDirectoryPath other)
@@ -75,39 +145,6 @@ namespace AtmaFileSystem
       return !Equals(left, right);
     }
 
-    public static RelativeDirectoryPath operator +(RelativeDirectoryPath path, DirectoryName dirName)
-    {
-      return new RelativeDirectoryPath(path, dirName);
-    }
-
-    public Maybe<RelativeDirectoryPath> Parent()
-    {
-      var directoryName = Path.GetDirectoryName(_relativePath);
-      if (directoryName == string.Empty)
-      {
-        return Maybe<RelativeDirectoryPath>.Not;
-      }
-      return Maybe.Wrap(Value(directoryName));
-    }
-
-    public RelativePathWithFileName With(FileName fileName)
-    {
-      return new RelativePathWithFileName(this, fileName);
-    }
-
-    public DirectoryInfo Info()
-    {
-      return new DirectoryInfo(_relativePath);
-    }
-
-    public AnyDirectoryPath AsAnyDirectoryPath()
-    {
-      return new AnyDirectoryPath(_relativePath);
-    }
-
-    public AnyPath AsAnyPath()
-    {
-      return new AnyPath(_relativePath);
-    }
+    #endregion
   }
 }

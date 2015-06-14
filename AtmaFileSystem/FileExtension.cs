@@ -9,7 +9,7 @@ namespace AtmaFileSystem
   {
     private readonly string _extension;
 
-    internal FileExtension(string extension)
+    public FileExtension(string extension)
     {
       this._extension = extension;
     }

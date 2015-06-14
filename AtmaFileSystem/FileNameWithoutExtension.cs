@@ -48,6 +48,12 @@ namespace AtmaFileSystem
       return !Equals(left, right);
     }
 
+    public static FileName operator+(FileNameWithoutExtension nameWithoutExtension, FileExtension extension)
+    {
+      return new FileName(nameWithoutExtension, extension);
+    }
+
+
     public override string ToString()
     {
       return _value;
