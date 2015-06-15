@@ -16,16 +16,28 @@ namespace AtmaFileSystem
     }
 
     public DirectoryPath(DirectoryPath path, DirectoryName directoryName)
-      : this(Path.Combine(path.ToString(), directoryName.ToString()))
+      : this(Combine(path, directoryName))
     {
 
     }
 
     public DirectoryPath(DirectoryPath path, RelativeDirectoryPath directoryName)
-      : this(Path.Combine(path.ToString(), directoryName.ToString()))
+      : this(Combine(path, directoryName))
     {
       
     }
+
+    public DirectoryPath(DirectoryName directoryName1, DirectoryName directoryName2)
+      : this(Combine(directoryName1, directoryName2))
+    {
+      
+    }
+
+    private static string Combine(object part1, object part2)
+    {
+      return Path.Combine(part1.ToString(), part2.ToString());
+    }
+
 
     public static DirectoryPath Value(string path)
     {
@@ -34,12 +46,6 @@ namespace AtmaFileSystem
 
       return new DirectoryPath(path);
     }
-
-    public static DirectoryPath From(DirectoryPath path, DirectoryName directoryName)
-    {
-      return new DirectoryPath(path, directoryName);
-    }
-
 
     public override string ToString()
     {
@@ -74,12 +80,17 @@ namespace AtmaFileSystem
 
     public static DirectoryPath operator +(DirectoryPath path, DirectoryName directoryName)
     {
-      return From(path, directoryName);
+      return new DirectoryPath(path, directoryName);
     }
 
     public static DirectoryPath operator +(DirectoryPath path, RelativeDirectoryPath relativePath)
     {
       return new DirectoryPath(path, relativePath);
+    }
+
+    public static PathWithFileName operator +(DirectoryPath path, RelativePathWithFileName relativePath)
+    {
+      return new PathWithFileName(path, relativePath);
     }
 
 
@@ -126,6 +137,11 @@ namespace AtmaFileSystem
     public AnyPath AsAnyPath()
     {
       return new AnyPath(_path);
+    }
+
+    public static DirectoryPath From(DirectoryName directoryName1, DirectoryName directoryName2)
+    {
+      return new DirectoryPath(directoryName1, directoryName2);
     }
   }
 }

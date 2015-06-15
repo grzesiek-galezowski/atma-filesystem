@@ -32,9 +32,14 @@ namespace AtmaFileSystem
     }
 
     public RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, RelativePathWithFileName relativePathWithFileName)
-      : this(Path.Combine(relativeDirectoryPath.ToString(), relativePathWithFileName.ToString()))
+      : this(Combine(relativeDirectoryPath, relativePathWithFileName))
     {
       
+    }
+
+    private static string Combine(object part1, object part2)
+    {
+      return Path.Combine(part1.ToString(), part2.ToString());
     }
 
     public static RelativePathWithFileName From(RelativeDirectoryPath dirPath, FileName fileName)

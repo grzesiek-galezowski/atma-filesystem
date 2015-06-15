@@ -146,10 +146,25 @@ namespace AtmaFileSystemSpecification
       var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
-      DirectoryPath directoryPathWithAnotherDirectoryName = directoryPath + DirectoryName.Value("Lolek");
+      DirectoryPath directoryPathWithAnotherDirectoryName = directoryPath + DirectoryName.Value("Subdir2");
 
       //THEN
-      Assert.Equal(@"G:\Directory\Subdirectory\Lolek", directoryPathWithAnotherDirectoryName.ToString());
+      Assert.Equal(@"G:\Directory\Subdirectory\Subdir2", directoryPathWithAnotherDirectoryName.ToString());
+
+    }
+
+    [Fact]
+    public void ShouldAllowCreatingAnInstanceFromTwoDirectoryNames()
+    {
+      //GIVEN
+      var directoryName1 = DirectoryName.Value(@"G:\");
+      var directoryName2 = DirectoryName.Value(@"Directory");
+
+      //WHEN
+      DirectoryPath path = DirectoryPath.From(directoryName1, directoryName2);
+
+      //THEN
+      Assert.Equal(@"G:\Directory", path.ToString());
 
     }
 
@@ -177,10 +192,24 @@ namespace AtmaFileSystemSpecification
 
       //WHEN
       var relativePath = RelativeDirectoryPath.Value(@"Lolek\Lolek2");
-      DirectoryPath pathWithFileName = directoryPath + relativePath;
+      DirectoryPath newDirectoryPath = directoryPath + relativePath;
 
       //THEN
-      Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2", pathWithFileName.ToString());
+      Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2", newDirectoryPath.ToString());
+    }
+
+    [Fact]
+    public void ShouldAllowAddingRelativePathWithFileName()
+    {
+      //GIVEN
+      var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
+
+      //WHEN
+      var relativePathWithFileName = RelativePathWithFileName.Value(@"Subdirectory2\file.txt");
+      PathWithFileName pathWithFileName = directoryPath + relativePathWithFileName;
+
+      //THEN
+      Assert.Equal(@"G:\Directory\Subdirectory\Subdirectory2\file.txt", pathWithFileName.ToString());
     }
 
     [Fact]

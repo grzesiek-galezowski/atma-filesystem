@@ -16,9 +16,22 @@ namespace AtmaFileSystem
     }
 
     public PathWithFileName(DirectoryPath dirPath, FileName fileName)
+      : this(Combine(dirPath, fileName))
     {
-      _path = Path.Combine(dirPath.ToString(), fileName.ToString());
+
     }
+
+    public PathWithFileName(DirectoryPath dirPath, RelativePathWithFileName relativePath)
+      : this(Combine(dirPath, relativePath))
+    {
+      
+    }
+
+    private static string Combine(object part1, object part2)
+    {
+      return Path.Combine(part1.ToString(), part2.ToString());
+    }
+
 
     public static PathWithFileName Value(string path)
     {
