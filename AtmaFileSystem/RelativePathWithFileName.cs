@@ -9,7 +9,7 @@ namespace AtmaFileSystem
 
     private readonly string _path;
 
-    public RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, FileName fileName)
+    internal RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, FileName fileName)
     {
       _path = Path.Combine(relativeDirectoryPath.ToString(), fileName.ToString());
     }
@@ -19,7 +19,7 @@ namespace AtmaFileSystem
       _path = pathString;
     }
 
-    public RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, RelativePathWithFileName relativePathWithFileName)
+    internal RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, RelativePathWithFileName relativePathWithFileName)
       : this(Combine(relativeDirectoryPath, relativePathWithFileName))
     {
       

@@ -17,10 +17,16 @@ namespace AtmaFileSystem
       return new RelativeDirectoryPath(relativePath);
     }
 
-    public RelativeDirectoryPath(RelativeDirectoryPath relativePath, DirectoryName dirName)
-      : this(Path.Combine(relativePath.ToString(), dirName.ToString()))
+    private RelativeDirectoryPath(RelativeDirectoryPath relativePath, DirectoryName dirName)
+      : this(Combine(relativePath, dirName))
     {
       
+    }
+
+    private RelativeDirectoryPath(RelativeDirectoryPath relativeDirectoryPath, RelativeDirectoryPath relativeDirectoryPath2)
+      : this(Combine(relativeDirectoryPath, relativeDirectoryPath2))
+    {
+
     }
 
     internal RelativeDirectoryPath(string relativePath)
@@ -28,10 +34,9 @@ namespace AtmaFileSystem
       _relativePath = relativePath;
     }
 
-    public RelativeDirectoryPath(RelativeDirectoryPath relativeDirectoryPath, RelativeDirectoryPath relativeDirectoryPath2)
-      : this(Path.Combine(relativeDirectoryPath.ToString(), relativeDirectoryPath2.ToString()))
+    private static string Combine(object part1, object part2)
     {
-
+      return Path.Combine(part1.ToString(), part2.ToString());
     }
 
     public static RelativeDirectoryPath operator+(RelativeDirectoryPath path, DirectoryName dirName)

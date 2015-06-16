@@ -4,7 +4,6 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  //bug add public factory method
   public class AnyDirectoryPath : IEquatable<AnyDirectoryPath>
   {
     public bool Equals(AnyDirectoryPath other)

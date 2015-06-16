@@ -15,13 +15,13 @@ namespace AtmaFileSystem
       _path = path;
     }
 
-    public PathWithFileName(DirectoryPath dirPath, FileName fileName)
+    internal PathWithFileName(DirectoryPath dirPath, FileName fileName)
       : this(Combine(dirPath, fileName))
     {
 
     }
 
-    public PathWithFileName(DirectoryPath dirPath, RelativePathWithFileName relativePath)
+    internal PathWithFileName(DirectoryPath dirPath, RelativePathWithFileName relativePath)
       : this(Combine(dirPath, relativePath))
     {
       
