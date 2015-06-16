@@ -19,18 +19,6 @@ namespace AtmaFileSystem
       _path = pathString;
     }
 
-    public RelativePathWithFileName(DirectoryName directoryName, FileName fileName)
-      : this(Path.Combine(directoryName.ToString(), fileName.ToString()))
-    {
-      
-    }
-
-    public RelativePathWithFileName(DirectoryName directoryName, RelativePathWithFileName pathWithFileName)
-      : this(Path.Combine(directoryName.ToString(), pathWithFileName.ToString()))
-    {
-
-    }
-
     public RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, RelativePathWithFileName relativePathWithFileName)
       : this(Combine(relativeDirectoryPath, relativePathWithFileName))
     {
@@ -41,22 +29,6 @@ namespace AtmaFileSystem
     {
       return Path.Combine(part1.ToString(), part2.ToString());
     }
-
-    public static RelativePathWithFileName From(RelativeDirectoryPath dirPath, FileName fileName)
-    {
-      return new RelativePathWithFileName(dirPath, fileName);
-    }
-
-    public static RelativePathWithFileName From(DirectoryName dir, FileName fileName)
-    {
-      return new RelativePathWithFileName(dir, fileName);
-    }
-
-    public static RelativePathWithFileName From(DirectoryName dir, RelativePathWithFileName pathWithFileName)
-    {
-      return new RelativePathWithFileName(dir, pathWithFileName);
-    }
-
 
     public RelativeDirectoryPath Directory()
     {

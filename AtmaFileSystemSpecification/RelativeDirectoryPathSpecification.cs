@@ -165,34 +165,6 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(directorypath.ToString(), anyPathWithFileName.ToString());
     }
 
-    [Fact] //bug rename
-    public void ShouldAllowAddingRelativeDirectoryName()
-    {
-      //GIVEN
-      var directoryName = DirectoryName.Value("Dir1");
-      var subdirectories = RelativeDirectoryPath.Value(@"Dir2\Dir3");
-
-      //WHEN
-      RelativeDirectoryPath relativePath = RelativeDirectoryPath.From(directoryName, subdirectories);
-
-      //THEN
-      Assert.Equal(relativePath.ToString(), @"Dir1\Dir2\Dir3");
-    }
-
-    [Fact] //bug rename
-    public void ShouldFormRelativeDirectoryPathWhenAddedToAnotherDirectoryName()
-    {
-      //GIVEN
-      var directoryName = DirectoryName.Value("Dir1");
-      var subdirectoryName = DirectoryName.Value("Dir2");
-
-      //WHEN
-      RelativeDirectoryPath relativePath = RelativeDirectoryPath.From(directoryName, subdirectoryName);
-
-      //THEN
-      Assert.Equal(relativePath.ToString(), @"Dir1\Dir2");
-    }
-
     private static string FullNameFrom(RelativeDirectoryPath path)
     {
       return Path.Combine(new DirectoryInfo(".").FullName, path.ToString());

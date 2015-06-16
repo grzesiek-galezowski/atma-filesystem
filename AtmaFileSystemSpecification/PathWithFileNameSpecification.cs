@@ -48,27 +48,12 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldReturnCombinedPathOfDirectoryPathAndFileNameItWasCreatedWithWhenConvertedToString()
-    {
-      //GIVEN
-      var dirPath = Any.Instance<DirectoryPath>();
-      var fileName = Any.Instance<FileName>();
-      var path = PathWithFileName.From(dirPath, fileName);
-
-      //WHEN
-      var convertedToString = path.ToString();
-
-      //THEN
-      Assert.Equal(Path.Combine(dirPath.ToString(), fileName.ToString()), convertedToString);
-    }
-
-    [Fact]
     public void ShouldAllowAccessingDirectoryOfThePath()
     {
       //GIVEN
       var dirPath = Any.Instance<DirectoryPath>();
       var fileName = Any.Instance<FileName>();
-      var pathWithFileName = PathWithFileName.From(dirPath, fileName);
+      PathWithFileName pathWithFileName = dirPath + fileName;
       
       //WHEN
       var dirObtainedFromPath = pathWithFileName.Directory();
@@ -83,7 +68,7 @@ namespace AtmaFileSystemSpecification
       //GIVEN
       var dirPath = Any.Instance<DirectoryPath>();
       var fileName = Any.Instance<FileName>();
-      var pathWithFileName = PathWithFileName.From(dirPath, fileName);
+      PathWithFileName pathWithFileName = dirPath + fileName;
 
       //WHEN
       var fileNameObtainedFromPath = pathWithFileName.FileName();

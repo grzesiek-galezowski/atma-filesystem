@@ -154,21 +154,6 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldAllowCreatingAnInstanceFromTwoDirectoryNames()
-    {
-      //GIVEN
-      var directoryName1 = DirectoryName.Value(@"G:\");
-      var directoryName2 = DirectoryName.Value(@"Directory");
-
-      //WHEN
-      DirectoryPath path = DirectoryPath.From(directoryName1, directoryName2);
-
-      //THEN
-      Assert.Equal(@"G:\Directory", path.ToString());
-
-    }
-
-    [Fact]
     public void ShouldAllowAddingDirectoryNameAndFileName()
     {
       //GIVEN

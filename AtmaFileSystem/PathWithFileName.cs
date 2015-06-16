@@ -41,11 +41,6 @@ namespace AtmaFileSystem
       return new PathWithFileName(path);
     }
 
-    public static PathWithFileName From(DirectoryPath dirPath, FileName fileName)
-    {
-      return new PathWithFileName(dirPath, fileName);
-    }
-
     public DirectoryPath Directory()
     {
       return new DirectoryPath(Path.GetDirectoryName(_path));

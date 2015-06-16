@@ -17,29 +17,7 @@ namespace AtmaFileSystem
       return new RelativeDirectoryPath(relativePath);
     }
 
-    public static RelativeDirectoryPath From(DirectoryName dir, DirectoryName subdir)
-    {
-      return new RelativeDirectoryPath(dir, subdir);
-    }
-
-    public static RelativeDirectoryPath From(DirectoryName dir, RelativeDirectoryPath subdirs)
-    {
-      return new RelativeDirectoryPath(dir, subdirs);
-    }
-
-    public RelativeDirectoryPath(DirectoryName dir, DirectoryName subdir)
-      : this(Path.Combine(dir.ToString(), subdir.ToString()))
-    {
-      
-    }
-
     public RelativeDirectoryPath(RelativeDirectoryPath relativePath, DirectoryName dirName)
-      : this(Path.Combine(relativePath.ToString(), dirName.ToString()))
-    {
-      
-    }
-
-    public RelativeDirectoryPath(DirectoryName relativePath, RelativeDirectoryPath dirName)
       : this(Path.Combine(relativePath.ToString(), dirName.ToString()))
     {
       

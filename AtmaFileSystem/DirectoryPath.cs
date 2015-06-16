@@ -27,12 +27,6 @@ namespace AtmaFileSystem
       
     }
 
-    public DirectoryPath(DirectoryName directoryName1, DirectoryName directoryName2)
-      : this(Combine(directoryName1, directoryName2))
-    {
-      
-    }
-
     private static string Combine(object part1, object part2)
     {
       return Path.Combine(part1.ToString(), part2.ToString());
@@ -75,7 +69,7 @@ namespace AtmaFileSystem
 
     public static PathWithFileName operator +(DirectoryPath path, FileName fileName)
     {
-      return PathWithFileName.From(path, fileName);
+      return new PathWithFileName(path, fileName);
     }
 
     public static DirectoryPath operator +(DirectoryPath path, DirectoryName directoryName)
@@ -139,9 +133,5 @@ namespace AtmaFileSystem
       return new AnyPath(_path);
     }
 
-    public static DirectoryPath From(DirectoryName directoryName1, DirectoryName directoryName2)
-    {
-      return new DirectoryPath(directoryName1, directoryName2);
-    }
   }
 }
