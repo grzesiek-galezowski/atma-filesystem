@@ -76,5 +76,14 @@ namespace AtmaFileSystem
         return Maybe.Wrap(Value() as U);
       }
     }
+
+    public Maybe<U> Transform<U>(Func<T, U> func) where U : class
+    {
+      if (Found)
+      {
+        return Maybe.Wrap(func(Value()));
+      }
+      else return Maybe<U>.Not;
+    }
   }
 }
