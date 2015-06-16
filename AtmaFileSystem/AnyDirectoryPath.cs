@@ -36,6 +36,10 @@ namespace AtmaFileSystem
       return !Equals(left, right);
     }
 
+    public static AnyPathWithFileName operator+(AnyDirectoryPath left, FileName right)
+    {
+      return new AnyPathWithFileName(left, right);
+    }
     private readonly string _path;
 
     internal AnyDirectoryPath(string path)

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
@@ -42,6 +43,12 @@ namespace AtmaFileSystem
     internal AnyPathWithFileName(string path)
     {
       _path = path;
+    }
+
+    internal AnyPathWithFileName(AnyDirectoryPath left, FileName right)
+      : this(Path.Combine(left.ToString(), right.ToString()))
+    {
+      
     }
 
     public override string ToString()

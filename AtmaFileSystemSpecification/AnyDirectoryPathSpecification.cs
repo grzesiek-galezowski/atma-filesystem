@@ -1,5 +1,6 @@
 ﻿using System;
 using AtmaFileSystem;
+using Pri.LongPath;
 using TddEbook.TddToolkit;
 using Xunit;
 
@@ -44,11 +45,29 @@ namespace AtmaFileSystemSpecification
       var anyDirectoryPath = Any.Instance<AnyDirectoryPath>();
 
       //WHEN
-      AnyPath anyPathWithFileName = anyDirectoryPath.AsAnyPath();
+      AnyPath anyPath = anyDirectoryPath.AsAnyPath();
 
       //THEN
-      Assert.Equal(anyDirectoryPath.ToString(), anyPathWithFileName.ToString());
+      Assert.Equal(anyDirectoryPath.ToString(), anyPath.ToString());
     }
+
+    [Fact]
+    public void ShouldAllowConvertingToAnyPathWithFileNameByAddingFileName()
+    {
+      //GIVEN
+      var anyDirectoryPath = Any.Instance<AnyDirectoryPath>();
+      var fileName = Any.Instance<FileName>();
+
+      //WHEN
+      AnyPathWithFileName anyPathWithFileName
+        = anyDirectoryPath + fileName;
+
+      //THEN
+      Assert.Equal(
+        Path.Combine(anyDirectoryPath.ToString(), fileName.ToString()), anyPathWithFileName.ToString());
+    }
+    
+
 
   }
 }
