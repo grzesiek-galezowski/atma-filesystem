@@ -66,7 +66,53 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(
         Path.Combine(anyDirectoryPath.ToString(), fileName.ToString()), anyPathWithFileName.ToString());
     }
-    
+
+    [Fact]
+    public void ShouldAllowAddingDirectoryName()
+    {
+      //GIVEN
+      var anyDirectoryPath = Any.Instance<AnyDirectoryPath>();
+      var directoryName = Any.Instance<DirectoryName>();
+
+      //WHEN
+      AnyDirectoryPath directoryPath
+        = anyDirectoryPath + directoryName;
+
+      //THEN
+      Assert.Equal(
+        Path.Combine(anyDirectoryPath.ToString(), directoryName.ToString()), directoryPath.ToString());
+    }
+
+    [Fact]
+    public void ShouldAllowAddingRelativeDirectoryPath()
+    {
+      //GIVEN
+      var anyDirectoryPath = Any.Instance<AnyDirectoryPath>();
+      var directoryName = Any.Instance<RelativeDirectoryPath>();
+
+      //WHEN
+      AnyDirectoryPath directoryPath
+        = anyDirectoryPath + directoryName;
+
+      //THEN
+      Assert.Equal(
+        Path.Combine(anyDirectoryPath.ToString(), directoryName.ToString()), directoryPath.ToString());
+    }
+
+    public void ShouldAllowAddingRelativePathWithFileName()
+    {
+      //GIVEN
+      var anyDirectoryPath = Any.Instance<AnyDirectoryPath>();
+      var pathWithFileName = Any.Instance<RelativePathWithFileName>();
+
+      //WHEN
+      AnyPathWithFileName anyPathWithFileName
+        = anyDirectoryPath + pathWithFileName;
+
+      //THEN
+      Assert.Equal(
+        Path.Combine(anyDirectoryPath.ToString(), pathWithFileName.ToString()), anyPathWithFileName.ToString());
+    }
 
 
   }

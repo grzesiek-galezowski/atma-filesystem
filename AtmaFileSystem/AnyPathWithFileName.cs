@@ -51,6 +51,12 @@ namespace AtmaFileSystem
       
     }
 
+    public AnyPathWithFileName(AnyDirectoryPath left, RelativePathWithFileName right)
+    : this(Path.Combine(left.ToString(), right.ToString()))
+    {
+      
+    }
+
     public override string ToString()
     {
       return _path;
