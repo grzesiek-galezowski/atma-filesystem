@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 
@@ -75,5 +76,25 @@ namespace AtmaFileSystem
 
       return new AnyPathWithFileName(path);
     }
+
+    public bool Has(FileExtension extensionValue)
+    {
+      //bug refactor
+      if(Path.HasExtension(_path))
+      {
+        return Extension().Equals(extensionValue);
+      }
+      else
+      {
+        return false;
+      }
+    }
+
+    private FileExtension Extension() //TODO this should return Maybe - consider this before making this public
+    {
+      return FileExtension.Value(Path.GetExtension(_path));
+    }
   }
+
+  //bug add Has() method to FileName and 
 }
