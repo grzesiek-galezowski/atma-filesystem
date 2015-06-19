@@ -19,12 +19,10 @@ namespace AtmaFileSystem
 
     }
 
-
     internal AnyDirectoryPath(string path)
     {
       _path = path;
     }
-
 
     public bool Equals(AnyDirectoryPath other)
     {
@@ -71,8 +69,7 @@ namespace AtmaFileSystem
       return new AnyDirectoryPath(left, right);
     }
 
-    public static AnyPathWithFileName
-      operator +(AnyDirectoryPath left, RelativePathWithFileName right)
+    public static AnyPathWithFileName operator +(AnyDirectoryPath left, RelativePathWithFileName right)
     {
       return new AnyPathWithFileName(left, right);
     }
