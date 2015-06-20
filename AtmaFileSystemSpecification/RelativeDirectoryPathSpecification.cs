@@ -150,6 +150,22 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(directorypath.ToString(), anyPathWithFileName.ToString());
     }
 
+    [Theory,
+      InlineData(@"Segment1\Segment2\", "Segment2"),
+      InlineData(@"Segment1\", "Segment1"),
+      ]
+    public void ShouldAllowGettingTheNameOfCurrentDirectory(string fullPath, string expectedDirectoryName)
+    {
+      //GIVEN
+      var directoryPath = RelativeDirectoryPath.Value(fullPath);
+
+      //WHEN
+      DirectoryName dirName = directoryPath.DirectoryName();
+
+      //THEN
+      Assert.Equal(expectedDirectoryName, dirName.ToString());
+    }
+
     private static string FullNameFrom(RelativeDirectoryPath path)
     {
       return Path.Combine(new DirectoryInfo(".").FullName, path.ToString());
@@ -159,6 +175,5 @@ namespace AtmaFileSystemSpecification
   }
 
   //todo cut out first directory from relative directory path = relative directory path
-  //todo create relative path with file name
   //bug go back to using System.IO.DirectoryInfo? Or make two methods?
 }

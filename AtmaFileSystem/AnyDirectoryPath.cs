@@ -96,5 +96,22 @@ namespace AtmaFileSystem
 
       return new AnyDirectoryPath(path);
     }
+
+    public DirectoryName DirectoryName()
+    {
+      return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
+    }
+
+    public Maybe<AnyDirectoryPath> Parent()
+    {
+      var directoryName = new DirectoryInfo(_path).Parent;
+      return AsMaybe(directoryName);
+    }
+
+    private static Maybe<AnyDirectoryPath> AsMaybe(DirectoryInfo directoryName)
+    {
+      return directoryName != null ? Maybe.Wrap(Value(directoryName.FullName)) : null;
+    }
+
   }
 }

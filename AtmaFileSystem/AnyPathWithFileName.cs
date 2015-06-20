@@ -90,16 +90,15 @@ namespace AtmaFileSystem
     {
       return AnyDirectoryPath.Value(Path.GetDirectoryName(_path));
     }
+
+    public FileInfo Info()
+    {
+      return new FileInfo(_path);
+    }
   }
 
 /* TODO missing methods:
-AnyPathWithFileName:
-  Directory()
-  Info()
-
 AnyDirectoryPath:
-  Parent()
-  DirectoryName()
   Info()
 
 AnyPath:
@@ -108,7 +107,6 @@ AnyPath:
   Info -> FileSystemInfo
 
 RelativeDirectoryPath:
-  DirectoryName()
   Info()
 */
 }

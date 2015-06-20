@@ -88,6 +88,19 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(dirPath, dirObtainedFromPath);
     }
 
+    [Fact]
+    public void ShouldBeConvertibleToFileInfo()
+    {
+      //GIVEN
+      var pathWithFilename = AnyPathWithFileName.Value(@"C:\Directory\file.txt");
+
+      //WHEN
+      var fileInfo = pathWithFilename.Info();
+
+      //THEN
+      Assert.Equal(fileInfo.FullName, pathWithFilename.ToString());
+    }
+
 
   }
 }

@@ -33,7 +33,6 @@ namespace AtmaFileSystemSpecification
 
 
       // TODO
-      // - add relative paths
       // - add WithoutRoot() to PathWithFileName method that returns relative directory
       // - add WithoutRoot() to PathToDirectory method that returns relative directory
 

@@ -86,6 +86,5 @@ namespace AtmaFileSystem
     }
   }
 
-  //TODO validate against using empty strings everywhere
   //TODO implement file system
 }

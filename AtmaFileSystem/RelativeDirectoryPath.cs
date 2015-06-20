@@ -124,5 +124,10 @@ namespace AtmaFileSystem
     }
 
     #endregion
+
+    public DirectoryName DirectoryName()
+    {
+      return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_relativePath).Name);
+    }
   }
 }

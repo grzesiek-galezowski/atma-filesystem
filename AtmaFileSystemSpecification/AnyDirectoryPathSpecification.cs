@@ -99,6 +99,7 @@ namespace AtmaFileSystemSpecification
         Path.Combine(anyDirectoryPath.ToString(), directoryName.ToString()), directoryPath.ToString());
     }
 
+    [Fact]
     public void ShouldAllowAddingRelativePathWithFileName()
     {
       //GIVEN
@@ -114,7 +115,53 @@ namespace AtmaFileSystemSpecification
         Path.Combine(anyDirectoryPath.ToString(), pathWithFileName.ToString()), anyPathWithFileName.ToString());
     }
 
+    [Theory,
+      InlineData(@"Segment1\Segment2\", "Segment2"),
+      InlineData(@"Segment1\", "Segment1"),
+      InlineData(@"C:\Segment1\", "Segment1"),
+      ]
+    public void ShouldAllowGettingTheNameOfCurrentDirectory(string fullPath, string expectedDirectoryName)
+    {
+      //GIVEN
+      var directoryPath = AnyDirectoryPath.Value(fullPath);
 
+      //WHEN
+      DirectoryName dirName = directoryPath.DirectoryName();
+
+      //THEN
+      Assert.Equal(expectedDirectoryName, dirName.ToString());
+    }
+
+    [Theory,
+      InlineData(@"C:\parent\child\", @"C:\parent"),
+      InlineData(@"C:\parent\", @"C:\")]
+    public void ShouldAllowGettingProperParentDirectoryWhenItExists(string input, string expected)
+    {
+      //GIVEN
+      var dir = AnyDirectoryPath.Value(input);
+
+      //WHEN
+      var parent = dir.Parent();
+
+      //THEN
+      Assert.True(parent.Found);
+      Assert.Equal(AnyDirectoryPath.Value(expected), parent.Value());
+    }
+
+    [Fact]
+    public void ShouldProduceParentWithoutValueThatThrowsOnAccessWhenThereIsNoParentInPath()
+    {
+      //GIVEN
+      const string pathString = @"C:\";
+      var dir = AnyDirectoryPath.Value(pathString);
+
+      //WHEN
+      var parent = dir.Parent();
+
+      //THEN
+      Assert.False(parent.Found);
+      Assert.Throws<InvalidOperationException>(() => parent.Value());
+    }
 
   }
 }

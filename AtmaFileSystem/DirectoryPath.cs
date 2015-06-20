@@ -60,7 +60,7 @@ namespace AtmaFileSystem
 
     private static Maybe<DirectoryPath> AsMaybe(DirectoryInfo directoryName)
     {
-      return directoryName != null ? Maybe.Wrap(new DirectoryPath(directoryName.FullName)) : null;
+      return directoryName != null ? Maybe.Wrap(Value(directoryName.FullName)) : null;
     }
 
     public DirectoryPath Root()
