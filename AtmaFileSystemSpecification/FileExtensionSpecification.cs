@@ -29,15 +29,16 @@ namespace AtmaFileSystemSpecification
     }
 
     [Theory,
-    InlineData("zip"),
-    InlineData("..zip"),
-    InlineData(".tar.gz"),
-    InlineData(""),
-    InlineData(null),
+    InlineData("zip", typeof(ArgumentException)),
+    InlineData("..zip", typeof(ArgumentException)),
+    InlineData(".tar.gz", typeof(ArgumentException)),
+    InlineData("", typeof(ArgumentException)),
+    InlineData(null, typeof(ArgumentNullException)),
     ]
-    public void ShouldThrowExceptionWhenCreatedUsingCreationMethodWithInvalidInput(string extensionString)
+    public void ShouldThrowExceptionWhenCreatedUsingCreationMethodWithInvalidInput(
+      string extensionString, Type exceptionType)
     {
-      Assert.Throws<ArgumentException>(() => FileExtension.Value(extensionString));
+      Assert.Throws(exceptionType, () => FileExtension.Value(extensionString));
     }
 
     [Theory,

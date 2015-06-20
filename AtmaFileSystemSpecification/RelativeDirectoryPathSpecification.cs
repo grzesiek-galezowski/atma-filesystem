@@ -105,25 +105,10 @@ namespace AtmaFileSystemSpecification
     [Theory,
       InlineData(null, typeof(ArgumentNullException)),
       InlineData("", typeof(ArgumentException)),
-      InlineData(@"C:\", typeof(ArgumentException))]
+      InlineData(@"C:\", typeof(InvalidOperationException))]
     public void ShouldNotAllowCreatingInvalidInstance(string input, Type exceptionType)
     {
       Assert.Throws(exceptionType, () => RelativeDirectoryPath.Value(input));
-
-    }
-
-    [Fact]
-    public void ShouldBeConvertibleToRelativePathWithFileNameWhenFileNameIsAddedToIt()
-    {
-      //GIVEN
-      var relativePath = RelativeDirectoryPath.Value(@"Dir\subdir");
-      var fileName = FileName.Value("file.txt");
-
-      //WHEN
-      RelativePathWithFileName pathWithFileName = relativePath.With(fileName);
-
-      //THEN
-      Assert.Equal(@"Dir\subdir\file.txt", pathWithFileName.ToString());
     }
 
     [Fact]
@@ -176,5 +161,4 @@ namespace AtmaFileSystemSpecification
   //todo cut out first directory from relative directory path = relative directory path
   //todo create relative path with file name
   //bug go back to using System.IO.DirectoryInfo? Or make two methods?
-  //TODO make classes: AnyDirectoryPath, AnyPathWithFileName, AnyPath
 }

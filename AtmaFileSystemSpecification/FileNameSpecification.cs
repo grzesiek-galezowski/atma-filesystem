@@ -16,7 +16,7 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldThrowExceptionWhenCreatedWithStringContainingMoreThanJustAFileName()
     {
-      Assert.Throws<ArgumentException>(() => FileName.Value(@"c:\lolek\lolki2.txt"));
+      Assert.Throws<InvalidOperationException>(() => FileName.Value(@"c:\lolek\lolki2.txt"));
     }
 
     [Fact]

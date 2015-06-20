@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,12 @@ namespace AtmaFileSystemSpecification
 
     
     [Theory,
-      InlineData(null),
-      InlineData(""),
+      InlineData(null, typeof(ArgumentNullException)),
+      InlineData("", typeof(ArgumentException)),
       InlineData(@"C:\a")]
-    public void ShouldNotLetCreateInvalidInstance(string input)
+    public void ShouldNotLetCreateInvalidInstance(string input, Type exceptionType)
     {
-      Assert.Throws<ArgumentException>(() => DirectoryName.Value(input));
+      Assert.Throws(exceptionType, () => DirectoryName.Value(input));
     }
 
 

@@ -35,8 +35,8 @@ namespace AtmaFileSystem
 
     public static PathWithFileName Value(string path)
     {
-      PathWithFileNameAssert.NotNull(path);
-      PathWithFileNameAssert.Valid(path);
+      Asserts.NotNull(path, "path");
+      Asserts.Rooted(path, path + " is not an absolute path");
 
       return new PathWithFileName(path);
     }
@@ -109,8 +109,10 @@ namespace AtmaFileSystem
 
 
     #endregion
+
+    public bool Has(FileExtension extensionValue)
+    {
+      return FileName().Has(extensionValue);
+    }
   }
-
-
-  //TODO relative directory path, relative directory path with file name
 }

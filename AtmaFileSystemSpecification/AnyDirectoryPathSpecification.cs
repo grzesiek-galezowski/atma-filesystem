@@ -11,8 +11,8 @@ namespace AtmaFileSystemSpecification
     [Theory,
       InlineData(null, typeof(ArgumentNullException)),
       InlineData("", typeof(ArgumentException)),
-      InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
-      ]
+      InlineData(@"\\\\\\\\\?|/\/|", typeof(InvalidOperationException)),
+    ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
       Assert.Throws(exceptionType, () => AnyDirectoryPath.Value(invalidInput));
@@ -113,6 +113,7 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(
         Path.Combine(anyDirectoryPath.ToString(), pathWithFileName.ToString()), anyPathWithFileName.ToString());
     }
+
 
 
   }

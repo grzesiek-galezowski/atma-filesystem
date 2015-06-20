@@ -12,12 +12,12 @@ namespace AtmaFileSystem
       _directoryName = directoryName;
     }
 
-    public static DirectoryName Value(string value)
+    public static DirectoryName Value(string directoryName)
     {
-      DirectoryNameAssert.NotNull(value);
-      DirectoryNameAssert.NotEmpty(value);
-      DirectoryNameAssert.Valid(value);
-      return new DirectoryName(value);
+      Asserts.NotNull(directoryName, "directoryName");
+      Asserts.NotEmpty(directoryName, "directory name cannot be empty");
+      Asserts.ValidDirectoryName(directoryName, "The value " + directoryName + " does not constitute a valid directory name");
+      return new DirectoryName(directoryName);
     }
 
     //operators cannot return relative or non relative because dir name can be root as well

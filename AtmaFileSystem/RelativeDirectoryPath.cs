@@ -10,9 +10,9 @@ namespace AtmaFileSystem
 
     public static RelativeDirectoryPath Value(string relativePath)
     {
-      RelativeDirectoryPathAssert.NotNull(relativePath);
-      RelativeDirectoryPathAssert.NotEmpty(relativePath);
-      RelativeDirectoryPathAssert.Valid(relativePath);
+      Asserts.NotNull(relativePath, "path");
+      Asserts.NotEmpty(relativePath, "relative path cannot be empty");
+      Asserts.NotRooted(relativePath, "Expected relative path, but got " + relativePath);
 
       return new RelativeDirectoryPath(relativePath);
     }
@@ -68,11 +68,6 @@ namespace AtmaFileSystem
         return Maybe<RelativeDirectoryPath>.Not;
       }
       return Maybe.Wrap(Value(directoryName));
-    }
-
-    public RelativePathWithFileName With(FileName fileName)
-    {
-      return new RelativePathWithFileName(this, fileName);
     }
 
     public DirectoryInfo Info()

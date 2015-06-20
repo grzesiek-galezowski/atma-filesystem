@@ -21,9 +21,9 @@ namespace AtmaFileSystem
 
     public static FileExtension Value(string extensionString)
     {
-      FileExtensionAssert.NotNull(extensionString);
-      FileExtensionAssert.NotEmpty(extensionString);
-      FileExtensionAssert.Valid(extensionString);
+      Asserts.NotNull(extensionString, "extensionString");
+      Asserts.NotEmpty(extensionString, "Tried to create an extension with empty value");
+      Asserts.ConsistsSolelyOfExtension(extensionString, "Invalid extension " + extensionString);
 
       return new FileExtension(extensionString);
     }

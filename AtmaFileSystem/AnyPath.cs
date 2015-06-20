@@ -50,9 +50,9 @@ namespace AtmaFileSystem
 
     public static AnyPath Value(string path)
     {
-      AnyDirectoryPathAndPathWithFileNameAssertions.NotNull(path);
-      AnyDirectoryPathAndPathWithFileNameAssertions.NotEmpty(path);
-      AnyDirectoryPathAndPathWithFileNameAssertions.AssertPathValid(path);
+      Asserts.NotNull(path, "path");
+      Asserts.NotEmpty(path, "Path cannot be empty");
+      Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
 
       return new AnyPath(path);
     }

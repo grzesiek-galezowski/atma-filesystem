@@ -14,7 +14,8 @@ namespace AtmaFileSystemSpecification
     [Theory,
       InlineData(null, typeof(ArgumentNullException)),
       InlineData("", typeof(ArgumentException)),
-      InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+      InlineData(@"\\\\\\\\\?|/\/|", typeof(InvalidOperationException)),
+      InlineData(@"file.txt", typeof(InvalidOperationException))
     ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
@@ -57,5 +58,36 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.Equal(expectedResult, hasExtension);
     }
+
+    [Fact]
+    public void ShouldAllowAccessingFileName()
+    {
+      //GIVEN
+      var path = AnyPathWithFileName.Value(@"Dir\Subdir\fileName.txt");
+
+      //WHEN
+      var fileName = path.FileName();
+
+      //THEN
+      Assert.Equal(FileName.Value("fileName.txt"), fileName);
+
+    }
+
+    [Fact]
+    public void ShouldAllowAccessingDirectoryOfThePath()
+    {
+      //GIVEN
+      var dirPath = Any.Instance<AnyDirectoryPath>();
+      var fileName = Any.Instance<FileName>();
+      AnyPathWithFileName pathWithFileName = dirPath + fileName;
+
+      //WHEN
+      var dirObtainedFromPath = pathWithFileName.Directory();
+
+      //THEN
+      Assert.Equal(dirPath, dirObtainedFromPath);
+    }
+
+
   }
 }

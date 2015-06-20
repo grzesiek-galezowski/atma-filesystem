@@ -26,7 +26,7 @@ namespace AtmaFileSystemSpecification
       ////////////////////////
 
       
-      PathWithFileName fullPathAssembled = directoryPath + fileNameWithoutExtension.With(extension.Value());
+      PathWithFileName fullPathAssembled = directoryPath + (fileNameWithoutExtension + extension.Value());
 
       DirectoryName dirName = DirectoryName.Value("Subdirectory");
       PathWithFileName fileMovedToSubdirectory = directoryPath + dirName + fileName;

@@ -27,6 +27,13 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
+    public void ShouldThrowExceptionWhenTryingToCreateInstanceWithNoDirectory()
+    {
+      Assert.Throws<InvalidOperationException>(() => RelativePathWithFileName.Value(@"file.txt"));
+    }
+
+
+    [Fact]
     public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithEmptyValue()
     {
       Assert.Throws<ArgumentException>(() => RelativePathWithFileName.Value(string.Empty));
@@ -105,6 +112,24 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(pathWithFileName.ToString(), anyPathWithFileName.ToString());
+    }
+
+    [Theory,
+     InlineData(@"Dir\Subdir\fileName.txt", ".txt", true),
+     InlineData(@"Dir\Subdir\fileName.tx", ".txt", false),
+     InlineData(@"Dir\Subdir\fileName", ".txt", false),
+    ]
+    public void ShouldBeAbleToRecognizeWhetherItHasCertainExtension(string path, string extension, bool expectedResult)
+    {
+      //GIVEN
+      var pathWithFileName = RelativePathWithFileName.Value(path);
+      var extensionValue = FileExtension.Value(extension);
+
+      //WHEN
+      var hasExtension = pathWithFileName.Has(extensionValue);
+
+      //THEN
+      Assert.Equal(expectedResult, hasExtension);
     }
 
   }

@@ -35,8 +35,9 @@ namespace AtmaFileSystem
 
     public static DirectoryPath Value(string path)
     {
-      DirectoryPathAssert.NotNull(path);
-      DirectoryPathAssert.Valid(path);
+      Asserts.NotNull(path, "path");
+      Asserts.NotEmpty(path, "Path cannot be empty");
+      Asserts.Rooted(path, "Expected absolute path, but got " + path);
 
       return new DirectoryPath(path);
     }

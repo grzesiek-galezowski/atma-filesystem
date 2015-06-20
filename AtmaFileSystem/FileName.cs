@@ -21,8 +21,9 @@ namespace AtmaFileSystem
 
     public static FileName Value(string path)
     {
-      FileNameAssert.NotEmpty(path);
-      FileNameAssert.Valid(path);
+      Asserts.NotNull(path, "path");
+      Asserts.NotEmpty(path, "File name should not be empty");
+      Asserts.ConsistsSolelyOfFileName(path);
 
       return new FileName(path);
     }
@@ -76,6 +77,12 @@ namespace AtmaFileSystem
     public FileNameWithoutExtension WithoutExtension()
     {
       return FileNameWithoutExtension.Value(Path.GetFileNameWithoutExtension(_path));
+    }
+
+    public bool Has(FileExtension extensionValue)
+    {
+      var extension = Extension();
+      return extension.Found && extension.Value().Equals(extensionValue);
     }
   }
 

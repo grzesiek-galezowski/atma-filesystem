@@ -39,25 +39,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnyDirectoryPath.cs" />
-    <Compile Include="Assertions\AnyDirectoryPathAndPathWithFileNameAssertions.cs" />
     <Compile Include="AnyPath.cs" />
     <Compile Include="AnyPathWithFileName.cs" />
-    <Compile Include="Assertions\RelativePathWithFileNameAssertions.cs" />
+    <Compile Include="Assertions\ExceptionMessages.cs" />
+    <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="DirectoryName.cs" />
-    <Compile Include="Assertions\DirectoryNameAssert.cs" />
     <Compile Include="DirectoryPath.cs" />
-    <Compile Include="Assertions\DirectoryPathAssert.cs" />
     <Compile Include="FileExtension.cs" />
-    <Compile Include="Assertions\FileExtensionAssert.cs" />
     <Compile Include="FileName.cs" />
-    <Compile Include="Assertions\FileNameAssert.cs" />
     <Compile Include="FileNameWithoutExtension.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="PathWithFileName.cs" />
-    <Compile Include="Assertions\PathWithFileNameAssert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelativeDirectoryPath.cs" />
-    <Compile Include="Assertions\RelativeDirectoryPathAssert.cs" />
     <Compile Include="RelativePathWithFileName.cs" />
   </ItemGroup>
   <ItemGroup>

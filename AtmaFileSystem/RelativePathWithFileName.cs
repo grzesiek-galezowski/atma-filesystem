@@ -42,9 +42,10 @@ namespace AtmaFileSystem
 
     public static RelativePathWithFileName Value(string path)
     {
-      RelativePathWithFileNameAssertions.NotNull(path);
-      RelativePathWithFileNameAssertions.NotEmpty(path);
-      RelativePathWithFileNameAssertions.Valid(path);
+      Asserts.NotNull(path, "path");
+      Asserts.NotEmpty(path, ExceptionMessages.PathCannotBeAnEmptyString);
+      Asserts.NotRooted(path, ExceptionMessages.RootedPathsAreIllegalPleasePassARelativePath);
+      Asserts.DoesNotConsistSolelyOfFileName(path, ExceptionMessages.ThePathCannotConsistSolelyOfFileName);
       return new RelativePathWithFileName(path);
     }
 
@@ -100,5 +101,10 @@ namespace AtmaFileSystem
       return !Equals(left, right);
     }
     #endregion
+
+    public bool Has(FileExtension extensionValue)
+    {
+      return FileName().Has(extensionValue);
+    }
   }
 }

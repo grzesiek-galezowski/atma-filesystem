@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
-  //bug add static creation method
   public class AnyPathWithFileName
     : IEquatable<AnyPathWithFileName>
   {
@@ -70,31 +68,47 @@ namespace AtmaFileSystem
 
     public static AnyPathWithFileName Value(string path)
     {
-      AnyDirectoryPathAndPathWithFileNameAssertions.NotNull(path);
-      AnyDirectoryPathAndPathWithFileNameAssertions.NotEmpty(path);
-      AnyDirectoryPathAndPathWithFileNameAssertions.AssertPathValid(path);
+      Asserts.NotNull(path, "path");
+      Asserts.NotEmpty(path, "Path cannot be empty");
+      Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
+      Asserts.DoesNotConsistSolelyOfFileName(path, "Expected path not consisting solely of file name, but got " + path);
 
       return new AnyPathWithFileName(path);
     }
 
     public bool Has(FileExtension extensionValue)
     {
-      //bug refactor
-      if(Path.HasExtension(_path))
-      {
-        return Extension().Equals(extensionValue);
-      }
-      else
-      {
-        return false;
-      }
+      return FileName().Has(extensionValue);
     }
 
-    private FileExtension Extension() //TODO this should return Maybe - consider this before making this public
+    public FileName FileName()
     {
-      return FileExtension.Value(Path.GetExtension(_path));
+      return AtmaFileSystem.FileName.Value(Path.GetFileName(_path));
+    }
+
+    public AnyDirectoryPath Directory()
+    {
+      return AnyDirectoryPath.Value(Path.GetDirectoryName(_path));
     }
   }
 
-  //bug add Has() method to FileName and 
+/* TODO missing methods:
+AnyPathWithFileName:
+  Directory()
+  Info()
+
+AnyDirectoryPath:
+  Parent()
+  DirectoryName()
+  Info()
+
+AnyPath:
+  <> FileName()
+  <> Parent()
+  Info -> FileSystemInfo
+
+RelativeDirectoryPath:
+  DirectoryName()
+  Info()
+*/
 }

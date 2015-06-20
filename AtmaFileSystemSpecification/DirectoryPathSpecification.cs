@@ -10,22 +10,20 @@ namespace AtmaFileSystemSpecification
   public class DirectoryPathSpecification
   {
 
-    [Fact]
-    public void ShouldNotAllowToBeCreatedWithNullValue()
+    [Theory,
+      InlineData(null, typeof(ArgumentNullException)),
+      InlineData("", typeof(ArgumentException)),
+      InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+    ]
+    public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
-      Assert.Throws<ArgumentNullException>(() => DirectoryPath.Value(null));
+      Assert.Throws(exceptionType, () => DirectoryPath.Value(invalidInput));
     }
 
     [Fact]
     public void ShouldReturnNonNullPathToFileNameWhenCreatedWithWellFormedPathString()
     {
       Assert.NotNull(DirectoryPath.Value(@"c:\lolek\"));
-    }
-
-    [Fact]
-    public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithNotWellFormedUri()
-    {
-      Assert.Throws<ArgumentException>(() => DirectoryPath.Value(@"C:\?||\|\\|\"));
     }
 
     [Fact]

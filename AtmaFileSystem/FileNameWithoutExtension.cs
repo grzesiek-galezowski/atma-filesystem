@@ -59,11 +59,6 @@ namespace AtmaFileSystem
       return _value;
     }
 
-    public FileName With(FileExtension extension)
-    {
-      return new FileName(Path.ChangeExtension(_value, extension.ToString()));
-    }
-
     public FileName AsFileName()
     {
       return new FileName(_value);

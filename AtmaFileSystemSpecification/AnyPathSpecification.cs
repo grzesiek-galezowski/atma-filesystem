@@ -20,7 +20,7 @@ namespace AtmaFileSystemSpecification
     [Theory,
   InlineData(null, typeof(ArgumentNullException)),
   InlineData("", typeof(ArgumentException)),
-  InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+  InlineData(@"\\\\\\\\\?|/\/|", typeof(InvalidOperationException)),
 ]
     public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string invalidInput, Type exceptionType)
     {

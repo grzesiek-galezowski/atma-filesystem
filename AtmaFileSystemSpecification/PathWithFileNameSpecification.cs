@@ -129,5 +129,24 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.Equal(pathWithFileName.ToString(), anyPathWithFileName.ToString());
     }
+
+
+    [Theory,
+     InlineData(@"C:\Dir\Subdir\fileName.txt", ".txt", true),
+     InlineData(@"C:\Dir\Subdir\fileName.tx", ".txt", false),
+     InlineData(@"C:\Dir\Subdir\fileName", ".txt", false),
+    ]
+    public void ShouldBeAbleToRecognizeWhetherItHasCertainExtension(string path, string extension, bool expectedResult)
+    {
+      //GIVEN
+      var pathWithFileName = PathWithFileName.Value(path);
+      var extensionValue = FileExtension.Value(extension);
+
+      //WHEN
+      var hasExtension = pathWithFileName.Has(extensionValue);
+
+      //THEN
+      Assert.Equal(expectedResult, hasExtension);
+    }
   }
 }
