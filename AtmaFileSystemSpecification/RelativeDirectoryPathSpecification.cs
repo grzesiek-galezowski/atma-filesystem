@@ -39,10 +39,10 @@ namespace AtmaFileSystemSpecification
       var fileName = FileName.Value("zenek.txt");
 
       //WHEN
-      RelativePathWithFileName mergedPath = relativeDir + fileName;
+      RelativeFilePath mergedFilePath = relativeDir + fileName;
 
       //THEN
-      Assert.Equal(@"lolek\bolek\zenek.txt", mergedPath.ToString());
+      Assert.Equal(@"lolek\bolek\zenek.txt", mergedFilePath.ToString());
     }
 
     [Fact]
@@ -64,13 +64,13 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var relativeDir1 = RelativeDirectoryPath.Value(@"Dir1\dir2");
-      var relativePathWithFileName = RelativePathWithFileName.Value(@"dir3\dir4\file.txt");
+      var relativePathWithFileName = RelativeFilePath.Value(@"dir3\dir4\file.txt");
 
       //WHEN
-      RelativePathWithFileName mergedPath = relativeDir1 + relativePathWithFileName;
+      RelativeFilePath mergedFilePath = relativeDir1 + relativePathWithFileName;
 
       //THEN
-      Assert.Equal(@"Dir1\dir2\dir3\dir4\file.txt", mergedPath.ToString());
+      Assert.Equal(@"Dir1\dir2\dir3\dir4\file.txt", mergedFilePath.ToString());
     }
 
     [Fact]

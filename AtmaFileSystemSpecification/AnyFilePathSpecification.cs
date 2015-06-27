@@ -9,7 +9,7 @@ using Xunit;
 
 namespace AtmaFileSystemSpecification
 {
-  public class AnyPathWithFileNameSpecification
+  public class AnyFilePathSpecification
   {
     [Theory,
       InlineData(null, typeof(ArgumentNullException)),
@@ -19,20 +19,20 @@ namespace AtmaFileSystemSpecification
     ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
-      Assert.Throws(exceptionType, () => AnyPathWithFileName.Value(invalidInput));
+      Assert.Throws(exceptionType, () => AnyFilePath.Value(invalidInput));
     }
 
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      XAssert.IsValue<AnyPathWithFileName>();
+      XAssert.IsValue<AnyFilePath>();
     }
 
     [Fact]
     public void ShouldBeConvertibleToAnyPath()
     {
       //GIVEN
-      var pathWithFileName = Any.Instance<AnyPathWithFileName>();
+      var pathWithFileName = Any.Instance<AnyFilePath>();
 
       //WHEN
       AnyPath anyPath = pathWithFileName.AsAnyPath();
@@ -49,7 +49,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeAbleToRecognizeWhetherItHasCertainExtension(string path, string extension, bool expectedResult)
     {
       //GIVEN
-      var anyPathWithFileName = AnyPathWithFileName.Value(path);
+      var anyPathWithFileName = AnyFilePath.Value(path);
       var extensionValue = FileExtension.Value(extension);
 
       //WHEN
@@ -63,7 +63,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAccessingFileName()
     {
       //GIVEN
-      var path = AnyPathWithFileName.Value(@"Dir\Subdir\fileName.txt");
+      var path = AnyFilePath.Value(@"Dir\Subdir\fileName.txt");
 
       //WHEN
       var fileName = path.FileName();
@@ -79,10 +79,10 @@ namespace AtmaFileSystemSpecification
       //GIVEN
       var dirPath = Any.Instance<AnyDirectoryPath>();
       var fileName = Any.Instance<FileName>();
-      AnyPathWithFileName pathWithFileName = dirPath + fileName;
+      AnyFilePath filePath = dirPath + fileName;
 
       //WHEN
-      var dirObtainedFromPath = pathWithFileName.Directory();
+      var dirObtainedFromPath = filePath.Directory();
 
       //THEN
       Assert.Equal(dirPath, dirObtainedFromPath);
@@ -92,7 +92,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToFileInfo()
     {
       //GIVEN
-      var pathWithFilename = AnyPathWithFileName.Value(@"C:\Directory\file.txt");
+      var pathWithFilename = AnyFilePath.Value(@"C:\Directory\file.txt");
 
       //WHEN
       var fileInfo = pathWithFilename.Info();

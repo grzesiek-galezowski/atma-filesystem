@@ -4,23 +4,22 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class RelativePathWithFileName : IEquatable<RelativePathWithFileName>
+  public class RelativeFilePath : IEquatable<RelativeFilePath>
   {
-
     private readonly string _path;
 
-    internal RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, FileName fileName)
+    internal RelativeFilePath(RelativeDirectoryPath relativeDirectoryPath, FileName fileName)
     {
       _path = Path.Combine(relativeDirectoryPath.ToString(), fileName.ToString());
     }
 
-    internal RelativePathWithFileName(string pathString)
+    internal RelativeFilePath(string pathString)
     {
       _path = pathString;
     }
 
-    internal RelativePathWithFileName(RelativeDirectoryPath relativeDirectoryPath, RelativePathWithFileName relativePathWithFileName)
-      : this(Combine(relativeDirectoryPath, relativePathWithFileName))
+    internal RelativeFilePath(RelativeDirectoryPath relativeDirectoryPath, RelativeFilePath relativeFilePath)
+      : this(Combine(relativeDirectoryPath, relativeFilePath))
     {
       
     }
@@ -40,13 +39,13 @@ namespace AtmaFileSystem
       return new FileName(Path.GetFileName(_path));
     }
 
-    public static RelativePathWithFileName Value(string path)
+    public static RelativeFilePath Value(string path)
     {
       Asserts.NotNull(path, "path");
       Asserts.NotEmpty(path, ExceptionMessages.PathCannotBeAnEmptyString);
       Asserts.NotRooted(path, ExceptionMessages.RootedPathsAreIllegalPleasePassARelativePath);
       Asserts.DoesNotConsistSolelyOfFileName(path, ExceptionMessages.ThePathCannotConsistSolelyOfFileName);
-      return new RelativePathWithFileName(path);
+      return new RelativeFilePath(path);
     }
 
     public FileInfo Info()
@@ -54,9 +53,9 @@ namespace AtmaFileSystem
       return new FileInfo(_path);
     }
 
-    public AnyPathWithFileName AsAnyPathWithFileName()
+    public AnyFilePath AsAnyPathWithFileName()
     {
-      return new AnyPathWithFileName(_path);
+      return new AnyFilePath(_path);
     }
 
     public AnyPath AsAnyPath()
@@ -71,7 +70,7 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public bool Equals(RelativePathWithFileName other)
+    public bool Equals(RelativeFilePath other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -83,7 +82,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((RelativePathWithFileName)obj);
+      return Equals((RelativeFilePath)obj);
     }
 
     public override int GetHashCode()
@@ -91,12 +90,12 @@ namespace AtmaFileSystem
       return (_path != null ? _path.GetHashCode() : 0);
     }
 
-    public static bool operator ==(RelativePathWithFileName left, RelativePathWithFileName right)
+    public static bool operator ==(RelativeFilePath left, RelativeFilePath right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(RelativePathWithFileName left, RelativePathWithFileName right)
+    public static bool operator !=(RelativeFilePath left, RelativeFilePath right)
     {
       return !Equals(left, right);
     }

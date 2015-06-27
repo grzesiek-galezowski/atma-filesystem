@@ -4,10 +4,10 @@ using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
-  public class AnyPathWithFileName
-    : IEquatable<AnyPathWithFileName>
+  public class AnyFilePath
+    : IEquatable<AnyFilePath>
   {
-    public bool Equals(AnyPathWithFileName other)
+    public bool Equals(AnyFilePath other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -19,7 +19,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((AnyPathWithFileName) obj);
+      return Equals((AnyFilePath) obj);
     }
 
     public override int GetHashCode()
@@ -27,30 +27,30 @@ namespace AtmaFileSystem
       return (_path != null ? _path.GetHashCode() : 0);
     }
 
-    public static bool operator ==(AnyPathWithFileName left, AnyPathWithFileName right)
+    public static bool operator ==(AnyFilePath left, AnyFilePath right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(AnyPathWithFileName left, AnyPathWithFileName right)
+    public static bool operator !=(AnyFilePath left, AnyFilePath right)
     {
       return !Equals(left, right);
     }
 
     private readonly string _path;
 
-    internal AnyPathWithFileName(string path)
+    internal AnyFilePath(string path)
     {
       _path = path;
     }
 
-    internal AnyPathWithFileName(AnyDirectoryPath left, FileName right)
+    internal AnyFilePath(AnyDirectoryPath left, FileName right)
       : this(Path.Combine(left.ToString(), right.ToString()))
     {
       
     }
 
-    public AnyPathWithFileName(AnyDirectoryPath left, RelativePathWithFileName right)
+    public AnyFilePath(AnyDirectoryPath left, RelativeFilePath right)
     : this(Path.Combine(left.ToString(), right.ToString()))
     {
       
@@ -66,14 +66,14 @@ namespace AtmaFileSystem
       return new AnyPath(_path);
     }
 
-    public static AnyPathWithFileName Value(string path)
+    public static AnyFilePath Value(string path)
     {
       Asserts.NotNull(path, "path");
       Asserts.NotEmpty(path, "Path cannot be empty");
       Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
       Asserts.DoesNotConsistSolelyOfFileName(path, "Expected path not consisting solely of file name, but got " + path);
 
-      return new AnyPathWithFileName(path);
+      return new AnyFilePath(path);
     }
 
     public bool Has(FileExtension extensionValue)

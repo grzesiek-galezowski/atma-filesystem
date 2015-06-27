@@ -35,18 +35,18 @@
   <ItemGroup>
     <Compile Include="AnyDirectoryPathSpecification.cs" />
     <Compile Include="AnyPathSpecification.cs" />
-    <Compile Include="AnyPathWithFileNameSpecification.cs" />
+    <Compile Include="AnyFilePathSpecification.cs" />
     <Compile Include="DirectoryNameSpecification.cs" />
-    <Compile Include="DirectoryPathSpecification.cs" />
+    <Compile Include="AbsoluteDirectoryPathSpecification.cs" />
     <Compile Include="Examples.cs" />
     <Compile Include="FileExtensionSpecification.cs" />
     <Compile Include="FileNameWithoutExtensionSpecification.cs" />
     <Compile Include="MaybeSpecification.cs" />
-    <Compile Include="PathWithFileNameSpecification.cs" />
+    <Compile Include="AbsoluteFilePathSpecification.cs" />
     <Compile Include="FileNameSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelativeDirectoryPathSpecification.cs" />
-    <Compile Include="RelativePathWithFileNameSpecification.cs" />
+    <Compile Include="RelativeFilePathSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

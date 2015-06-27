@@ -59,12 +59,12 @@ namespace AtmaFileSystemSpecification
       var fileName = Any.Instance<FileName>();
 
       //WHEN
-      AnyPathWithFileName anyPathWithFileName
+      AnyFilePath anyFilePath
         = anyDirectoryPath + fileName;
 
       //THEN
       Assert.Equal(
-        Path.Combine(anyDirectoryPath.ToString(), fileName.ToString()), anyPathWithFileName.ToString());
+        Path.Combine(anyDirectoryPath.ToString(), fileName.ToString()), anyFilePath.ToString());
     }
 
     [Fact]
@@ -104,15 +104,15 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var anyDirectoryPath = Any.Instance<AnyDirectoryPath>();
-      var pathWithFileName = Any.Instance<RelativePathWithFileName>();
+      var pathWithFileName = Any.Instance<RelativeFilePath>();
 
       //WHEN
-      AnyPathWithFileName anyPathWithFileName
+      AnyFilePath anyFilePath
         = anyDirectoryPath + pathWithFileName;
 
       //THEN
       Assert.Equal(
-        Path.Combine(anyDirectoryPath.ToString(), pathWithFileName.ToString()), anyPathWithFileName.ToString());
+        Path.Combine(anyDirectoryPath.ToString(), pathWithFileName.ToString()), anyFilePath.ToString());
     }
 
     [Theory,

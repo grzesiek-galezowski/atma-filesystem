@@ -4,24 +4,24 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class DirectoryPath : IEquatable<DirectoryPath>
+  public class AbsoluteDirectoryPath : IEquatable<AbsoluteDirectoryPath>
   {
     private readonly string _path;
     private readonly DirectoryInfo _directoryInfo;
 
-    internal DirectoryPath(string path)
+    internal AbsoluteDirectoryPath(string path)
     {
       _path = path;
       _directoryInfo = new DirectoryInfo(_path);
     }
 
-    public DirectoryPath(DirectoryPath path, DirectoryName directoryName)
+    public AbsoluteDirectoryPath(AbsoluteDirectoryPath path, DirectoryName directoryName)
       : this(Combine(path, directoryName))
     {
 
     }
 
-    public DirectoryPath(DirectoryPath path, RelativeDirectoryPath directoryName)
+    public AbsoluteDirectoryPath(AbsoluteDirectoryPath path, RelativeDirectoryPath directoryName)
       : this(Combine(path, directoryName))
     {
       
@@ -33,13 +33,13 @@ namespace AtmaFileSystem
     }
 
 
-    public static DirectoryPath Value(string path)
+    public static AbsoluteDirectoryPath Value(string path)
     {
       Asserts.NotNull(path, "path");
       Asserts.NotEmpty(path, "Path cannot be empty");
       Asserts.Rooted(path, "Expected absolute path, but got " + path);
 
-      return new DirectoryPath(path);
+      return new AbsoluteDirectoryPath(path);
     }
 
     public override string ToString()
@@ -52,44 +52,44 @@ namespace AtmaFileSystem
       return new DirectoryInfo(_path);
     }
 
-    public Maybe<DirectoryPath> Parent()
+    public Maybe<AbsoluteDirectoryPath> Parent()
     {
       var directoryName = _directoryInfo.Parent;
       return AsMaybe(directoryName);
     }
 
-    private static Maybe<DirectoryPath> AsMaybe(DirectoryInfo directoryName)
+    private static Maybe<AbsoluteDirectoryPath> AsMaybe(DirectoryInfo directoryName)
     {
       return directoryName != null ? Maybe.Wrap(Value(directoryName.FullName)) : null;
     }
 
-    public DirectoryPath Root()
+    public AbsoluteDirectoryPath Root()
     {
-      return new DirectoryPath(Path.GetPathRoot(_path));
+      return new AbsoluteDirectoryPath(Path.GetPathRoot(_path));
     }
 
-    public static PathWithFileName operator +(DirectoryPath path, FileName fileName)
+    public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, FileName fileName)
     {
-      return new PathWithFileName(path, fileName);
+      return new AbsoluteFilePath(path, fileName);
     }
 
-    public static DirectoryPath operator +(DirectoryPath path, DirectoryName directoryName)
+    public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, DirectoryName directoryName)
     {
-      return new DirectoryPath(path, directoryName);
+      return new AbsoluteDirectoryPath(path, directoryName);
     }
 
-    public static DirectoryPath operator +(DirectoryPath path, RelativeDirectoryPath relativePath)
+    public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, RelativeDirectoryPath relativePath)
     {
-      return new DirectoryPath(path, relativePath);
+      return new AbsoluteDirectoryPath(path, relativePath);
     }
 
-    public static PathWithFileName operator +(DirectoryPath path, RelativePathWithFileName relativePath)
+    public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, RelativeFilePath relativeFilePath)
     {
-      return new PathWithFileName(path, relativePath);
+      return new AbsoluteFilePath(path, relativeFilePath);
     }
 
 
-    public bool Equals(DirectoryPath other)
+    public bool Equals(AbsoluteDirectoryPath other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -101,7 +101,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((DirectoryPath)obj);
+      return Equals((AbsoluteDirectoryPath)obj);
     }
 
     public override int GetHashCode()
@@ -109,12 +109,12 @@ namespace AtmaFileSystem
       return _path.GetHashCode();
     }
 
-    public static bool operator ==(DirectoryPath left, DirectoryPath right)
+    public static bool operator ==(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(DirectoryPath left, DirectoryPath right)
+    public static bool operator !=(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
     {
       return !Equals(left, right);
     }

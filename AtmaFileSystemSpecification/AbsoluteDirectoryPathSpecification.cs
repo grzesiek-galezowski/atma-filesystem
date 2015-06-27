@@ -1,13 +1,12 @@
 ﻿using System;
 using System.IO;
 using AtmaFileSystem;
-using AtmaFileSystem.Assertions;
 using TddEbook.TddToolkit;
 using Xunit;
 
 namespace AtmaFileSystemSpecification
 {
-  public class DirectoryPathSpecification
+  public class AbsoluteDirectoryPathSpecification
   {
 
     [Theory,
@@ -17,19 +16,19 @@ namespace AtmaFileSystemSpecification
     ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
-      Assert.Throws(exceptionType, () => DirectoryPath.Value(invalidInput));
+      Assert.Throws(exceptionType, () => AbsoluteDirectoryPath.Value(invalidInput));
     }
 
     [Fact]
     public void ShouldReturnNonNullPathToFileNameWhenCreatedWithWellFormedPathString()
     {
-      Assert.NotNull(DirectoryPath.Value(@"c:\lolek\"));
+      Assert.NotNull(AbsoluteDirectoryPath.Value(@"c:\lolek\"));
     }
 
     [Fact]
     public void ShouldBehaveLikeValueObject()
     {
-      XAssert.IsValue<DirectoryPath>();
+      XAssert.IsValue<AbsoluteDirectoryPath>();
     }
 
     [Fact]
@@ -37,7 +36,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var initialValue = Path.Combine(@"C:\", Any.String());
-      var path = DirectoryPath.Value(initialValue);
+      var path = AbsoluteDirectoryPath.Value(initialValue);
 
       //WHEN
       var convertedToString = path.ToString();
@@ -50,12 +49,12 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowUsingTheAdditionOperatorToConcatenateFileName()
     {
       //GIVEN
-      var path = Any.Instance<DirectoryPath>();
+      var path = Any.Instance<AbsoluteDirectoryPath>();
       var fileName = Any.Instance<FileName>();
-      PathWithFileName pathWithFileName = path + fileName;
+      AbsoluteFilePath absoluteFilePath = path + fileName;
 
       //WHEN
-      var convertedToString = pathWithFileName.ToString();
+      var convertedToString = absoluteFilePath.ToString();
 
       //THEN
       Assert.Equal(Path.Combine(path.ToString(), fileName.ToString()), convertedToString);
@@ -66,7 +65,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToDirectoryInfo()
     {
       //GIVEN
-      var directoryPath = DirectoryPath.Value(@"C:\lolek\");
+      var directoryPath = AbsoluteDirectoryPath.Value(@"C:\lolek\");
 
       //WHEN
       var directoryInfo = directoryPath.Info();
@@ -80,13 +79,13 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var pathString = @"C:\lolek\";
-      var dir = DirectoryPath.Value(pathString);
+      var dir = AbsoluteDirectoryPath.Value(pathString);
 
       //WHEN
-      DirectoryPath root = dir.Root();
+      AbsoluteDirectoryPath root = dir.Root();
 
       //THEN
-      Assert.Equal(DirectoryPath.Value(Path.GetPathRoot(pathString)), root);
+      Assert.Equal(AbsoluteDirectoryPath.Value(Path.GetPathRoot(pathString)), root);
     }
 
     [Theory, 
@@ -95,14 +94,14 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowGettingProperParentDirectoryWhenItExists(string input, string expected)
     {
       //GIVEN
-      var dir = DirectoryPath.Value(input);
+      var dir = AbsoluteDirectoryPath.Value(input);
 
       //WHEN
       var parent = dir.Parent();
 
       //THEN
       Assert.True(parent.Found);
-      Assert.Equal(DirectoryPath.Value(expected), parent.Value());
+      Assert.Equal(AbsoluteDirectoryPath.Value(expected), parent.Value());
     }
 
     [Fact]
@@ -110,7 +109,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       const string pathString = @"C:\";
-      var dir = DirectoryPath.Value(pathString);
+      var dir = AbsoluteDirectoryPath.Value(pathString);
 
       //WHEN
       var parent = dir.Parent();
@@ -128,7 +127,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowGettingTheNameOfCurrentDirectory(string fullPath, string expectedDirectoryName)
     {
       //GIVEN
-      var directoryPath = DirectoryPath.Value(fullPath);
+      var directoryPath = AbsoluteDirectoryPath.Value(fullPath);
 
       //WHEN
       DirectoryName dirName = directoryPath.DirectoryName();
@@ -141,10 +140,10 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAddingDirectoryName()
     {
       //GIVEN
-      var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
+      var directoryPath = AbsoluteDirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
-      DirectoryPath directoryPathWithAnotherDirectoryName = directoryPath + DirectoryName.Value("Subdir2");
+      AbsoluteDirectoryPath directoryPathWithAnotherDirectoryName = directoryPath + DirectoryName.Value("Subdir2");
 
       //THEN
       Assert.Equal(@"G:\Directory\Subdirectory\Subdir2", directoryPathWithAnotherDirectoryName.ToString());
@@ -155,27 +154,27 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAddingDirectoryNameAndFileName()
     {
       //GIVEN
-      var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
+      var directoryPath = AbsoluteDirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
       var directoryName = DirectoryName.Value("Lolek");
       var directoryName2 = DirectoryName.Value("Lolek2");
       var fileName = FileName.Value("File.txt");
-      PathWithFileName pathWithFileName = directoryPath + directoryName + directoryName2 + fileName;
+      AbsoluteFilePath absoluteFilePath = directoryPath + directoryName + directoryName2 + fileName;
 
       //THEN
-      Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2\File.txt", pathWithFileName.ToString());
+      Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2\File.txt", absoluteFilePath.ToString());
     }
 
     [Fact]
     public void ShouldAllowAddingRelativeDirectory()
     {
       //GIVEN
-      var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
+      var directoryPath = AbsoluteDirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
       var relativePath = RelativeDirectoryPath.Value(@"Lolek\Lolek2");
-      DirectoryPath newDirectoryPath = directoryPath + relativePath;
+      AbsoluteDirectoryPath newDirectoryPath = directoryPath + relativePath;
 
       //THEN
       Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2", newDirectoryPath.ToString());
@@ -185,21 +184,21 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAddingRelativePathWithFileName()
     {
       //GIVEN
-      var directoryPath = DirectoryPath.Value(@"G:\Directory\Subdirectory");
+      var directoryPath = AbsoluteDirectoryPath.Value(@"G:\Directory\Subdirectory");
 
       //WHEN
-      var relativePathWithFileName = RelativePathWithFileName.Value(@"Subdirectory2\file.txt");
-      PathWithFileName pathWithFileName = directoryPath + relativePathWithFileName;
+      var relativePathWithFileName = RelativeFilePath.Value(@"Subdirectory2\file.txt");
+      AbsoluteFilePath absoluteFilePath = directoryPath + relativePathWithFileName;
 
       //THEN
-      Assert.Equal(@"G:\Directory\Subdirectory\Subdirectory2\file.txt", pathWithFileName.ToString());
+      Assert.Equal(@"G:\Directory\Subdirectory\Subdirectory2\file.txt", absoluteFilePath.ToString());
     }
 
     [Fact]
     public void ShouldBeConvertibleToAnyDirectoryPath()
     {
       //GIVEN
-      var dirPath = Any.Instance<DirectoryPath>();
+      var dirPath = Any.Instance<AbsoluteDirectoryPath>();
 
       //WHEN
       AnyDirectoryPath anyDirectoryPath = dirPath.AsAnyDirectoryPath();
@@ -212,7 +211,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToAnyPath()
     {
       //GIVEN
-      var directorypath = Any.Instance<DirectoryPath>();
+      var directorypath = Any.Instance<AbsoluteDirectoryPath>();
 
       //WHEN
       AnyPath anyPathWithFileName = directorypath.AsAnyPath();

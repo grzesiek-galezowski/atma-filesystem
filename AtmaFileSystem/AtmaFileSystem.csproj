@@ -40,19 +40,19 @@
   <ItemGroup>
     <Compile Include="AnyDirectoryPath.cs" />
     <Compile Include="AnyPath.cs" />
-    <Compile Include="AnyPathWithFileName.cs" />
+    <Compile Include="AnyFilePath.cs" />
     <Compile Include="Assertions\ExceptionMessages.cs" />
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="DirectoryName.cs" />
-    <Compile Include="DirectoryPath.cs" />
+    <Compile Include="AbsoluteDirectoryPath.cs" />
     <Compile Include="FileExtension.cs" />
     <Compile Include="FileName.cs" />
     <Compile Include="FileNameWithoutExtension.cs" />
     <Compile Include="Maybe.cs" />
-    <Compile Include="PathWithFileName.cs" />
+    <Compile Include="AbsoluteFilePath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelativeDirectoryPath.cs" />
-    <Compile Include="RelativePathWithFileName.cs" />
+    <Compile Include="RelativeFilePath.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

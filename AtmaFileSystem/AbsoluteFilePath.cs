@@ -5,24 +5,24 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class PathWithFileName : IEquatable<PathWithFileName>
+  public class AbsoluteFilePath : IEquatable<AbsoluteFilePath>
   {
     private readonly string _path;
 
     // ReSharper disable once MemberCanBePrivate.Global
-    internal PathWithFileName(string path)
+    internal AbsoluteFilePath(string path)
     {
       _path = path;
     }
 
-    internal PathWithFileName(DirectoryPath dirPath, FileName fileName)
+    internal AbsoluteFilePath(AbsoluteDirectoryPath dirPath, FileName fileName)
       : this(Combine(dirPath, fileName))
     {
 
     }
 
-    internal PathWithFileName(DirectoryPath dirPath, RelativePathWithFileName relativePath)
-      : this(Combine(dirPath, relativePath))
+    internal AbsoluteFilePath(AbsoluteDirectoryPath dirPath, RelativeFilePath relativeFilePath)
+      : this(Combine(dirPath, relativeFilePath))
     {
       
     }
@@ -33,17 +33,17 @@ namespace AtmaFileSystem
     }
 
 
-    public static PathWithFileName Value(string path)
+    public static AbsoluteFilePath Value(string path)
     {
       Asserts.NotNull(path, "path");
       Asserts.Rooted(path, path + " is not an absolute path");
 
-      return new PathWithFileName(path);
+      return new AbsoluteFilePath(path);
     }
 
-    public DirectoryPath Directory()
+    public AbsoluteDirectoryPath Directory()
     {
-      return new DirectoryPath(Path.GetDirectoryName(_path));
+      return new AbsoluteDirectoryPath(Path.GetDirectoryName(_path));
     }
 
     public FileInfo Info()
@@ -56,14 +56,14 @@ namespace AtmaFileSystem
       return new FileName(Path.GetFileName(_path));
     }
 
-    public DirectoryPath Root()
+    public AbsoluteDirectoryPath Root()
     {
-      return new DirectoryPath(Path.GetPathRoot(_path));
+      return new AbsoluteDirectoryPath(Path.GetPathRoot(_path));
     }
 
-    public AnyPathWithFileName AsAnyPathWithFileName()
+    public AnyFilePath AsAnyPathWithFileName()
     {
-      return new AnyPathWithFileName(_path);
+      return new AnyFilePath(_path);
     }
 
     public AnyPath AsAnyPath()
@@ -77,7 +77,7 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public bool Equals(PathWithFileName other)
+    public bool Equals(AbsoluteFilePath other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -89,7 +89,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((PathWithFileName)obj);
+      return Equals((AbsoluteFilePath)obj);
     }
 
     public override int GetHashCode()
@@ -97,12 +97,12 @@ namespace AtmaFileSystem
       return _path.GetHashCode();
     }
 
-    public static bool operator ==(PathWithFileName left, PathWithFileName right)
+    public static bool operator ==(AbsoluteFilePath left, AbsoluteFilePath right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(PathWithFileName left, PathWithFileName right)
+    public static bool operator !=(AbsoluteFilePath left, AbsoluteFilePath right)
     {
       return !Equals(left, right);
     }

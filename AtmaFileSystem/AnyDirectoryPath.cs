@@ -54,9 +54,9 @@ namespace AtmaFileSystem
       return !Equals(left, right);
     }
 
-    public static AnyPathWithFileName operator+(AnyDirectoryPath left, FileName right)
+    public static AnyFilePath operator+(AnyDirectoryPath left, FileName right)
     {
-      return new AnyPathWithFileName(left, right);
+      return new AnyFilePath(left, right);
     }
 
     public static AnyDirectoryPath operator+(AnyDirectoryPath left, DirectoryName right)
@@ -69,9 +69,9 @@ namespace AtmaFileSystem
       return new AnyDirectoryPath(left, right);
     }
 
-    public static AnyPathWithFileName operator +(AnyDirectoryPath left, RelativePathWithFileName right)
+    public static AnyFilePath operator +(AnyDirectoryPath left, RelativeFilePath right)
     {
-      return new AnyPathWithFileName(left, right);
+      return new AnyFilePath(left, right);
     }
 
 

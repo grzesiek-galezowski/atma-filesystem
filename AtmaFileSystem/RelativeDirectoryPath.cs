@@ -44,9 +44,9 @@ namespace AtmaFileSystem
       return new RelativeDirectoryPath(path, dirName);
     }
 
-    public static RelativePathWithFileName operator +(RelativeDirectoryPath path, FileName dirName)
+    public static RelativeFilePath operator +(RelativeDirectoryPath path, FileName dirName)
     {
-      return new RelativePathWithFileName(path, dirName);
+      return new RelativeFilePath(path, dirName);
     }
 
     public static RelativeDirectoryPath operator +(RelativeDirectoryPath path, RelativeDirectoryPath path2)
@@ -54,9 +54,9 @@ namespace AtmaFileSystem
       return new RelativeDirectoryPath(path, path2);
     }
 
-    public static RelativePathWithFileName operator +(RelativeDirectoryPath path, RelativePathWithFileName relativePathWithFileName)
+    public static RelativeFilePath operator +(RelativeDirectoryPath path, RelativeFilePath relativeFilePath)
     {
-      return new RelativePathWithFileName(path, relativePathWithFileName);
+      return new RelativeFilePath(path, relativeFilePath);
     }
 
 

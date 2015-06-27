@@ -6,43 +6,43 @@ using Xunit;
 
 namespace AtmaFileSystemSpecification
 {
-  public class RelativePathWithFileNameSpecification
+  public class RelativeFilePathSpecification
   {
     [Fact]
     public void ShouldNotAllowToBeCreatedWithNullValue()
     {
-      Assert.Throws<ArgumentNullException>(() => RelativePathWithFileName.Value(null));
+      Assert.Throws<ArgumentNullException>(() => RelativeFilePath.Value(null));
     }
 
     [Fact]
     public void ShouldReturnNonNullFileNameWhenCreatedWithWellFormedPathString()
     {
-      Assert.NotNull(RelativePathWithFileName.Value(@"lolek\\lolki2.txt"));
+      Assert.NotNull(RelativeFilePath.Value(@"lolek\\lolki2.txt"));
     }
 
     [Fact]
     public void ShouldThrowExceptionWhenTryingToCreateInstanceWithRootedPath()
     {
-      Assert.Throws<InvalidOperationException>(() => RelativePathWithFileName.Value(@"C:\Dir\Subdir"));
+      Assert.Throws<InvalidOperationException>(() => RelativeFilePath.Value(@"C:\Dir\Subdir"));
     }
 
     [Fact]
     public void ShouldThrowExceptionWhenTryingToCreateInstanceWithNoDirectory()
     {
-      Assert.Throws<InvalidOperationException>(() => RelativePathWithFileName.Value(@"file.txt"));
+      Assert.Throws<InvalidOperationException>(() => RelativeFilePath.Value(@"file.txt"));
     }
 
 
     [Fact]
     public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithEmptyValue()
     {
-      Assert.Throws<ArgumentException>(() => RelativePathWithFileName.Value(string.Empty));
+      Assert.Throws<ArgumentException>(() => RelativeFilePath.Value(string.Empty));
     }
 
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      XAssert.IsValue<RelativePathWithFileName>();
+      XAssert.IsValue<RelativeFilePath>();
     }
 
     [Fact]
@@ -51,10 +51,10 @@ namespace AtmaFileSystemSpecification
       //GIVEN
       var dirPath = Any.Instance<RelativeDirectoryPath>();
       var fileName = Any.Instance<FileName>();
-      RelativePathWithFileName pathWithFileName = dirPath + fileName;
+      RelativeFilePath filePath = dirPath + fileName;
 
       //WHEN
-      RelativeDirectoryPath dirObtainedFromPath = pathWithFileName.Directory();
+      RelativeDirectoryPath dirObtainedFromPath = filePath.Directory();
 
       //THEN
       Assert.Equal(dirPath, dirObtainedFromPath);
@@ -66,10 +66,10 @@ namespace AtmaFileSystemSpecification
       //GIVEN
       var dirPath = Any.Instance<RelativeDirectoryPath>();
       var fileName = Any.Instance<FileName>();
-      RelativePathWithFileName pathWithFileName =dirPath + fileName;
+      RelativeFilePath filePath =dirPath + fileName;
 
       //WHEN
-      FileName fileNameObtainedFromPath = pathWithFileName.FileName();
+      FileName fileNameObtainedFromPath = filePath.FileName();
 
       //THEN
       Assert.Equal(fileName, fileNameObtainedFromPath);
@@ -79,7 +79,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToFileInfo()
     {
       //GIVEN
-      var pathWithFilename = RelativePathWithFileName.Value(@"lolek\lol.txt");
+      var pathWithFilename = RelativeFilePath.Value(@"lolek\lol.txt");
 
       //WHEN
       var fileInfo = pathWithFilename.Info();
@@ -92,20 +92,20 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToAnyPathWithFileName()
     {
       //GIVEN
-      var pathWithFileName = Any.Instance<RelativePathWithFileName>();
+      var pathWithFileName = Any.Instance<RelativeFilePath>();
 
       //WHEN
-      AnyPathWithFileName anyPathWithFileName = pathWithFileName.AsAnyPathWithFileName();
+      AnyFilePath anyFilePath = pathWithFileName.AsAnyPathWithFileName();
 
       //THEN
-      Assert.Equal(pathWithFileName.ToString(), anyPathWithFileName.ToString());
+      Assert.Equal(pathWithFileName.ToString(), anyFilePath.ToString());
     }
 
     [Fact]
     public void ShouldBeConvertibleToAnyPath()
     {
       //GIVEN
-      var pathWithFileName = Any.Instance<RelativePathWithFileName>();
+      var pathWithFileName = Any.Instance<RelativeFilePath>();
 
       //WHEN
       AnyPath anyPathWithFileName = pathWithFileName.AsAnyPath();
@@ -122,7 +122,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeAbleToRecognizeWhetherItHasCertainExtension(string path, string extension, bool expectedResult)
     {
       //GIVEN
-      var pathWithFileName = RelativePathWithFileName.Value(path);
+      var pathWithFileName = RelativeFilePath.Value(path);
       var extensionValue = FileExtension.Value(extension);
 
       //WHEN

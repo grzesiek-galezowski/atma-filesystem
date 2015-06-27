@@ -11,7 +11,7 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      XAssert.IsValue<AtmaFileSystem.Maybe<DirectoryPath>>();
+      XAssert.IsValue<AtmaFileSystem.Maybe<AbsoluteDirectoryPath>>();
     }
 
     [Fact]

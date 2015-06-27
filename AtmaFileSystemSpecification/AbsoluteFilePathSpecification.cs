@@ -6,31 +6,31 @@ using Xunit;
 
 namespace AtmaFileSystemSpecification
 {
-  public class PathWithFileNameSpecification
+  public class AbsoluteFilePathSpecification
   {
 
     [Fact]
     public void ShouldNotAllowToBeCreatedWithNullValue()
     {
-      Assert.Throws<ArgumentNullException>(() => PathWithFileName.Value(null));
+      Assert.Throws<ArgumentNullException>(() => AbsoluteFilePath.Value(null));
     }
 
     [Fact]
     public void ShouldReturnNonNullFileNameWhenCreatedWithWellFormedPathString()
     {
-      Assert.NotNull(PathWithFileName.Value(@"c:\\lolek\\lolki2.txt"));
+      Assert.NotNull(AbsoluteFilePath.Value(@"c:\\lolek\\lolki2.txt"));
     }
 
     [Fact]
     public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithNotWellFormedUri()
     {
-      Assert.Throws<ArgumentException>(() => PathWithFileName.Value(@"C:\?||\|\\|\"));
+      Assert.Throws<ArgumentException>(() => AbsoluteFilePath.Value(@"C:\?||\|\\|\"));
     }
 
     [Fact]
     public void ShouldBehaveLikeValueObject()
     {
-      XAssert.IsValue<PathWithFileName>();
+      XAssert.IsValue<AbsoluteFilePath>();
     }
 
     [Fact]
@@ -38,7 +38,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var initialValue = @"C:\Dir\Subdir\file.csproj";
-      var path = PathWithFileName.Value(initialValue);
+      var path = AbsoluteFilePath.Value(initialValue);
 
       //WHEN
       var convertedToString = path.ToString();
@@ -51,12 +51,12 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAccessingDirectoryOfThePath()
     {
       //GIVEN
-      var dirPath = Any.Instance<DirectoryPath>();
+      var dirPath = Any.Instance<AbsoluteDirectoryPath>();
       var fileName = Any.Instance<FileName>();
-      PathWithFileName pathWithFileName = dirPath + fileName;
+      AbsoluteFilePath absoluteFilePath = dirPath + fileName;
       
       //WHEN
-      var dirObtainedFromPath = pathWithFileName.Directory();
+      var dirObtainedFromPath = absoluteFilePath.Directory();
 
       //THEN
       Assert.Equal(dirPath, dirObtainedFromPath);
@@ -66,12 +66,12 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowAccessingFileNameOfThePath()
     {
       //GIVEN
-      var dirPath = Any.Instance<DirectoryPath>();
+      var dirPath = Any.Instance<AbsoluteDirectoryPath>();
       var fileName = Any.Instance<FileName>();
-      PathWithFileName pathWithFileName = dirPath + fileName;
+      AbsoluteFilePath absoluteFilePath = dirPath + fileName;
 
       //WHEN
-      var fileNameObtainedFromPath = pathWithFileName.FileName();
+      var fileNameObtainedFromPath = absoluteFilePath.FileName();
 
       //THEN
       Assert.Equal(fileName, fileNameObtainedFromPath);
@@ -81,7 +81,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToFileInfo()
     {
       //GIVEN
-      var pathWithFilename = PathWithFileName.Value(@"C:\lolek\lol.txt");
+      var pathWithFilename = AbsoluteFilePath.Value(@"C:\lolek\lol.txt");
 
       //WHEN
       var fileInfo = pathWithFilename.Info();
@@ -95,33 +95,33 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var pathString = @"C:\lolek\lol.txt";
-      var pathWithFilename = PathWithFileName.Value(pathString);
+      var pathWithFilename = AbsoluteFilePath.Value(pathString);
 
       //WHEN
       var root = pathWithFilename.Root();
 
       //THEN
-      Assert.Equal(DirectoryPath.Value(Path.GetPathRoot(pathString)), root);
+      Assert.Equal(AbsoluteDirectoryPath.Value(Path.GetPathRoot(pathString)), root);
     }
 
     [Fact]
     public void ShouldBeConvertibleToAnyPathWithFileName()
     {
       //GIVEN
-      var pathWithFileName = Any.Instance<PathWithFileName>();
+      var pathWithFileName = Any.Instance<AbsoluteFilePath>();
 
       //WHEN
-      AnyPathWithFileName anyPathWithFileName = pathWithFileName.AsAnyPathWithFileName();
+      AnyFilePath anyFilePath = pathWithFileName.AsAnyPathWithFileName();
 
       //THEN
-      Assert.Equal(pathWithFileName.ToString(), anyPathWithFileName.ToString());
+      Assert.Equal(pathWithFileName.ToString(), anyFilePath.ToString());
     }
 
     [Fact]
     public void ShouldBeConvertibleToAnyPath()
     {
       //GIVEN
-      var pathWithFileName = Any.Instance<PathWithFileName>();
+      var pathWithFileName = Any.Instance<AbsoluteFilePath>();
 
       //WHEN
       AnyPath anyPathWithFileName = pathWithFileName.AsAnyPath();
@@ -139,7 +139,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeAbleToRecognizeWhetherItHasCertainExtension(string path, string extension, bool expectedResult)
     {
       //GIVEN
-      var pathWithFileName = PathWithFileName.Value(path);
+      var pathWithFileName = AbsoluteFilePath.Value(path);
       var extensionValue = FileExtension.Value(extension);
 
       //WHEN

@@ -12,13 +12,13 @@ namespace AtmaFileSystemSpecification
       // Disassembling:
       ////////////////////////
       
-      PathWithFileName fullPath = PathWithFileName.Value(@"C:\Program Files\Lolokimono\Config.txt");
-      DirectoryPath directoryPath = fullPath.Directory();
+      AbsoluteFilePath fullPath = AbsoluteFilePath.Value(@"C:\Program Files\Lolokimono\Config.txt");
+      AbsoluteDirectoryPath directoryPath = fullPath.Directory();
       FileName fileName = fullPath.FileName();
       FileNameWithoutExtension fileNameWithoutExtension = fileName.WithoutExtension();
       Maybe<FileExtension> extension = fileName.Extension();
-      DirectoryPath rootFromFullPath = fullPath.Root();
-      DirectoryPath rootFromDirectoryPath = directoryPath.Root();
+      AbsoluteDirectoryPath rootFromFullPath = fullPath.Root();
+      AbsoluteDirectoryPath rootFromDirectoryPath = directoryPath.Root();
 
 
       ////////////////////////
@@ -26,10 +26,10 @@ namespace AtmaFileSystemSpecification
       ////////////////////////
 
       
-      PathWithFileName fullPathAssembled = directoryPath + (fileNameWithoutExtension + extension.Value());
+      AbsoluteFilePath fullPathAssembled = directoryPath + (fileNameWithoutExtension + extension.Value());
 
       DirectoryName dirName = DirectoryName.Value("Subdirectory");
-      PathWithFileName fileMovedToSubdirectory = directoryPath + dirName + fileName;
+      AbsoluteFilePath fileMovedToSubdirectory = directoryPath + dirName + fileName;
 
 
       // TODO
@@ -41,17 +41,17 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void Example1_ParentDirectories()
     {
-      PathWithFileName fullPath = PathWithFileName.Value(@"C:\Program Files\Lolokimono\Config.txt");
-      DirectoryPath directoryPath = fullPath.Directory();
+      AbsoluteFilePath fullPath = AbsoluteFilePath.Value(@"C:\Program Files\Lolokimono\Config.txt");
+      AbsoluteDirectoryPath directoryPath = fullPath.Directory();
 
-      Maybe<DirectoryPath> parent = directoryPath.Parent();
+      Maybe<AbsoluteDirectoryPath> parent = directoryPath.Parent();
 
       if (parent.Found)
       {
-        Maybe<DirectoryPath> parentParent = parent.Value().Parent();
+        Maybe<AbsoluteDirectoryPath> parentParent = parent.Value().Parent();
         if (parentParent.Found)
         {
-          Maybe<DirectoryPath> parentParentParent = parentParent.Value().Parent();
+          Maybe<AbsoluteDirectoryPath> parentParentParent = parentParent.Value().Parent();
         }
       }
 
