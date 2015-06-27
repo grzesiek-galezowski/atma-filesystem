@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AtmaFileSystem;
+using Pri.LongPath;
 using TddEbook.TddToolkit;
 using Xunit;
 
@@ -18,14 +19,13 @@ namespace AtmaFileSystemSpecification
     }
 
     [Theory,
-  InlineData(null, typeof(ArgumentNullException)),
-  InlineData("", typeof(ArgumentException)),
-  InlineData(@"\\\\\\\\\?|/\/|", typeof(InvalidOperationException)),
-]
+     InlineData(null, typeof (ArgumentNullException)),
+     InlineData("", typeof (ArgumentException)),
+     InlineData(@"\\\\\\\\\?|/\/|", typeof (InvalidOperationException)),
+    ]
     public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string invalidInput, Type exceptionType)
     {
       Assert.Throws(exceptionType, () => AnyPath.Value(invalidInput));
     }
-
   }
 }

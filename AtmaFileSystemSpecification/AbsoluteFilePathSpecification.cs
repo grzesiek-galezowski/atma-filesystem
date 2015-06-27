@@ -111,7 +111,7 @@ namespace AtmaFileSystemSpecification
       var pathWithFileName = Any.Instance<AbsoluteFilePath>();
 
       //WHEN
-      AnyFilePath anyFilePath = pathWithFileName.AsAnyPathWithFileName();
+      AnyFilePath anyFilePath = pathWithFileName.AsAnyFilePath();
 
       //THEN
       Assert.Equal(pathWithFileName.ToString(), anyFilePath.ToString());
@@ -148,5 +148,6 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.Equal(expectedResult, hasExtension);
     }
+    
   }
 }

@@ -163,5 +163,24 @@ namespace AtmaFileSystemSpecification
       Assert.Throws<InvalidOperationException>(() => parent.Value());
     }
 
+    [Fact]
+    public void ShouldBeConvertibleToDirectoryInfo()
+    {
+      //GIVEN
+      var path = AnyDirectoryPath.Value(@"Dir\Subdir");
+
+      //WHEN
+      var directoryInfo = path.Info();
+
+      //THEN
+      Assert.Equal(directoryInfo.FullName, FullNameFrom(path));
+    }
+
+    private static string FullNameFrom(AnyDirectoryPath path)
+    {
+      return Path.Combine(new DirectoryInfo(".").FullName, path.ToString());
+    }
+
+
   }
 }

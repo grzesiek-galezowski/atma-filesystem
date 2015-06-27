@@ -1,5 +1,6 @@
 using System;
 using AtmaFileSystem.Assertions;
+using Pri.LongPath;
 
 namespace AtmaFileSystem
 {

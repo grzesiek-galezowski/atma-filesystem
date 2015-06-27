@@ -98,15 +98,12 @@ namespace AtmaFileSystem
   }
 
 /* TODO missing methods:
-AnyDirectoryPath:
-  Info()
-
 AnyPath:
   <> FileName()
   <> Parent()
-  Info -> FileSystemInfo
 
-RelativeDirectoryPath:
-  Info()
+Other methods from Path:
+- ChangeExtension()
+
 */
 }

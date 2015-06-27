@@ -45,6 +45,7 @@
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="DirectoryName.cs" />
     <Compile Include="AbsoluteDirectoryPath.cs" />
+    <Compile Include="EqualityHelpers.cs" />
     <Compile Include="FileExtension.cs" />
     <Compile Include="FileName.cs" />
     <Compile Include="FileNameWithoutExtension.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="RelativeFilePath.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

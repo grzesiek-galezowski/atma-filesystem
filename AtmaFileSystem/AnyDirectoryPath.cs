@@ -113,5 +113,9 @@ namespace AtmaFileSystem
       return directoryName != null ? Maybe.Wrap(Value(directoryName.FullName)) : null;
     }
 
+    public DirectoryInfo Info()
+    {
+      return new DirectoryInfo(_path);
+    }
   }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using AtmaFileSystem;
+using AtmaFileSystemSpecification;
 using TddEbook.TddToolkit;
 using Xunit;
 
@@ -10,9 +13,9 @@ namespace AtmaFileSystemSpecification
   {
 
     [Theory,
-      InlineData(null, typeof(ArgumentNullException)),
-      InlineData("", typeof(ArgumentException)),
-      InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+     InlineData(null, typeof (ArgumentNullException)),
+     InlineData("", typeof (ArgumentException)),
+     InlineData(@"\\\\\\\\\?|/\/|", typeof (ArgumentException)),
     ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
@@ -88,9 +91,9 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(AbsoluteDirectoryPath.Value(Path.GetPathRoot(pathString)), root);
     }
 
-    [Theory, 
-      InlineData(@"C:\parent\child\", @"C:\parent"),
-      InlineData(@"C:\parent\", @"C:\")]
+    [Theory,
+     InlineData(@"C:\parent\child\", @"C:\parent"),
+     InlineData(@"C:\parent\", @"C:\")]
     public void ShouldAllowGettingProperParentDirectoryWhenItExists(string input, string expected)
     {
       //GIVEN
@@ -120,10 +123,10 @@ namespace AtmaFileSystemSpecification
     }
 
     [Theory,
-      InlineData(@"F:\Segment1\Segment2\", "Segment2"),
-      InlineData(@"F:\Segment1\", "Segment1"),
-      InlineData(@"F:\", @"F:\"),
-      ]
+     InlineData(@"F:\Segment1\Segment2\", "Segment2"),
+     InlineData(@"F:\Segment1\", "Segment1"),
+     InlineData(@"F:\", @"F:\"),
+    ]
     public void ShouldAllowGettingTheNameOfCurrentDirectory(string fullPath, string expectedDirectoryName)
     {
       //GIVEN
@@ -131,7 +134,7 @@ namespace AtmaFileSystemSpecification
 
       //WHEN
       DirectoryName dirName = directoryPath.DirectoryName();
-      
+
       //THEN
       Assert.Equal(expectedDirectoryName, dirName.ToString());
     }
@@ -220,6 +223,9 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(directorypath.ToString(), anyPathWithFileName.ToString());
     }
 
-
   }
+
 }
+
+
+

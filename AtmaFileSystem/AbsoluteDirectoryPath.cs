@@ -49,7 +49,7 @@ namespace AtmaFileSystem
 
     public DirectoryInfo Info()
     {
-      return new DirectoryInfo(_path);
+      return _directoryInfo;
     }
 
     public Maybe<AbsoluteDirectoryPath> Parent()

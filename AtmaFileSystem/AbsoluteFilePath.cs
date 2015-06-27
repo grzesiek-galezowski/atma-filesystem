@@ -61,7 +61,7 @@ namespace AtmaFileSystem
       return new AbsoluteDirectoryPath(Path.GetPathRoot(_path));
     }
 
-    public AnyFilePath AsAnyPathWithFileName()
+    public AnyFilePath AsAnyFilePath()
     {
       return new AnyFilePath(_path);
     }

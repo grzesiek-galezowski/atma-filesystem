@@ -6,7 +6,7 @@ namespace AtmaFileSystem
 {
   public class RelativeDirectoryPath : IEquatable<RelativeDirectoryPath>
   {
-    private readonly string _relativePath;
+    private readonly string _path;
 
     public static RelativeDirectoryPath Value(string relativePath)
     {
@@ -31,7 +31,7 @@ namespace AtmaFileSystem
 
     internal RelativeDirectoryPath(string relativePath)
     {
-      _relativePath = relativePath;
+      _path = relativePath;
     }
 
     private static string Combine(object part1, object part2)
@@ -62,7 +62,7 @@ namespace AtmaFileSystem
 
     public Maybe<RelativeDirectoryPath> Parent()
     {
-      var directoryName = Path.GetDirectoryName(_relativePath);
+      var directoryName = Path.GetDirectoryName(_path);
       if (directoryName == string.Empty)
       {
         return Maybe<RelativeDirectoryPath>.Not;
@@ -72,17 +72,17 @@ namespace AtmaFileSystem
 
     public DirectoryInfo Info()
     {
-      return new DirectoryInfo(_relativePath);
+      return new DirectoryInfo(_path);
     }
 
     public AnyDirectoryPath AsAnyDirectoryPath()
     {
-      return new AnyDirectoryPath(_relativePath);
+      return new AnyDirectoryPath(_path);
     }
 
     public AnyPath AsAnyPath()
     {
-      return new AnyPath(_relativePath);
+      return new AnyPath(_path);
     }
 
 
@@ -90,14 +90,14 @@ namespace AtmaFileSystem
 
     public override string ToString()
     {
-      return _relativePath; 
+      return _path; 
     }
 
     public bool Equals(RelativeDirectoryPath other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_relativePath, other._relativePath);
+      return string.Equals(_path, other._path);
     }
 
     public override bool Equals(object obj)
@@ -110,7 +110,7 @@ namespace AtmaFileSystem
 
     public override int GetHashCode()
     {
-      return (_relativePath != null ? _relativePath.GetHashCode() : 0);
+      return (_path != null ? _path.GetHashCode() : 0);
     }
 
     public static bool operator ==(RelativeDirectoryPath left, RelativeDirectoryPath right)
@@ -127,7 +127,7 @@ namespace AtmaFileSystem
 
     public DirectoryName DirectoryName()
     {
-      return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_relativePath).Name);
+      return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
     }
   }
 }

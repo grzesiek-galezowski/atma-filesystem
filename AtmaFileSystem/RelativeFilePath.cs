@@ -53,7 +53,7 @@ namespace AtmaFileSystem
       return new FileInfo(_path);
     }
 
-    public AnyFilePath AsAnyPathWithFileName()
+    public AnyFilePath AsAnyFilePath()
     {
       return new AnyFilePath(_path);
     }
