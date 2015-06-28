@@ -6,12 +6,11 @@
 
 ## Strong typing
 
-When a path is just a string:
+When a path is just a string, there is no distinction between absolute paths or relative paths, between paths pointing to files and paths pointing to directories. This is very error-prone when using APIs like: `void SaveConfigIn(string path)` because it is not clear whether we need to specify only a directory path (and a default file name will be used) or a path with file name. This allows passing invalid input undetected.
 
- * there is no distinction between absolute paths or relative paths, between paths poiting to files and paths pointing to directories. This is very error-prone when using APIs like: `void SaveConfigIn(string path)` because it is not clear whether we need to specify only a directory path (and a default file name will be used) or a path with file name.
+I strongly believe there are use cases for a path API based on strong types representing each specific path variation as I have myself been in a situation where such API would come in handy.
 
-
-### only valid methods, maybe etc., create only valid types
+### only valid methods, maybe etc., create only valid types - early checking
 
 ## Explicit conversions
 
