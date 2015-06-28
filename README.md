@@ -16,7 +16,7 @@
 
 ### Directory types
 
-| ADDITION TABLE | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyPath`</sub> | <sub>`AnyFilePath`</sub> | <sub>`DirectoryName`</sub> | <sub>`DirectoryPath`</sub> | <sub>`FileExtension`</sub> | <sub>`FileName`</sub> | <sub>`FileNameWithoutExtension`</sub> | <sub>`AbsoluteFilePath`</sub> | <sub>`RelativeDirectoryPath`</sub> | <sub>`RelativeFilePath`</sub> | 
+| <sub>ADDITION TABLE</sub> | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyPath`</sub> | <sub>`AnyFilePath`</sub> | <sub>`DirectoryName`</sub> | <sub>`DirectoryPath`</sub> | <sub>`FileExtension`</sub> | <sub>`FileName`</sub> | <sub>`FileNameWithoutExtension`</sub> | <sub>`AbsoluteFilePath`</sub> | <sub>`RelativeDirectoryPath`</sub> | <sub>`RelativeFilePath`</sub> | 
 |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------| 
 | <sub>**`AbsoluteDirectoryPath`**</sub> | x | x | x | <sub>`AbsoluteDirectoryPath`</sub> | x | x | <sub>`AbsoluteFilePath`</sub> | <sub>`AbsoluteDirectoryPath`</sub> | 	<sub>`AbsoluteFilePath`</sub> | 
 | <sub>**`RelativeDirectoryPath`**</sub> | x | x | <sub>`RelativeDirectoryPath`</sub> | x | x | <sub>`RelativeFilePath`</sub> | x | x | <sub>`RelativeDirectoryPath`</sub> | <sub>`RelativeFilePath`</sub> | 
@@ -25,21 +25,13 @@
 
 ### File types
 
-| ADDITION TABLE | `AnyDirectoryPath` | `AnyPath` | `AnyFilePath` | `DirectoryName` | `DirectoryPath` | `FileExtension` | `FileName` | `FileNameWithoutExtension` | `AbsoluteFilePath` | `RelativeDirectoryPath` | `RelativeFilePath` | 
-|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------| 
-| **`AbsoluteFilePath`** | x | x | x | x | x | x | x | x | x | x | x | 
-| **`RelativeFilePath`** | x | x | x | x | x | x | x | x | x | x | x | 
-| **`AnyFilePath`** | x | x | x | x | x | x | x | x | x | x | x | 
-| **`AnyPath`** | x | x | x | x | x | x | x | x | x | x | x | 
+There is nothing that can be added to file paths to create new values.
 
 ### Other types
 
-| ADDITION TABLE | `AnyDirectoryPath` | `AnyPath` | `AnyFilePath` | `DirectoryName` | `DirectoryPath` | `FileExtension` | `FileName` | `FileNameWithoutExtension` | `AbsoluteFilePath` | `RelativeDirectoryPath` | `RelativeFilePath` | 
-|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------| 
-| **`DirectoryName`** | x | x | x | x | x | x | x | x | x | x | x | 
-| **`FileExtension`** | x | x | x | x | x | x | x | x | x | x | x | 
-| **`FileName`** | x | x | x | x | x | x | x | x | x | x | x | 
-| **`FileNameWithoutExtension`** | x | x | x | x | x | `FileName` | x | x | x | x | x | 
+For the rest of the types, the only valid addition is:
+
+`FileNameWithoutExtension + FileExtension = FileName`
 
 ## Other conversions
 
