@@ -4,9 +4,16 @@
 
 ## Strong typing
 
-### only valid methods, maybe etc.
+When a path is just a string:
+
+ * there is no distinction between absolute paths or relative paths, between paths poiting to files and paths pointing to directories. This is very error-prone when using APIs like: `void SaveConfigIn(string path)` because it is not clear whether we need to specify only a directory path (and a default file name will be used) or a path with file name.
+
+
+### only valid methods, maybe etc., create only valid types
 
 ## Explicit conversions
+
+### no fluent interface
 
 ### no inheritance
 
