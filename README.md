@@ -6,9 +6,11 @@ I strongly believe there are use cases for a path API based on strong types repr
 
 # Principles
 
-When a path is just a string, there is no distinction between absolute paths or relative paths, between paths pointing to files and paths pointing to directories. This is very error-prone when using APIs like: `void SaveConfigIn(string path)` because it is not clear whether we need to specify only a directory path (and a default file name will be used) or a path with file name. This allows passing invalid input undetected.
+The design of Atma Filesystem is based on the following principles.
 
 ## An explicit type per path variant
+
+When a path is just a string, there is no distinction between absolute paths or relative paths, between paths pointing to files and paths pointing to directories. This is very error-prone when using APIs like: `void SaveConfigIn(string path)` because it is not clear whether we need to specify only a directory path (and a default file name will be used) or a path with file name. This allows passing invalid input undetected.
 
 On the other hand, Atma Filesystem clearly distinguishes between path variants, like absolute vs. relative or path to file vs. path to directory. It does so using a separate type for each of the variants and these types are incompatible with each other. So, if a method signature is: `void SaveConfigIn(AbsoluteDirectoryPath path)`, then we cannot pass a file path or a relative path of any sort. Of course, we can convert one type to another.
 
@@ -30,11 +32,23 @@ The decision I made when implementing this library is that each change to the ty
 
 There are types with weaker guarantees than others, for example, we have `AnyPath` that represents a file that can be both absolute and relative and can point to a directory or a path. One can say that it is a good superclass or interface for other classes to implement from. In Atma Filesystem, however, to get from e.g. `RelativeFilePath` to `AnyPath`, you have to explicitly invoke a `AsAnyPath()` conversion method.
 
-### no fluent interface
+Likewise, for interacting with .NET and third-party libraries, each type implements `ToString()` correctly, returning the path as a `string`.
+
+## Prefer type safety over fluency
+
+There are projects which present beautiful, fluent interfaces for constructing paths. On the other hand, when you look at Atma Filesystem, you may get an impression that it is pretty dull.
+
+In Atma Filesystem, the focus is on a good working and concise type system, because I noticed that in real applications working with paths, it speeds up finding bugs and protects from creating new bugs immensely.
 
 ## Immutability
 
+Atma Filesystem treats paths as values. One of the properties usually associated with values is their immutability. As paths are often passed along to many methods and objects, it is important to be sure that one method does not modify a value used in another. This also helps create more type safety, as it protected from unwanted concurrent modifications of path data.
+
 ## Separation between paths and filesystem elements
+
+The Atma Filesystem path types do not implement filesystem operations at all. The reason is that there are other use cases for paths than making explicit I/O operations, for example loading paths from configuration file and passing them to a third-party zip library. No I/O implementation is needed for such scenarios. Thus, the path values contain only the part that is strictly related to path format, not to the place on a filesystem where the paths points to (there are, however, plans for building a separate API for accessing a filesystem).
+
+A consequence of this is simplified equality. By default, paths are equal when they have the same type and contain exactly the same data. Real path equality is something that a filesystem is responsible for. For example, we have absolute, relative paths, but we also have paths with `..` in the middle, symbolic links and the ability to mount a directory as a new drive. Thus, without accessing a filesystem, it is impossible to determine whether the two paths really point to the same resource (this is a field of contribution if you have good ideas on how to resolve this matter).
 
 # API
 
