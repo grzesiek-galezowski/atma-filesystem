@@ -2,13 +2,25 @@
 
 **This page is under construction. Please bear with me**
 
+I strongly believe there are use cases for a path API based on strong types representing each specific path variation as I have myself been in a situation where such API would come in handy.
+
 # Principles
 
-## Strong typing
+## Strong type safety
 
 When a path is just a string, there is no distinction between absolute paths or relative paths, between paths pointing to files and paths pointing to directories. This is very error-prone when using APIs like: `void SaveConfigIn(string path)` because it is not clear whether we need to specify only a directory path (and a default file name will be used) or a path with file name. This allows passing invalid input undetected.
 
-I strongly believe there are use cases for a path API based on strong types representing each specific path variation as I have myself been in a situation where such API would come in handy.
+### A type per path variant
+
+On the other hand, Atma Filesystem clearly distinguishes between path variants, like absolute vs. relative or path to file vs. path to directory. It does so using a separate type for each of the variants and these types are incompatible with each other. So, if a method signature is: `void SaveConfigIn(AbsoluteDirectoryPath path)`, then we cannot pass a file path or a relative path of any sort. Of course, we can convert one type to another
+
+### Only valid conversion allowed
+
+Whereas .NET `Path` class lets us operate on any arbitrary strings, allowing invocations like `Path.Combine("C:\", "C:\)` to compile, Atma Filesystem types allow only conversions that are guaranteed to produce valid output. For example, when you have an `AbsolutePathWithFileName`, you can get its root path by invoking a `Root()` method. On the other hand, a `RelativePathWithFileName` does not have this method at all.
+
+There are times when we are not sure whether a method will succeed, for example we have an absolute directory path like this: `C:\Dir\` and we can obtain its parent directory, which would give us `C:\`, which is still an absolute directory path. On the other hand, when we have an absolute directory path consisting only from `C:\`, getting its directory is an invalid operation. In such cases, Atma Filesystem methods return a `Maybe<AbsoluteDirectoryPath>`, which either has a value or does not have it, depending on the request for parent directory making sense or not.
+
+### Early checking
 
 ### only valid methods, maybe etc., create only valid types - early checking
 
@@ -98,3 +110,14 @@ For the rest of the types, the only valid addition is:
 | <sub>**`Root()`**</sub> | <sub>`AbsoluteDirectoryPath`</sub> | 			
 | <sub>**`ToString()`**</sub> | <sub>`string`</sub> | <sub>`string`</sub> | <sub>`string`</sub> | <sub>`string`</sub> | 
 
+
+
+ * `AbsoluteFilePath` - for absolute paths pointing to files, e.g. `C:\dir\subdir\file.txt`
+ * `RelativeFilePath` - for relative paths pointing to files, e.g. `subdir\file.txt`
+ * `AnyFilePath` - for both relative and absolute paths pointing to files - this can be useful in cases where we don't really care whether the path is relative or absolute (e.g. where paths are passed as commandline arguments), as long as it is pointing to a file.
+
+three basic directory path types 
+ * `AbsoluteDirectoryPath` - for absolute paths pointing to files, e.g. `C:\dir\subdir\file.txt`
+ * `RelativeFilePath` - for relative paths pointing to files, e.g. `subdir\file.txt`
+ * `AnyFilePath` - for both relative and absolute paths pointing to files - this can be useful in cases where we don't really care whether the path is relative or absolute (e.g. where paths are passed as commandline arguments), as long as it is pointing to a file. 
+ 
