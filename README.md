@@ -30,6 +30,8 @@
 
 ## Other conversions
 
+### Directory path types
+
 | Method name / class | `AbsoluteDirectoryPath` | `RelativeDirectoryPath` | `AnyDirectoryPath` | `AnyPath` |
 |----|------------------------|-----------------------|------------------|--------|
 | **`AsAnyDirectoryPath()`** | `AnyDirectoryPath` | `AnyDirectoryPath` | 
@@ -39,3 +41,18 @@
 | **`ParentDirectory()`** | `Maybe<AbsoluteDirectoryPath>` | `Maybe<RelativeDirectoryPath>` | `Maybe<AnyDirectoryPath>` |	`Maybe<AnyDirectoryPath>` |
 | **`Root()`** | `AbsoluteDirectoryPath` |
 | **`ToString()`** | `string` | `string` | `string` | `string` |
+
+### File path types
+
+| xxx | `AbsoluteFilePath` | `RelativeFilePath` | `AnyFilePath` | `AnyPath` |
+|-----|------------------|------------------|-------------|---------|
+| **`AsAnyFilePath()`** | `AnyFilePath` | `AnyFilePath` | 		
+| **`AsAnyPath()`** | `AnyPath` | `AnyPath` | `AnyPath` | 	
+| **`ChangeExtensionTo()`** | `AbsoluteFilePath` | `RelativeFilePath` | `AnyFilePath` | 	
+| **`ParentDirectory()`** | `AbsoluteDirectoryPath` | `RelativeDirectoryPath` | `AnyDirectoryPath` | `Maybe<AnyDirectoryPath>` | 
+| **`FileName()`** | `FileName` | `FileName` | `FileName` | 
+| **`Has()`** | `bool` | `bool` | `bool` | 
+| **`Info()`** | `FileInfo` | `FileInfo` | `FileInfo` | 	
+| **`Root()`** | `AbsoluteDirectoryPath` | 			
+| **`ToString()`** | `string` | `string` | `string` | `string` | 
+
