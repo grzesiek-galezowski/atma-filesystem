@@ -46,6 +46,8 @@ In Atma Filesystem, the focus is on a good working and concise type system, beca
 
 Atma Filesystem treats paths as values. One of the properties usually associated with values is their immutability. As paths are often passed along to many methods and objects, it is important to be sure that one method does not modify a value used in another. This also helps create more type safety, as it protected from unwanted concurrent modifications of path data.
 
+Immutability means that each transformation made on a path does modify an existing object, but rather creates a new one with new data.
+
 ## Separation between paths and filesystem elements
 
 The Atma Filesystem path types do not implement filesystem operations at all. The reason is that there are other use cases for paths than making explicit I/O operations, for example loading paths from configuration file and passing them to a third-party zip library. No I/O implementation is needed for such scenarios. Thus, the path values contain only the part that is strictly related to path format, not to the place on a filesystem where the paths points to (there are, however, plans for building a separate API for accessing a filesystem).
