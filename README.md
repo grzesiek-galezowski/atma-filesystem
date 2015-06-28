@@ -16,12 +16,12 @@
 
 ### Directory types
 
-| ADDITION TABLE | `AnyDirectoryPath` | `AnyPath` | `AnyFilePath` | `DirectoryName` | `DirectoryPath` | `FileExtension` | `FileName` | `FileNameWithoutExtension` | `AbsoluteFilePath` | `RelativeDirectoryPath` | `RelativeFilePath` | 
+| ADDITION TABLE | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyPath`</sub> | <sub>`AnyFilePath`</sub> | <sub>`DirectoryName`</sub> | <sub>`DirectoryPath`</sub> | <sub>`FileExtension`</sub> | <sub>`FileName`</sub> | <sub>`FileNameWithoutExtension`</sub> | <sub>`AbsoluteFilePath`</sub> | <sub>`RelativeDirectoryPath`</sub> | <sub>`RelativeFilePath`</sub> | 
 |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------| 
-| **`AbsoluteDirectoryPath`** | x | x | x | `AbsoluteDirectoryPath` | x | x | `AbsoluteFilePath` | `AbsoluteDirectoryPath` | 	`AbsoluteFilePath` | 
-| **`RelativeDirectoryPath`** | x | x | `RelativeDirectoryPath` | x | x | `RelativeFilePath` | x | x | `RelativeDirectoryPath` | `RelativeFilePath` | 
-| **`AnyDirectoryPath`** | x | x | x | `AnyDirectoryPath` | x | x | `AnyFilePath` | x | x | `AnyDirectoryPath` | `AnyFilePath` | 
-| **`AnyPath`** | x | x | x | x | x | x | x | x | x | x | x | 
+| <sub>**`AbsoluteDirectoryPath`**</sub> | x | x | x | <sub>`AbsoluteDirectoryPath`</sub> | x | x | <sub>`AbsoluteFilePath`</sub> | <sub>`AbsoluteDirectoryPath`</sub> | 	<sub>`AbsoluteFilePath`</sub> | 
+| <sub>**`RelativeDirectoryPath`**</sub> | x | x | <sub>`RelativeDirectoryPath`</sub> | x | x | <sub>`RelativeFilePath`</sub> | x | x | <sub>`RelativeDirectoryPath`</sub> | <sub>`RelativeFilePath`</sub> | 
+| <sub>**`AnyDirectoryPath`**</sub> | x | x | x | <sub>`AnyDirectoryPath`</sub> | x | x | <sub>`AnyFilePath`</sub> | x | x | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyFilePath`</sub> | 
+| <sub>**`AnyPath`**</sub> | x | x | x | x | x | x | x | x | x | x | x | 
 
 ### File types
 
