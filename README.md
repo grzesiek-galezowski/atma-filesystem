@@ -1,14 +1,14 @@
-# atma-filesystem
+# Atma Filesystem - a path library for .NET
 
-**This page is under construction. Please bear with me**
+## Why was this library created?
 
-I do not claim that Atma Filesystem is a better path library than .NET's `Path` or some others. There are many use cases for paths and different APIs address different use cases best.
+First of all, I do not claim that Atma Filesystem is a better path library than .NET's `Path` or some others. There are many use cases for paths and different APIs address different use cases best.
 
 Having said that, I strongly believe there are use cases for a path API based on strong types representing each specific path variation as I have myself been in a situation where such API would come in handy. These use cases are IMO not addressed well enough, hence I created this library.
 
 # Design Principles
 
-The design of Atma Filesystem is based on the following principles.
+The design of Atma Filesystem is based on the following principles:
 
 ## An explicit type per path variant
 
