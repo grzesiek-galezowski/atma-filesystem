@@ -78,15 +78,15 @@ For the rest of the types, the only valid addition is:
 
 ### File path types
 
-| xxx | `AbsoluteFilePath` | `RelativeFilePath` | `AnyFilePath` | `AnyPath` |
-|-----|------------------|------------------|-------------|---------|
-| **`AsAnyFilePath()`** | `AnyFilePath` | `AnyFilePath` | 		
-| **`AsAnyPath()`** | `AnyPath` | `AnyPath` | `AnyPath` | 	
-| **`ChangeExtensionTo()`** | `AbsoluteFilePath` | `RelativeFilePath` | `AnyFilePath` | 	
-| **`ParentDirectory()`** | `AbsoluteDirectoryPath` | `RelativeDirectoryPath` | `AnyDirectoryPath` | `Maybe<AnyDirectoryPath>` | 
-| **`FileName()`** | `FileName` | `FileName` | `FileName` | 
-| **`Has()`** | `bool` | `bool` | `bool` | 
-| **`Info()`** | `FileInfo` | `FileInfo` | `FileInfo` | 	
-| **`Root()`** | `AbsoluteDirectoryPath` | 			
-| **`ToString()`** | `string` | `string` | `string` | `string` | 
+| <sub>Method name / class</sub> | <sub>`AbsoluteDirectoryPath`</sub> | <sub>`RelativeDirectoryPath`</sub> | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyPath`</sub> |
+|----|------------------------|-----------------------|------------------|--------|
+| <sub>**`AsAnyFilePath()`**</sub> | <sub>`AnyFilePath`</sub> | <sub>`AnyFilePath`</sub> | 		
+| <sub>**`AsAnyPath()`**</sub> | <sub>`AnyPath`</sub> | <sub>`AnyPath`</sub> | <sub>`AnyPath`</sub> | 	
+| <sub>**`ChangeExtensionTo()`**</sub> | <sub>`AbsoluteFilePath`</sub> | <sub>`RelativeFilePath`</sub> | <sub>`AnyFilePath`</sub> | 	
+| <sub>**`ParentDirectory()`**</sub> | <sub>`AbsoluteDirectoryPath`</sub> | <sub>`RelativeDirectoryPath`</sub> | <sub>`AnyDirectoryPath`</sub> | <sub>`Maybe<AnyDirectoryPath>`</sub> | 
+| <sub>**`FileName()`**</sub> | <sub>`FileName`</sub> | <sub>`FileName`</sub> | <sub>`FileName`</sub> | 
+| <sub>**`Has()`**</sub> | <sub>`bool`</sub> | <sub>`bool`</sub> | <sub>`bool`</sub> | 
+| <sub>**`Info()`**</sub> | <sub>`FileInfo`</sub> | <sub>`FileInfo`</sub> | <sub>`FileInfo`</sub> | 	
+| <sub>**`Root()`**</sub> | <sub>`AbsoluteDirectoryPath`</sub> | 			
+| <sub>**`ToString()`**</sub> | <sub>`string`</sub> | <sub>`string`</sub> | <sub>`string`</sub> | <sub>`string`</sub> | 
 
