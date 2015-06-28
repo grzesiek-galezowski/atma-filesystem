@@ -124,6 +124,9 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(directoryInfo.FullName, FullNameFrom(path));
     }
 
+    //bug check for Info() returning internally held object that it cannot be modified externally!!!!
+
+
     [Fact]
     public void ShouldBeConvertibleToAnyDirectoryPath()
     {
