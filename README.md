@@ -52,15 +52,6 @@
 
 `AnyDirectoryPath + RelativeFilePath = AnyDirectoryPath`
 
-#### Conversion table
-
-| <sub>ADDITION TABLE</sub> | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyPath`</sub> | <sub>`AnyFilePath`</sub> | <sub>`DirectoryName`</sub> | <sub>`DirectoryPath`</sub> | <sub>`FileExtension`</sub> | <sub>`FileName`</sub> | <sub>`FileNameWithoutExtension`</sub> | <sub>`AbsoluteFilePath`</sub> | <sub>`RelativeDirectoryPath`</sub> | <sub>`RelativeFilePath`</sub> | 
-|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------| 
-| <sub>**`AbsoluteDirectoryPath`**</sub> | x | x | x | <sub>`AbsoluteDirectoryPath`</sub> | x | x | <sub>`AbsoluteFilePath`</sub> | <sub>`AbsoluteDirectoryPath`</sub> | 	<sub>`AbsoluteFilePath`</sub> | 
-| <sub>**`RelativeDirectoryPath`**</sub> | x | x | <sub>`RelativeDirectoryPath`</sub> | x | x | <sub>`RelativeFilePath`</sub> | x | x | <sub>`RelativeDirectoryPath`</sub> | <sub>`RelativeFilePath`</sub> | 
-| <sub>**`AnyDirectoryPath`**</sub> | x | x | x | <sub>`AnyDirectoryPath`</sub> | x | x | <sub>`AnyFilePath`</sub> | x | x | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyFilePath`</sub> | 
-| <sub>**`AnyPath`**</sub> | x | x | x | x | x | x | x | x | x | x | x | 
-
 ### File types
 
 There is nothing that can be added to file paths to create new values.
@@ -75,15 +66,15 @@ For the rest of the types, the only valid addition is:
 
 ### Directory path types
 
-| Method name / class | `AbsoluteDirectoryPath` | `RelativeDirectoryPath` | `AnyDirectoryPath` | `AnyPath` |
+| <sub>Method name / class</sub> | <sub>`AbsoluteDirectoryPath`</sub> | <sub>`RelativeDirectoryPath`</sub> | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyPath`</sub> |
 |----|------------------------|-----------------------|------------------|--------|
-| **`AsAnyDirectoryPath()`** | `AnyDirectoryPath` | `AnyDirectoryPath` | 
-| **`AsAnyPath()`** | `AnyPath` | `AnyPath` | `AnyPath` |
-| **`DirectoryName()`** | `DirectoryName` | `DirectoryName` | `DirectoryName` |
-| **`Info()`** | `DirectoryInfo` | `DirectoryInfo` | `DirectoryInfo` |
-| **`ParentDirectory()`** | `Maybe<AbsoluteDirectoryPath>` | `Maybe<RelativeDirectoryPath>` | `Maybe<AnyDirectoryPath>` |	`Maybe<AnyDirectoryPath>` |
-| **`Root()`** | `AbsoluteDirectoryPath` |
-| **`ToString()`** | `string` | `string` | `string` | `string` |
+| <sub>**`AsAnyDirectoryPath()`**</sub> | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyDirectoryPath`</sub> | 
+| <sub>**`AsAnyPath()`**</sub> | <sub>`AnyPath`</sub> | <sub>`AnyPath`</sub> | <sub>`AnyPath`</sub> |
+| <sub>**`DirectoryName()`**</sub> | <sub>`DirectoryName`</sub> | <sub>`DirectoryName`</sub> | <sub>`DirectoryName`</sub> |
+| <sub>**`Info()`**</sub> | <sub>`DirectoryInfo`</sub> | <sub>`DirectoryInfo`</sub> | <sub>`DirectoryInfo`</sub> |
+| <sub>**`ParentDirectory()`**</sub> | <sub>`Maybe<AbsoluteDirectoryPath>`</sub> | <sub>`Maybe<RelativeDirectoryPath>`</sub> | <sub>`Maybe<AnyDirectoryPath>`</sub> |	<sub>`Maybe<AnyDirectoryPath>`</sub> |
+| <sub>**`Root()`**</sub> | <sub>`AbsoluteDirectoryPath`</sub> |
+| <sub>**`ToString()`**</sub> | <sub>`string`</sub> | <sub>`string`</sub> | <sub>`string`</sub> | <sub>`string`</sub> |
 
 ### File path types
 
