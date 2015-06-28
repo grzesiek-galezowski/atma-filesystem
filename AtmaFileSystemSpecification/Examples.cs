@@ -13,7 +13,7 @@ namespace AtmaFileSystemSpecification
       ////////////////////////
       
       AbsoluteFilePath fullPath = AbsoluteFilePath.Value(@"C:\Program Files\Lolokimono\Config.txt");
-      AbsoluteDirectoryPath directoryPath = fullPath.Directory();
+      AbsoluteDirectoryPath directoryPath = fullPath.ParentDirectory();
       FileName fileName = fullPath.FileName();
       FileNameWithoutExtension fileNameWithoutExtension = fileName.WithoutExtension();
       Maybe<FileExtension> extension = fileName.Extension();
@@ -42,16 +42,16 @@ namespace AtmaFileSystemSpecification
     public void Example1_ParentDirectories()
     {
       AbsoluteFilePath fullPath = AbsoluteFilePath.Value(@"C:\Program Files\Lolokimono\Config.txt");
-      AbsoluteDirectoryPath directoryPath = fullPath.Directory();
+      AbsoluteDirectoryPath directoryPath = fullPath.ParentDirectory();
 
-      Maybe<AbsoluteDirectoryPath> parent = directoryPath.Parent();
+      Maybe<AbsoluteDirectoryPath> parent = directoryPath.ParentDirectory();
 
       if (parent.Found)
       {
-        Maybe<AbsoluteDirectoryPath> parentParent = parent.Value().Parent();
+        Maybe<AbsoluteDirectoryPath> parentParent = parent.Value().ParentDirectory();
         if (parentParent.Found)
         {
-          Maybe<AbsoluteDirectoryPath> parentParentParent = parentParent.Value().Parent();
+          Maybe<AbsoluteDirectoryPath> parentParentParent = parentParent.Value().ParentDirectory();
         }
       }
 

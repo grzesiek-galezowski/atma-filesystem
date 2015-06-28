@@ -80,7 +80,7 @@ namespace AtmaFileSystemSpecification
       var relativePath = RelativeDirectoryPath.Value(@"Directory\Subdirectory\Subsubdirectory");
       
       //WHEN
-      AtmaFileSystem.Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.Parent();
+      AtmaFileSystem.Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.ParentDirectory();
 
       //THEN
       Assert.True(pathWithoutLastDir.Found);
@@ -95,7 +95,7 @@ namespace AtmaFileSystemSpecification
       var relativePath = RelativeDirectoryPath.Value(@"Directory");
 
       //WHEN
-      AtmaFileSystem.Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.Parent();
+      AtmaFileSystem.Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.ParentDirectory();
 
       //THEN
       Assert.False(pathWithoutLastDir.Found);

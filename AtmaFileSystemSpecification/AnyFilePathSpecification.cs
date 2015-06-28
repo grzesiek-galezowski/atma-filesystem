@@ -82,7 +82,7 @@ namespace AtmaFileSystemSpecification
       AnyFilePath filePath = dirPath + fileName;
 
       //WHEN
-      var dirObtainedFromPath = filePath.Directory();
+      var dirObtainedFromPath = filePath.ParentDirectory();
 
       //THEN
       Assert.Equal(dirPath, dirObtainedFromPath);
@@ -99,6 +99,20 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(fileInfo.FullName, pathWithFilename.ToString());
+    }
+
+    [Fact]
+    public void ShouldAllowChangingExtension()
+    {
+      //GIVEN
+      var filePath = AnyFilePath.Value(@"C:\Dir\subdir\file.txt");
+
+      //WHEN
+      AnyFilePath pathWithNewExtension = filePath.ChangeExtensionTo(FileExtension.Value(".doc"));
+
+      //THEN
+      Assert.Equal(@"C:\Dir\subdir\file.doc", pathWithNewExtension.ToString());
+
     }
 
 

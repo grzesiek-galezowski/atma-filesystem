@@ -27,5 +27,34 @@ namespace AtmaFileSystemSpecification
     {
       Assert.Throws(exceptionType, () => AnyPath.Value(invalidInput));
     }
+
+    [Fact]
+    public void ShouldAllowGettingParentDirectoryPath()
+    {
+      //GIVEN
+      var anyPath = AnyPath.Value(@"Directory\Subdirectory\Subsubdirectory");
+
+      //WHEN
+      AtmaFileSystem.Maybe<AnyDirectoryPath> parentDirectory = anyPath.ParentDirectory();
+
+      //THEN
+      Assert.True(parentDirectory.Found);
+      Assert.Equal(AnyDirectoryPath.Value(@"Directory\Subdirectory"), parentDirectory.Value());
+
+    }
+
+    [Fact]
+    public void ShouldReturnNothingWhenGettingPathWithoutLastDirectoryButCurrentDirectoryIsTheOnlyLeft()
+    {
+      //GIVEN
+      var anyPath = AnyPath.Value(@"Directory");
+
+      //WHEN
+      AtmaFileSystem.Maybe<AnyDirectoryPath> parentDirectoryPath = anyPath.ParentDirectory();
+
+      //THEN
+      Assert.False(parentDirectoryPath.Found);
+      Assert.Throws<InvalidOperationException>(() => parentDirectoryPath.Value());
+    }
   }
 }

@@ -86,7 +86,7 @@ namespace AtmaFileSystem
       return AtmaFileSystem.FileName.Value(Path.GetFileName(_path));
     }
 
-    public AnyDirectoryPath Directory()
+    public AnyDirectoryPath ParentDirectory()
     {
       return AnyDirectoryPath.Value(Path.GetDirectoryName(_path));
     }
@@ -95,15 +95,17 @@ namespace AtmaFileSystem
     {
       return new FileInfo(_path);
     }
+
+    public AnyFilePath ChangeExtensionTo(FileExtension value)
+    {
+      return new AnyFilePath(Path.ChangeExtension(_path, value.ToString()));
+    }
   }
 
 /* TODO missing methods:
 AnyPath:
   <> FileName()
   <> Parent()
-
-Other methods from Path:
-- ChangeExtension()
 
 */
 }

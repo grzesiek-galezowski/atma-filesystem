@@ -60,7 +60,7 @@ namespace AtmaFileSystem
     }
 
 
-    public Maybe<RelativeDirectoryPath> Parent()
+    public Maybe<RelativeDirectoryPath> ParentDirectory()
     {
       var directoryName = Path.GetDirectoryName(_path);
       if (directoryName == string.Empty)

@@ -41,7 +41,7 @@ namespace AtmaFileSystem
       return new AbsoluteFilePath(path);
     }
 
-    public AbsoluteDirectoryPath Directory()
+    public AbsoluteDirectoryPath ParentDirectory()
     {
       return new AbsoluteDirectoryPath(Path.GetDirectoryName(_path));
     }
@@ -113,6 +113,11 @@ namespace AtmaFileSystem
     public bool Has(FileExtension extensionValue)
     {
       return FileName().Has(extensionValue);
+    }
+
+    public AbsoluteFilePath ChangeExtensionTo(FileExtension value)
+    {
+      return new AbsoluteFilePath(Path.ChangeExtension(_path, value.ToString()));
     }
   }
 }

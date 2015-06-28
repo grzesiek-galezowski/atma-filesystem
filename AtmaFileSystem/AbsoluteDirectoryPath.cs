@@ -52,7 +52,7 @@ namespace AtmaFileSystem
       return _directoryInfo;
     }
 
-    public Maybe<AbsoluteDirectoryPath> Parent()
+    public Maybe<AbsoluteDirectoryPath> ParentDirectory()
     {
       var directoryName = _directoryInfo.Parent;
       return AsMaybe(directoryName);

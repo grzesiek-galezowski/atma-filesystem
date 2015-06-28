@@ -29,7 +29,7 @@ namespace AtmaFileSystem
       return Path.Combine(part1.ToString(), part2.ToString());
     }
 
-    public RelativeDirectoryPath Directory()
+    public RelativeDirectoryPath ParentDirectory()
     {
       return new RelativeDirectoryPath(Path.GetDirectoryName(_path));
     }
@@ -104,6 +104,11 @@ namespace AtmaFileSystem
     public bool Has(FileExtension extensionValue)
     {
       return FileName().Has(extensionValue);
+    }
+
+    public RelativeFilePath ChangeExtensionTo(FileExtension value)
+    {
+      return new RelativeFilePath(Path.ChangeExtension(_path, value.ToString()));
     }
   }
 }

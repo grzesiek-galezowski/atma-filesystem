@@ -57,5 +57,15 @@ namespace AtmaFileSystem
 
       return new AnyPath(path);
     }
+
+    public Maybe<AnyDirectoryPath> ParentDirectory()
+    {
+      var directoryName = Path.GetDirectoryName(_path);
+      if (directoryName == string.Empty)
+      {
+        return Maybe<AnyDirectoryPath>.Not;
+      }
+      return Maybe.Wrap(AnyDirectoryPath.Value(directoryName));
+    }
   }
 }

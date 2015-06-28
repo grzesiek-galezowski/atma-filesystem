@@ -54,7 +54,7 @@ namespace AtmaFileSystemSpecification
       RelativeFilePath filePath = dirPath + fileName;
 
       //WHEN
-      RelativeDirectoryPath dirObtainedFromPath = filePath.Directory();
+      RelativeDirectoryPath dirObtainedFromPath = filePath.ParentDirectory();
 
       //THEN
       Assert.Equal(dirPath, dirObtainedFromPath);
@@ -131,6 +131,21 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.Equal(expectedResult, hasExtension);
     }
+
+    [Fact]
+    public void ShouldAllowChangingExtension()
+    {
+      //GIVEN
+      var filePath = RelativeFilePath.Value(@"Dir\subdir\file.txt");
+
+      //WHEN
+      RelativeFilePath pathWithNewExtension = filePath.ChangeExtensionTo(FileExtension.Value(".doc"));
+
+      //THEN
+      Assert.Equal(@"Dir\subdir\file.doc", pathWithNewExtension.ToString());
+
+    }
+
 
   }
 

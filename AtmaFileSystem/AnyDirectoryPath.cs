@@ -102,7 +102,7 @@ namespace AtmaFileSystem
       return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
     }
 
-    public Maybe<AnyDirectoryPath> Parent()
+    public Maybe<AnyDirectoryPath> ParentDirectory()
     {
       var directoryName = new DirectoryInfo(_path).Parent;
       return AsMaybe(directoryName);

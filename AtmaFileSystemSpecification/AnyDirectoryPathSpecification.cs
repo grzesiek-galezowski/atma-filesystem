@@ -141,7 +141,7 @@ namespace AtmaFileSystemSpecification
       var dir = AnyDirectoryPath.Value(input);
 
       //WHEN
-      var parent = dir.Parent();
+      var parent = dir.ParentDirectory();
 
       //THEN
       Assert.True(parent.Found);
@@ -156,7 +156,7 @@ namespace AtmaFileSystemSpecification
       var dir = AnyDirectoryPath.Value(pathString);
 
       //WHEN
-      var parent = dir.Parent();
+      var parent = dir.ParentDirectory();
 
       //THEN
       Assert.False(parent.Found);

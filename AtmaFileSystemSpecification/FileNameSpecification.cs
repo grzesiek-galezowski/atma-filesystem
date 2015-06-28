@@ -96,5 +96,20 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(FileNameWithoutExtension.Value(fileNameWithoutExtensionString), fileNameWithoutExtension);
 
     }
+
+    [Fact]
+    public void ShouldAllowChangingExtension()
+    {
+      //GIVEN
+      var fileName = FileName.Value(@"file.txt");
+
+      //WHEN
+      FileName nameWithNewExtension = fileName.ChangeExtensionTo(FileExtension.Value(".doc"));
+
+      //THEN
+      Assert.Equal(@"file.doc", nameWithNewExtension.ToString());
+
+    }
+
   }
 }

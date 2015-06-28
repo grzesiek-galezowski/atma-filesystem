@@ -84,6 +84,11 @@ namespace AtmaFileSystem
       var extension = Extension();
       return extension.Found && extension.Value().Equals(extensionValue);
     }
+
+    public FileName ChangeExtensionTo(FileExtension value)
+    {
+      return new FileName(Path.ChangeExtension(_path, value.ToString()));
+    }
   }
 
   //TODO implement file system
