@@ -4,7 +4,11 @@
 
 ## Strong typing
 
+### only valid methods, maybe etc.
+
 ## Explicit conversions
+
+### no inheritance
 
 ## Immutability
 
@@ -15,6 +19,40 @@
 ## `+` operator
 
 ### Directory types
+
+#### Adding directory names
+
+`AbsoluteDirectoryPath + DirectoryName = AbsoluteDirectoryPath`
+
+`RelativeDirectoryPath + DirectoryName = RelativeDirectoryPath`
+
+`AnyDirectoryPath + DirectoryName = AnyDirectoryPath`
+
+#### Adding file names
+
+`AbsoluteDirectoryPath + FileName = AbsoluteFilePath`
+
+`RelativeDirectoryPath + FileName = RelativeFilePath`
+
+`AnyDirectoryPath + FileName = AnyFilePath`
+
+#### Appending relative directory path
+
+`AbsoluteDirectoryPath + RelativeDirectoryPath = AbsoluteDirectoryPath`
+
+`RelativeDirectoryPath + RelativeDirectoryPath = RelativeDirectoryPath`
+
+`AnyDirectoryPath + RelativeDirectoryPath = AnyDirectoryPath`
+
+#### Appending relative file path
+
+`AbsoluteDirectoryPath + RelativeFilePath = AbsoluteDirectoryPath`
+
+`RelativeDirectoryPath + RelativeFilePath = RelativeDirectoryPath`
+
+`AnyDirectoryPath + RelativeFilePath = AnyDirectoryPath`
+
+#### Conversion table
 
 | <sub>ADDITION TABLE</sub> | <sub>`AnyDirectoryPath`</sub> | <sub>`AnyPath`</sub> | <sub>`AnyFilePath`</sub> | <sub>`DirectoryName`</sub> | <sub>`DirectoryPath`</sub> | <sub>`FileExtension`</sub> | <sub>`FileName`</sub> | <sub>`FileNameWithoutExtension`</sub> | <sub>`AbsoluteFilePath`</sub> | <sub>`RelativeDirectoryPath`</sub> | <sub>`RelativeFilePath`</sub> | 
 |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------| 
