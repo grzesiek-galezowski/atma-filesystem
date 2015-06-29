@@ -20,7 +20,7 @@ On the other hand, Atma Filesystem clearly distinguishes between path variants, 
 
 Whereas .NET `Path` class lets us operate on any arbitrary strings, allowing invocations like `Path.Combine("C:\", "C:\)` to compile, Atma Filesystem types allow only conversions that are guaranteed to produce valid output. For example, when you have an `AbsolutePathWithFileName`, you can get its root path by invoking a `Root()` method. On the other hand, a `RelativePathWithFileName` does not have this method at all.
 
-There are times when we are not sure whether a method will succeed, for example we have an absolute directory path like this: `C:\Dir\` and we can obtain its parent directory, which would give us `C:\`, which is still an absolute directory path. On the other hand, when we have an absolute directory path consisting only from `C:\`, getting its directory is an invalid operation. In such cases, Atma Filesystem methods return a `Maybe<AbsoluteDirectoryPath>`, which either has a value or does not have it, depending on the request for parent directory making sense or not.
+There are times when we are not sure whether a method will succeed, for example we have an absolute directory path like this: `C:\Dir\` and we can obtain its parent directory, which would give us `C:\`, which is still an absolute directory path. On the other hand, when we have an absolute directory path consisting only from `C:\`, getting its directory is an invalid operation. For such operations, Atma Filesystem methods return a `Maybe<Type>` instead of `Type`, e.g. in this case it would return `Maybe<AbsoluteDirectoryPath>`, which either has a value or does not have it, depending on the request for parent directory making sense or not.
 
 ## Early checking
 
