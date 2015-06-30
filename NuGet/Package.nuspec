@@ -2,14 +2,14 @@
 <package>
   <metadata>
     <id>AtmaFilesystem</id>
-    <version>0.2.2</version>
+    <version>0.3.0</version>
     <title>Atma Filesystem</title>
     <authors>Grzegorz Gałęzowski</authors>
     <owners>Grzegorz Gałęzowski</owners>
     <description>Library for path value manipulation. This library concentrates on operations on path VALUES instead of the path locations, trying to make these operations as much type-safe and type-checked as possible.</description>
     <projectUrl>https://github.com/grzesiek-galezowski/atma-filesystem</projectUrl>
     <licenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</licenseUrl>
-    <releaseNotes>Added a some of the missing features</releaseNotes>
+    <releaseNotes>Added ChangePath() method and renamed types for consistency (WARNING: breaking changes)</releaseNotes>
     <language>en-US</language>
     <dependencies>
       <dependency id="Pri.LongPath" version="1.3.2.0" />
