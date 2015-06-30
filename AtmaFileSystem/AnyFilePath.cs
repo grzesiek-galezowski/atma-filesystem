@@ -86,7 +86,7 @@ namespace AtmaFileSystem
       return AtmaFileSystem.FileName.Value(Path.GetFileName(_path));
     }
 
-    public AnyDirectoryPath ParentDirectory()
+    public AnyDirectoryPath ParentDirectory() //bug allow file names only, but put Maybe<T> here!!
     {
       return AnyDirectoryPath.Value(Path.GetDirectoryName(_path));
     }
