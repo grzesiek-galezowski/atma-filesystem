@@ -27,13 +27,6 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldThrowExceptionWhenTryingToCreateInstanceWithNoDirectory()
-    {
-      Assert.Throws<InvalidOperationException>(() => RelativeFilePath.Value(@"file.txt"));
-    }
-
-
-    [Fact]
     public void ShouldThrowArgumentExceptionWhenTryingToCreateInstanceWithEmptyValue()
     {
       Assert.Throws<ArgumentException>(() => RelativeFilePath.Value(string.Empty));
@@ -46,7 +39,7 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldAllowAccessingDirectoryOfThePath()
+    public void ShouldAllowAccessingDirectoryOfThePathWhenSuchDirectoryExists()
     {
       //GIVEN
       var dirPath = Any.Instance<RelativeDirectoryPath>();
@@ -54,10 +47,24 @@ namespace AtmaFileSystemSpecification
       RelativeFilePath filePath = dirPath + fileName;
 
       //WHEN
-      RelativeDirectoryPath dirObtainedFromPath = filePath.ParentDirectory();
+      var dirObtainedFromPath = filePath.ParentDirectory();
 
       //THEN
-      Assert.Equal(dirPath, dirObtainedFromPath);
+      Assert.Equal(dirPath, dirObtainedFromPath.Value());
+    }
+
+    [Fact]
+    public void ShouldReturnNothingWhenAskingForDirectoryOfThePathAndSuchDirectoryDoesNotExist()
+    {
+      //GIVEN
+      RelativeFilePath filePath = RelativeFilePath.Value("file.txt");
+
+      //WHEN
+      var dirObtainedFromPath = filePath.ParentDirectory();
+
+      //THEN
+      Assert.False(dirObtainedFromPath.Found);
+      Assert.Throws<InvalidOperationException>(() => dirObtainedFromPath.Value());
     }
 
     [Fact]

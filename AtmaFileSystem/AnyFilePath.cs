@@ -71,7 +71,6 @@ namespace AtmaFileSystem
       Asserts.NotNull(path, "path");
       Asserts.NotEmpty(path, "Path cannot be empty");
       Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
-      Asserts.DoesNotConsistSolelyOfFileName(path, "Expected path not consisting solely of file name, but got " + path);
 
       return new AnyFilePath(path);
     }
@@ -86,9 +85,11 @@ namespace AtmaFileSystem
       return AtmaFileSystem.FileName.Value(Path.GetFileName(_path));
     }
 
-    public AnyDirectoryPath ParentDirectory() //bug allow file names only, but put Maybe<T> here!!
+    public Maybe<AnyDirectoryPath> ParentDirectory() //bug allow file names only, but put Maybe<T> here!!
     {
-      return AnyDirectoryPath.Value(Path.GetDirectoryName(_path));
+      var directoryName = Path.GetDirectoryName(_path);
+      if (directoryName != string.Empty) return AnyDirectoryPath.Value(directoryName);
+      else return null;
     }
 
     public FileInfo Info()

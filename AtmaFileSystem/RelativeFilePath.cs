@@ -29,9 +29,11 @@ namespace AtmaFileSystem
       return Path.Combine(part1.ToString(), part2.ToString());
     }
 
-    public RelativeDirectoryPath ParentDirectory()
+    public Maybe<RelativeDirectoryPath> ParentDirectory()
     {
-      return new RelativeDirectoryPath(Path.GetDirectoryName(_path));
+      var directoryName = Path.GetDirectoryName(_path);
+      if (directoryName != string.Empty) return new RelativeDirectoryPath(directoryName);
+      else return null;
     }
 
     public FileName FileName()
@@ -44,7 +46,6 @@ namespace AtmaFileSystem
       Asserts.NotNull(path, "path");
       Asserts.NotEmpty(path, ExceptionMessages.PathCannotBeAnEmptyString);
       Asserts.NotRooted(path, ExceptionMessages.RootedPathsAreIllegalPleasePassARelativePath);
-      Asserts.DoesNotConsistSolelyOfFileName(path, ExceptionMessages.ThePathCannotConsistSolelyOfFileName);
       return new RelativeFilePath(path);
     }
 

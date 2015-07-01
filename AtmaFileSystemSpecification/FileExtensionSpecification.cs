@@ -29,9 +29,9 @@ namespace AtmaFileSystemSpecification
     }
 
     [Theory,
-    InlineData("zip", typeof(ArgumentException)),
-    InlineData("..zip", typeof(ArgumentException)),
-    InlineData(".tar.gz", typeof(ArgumentException)),
+    InlineData("zip", typeof(InvalidOperationException)),
+    InlineData("..zip", typeof(InvalidOperationException)),
+    InlineData(".tar.gz", typeof(InvalidOperationException)),
     InlineData("", typeof(ArgumentException)),
     InlineData(null, typeof(ArgumentNullException)),
     ]

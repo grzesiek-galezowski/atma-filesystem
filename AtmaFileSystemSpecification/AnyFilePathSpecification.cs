@@ -15,12 +15,23 @@ namespace AtmaFileSystemSpecification
       InlineData(null, typeof(ArgumentNullException)),
       InlineData("", typeof(ArgumentException)),
       InlineData(@"\\\\\\\\\?|/\/|", typeof(InvalidOperationException)),
-      InlineData(@"file.txt", typeof(InvalidOperationException))
     ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
       Assert.Throws(exceptionType, () => AnyFilePath.Value(invalidInput));
     }
+
+    [Fact]
+    public void ShouldAllowToBeCreatedWithFileNameOnly()
+    {
+      //GIVEN
+      var value = AnyFilePath.Value("file.txt");
+
+      //THEN
+      Assert.Equal("file.txt", value.ToString());
+
+    }
+    //bug parent directory returns maybe!
 
     [Fact]
     public void ShouldBehaveLikeValue()
@@ -74,7 +85,7 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldAllowAccessingDirectoryOfThePath()
+    public void ShouldAllowAccessingDirectoryOfThePathWhenSuchDirectoryExists()
     {
       //GIVEN
       var dirPath = Any.Instance<AnyDirectoryPath>();
@@ -85,7 +96,21 @@ namespace AtmaFileSystemSpecification
       var dirObtainedFromPath = filePath.ParentDirectory();
 
       //THEN
-      Assert.Equal(dirPath, dirObtainedFromPath);
+      Assert.Equal(dirPath, dirObtainedFromPath.Value());
+    }
+
+    [Fact]
+    public void ShouldReturnNothingWhenAskingForDirectoryOfThePathAndSuchDirectoryDoesNotExist()
+    {
+      //GIVEN
+      AnyFilePath filePath = AnyFilePath.Value("file.txt");
+
+      //WHEN
+      var dirObtainedFromPath = filePath.ParentDirectory();
+
+      //THEN
+      Assert.False(dirObtainedFromPath.Found);
+      Assert.Throws<InvalidOperationException>(() => dirObtainedFromPath.Value());
     }
 
     [Fact]
