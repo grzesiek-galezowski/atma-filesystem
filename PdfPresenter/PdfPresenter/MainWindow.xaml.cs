@@ -26,11 +26,12 @@ namespace PdfPresenter
   /// </summary>
   public partial class MainWindow : Window
   {
-    private readonly HelperWindow _helper;
+    private WindowsFormsHost _pdfControl;
+    private readonly Slideshow _slideshow;
 
-    public MainWindow(HelperWindow helper)
+    public MainWindow(Slideshow mainSlideshow)
     {
-      _helper = helper;
+      _slideshow = mainSlideshow;
       InitializeComponent();
     }
 
@@ -38,13 +39,18 @@ namespace PdfPresenter
     private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
       // Create the interop host control.
-      var presentationRenderer = new PresentationRenderer();
-      presentationRenderer.OnKeyUpGoToNextSlide();
-      presentationRenderer.AddNextSlideHandler(_helper.GoToNextSlide);
-      var host = presentationRenderer.ToWindowsFormsHost();
+      _slideshow.Load();
+      _slideshow.OnKeyUpGoToNextSlide();
+      _pdfControl = _slideshow.ToWindowsFormsHost();
 
-      MainGrid.Children.Add(host);
+      MainGrid.Children.Add(_pdfControl);
 
+    }
+
+    public void FocusOnPdf()
+    {
+      this.Focus();
+      _pdfControl.Focus();
     }
   }
 }

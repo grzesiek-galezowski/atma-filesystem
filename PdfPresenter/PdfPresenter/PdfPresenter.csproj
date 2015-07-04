@@ -36,16 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Magick.NET-AnyCPU, Version=7.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.0.0.0014\lib\net40-client\Magick.NET-AnyCPU.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Magick.NET.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.0.0.0014\lib\net40-client\Magick.NET.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PdfiumViewer, Version=2.3.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
-      <HintPath>..\packages\PdfiumViewer.2.3.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    <Reference Include="PdfiumViewer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfiumViewer.2.5.0.0\lib\net20\PdfiumViewer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -92,7 +84,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PresentationRenderer.cs" />
+    <Compile Include="Slideshow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -122,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\pdfium.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="x86\pdfium.dll" />
   </ItemGroup>

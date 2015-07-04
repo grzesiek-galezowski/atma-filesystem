@@ -18,11 +18,14 @@ namespace PdfPresenter
   /// </summary>
   public partial class HelperWindow : Window
   {
-    private PresentationRenderer _currentSlide;
-    private PresentationRenderer _nextSlide;
+    private readonly Slideshow _currentSlide;
+    private readonly Slideshow _nextSlide;
 
-    public HelperWindow()
+    public HelperWindow(Slideshow currentSlide, Slideshow nextSlide)
     {
+      _currentSlide = currentSlide;
+      _nextSlide = nextSlide;
+
       InitializeComponent();
 
     }
@@ -35,12 +38,11 @@ namespace PdfPresenter
 
     private void HelperWindow_OnLoaded(object sender, RoutedEventArgs e)
     {
-      _currentSlide = new PresentationRenderer(0);
-      HelpCurrentSlide.Children.Add(_currentSlide.ToWindowsFormsHost());
-      _nextSlide = new PresentationRenderer(1);
-      HelpNextSlide.Children.Add(_nextSlide.ToWindowsFormsHost());
+      _currentSlide.Load();
+      _nextSlide.Load();
 
-      _nextSlide.Advance();
+      HelpCurrentSlide.Children.Add(_currentSlide.ToWindowsFormsHost());
+      HelpNextSlide.Children.Add(_nextSlide.ToWindowsFormsHost());
     }
   }
 }
