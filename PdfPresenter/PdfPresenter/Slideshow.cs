@@ -8,16 +8,18 @@ namespace PdfPresenter
 {
   public class Slideshow
   {
-    private readonly int _startingSlide;
+    private readonly int _slideOffset;
     private readonly PdfRenderer _pdfRenderer;
     private WindowsFormsHost _windowsFormsHost;
     private readonly string _path;
     private readonly List<Slideshow> _observers = new List<Slideshow>();
+    private int _currentPage;
 
-    public Slideshow(string path, int startingSlide = 0)
+    public Slideshow(string path, int slideOffset = 0)
     {
       _path = path;
-      _startingSlide = startingSlide;
+      _slideOffset = slideOffset;
+      _currentPage = slideOffset;
       _pdfRenderer = new PdfRenderer();
     }
 
@@ -30,7 +32,7 @@ namespace PdfPresenter
         Child = _pdfRenderer
       };
 
-      AsSoonAsWinformsHostLoadsShowSlide(_startingSlide, _pdfRenderer);
+      AsSoonAsWinformsHostLoadsShowSlide(_slideOffset, _pdfRenderer);
     }
 
     private void AsSoonAsWinformsHostLoadsShowSlide(int startingSlide, PdfRenderer pdfRenderer)
@@ -58,29 +60,45 @@ namespace PdfPresenter
       return _windowsFormsHost;
     }
 
-    public void Advance()
+    private void Advance()
     {
       _pdfRenderer.Page++;
+      _currentPage = _pdfRenderer.Page;
       _pdfRenderer.Refresh();
+      NotifyAllObserversOnSlide(_pdfRenderer.Page);
+    }
+
+    private void NotifyAllObserversOnSlide(int page)
+    {
       foreach (var slideshow in _observers)
       {
-        slideshow.Advance();
+        slideshow.NotifySlideChangedTo(page);
       }
+    }
+
+    private void NotifySlideChangedTo(int page)
+    {
+      _pdfRenderer.Page = page + _slideOffset;
+      _currentPage = _pdfRenderer.Page;
     }
 
     private void GoBack()
     {
       _pdfRenderer.Page--;
+      _currentPage = _pdfRenderer.Page;
       _pdfRenderer.Refresh();
-      foreach (var slideshow in _observers)
-      {
-        slideshow.GoBack();
-      }
+      NotifyAllObserversOnSlide(_pdfRenderer.Page);
     }
 
     public void ReportSlideChangesTo(Slideshow slideshow)
     {
       _observers.Add(slideshow);
+    }
+
+    public void Refresh()
+    {
+      _pdfRenderer.Page = _currentPage;
+      _pdfRenderer.Refresh();
     }
   }
 }

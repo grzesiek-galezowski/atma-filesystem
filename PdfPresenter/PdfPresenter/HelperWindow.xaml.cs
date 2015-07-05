@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PdfPresenter
 {
@@ -27,13 +17,7 @@ namespace PdfPresenter
       _nextSlide = nextSlide;
 
       InitializeComponent();
-
-    }
-
-    public void GoToNextSlide()
-    {
-      _currentSlide.Advance();
-      _nextSlide.Advance();
+      this.Background = new SolidColorBrush(Colors.Black);
     }
 
     private void HelperWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -43,6 +27,12 @@ namespace PdfPresenter
 
       HelpCurrentSlide.Children.Add(_currentSlide.ToWindowsFormsHost());
       HelpNextSlide.Children.Add(_nextSlide.ToWindowsFormsHost());
+    }
+
+    private void HelperWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
+    {
+      _currentSlide.Refresh();
+      _nextSlide.Refresh();
     }
   }
 }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Loaded="HelperWindow_OnLoaded"
+        SizeChanged="HelperWindow_OnSizeChanged"
         mc:Ignorable="d"
         Title="HelperWindow" Height="300" Width="300">
         <Grid Name="HelperGrid">
