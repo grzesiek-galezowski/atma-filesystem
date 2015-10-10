@@ -1,17 +1,28 @@
 using System;
 using AtmaFileSystem.Assertions;
-using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
   public class FileExtension
-    : IEquatable<FileExtension>
+    : IEquatable<FileExtension>, IEquatableAccordingToFileSystem<FileExtension>
   {
     private readonly string _extension;
 
     internal FileExtension(string extension)
     {
       this._extension = extension;
+    }
+
+    public bool Equals(FileExtension other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
+    }
+
+    public bool Equals(FileExtension other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return string.Equals(_extension, other._extension);
     }
 
     public override string ToString()
@@ -28,19 +39,12 @@ namespace AtmaFileSystem
       return new FileExtension(extensionString);
     }
 
-    public bool Equals(FileExtension other)
-    {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_extension, other._extension);
-    }
-
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((FileExtension)obj);
+      return Equals((FileExtension) obj);
     }
 
     public override int GetHashCode()
@@ -57,7 +61,5 @@ namespace AtmaFileSystem
     {
       return !Equals(left, right);
     }
-
   }
-
 }

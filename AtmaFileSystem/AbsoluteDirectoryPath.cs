@@ -4,10 +4,11 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class AbsoluteDirectoryPath : IEquatable<AbsoluteDirectoryPath>
+  public class AbsoluteDirectoryPath : IEquatable<AbsoluteDirectoryPath>,
+    IEquatableAccordingToFileSystem<AbsoluteDirectoryPath>
   {
-    private readonly string _path;
     private readonly DirectoryInfo _directoryInfo;
+    private readonly string _path;
 
     internal AbsoluteDirectoryPath(string path)
     {
@@ -18,13 +19,24 @@ namespace AtmaFileSystem
     public AbsoluteDirectoryPath(AbsoluteDirectoryPath path, DirectoryName directoryName)
       : this(Combine(path, directoryName))
     {
-
     }
 
     public AbsoluteDirectoryPath(AbsoluteDirectoryPath path, RelativeDirectoryPath directoryName)
       : this(Combine(path, directoryName))
     {
-      
+    }
+
+
+    public bool Equals(AbsoluteDirectoryPath other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return string.Equals(_path, other._path);
+    }
+
+    public bool Equals(AbsoluteDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
     private static string Combine(object part1, object part2)
@@ -88,20 +100,12 @@ namespace AtmaFileSystem
       return new AbsoluteFilePath(path, relativeFilePath);
     }
 
-
-    public bool Equals(AbsoluteDirectoryPath other)
-    {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
-    }
-
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((AbsoluteDirectoryPath)obj);
+      return Equals((AbsoluteDirectoryPath) obj);
     }
 
     public override int GetHashCode()
@@ -133,6 +137,5 @@ namespace AtmaFileSystem
     {
       return new AnyPath(_path);
     }
-
   }
 }

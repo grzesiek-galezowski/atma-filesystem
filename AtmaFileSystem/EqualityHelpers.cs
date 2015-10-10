@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace AtmaFileSystem
 {
-
   //this class is buggy...
-  internal class EqualityHelpers
+  class EqualityHelpers
   {
-
     public static bool Equal<T1>(T1 a1, T1 a2)
     {
       return EqualityComparer<T1>.Default.Equals(a1, a2);

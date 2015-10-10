@@ -49,6 +49,8 @@
     <Compile Include="FileExtension.cs" />
     <Compile Include="FileName.cs" />
     <Compile Include="FileNameWithoutExtension.cs" />
+    <Compile Include="FileSystemComparisonRules.cs" />
+    <Compile Include="IEquatableAccordingToFileSystem.cs" />
     <Compile Include="Maybe.cs" />
     <Compile Include="AbsoluteFilePath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

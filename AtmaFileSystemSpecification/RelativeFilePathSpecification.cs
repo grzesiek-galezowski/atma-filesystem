@@ -1,5 +1,6 @@
 ﻿using System;
 using AtmaFileSystem;
+using NSubstitute;
 using Pri.LongPath;
 using TddEbook.TddToolkit;
 using Xunit;
@@ -153,6 +154,26 @@ namespace AtmaFileSystemSpecification
 
     }
 
+    [Fact]
+    public void ShouldDetermineEqualityToAnotherInstanceUsingFileSystemComparisonRules()
+    {
+      //GIVEN
+      var path1 = Any.Instance<RelativeFilePath>();
+      var path2 = Any.Instance<RelativeFilePath>();
+      var fileSystemComparisonRules = Substitute.For<FileSystemComparisonRules>();
+      var comparisonResult = Any.Boolean();
+
+      fileSystemComparisonRules
+        .ArePathStringsEqual(path1.ToString(), path2.ToString())
+        .Returns(comparisonResult);
+
+
+      //WHEN
+      var equality = path1.Equals(path2, fileSystemComparisonRules);
+
+      //THEN
+      XAssert.Equal(comparisonResult, equality);
+    }
 
   }
 

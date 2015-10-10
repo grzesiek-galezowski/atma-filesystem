@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using AtmaFileSystem;
 using AtmaFileSystem.Assertions;
+using NSubstitute;
 using Pri.LongPath;
 using TddEbook.TddToolkit;
 using Xunit;
@@ -174,7 +175,26 @@ namespace AtmaFileSystemSpecification
       return Path.Combine(new DirectoryInfo(".").FullName, path.ToString());
     }
 
+    [Fact]
+    public void ShouldDetermineEqualityToAnotherInstanceUsingFileSystemComparisonRules()
+    {
+      //GIVEN
+      var path1 = Any.Instance<RelativeDirectoryPath>();
+      var path2 = Any.Instance<RelativeDirectoryPath>();
+      var fileSystemComparisonRules = Substitute.For<FileSystemComparisonRules>();
+      var comparisonResult = Any.Boolean();
 
+      fileSystemComparisonRules
+        .ArePathStringsEqual(path1.ToString(), path2.ToString())
+        .Returns(comparisonResult);
+
+
+      //WHEN
+      var equality = path1.Equals(path2, fileSystemComparisonRules);
+
+      //THEN
+      XAssert.Equal(comparisonResult, equality);
+    }
   }
 
   //todo cut out first directory from relative directory path = relative directory path

@@ -3,7 +3,7 @@ using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
-  public class DirectoryName : IEquatable<DirectoryName>
+  public class DirectoryName : IEquatable<DirectoryName>, IEquatableAccordingToFileSystem<DirectoryName>
   {
     private readonly string _directoryName;
 
@@ -12,22 +12,12 @@ namespace AtmaFileSystem
       _directoryName = directoryName;
     }
 
-    public static DirectoryName Value(string directoryName)
-    {
-      Asserts.NotNull(directoryName, "directoryName");
-      Asserts.NotEmpty(directoryName, "directory name cannot be empty");
-      Asserts.ValidDirectoryName(directoryName, "The value " + directoryName + " does not constitute a valid directory name");
-      return new DirectoryName(directoryName);
-    }
-
     //operators cannot return relative or non relative because dir name can be root as well
 
 
-
-    #region Generated members
-    public override string ToString()
+    public bool Equals(DirectoryName other, FileSystemComparisonRules fileSystemComparisonRules)
     {
-      return _directoryName;
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
     public bool Equals(DirectoryName other)
@@ -37,12 +27,26 @@ namespace AtmaFileSystem
       return string.Equals(_directoryName, other._directoryName);
     }
 
+    public static DirectoryName Value(string directoryName)
+    {
+      Asserts.NotNull(directoryName, "directoryName");
+      Asserts.NotEmpty(directoryName, "directory name cannot be empty");
+      Asserts.ValidDirectoryName(directoryName,
+        "The value " + directoryName + " does not constitute a valid directory name");
+      return new DirectoryName(directoryName);
+    }
+
+    public override string ToString()
+    {
+      return _directoryName;
+    }
+
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((DirectoryName)obj);
+      return Equals((DirectoryName) obj);
     }
 
     public override int GetHashCode()
@@ -59,6 +63,5 @@ namespace AtmaFileSystem
     {
       return !Equals(left, right);
     }
-    #endregion
   }
 }

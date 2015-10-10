@@ -3,7 +3,7 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem.Assertions
 {
-  static internal class Asserts
+  static class Asserts
   {
     public static void Rooted(string path, string message)
     {

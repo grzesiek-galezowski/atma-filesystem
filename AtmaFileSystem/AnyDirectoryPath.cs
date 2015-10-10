@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using AtmaFileSystem.Assertions;
 using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class AnyDirectoryPath : IEquatable<AnyDirectoryPath>
+  public class AnyDirectoryPath : IEquatable<AnyDirectoryPath>, IEquatableAccordingToFileSystem<AnyDirectoryPath>
   {
+    private readonly string _path;
+
     private AnyDirectoryPath(AnyDirectoryPath left, DirectoryName right)
       : this(Path.Combine(left.ToString(), right.ToString()))
     {
-
     }
 
     private AnyDirectoryPath(AnyDirectoryPath left, RelativeDirectoryPath right)
       : this(Path.Combine(left.ToString(), right.ToString()))
     {
-
     }
 
     internal AnyDirectoryPath(string path)
@@ -29,6 +28,11 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
       return string.Equals(_path, other._path);
+    }
+
+    public bool Equals(AnyDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
     public override bool Equals(object obj)
@@ -54,12 +58,12 @@ namespace AtmaFileSystem
       return !Equals(left, right);
     }
 
-    public static AnyFilePath operator+(AnyDirectoryPath left, FileName right)
+    public static AnyFilePath operator +(AnyDirectoryPath left, FileName right)
     {
       return new AnyFilePath(left, right);
     }
 
-    public static AnyDirectoryPath operator+(AnyDirectoryPath left, DirectoryName right)
+    public static AnyDirectoryPath operator +(AnyDirectoryPath left, DirectoryName right)
     {
       return new AnyDirectoryPath(left, right);
     }
@@ -73,10 +77,6 @@ namespace AtmaFileSystem
     {
       return new AnyFilePath(left, right);
     }
-
-
-    private readonly string _path;
-
 
     public override string ToString()
     {

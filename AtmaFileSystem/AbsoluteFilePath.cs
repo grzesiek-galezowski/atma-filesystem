@@ -2,10 +2,9 @@ using System;
 using AtmaFileSystem.Assertions;
 using Pri.LongPath;
 
-
 namespace AtmaFileSystem
 {
-  public class AbsoluteFilePath : IEquatable<AbsoluteFilePath>
+  public class AbsoluteFilePath : IEquatable<AbsoluteFilePath>, IEquatableAccordingToFileSystem<AbsoluteFilePath>
   {
     private readonly string _path;
 
@@ -18,13 +17,23 @@ namespace AtmaFileSystem
     internal AbsoluteFilePath(AbsoluteDirectoryPath dirPath, FileName fileName)
       : this(Combine(dirPath, fileName))
     {
-
     }
 
     internal AbsoluteFilePath(AbsoluteDirectoryPath dirPath, RelativeFilePath relativeFilePath)
       : this(Combine(dirPath, relativeFilePath))
     {
-      
+    }
+
+    public bool Equals(AbsoluteFilePath other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return string.Equals(_path, other._path);
+    }
+
+    public bool Equals(AbsoluteFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(this.ToString(), other.ToString());
     }
 
     private static string Combine(object part1, object part2)
@@ -71,17 +80,9 @@ namespace AtmaFileSystem
       return new AnyPath(_path);
     }
 
-    #region Generated members
     public override string ToString()
     {
       return _path;
-    }
-
-    public bool Equals(AbsoluteFilePath other)
-    {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
     }
 
     public override bool Equals(object obj)
@@ -89,7 +90,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((AbsoluteFilePath)obj);
+      return Equals((AbsoluteFilePath) obj);
     }
 
     public override int GetHashCode()
@@ -106,9 +107,6 @@ namespace AtmaFileSystem
     {
       return !Equals(left, right);
     }
-
-
-    #endregion
 
     public bool Has(FileExtension extensionValue)
     {

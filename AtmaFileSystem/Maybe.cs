@@ -39,7 +39,7 @@ namespace AtmaFileSystem
       }
     }
 
-    public static implicit operator Maybe<T> (T instance)
+    public static implicit operator Maybe<T>(T instance)
     {
       return Maybe.Wrap(instance);
     }

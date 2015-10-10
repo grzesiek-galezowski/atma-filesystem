@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using AtmaFileSystem;
 using AtmaFileSystemSpecification;
+using NSubstitute;
 using TddEbook.TddToolkit;
 using Xunit;
 
@@ -221,6 +222,27 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(directorypath.ToString(), anyPathWithFileName.ToString());
+    }
+
+    [Fact]
+    public void ShouldDetermineEqualityToAnotherInstanceUsingFileSystemComparisonRules()
+    {
+      //GIVEN
+      var directoryPath1 = Any.Instance<AbsoluteDirectoryPath>();
+      var directoryPath2 = Any.Instance<AbsoluteDirectoryPath>();
+      var fileSystemComparisonRules = Substitute.For<FileSystemComparisonRules>();
+      var comparisonResult = Any.Boolean();
+
+      fileSystemComparisonRules
+        .ArePathStringsEqual(directoryPath1.ToString(), directoryPath2.ToString())
+        .Returns(comparisonResult);
+
+
+      //WHEN
+      var equality = directoryPath1.Equals(directoryPath2, fileSystemComparisonRules);
+
+      //THEN
+      XAssert.Equal(comparisonResult, equality);
     }
 
   }

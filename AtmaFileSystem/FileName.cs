@@ -4,7 +4,7 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class FileName : IEquatable<FileName>
+  public class FileName : IEquatable<FileName>, IEquatableAccordingToFileSystem<FileName>
   {
     private readonly string _path;
 
@@ -16,7 +16,18 @@ namespace AtmaFileSystem
     public FileName(FileNameWithoutExtension nameWithoutExtension, FileExtension extension)
       : this(nameWithoutExtension.ToString() + extension.ToString())
     {
-      
+    }
+
+    public bool Equals(FileName other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
+    }
+
+    public bool Equals(FileName other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      return string.Equals(_path, other._path);
     }
 
     public static FileName Value(string path)
@@ -33,19 +44,12 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public bool Equals(FileName other)
-    {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
-    }
-
     public override bool Equals(object obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((FileName)obj);
+      return Equals((FileName) obj);
     }
 
     public override int GetHashCode()

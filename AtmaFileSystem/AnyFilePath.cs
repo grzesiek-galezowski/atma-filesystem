@@ -5,8 +5,25 @@ using AtmaFileSystem.Assertions;
 namespace AtmaFileSystem
 {
   public class AnyFilePath
-    : IEquatable<AnyFilePath>
+    : IEquatable<AnyFilePath>, IEquatableAccordingToFileSystem<AnyFilePath>
   {
+    private readonly string _path;
+
+    internal AnyFilePath(string path)
+    {
+      _path = path;
+    }
+
+    internal AnyFilePath(AnyDirectoryPath left, FileName right)
+      : this(Path.Combine(left.ToString(), right.ToString()))
+    {
+    }
+
+    public AnyFilePath(AnyDirectoryPath left, RelativeFilePath right)
+      : this(Path.Combine(left.ToString(), right.ToString()))
+    {
+    }
+
     public bool Equals(AnyFilePath other)
     {
       if (ReferenceEquals(null, other)) return false;
@@ -35,25 +52,6 @@ namespace AtmaFileSystem
     public static bool operator !=(AnyFilePath left, AnyFilePath right)
     {
       return !Equals(left, right);
-    }
-
-    private readonly string _path;
-
-    internal AnyFilePath(string path)
-    {
-      _path = path;
-    }
-
-    internal AnyFilePath(AnyDirectoryPath left, FileName right)
-      : this(Path.Combine(left.ToString(), right.ToString()))
-    {
-      
-    }
-
-    public AnyFilePath(AnyDirectoryPath left, RelativeFilePath right)
-    : this(Path.Combine(left.ToString(), right.ToString()))
-    {
-      
     }
 
     public override string ToString()
@@ -100,6 +98,11 @@ namespace AtmaFileSystem
     public AnyFilePath ChangeExtensionTo(FileExtension value)
     {
       return new AnyFilePath(Path.ChangeExtension(_path, value.ToString()));
+    }
+
+    public bool Equals(AnyFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
   }
 

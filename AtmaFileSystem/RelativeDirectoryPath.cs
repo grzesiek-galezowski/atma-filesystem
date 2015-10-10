@@ -4,9 +4,26 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class RelativeDirectoryPath : IEquatable<RelativeDirectoryPath>
+  public class RelativeDirectoryPath : IEquatable<RelativeDirectoryPath>,
+    IEquatableAccordingToFileSystem<RelativeDirectoryPath>
   {
     private readonly string _path;
+
+    private RelativeDirectoryPath(RelativeDirectoryPath relativePath, DirectoryName dirName)
+      : this(Combine(relativePath, dirName))
+    {
+    }
+
+    private RelativeDirectoryPath(RelativeDirectoryPath relativeDirectoryPath,
+      RelativeDirectoryPath relativeDirectoryPath2)
+      : this(Combine(relativeDirectoryPath, relativeDirectoryPath2))
+    {
+    }
+
+    internal RelativeDirectoryPath(string relativePath)
+    {
+      _path = relativePath;
+    }
 
     public static RelativeDirectoryPath Value(string relativePath)
     {
@@ -17,29 +34,12 @@ namespace AtmaFileSystem
       return new RelativeDirectoryPath(relativePath);
     }
 
-    private RelativeDirectoryPath(RelativeDirectoryPath relativePath, DirectoryName dirName)
-      : this(Combine(relativePath, dirName))
-    {
-      
-    }
-
-    private RelativeDirectoryPath(RelativeDirectoryPath relativeDirectoryPath, RelativeDirectoryPath relativeDirectoryPath2)
-      : this(Combine(relativeDirectoryPath, relativeDirectoryPath2))
-    {
-
-    }
-
-    internal RelativeDirectoryPath(string relativePath)
-    {
-      _path = relativePath;
-    }
-
     private static string Combine(object part1, object part2)
     {
       return Path.Combine(part1.ToString(), part2.ToString());
     }
 
-    public static RelativeDirectoryPath operator+(RelativeDirectoryPath path, DirectoryName dirName)
+    public static RelativeDirectoryPath operator +(RelativeDirectoryPath path, DirectoryName dirName)
     {
       return new RelativeDirectoryPath(path, dirName);
     }
@@ -85,12 +85,21 @@ namespace AtmaFileSystem
       return new AnyPath(_path);
     }
 
+    public DirectoryName DirectoryName()
+    {
+      return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
+    }
 
     #region Generated members
 
+    public bool Equals(RelativeDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
+    }
+
     public override string ToString()
     {
-      return _path; 
+      return _path;
     }
 
     public bool Equals(RelativeDirectoryPath other)
@@ -105,7 +114,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((RelativeDirectoryPath)obj);
+      return Equals((RelativeDirectoryPath) obj);
     }
 
     public override int GetHashCode()
@@ -124,10 +133,5 @@ namespace AtmaFileSystem
     }
 
     #endregion
-
-    public DirectoryName DirectoryName()
-    {
-      return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
-    }
   }
 }

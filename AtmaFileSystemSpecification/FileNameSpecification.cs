@@ -1,5 +1,6 @@
 ﻿using System;
 using AtmaFileSystem;
+using NSubstitute;
 using TddEbook.TddToolkit;
 using Xunit;
 
@@ -109,6 +110,27 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.Equal(@"file.doc", nameWithNewExtension.ToString());
 
+    }
+
+    [Fact]
+    public void ShouldDetermineEqualityToAnotherInstanceUsingFileSystemComparisonRules()
+    {
+      //GIVEN
+      var path1 = Any.Instance<FileName>();
+      var path2 = Any.Instance<FileName>();
+      var fileSystemComparisonRules = Substitute.For<FileSystemComparisonRules>();
+      var comparisonResult = Any.Boolean();
+
+      fileSystemComparisonRules
+        .ArePathStringsEqual(path1.ToString(), path2.ToString())
+        .Returns(comparisonResult);
+
+
+      //WHEN
+      var equality = path1.Equals(path2, fileSystemComparisonRules);
+
+      //THEN
+      XAssert.Equal(comparisonResult, equality);
     }
 
   }

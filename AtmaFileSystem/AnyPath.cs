@@ -5,13 +5,25 @@ using Pri.LongPath;
 namespace AtmaFileSystem
 {
   public class AnyPath
-    : IEquatable<AnyPath>
+    : IEquatable<AnyPath>, IEquatableAccordingToFileSystem<AnyPath>
   {
+    private readonly string _path;
+
+    internal AnyPath(string path)
+    {
+      _path = path;
+    }
+
     public bool Equals(AnyPath other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
       return string.Equals(_path, other._path);
+    }
+
+    public bool Equals(AnyPath other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
     public override bool Equals(object obj)
@@ -35,13 +47,6 @@ namespace AtmaFileSystem
     public static bool operator !=(AnyPath left, AnyPath right)
     {
       return !Equals(left, right);
-    }
-
-    private readonly string _path;
-
-    internal AnyPath(string path)
-    {
-      _path = path;
     }
 
     public override string ToString()

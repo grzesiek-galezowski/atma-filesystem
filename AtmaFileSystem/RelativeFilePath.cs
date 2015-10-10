@@ -4,7 +4,7 @@ using Pri.LongPath;
 
 namespace AtmaFileSystem
 {
-  public class RelativeFilePath : IEquatable<RelativeFilePath>
+  public class RelativeFilePath : IEquatable<RelativeFilePath>, IEquatableAccordingToFileSystem<RelativeFilePath>
   {
     private readonly string _path;
 
@@ -21,7 +21,6 @@ namespace AtmaFileSystem
     internal RelativeFilePath(RelativeDirectoryPath relativeDirectoryPath, RelativeFilePath relativeFilePath)
       : this(Combine(relativeDirectoryPath, relativeFilePath))
     {
-      
     }
 
     private static string Combine(object part1, object part2)
@@ -64,7 +63,22 @@ namespace AtmaFileSystem
       return new AnyPath(_path);
     }
 
+    public bool Has(FileExtension extensionValue)
+    {
+      return FileName().Has(extensionValue);
+    }
+
+    public RelativeFilePath ChangeExtensionTo(FileExtension value)
+    {
+      return new RelativeFilePath(Path.ChangeExtension(_path, value.ToString()));
+    }
+
     #region Generated members
+
+    public bool Equals(RelativeFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
+    {
+      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
+    }
 
     public override string ToString()
     {
@@ -83,7 +97,7 @@ namespace AtmaFileSystem
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
       if (obj.GetType() != this.GetType()) return false;
-      return Equals((RelativeFilePath)obj);
+      return Equals((RelativeFilePath) obj);
     }
 
     public override int GetHashCode()
@@ -100,16 +114,7 @@ namespace AtmaFileSystem
     {
       return !Equals(left, right);
     }
+
     #endregion
-
-    public bool Has(FileExtension extensionValue)
-    {
-      return FileName().Has(extensionValue);
-    }
-
-    public RelativeFilePath ChangeExtensionTo(FileExtension value)
-    {
-      return new RelativeFilePath(Path.ChangeExtension(_path, value.ToString()));
-    }
   }
 }

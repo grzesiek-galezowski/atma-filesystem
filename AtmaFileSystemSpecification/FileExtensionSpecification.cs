@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using AtmaFileSystem;
+using NSubstitute;
 using TddEbook.TddToolkit;
 using Xunit;
 
@@ -51,7 +52,26 @@ namespace AtmaFileSystemSpecification
       XAssert.Equal(extensionString, extension.ToString());
     }
 
+    [Fact]
+    public void ShouldDetermineEqualityToAnotherInstanceUsingFileSystemComparisonRules()
+    {
+      //GIVEN
+      var path1 = Any.Instance<FileExtension>();
+      var path2 = Any.Instance<FileExtension>();
+      var fileSystemComparisonRules = Substitute.For<FileSystemComparisonRules>();
+      var comparisonResult = Any.Boolean();
 
+      fileSystemComparisonRules
+        .ArePathStringsEqual(path1.ToString(), path2.ToString())
+        .Returns(comparisonResult);
+
+
+      //WHEN
+      var equality = path1.Equals(path2, fileSystemComparisonRules);
+
+      //THEN
+      XAssert.Equal(comparisonResult, equality);
+    }
 
     //TODO add method called ExtractFrom() or Of() that extracts extension from string
 
