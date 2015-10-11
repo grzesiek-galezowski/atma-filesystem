@@ -100,7 +100,7 @@ namespace AtmaFileSystem
       return new AnyFilePath(Path.ChangeExtension(_path, value.ToString()));
     }
 
-    public bool Equals(AnyFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
+    public bool ShallowEquals(AnyFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }

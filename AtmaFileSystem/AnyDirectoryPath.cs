@@ -30,7 +30,7 @@ namespace AtmaFileSystem
       return string.Equals(_path, other._path);
     }
 
-    public bool Equals(AnyDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
+    public bool ShallowEquals(AnyDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }

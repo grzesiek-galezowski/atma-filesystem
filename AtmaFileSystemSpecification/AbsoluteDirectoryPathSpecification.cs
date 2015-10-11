@@ -239,7 +239,7 @@ namespace AtmaFileSystemSpecification
 
 
       //WHEN
-      var equality = directoryPath1.Equals(directoryPath2, fileSystemComparisonRules);
+      var equality = directoryPath1.ShallowEquals(directoryPath2, fileSystemComparisonRules);
 
       //THEN
       XAssert.Equal(comparisonResult, equality);

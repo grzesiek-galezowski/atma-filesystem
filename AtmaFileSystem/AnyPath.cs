@@ -21,7 +21,7 @@ namespace AtmaFileSystem
       return string.Equals(_path, other._path);
     }
 
-    public bool Equals(AnyPath other, FileSystemComparisonRules fileSystemComparisonRules)
+    public bool ShallowEquals(AnyPath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }

@@ -92,7 +92,7 @@ namespace AtmaFileSystem
 
     #region Generated members
 
-    public bool Equals(RelativeDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
+    public bool ShallowEquals(RelativeDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }

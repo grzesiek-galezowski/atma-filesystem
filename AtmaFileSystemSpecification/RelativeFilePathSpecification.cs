@@ -169,7 +169,7 @@ namespace AtmaFileSystemSpecification
 
 
       //WHEN
-      var equality = path1.Equals(path2, fileSystemComparisonRules);
+      var equality = path1.ShallowEquals(path2, fileSystemComparisonRules);
 
       //THEN
       XAssert.Equal(comparisonResult, equality);

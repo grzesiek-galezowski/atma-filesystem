@@ -20,7 +20,7 @@ namespace AtmaFileSystem
     }
 
 
-    public bool Equals(FileNameWithoutExtension other, FileSystemComparisonRules fileSystemComparisonRules)
+    public bool ShallowEquals(FileNameWithoutExtension other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }

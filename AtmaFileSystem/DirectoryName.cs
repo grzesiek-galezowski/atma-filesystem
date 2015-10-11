@@ -15,7 +15,7 @@ namespace AtmaFileSystem
     //operators cannot return relative or non relative because dir name can be root as well
 
 
-    public bool Equals(DirectoryName other, FileSystemComparisonRules fileSystemComparisonRules)
+    public bool ShallowEquals(DirectoryName other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }

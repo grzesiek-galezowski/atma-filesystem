@@ -13,7 +13,7 @@ namespace AtmaFileSystem
       this._extension = extension;
     }
 
-    public bool Equals(FileExtension other, FileSystemComparisonRules fileSystemComparisonRules)
+    public bool ShallowEquals(FileExtension other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
