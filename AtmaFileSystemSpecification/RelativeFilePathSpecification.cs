@@ -50,6 +50,7 @@ namespace AtmaFileSystemSpecification
       //WHEN
       var dirObtainedFromPath = filePath.ParentDirectory();
 
+
       //THEN
       Assert.Equal(dirPath, dirObtainedFromPath.Value());
     }
@@ -166,7 +167,6 @@ namespace AtmaFileSystemSpecification
       fileSystemComparisonRules
         .ArePathStringsEqual(path1.ToString(), path2.ToString())
         .Returns(comparisonResult);
-
 
       //WHEN
       var equality = path1.ShallowEquals(path2, fileSystemComparisonRules);

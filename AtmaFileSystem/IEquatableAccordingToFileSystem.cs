@@ -1,6 +1,6 @@
 namespace AtmaFileSystem
 {
-  public interface IEquatableAccordingToFileSystem<T>
+  public interface IEquatableAccordingToFileSystem<in T>
   {
     bool ShallowEquals(T other, FileSystemComparisonRules fileSystemComparisonRules);
   }
