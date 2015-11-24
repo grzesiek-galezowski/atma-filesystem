@@ -50,7 +50,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)\packages\NuGet.CommandLine.2.8.5\tools\NuGet.exe pack $(SolutionDir)\NuGet\Package.nuspec -Prop Configuration=Release</PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)\packages\NuGet.CommandLine.2.8.6\tools\NuGet.exe pack $(SolutionDir)\NuGet\Package.nuspec -Verbosity detailed -Prop Configuration=Release</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
