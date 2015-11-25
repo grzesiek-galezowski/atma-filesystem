@@ -9,7 +9,7 @@
     <description>Library for path value manipulation. This library concentrates on operations on path VALUES instead of the path locations, trying to make these operations as much type-safe and type-checked as possible.</description>
     <projectUrl>https://github.com/grzesiek-galezowski/atma-filesystem</projectUrl>
     <licenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</licenseUrl>
-    <releaseNotes>Updated dependencies.</releaseNotes>
+    <releaseNotes>Updated dependencies to newest versions.</releaseNotes>
     <language>en-US</language>
     <dependencies>
       <dependency id="Pri.LongPath" version="2.0.11.0" />
