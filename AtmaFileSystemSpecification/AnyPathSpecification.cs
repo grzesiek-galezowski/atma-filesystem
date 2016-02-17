@@ -36,7 +36,7 @@ namespace AtmaFileSystemSpecification
       var anyPath = AnyPath.Value(@"Directory\Subdirectory\Subsubdirectory");
 
       //WHEN
-      AtmaFileSystem.Maybe<AnyDirectoryPath> parentDirectory = anyPath.ParentDirectory();
+      Maybe<AnyDirectoryPath> parentDirectory = anyPath.ParentDirectory();
 
       //THEN
       Assert.True(parentDirectory.Found);
