@@ -1,0 +1,22 @@
+WebException @18.02.2016 00:07:43
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @18.02.2016 00:08:13
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @18.02.2016 00:08:18
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+Actual error is :
+Object reference not set to an instance of an object.
+Node :bool ShallowEquals(T other, FileSystemComparisonRules fileSystemComparisonRules);
+
+*******************************************************
+WebException @18.02.2016 00:11:42
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @18.02.2016 00:12:41
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
+WebException @18.02.2016 00:13:48
+The remote name could not be resolved: 'gcop.watch.masoud.g.e'
+*******************************************************
