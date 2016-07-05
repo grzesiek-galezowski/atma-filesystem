@@ -8,19 +8,20 @@ namespace AtmaFileSystem
   {
     private readonly string _path;
 
-    internal RelativeFilePath(RelativeDirectoryPath relativeDirectoryPath, FileName fileName)
-    {
-      _path = Path.Combine(relativeDirectoryPath.ToString(), fileName.ToString());
-    }
 
     internal RelativeFilePath(string pathString)
     {
       _path = pathString;
     }
 
-    internal RelativeFilePath(RelativeDirectoryPath relativeDirectoryPath, RelativeFilePath relativeFilePath)
-      : this(Combine(relativeDirectoryPath, relativeFilePath))
+    public static RelativeFilePath From(RelativeDirectoryPath relativeDirectoryPath, FileName fileName)
     {
+      return new RelativeFilePath(Path.Combine(relativeDirectoryPath.ToString(), fileName.ToString()));
+    }
+
+    public static RelativeFilePath From(RelativeDirectoryPath relativeDirectoryPath, RelativeFilePath relativeFilePath)
+    {
+      return new RelativeFilePath(Combine(relativeDirectoryPath, relativeFilePath));
     }
 
     private static string Combine(object part1, object part2)

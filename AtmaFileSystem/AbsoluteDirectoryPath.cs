@@ -81,7 +81,7 @@ namespace AtmaFileSystem
 
     public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, FileName fileName)
     {
-      return new AbsoluteFilePath(path, fileName);
+      return AbsoluteFilePath.From(path, fileName);
     }
 
     public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, DirectoryName directoryName)
@@ -96,7 +96,7 @@ namespace AtmaFileSystem
 
     public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, RelativeFilePath relativeFilePath)
     {
-      return new AbsoluteFilePath(path, relativeFilePath);
+      return AbsoluteFilePath.From(path, relativeFilePath);
     }
 
     public override bool Equals(object obj)

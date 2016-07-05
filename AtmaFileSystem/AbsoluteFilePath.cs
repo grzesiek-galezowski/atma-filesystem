@@ -14,14 +14,14 @@ namespace AtmaFileSystem
       _path = path;
     }
 
-    internal AbsoluteFilePath(AbsoluteDirectoryPath dirPath, FileName fileName)
-      : this(Combine(dirPath, fileName))
+    public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, FileName fileName)
     {
+      return new AbsoluteFilePath(Combine(dirPath, fileName));
     }
 
-    internal AbsoluteFilePath(AbsoluteDirectoryPath dirPath, RelativeFilePath relativeFilePath)
-      : this(Combine(dirPath, relativeFilePath))
+    public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, RelativeFilePath relativeFilePath)
     {
+      return new AbsoluteFilePath(Combine(dirPath, relativeFilePath));
     }
 
     public bool Equals(AbsoluteFilePath other)

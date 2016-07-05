@@ -46,7 +46,7 @@ namespace AtmaFileSystem
 
     public static RelativeFilePath operator +(RelativeDirectoryPath path, FileName dirName)
     {
-      return new RelativeFilePath(path, dirName);
+      return RelativeFilePath.From(path, dirName);
     }
 
     public static RelativeDirectoryPath operator +(RelativeDirectoryPath path, RelativeDirectoryPath path2)
@@ -56,7 +56,7 @@ namespace AtmaFileSystem
 
     public static RelativeFilePath operator +(RelativeDirectoryPath path, RelativeFilePath relativeFilePath)
     {
-      return new RelativeFilePath(path, relativeFilePath);
+      return RelativeFilePath.From(path, relativeFilePath);
     }
 
 
