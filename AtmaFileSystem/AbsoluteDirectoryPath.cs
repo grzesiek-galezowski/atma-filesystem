@@ -16,17 +16,6 @@ namespace AtmaFileSystem
       _directoryInfo = new DirectoryInfo(_path);
     }
 
-    public AbsoluteDirectoryPath(AbsoluteDirectoryPath path, DirectoryName directoryName)
-      : this(Combine(path, directoryName))
-    {
-    }
-
-    public AbsoluteDirectoryPath(AbsoluteDirectoryPath path, RelativeDirectoryPath directoryName)
-      : this(Combine(path, directoryName))
-    {
-    }
-
-
     public bool Equals(AbsoluteDirectoryPath other)
     {
       if (ReferenceEquals(null, other)) return false;
@@ -52,6 +41,16 @@ namespace AtmaFileSystem
       Asserts.Rooted(path, "Expected absolute path, but got " + path);
 
       return new AbsoluteDirectoryPath(path);
+    }
+
+    public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, DirectoryName directoryName)
+    {
+      return new AbsoluteDirectoryPath(Combine(path, directoryName));
+    }
+
+    public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, RelativeDirectoryPath directoryName)
+    {
+      return new AbsoluteDirectoryPath(Combine(path, directoryName));
     }
 
     public override string ToString()
@@ -87,12 +86,12 @@ namespace AtmaFileSystem
 
     public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, DirectoryName directoryName)
     {
-      return new AbsoluteDirectoryPath(path, directoryName);
+      return From(path, directoryName);
     }
 
     public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, RelativeDirectoryPath relativePath)
     {
-      return new AbsoluteDirectoryPath(path, relativePath);
+      return From(path, relativePath);
     }
 
     public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, RelativeFilePath relativeFilePath)
