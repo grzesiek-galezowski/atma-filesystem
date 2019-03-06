@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Grzegorz Gałęzowski</Authors>
+    <Company>Grzegorz Gałęzowski</Company>
+    <Description>Library for path value manipulation. This library concentrates on operations on path VALUES instead of the path locations, trying to make these operations as much type-safe and type-checked as possible.</Description>
+    <Product>Atma File System</Product>
+    <PackageProjectUrl>https://github.com/grzesiek-galezowski/atma-filesystem</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>1.0.0</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
