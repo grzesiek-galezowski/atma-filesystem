@@ -3,26 +3,40 @@ using System.IO;
 using AtmaFileSystem;
 using FluentAssertions;
 using NSubstitute;
+using NSubstitute.Core;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssert.Root;
 using Xunit;
+using static AtmaFileSystem.AtmaFileSystemPaths;
 using static TddXt.AnyRoot.Root;
+using AbsoluteDirectoryPath = AtmaFileSystem.AbsoluteDirectoryPath;
+using AbsoluteFilePath = AtmaFileSystem.AbsoluteFilePath;
+using DirectoryName = AtmaFileSystem.DirectoryName;
+using FileExtension = AtmaFileSystem.FileExtension;
 
 namespace AtmaFileSystemSpecification
 {
+
   public class AbsoluteFilePathSpecification
   {
 
     [Fact]
     public void ShouldNotAllowToBeCreatedWithNullValue()
     {
-      Assert.Throws<ArgumentNullException>(() => AbsoluteFilePath.Value(null));
+      Assert.Throws<ArgumentNullException>(() => AbsoluteFilePath(null));
     }
 
     [Fact]
     public void ShouldReturnNonNullFileNameWhenCreatedWithWellFormedPathString()
     {
-      Assert.NotNull(AbsoluteFilePath.Value(@"c:\\lolek\\lolki2.txt"));
+      Assert.NotNull(AbsoluteFilePath(@"c:\\lolek\\lolki2.txt"));
+    }
+
+    [Fact]
+    public void ShouldNormalizePathsWithNavigationCharacters()
+    {
+      var absoluteFilePath = AbsoluteFilePath(@"c:\\lolek\\..\\lolki2.txt");
+      absoluteFilePath.Should().Be(AbsoluteFilePath(@"c:\\lolki2.txt"));
     }
 
     [Fact]
@@ -42,7 +56,7 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var initialValue = @"C:\Dir\Subdir\file.csproj";
-      var path = AbsoluteFilePath.Value(initialValue);
+      var path = AbsoluteFilePath(initialValue);
 
       //WHEN
       var convertedToString = path.ToString();
@@ -85,7 +99,7 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeConvertibleToFileInfo()
     {
       //GIVEN
-      var pathWithFilename = AbsoluteFilePath.Value(@"C:\lolek\lol.txt");
+      var pathWithFilename = AbsoluteFilePath(@"C:\lolek\lol.txt");
 
       //WHEN
       var fileInfo = pathWithFilename.Info();
@@ -99,13 +113,41 @@ namespace AtmaFileSystemSpecification
     {
       //GIVEN
       var pathString = @"C:\lolek\lol.txt";
-      var pathWithFilename = AbsoluteFilePath.Value(pathString);
+      var pathWithFilename = AbsoluteFilePath(pathString);
 
       //WHEN
       var root = pathWithFilename.Root();
 
       //THEN
       Assert.Equal(AbsoluteDirectoryPath.Value(Path.GetPathRoot(pathString)), root);
+    }
+
+    [Fact]
+    public void ShouldAllowGettingPathEndingOnLastOccurenceOfDirectoryName()
+    {
+      //GIVEN
+      var pathString = @"C:\lolek1\lolek2\lolek3\lolek3\lol.txt";
+      var pathWithFilename = AbsoluteFilePath(pathString);
+
+      //WHEN
+      var fragment = pathWithFilename.FragmentEndingOnLast(DirectoryName("lolek3"));
+
+      //THEN
+      fragment.Value.Should().Be(AbsoluteDirectoryPath(@"C:\lolek1\lolek2\lolek3\lolek3"));
+    }
+
+    [Fact]
+    public void ShouldThrowExceptionWhenGettingFragmentEndingOnNonExistentDirectoryName()
+    {
+      //GIVEN
+      var pathString = @"C:\lolek1\lolek2\lolek3\lol.txt";
+      var pathWithFilename = AbsoluteFilePath(pathString);
+
+      //WHEN
+      var fragment = pathWithFilename.FragmentEndingOnLast(DirectoryName("lol.txt"));
+
+      //THEN
+      fragment.Should().Be(Functional.Maybe.Maybe<AbsoluteDirectoryPath>.Nothing);
     }
 
     [Fact]
@@ -143,8 +185,8 @@ namespace AtmaFileSystemSpecification
     public void ShouldBeAbleToRecognizeWhetherItHasCertainExtension(string path, string extension, bool expectedResult)
     {
       //GIVEN
-      var pathWithFileName = AbsoluteFilePath.Value(path);
-      var extensionValue = FileExtension.Value(extension);
+      var pathWithFileName = AbsoluteFilePath(path);
+      var extensionValue = FileExtension(extension);
 
       //WHEN
       var hasExtension = pathWithFileName.Has(extensionValue);
@@ -157,10 +199,10 @@ namespace AtmaFileSystemSpecification
     public void ShouldAllowChangingExtension()
     {
       //GIVEN
-      var filePath = AbsoluteFilePath.Value(@"C:\Dir\subdir\file.txt");
+      var filePath = AbsoluteFilePath(@"C:\Dir\subdir\file.txt");
 
       //WHEN
-      AbsoluteFilePath pathWithNewExtension = filePath.ChangeExtensionTo(FileExtension.Value(".doc"));
+      AbsoluteFilePath pathWithNewExtension = filePath.ChangeExtensionTo(FileExtension(".doc"));
 
       //THEN
       Assert.Equal(@"C:\Dir\subdir\file.doc", pathWithNewExtension.ToString());

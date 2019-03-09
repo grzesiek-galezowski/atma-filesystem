@@ -148,8 +148,8 @@ namespace AtmaFileSystemSpecification
       var parent = dir.ParentDirectory();
 
       //THEN
-      Assert.True(parent.Found);
-      Assert.Equal(AnyDirectoryPath.Value(expected), parent.Value());
+      Assert.True(parent.HasValue);
+      Assert.Equal(AnyDirectoryPath.Value(expected), parent.Value);
     }
 
     [Fact]
@@ -163,8 +163,8 @@ namespace AtmaFileSystemSpecification
       var parent = dir.ParentDirectory();
 
       //THEN
-      Assert.False(parent.Found);
-      Assert.Throws<InvalidOperationException>(() => parent.Value());
+      Assert.False(parent.HasValue);
+      Assert.Throws<InvalidOperationException>(() => parent.Value);
     }
 
     [Fact]

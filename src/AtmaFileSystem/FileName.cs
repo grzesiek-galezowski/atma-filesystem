@@ -1,10 +1,12 @@
 using System;
 using AtmaFileSystem.Assertions;
 using System.IO;
+using Functional.Maybe;
+using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
-  public class FileName : IEquatable<FileName>, IEquatableAccordingToFileSystem<FileName>
+  public sealed class FileName : IEquatable<FileName>, IEquatableAccordingToFileSystem<FileName>
   {
     private readonly string _path;
 
@@ -75,7 +77,7 @@ namespace AtmaFileSystem
 
     private static Maybe<FileExtension> AsMaybe(string extension)
     {
-      return extension == string.Empty ? Maybe<FileExtension>.Not : Maybe.Wrap(new FileExtension(extension));
+      return extension == string.Empty ? Maybe<FileExtension>.Nothing : new FileExtension(extension).Just();
     }
 
     public FileNameWithoutExtension WithoutExtension()
@@ -86,7 +88,7 @@ namespace AtmaFileSystem
     public bool Has(FileExtension extensionValue)
     {
       var extension = Extension();
-      return extension.Found && extension.Value().Equals(extensionValue);
+      return extension.HasValue && extension.Value.Equals(extensionValue);
     }
 
     public FileName ChangeExtensionTo(FileExtension value)

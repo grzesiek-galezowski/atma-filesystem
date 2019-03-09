@@ -1,14 +1,15 @@
 ﻿using System;
-using System.CodeDom;
 using AtmaFileSystem;
-using AtmaFileSystem.Assertions;
 using NSubstitute;
 using System.IO;
 using FluentAssertions;
+using Functional.Maybe;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssert.Root;
 using Xunit;
 using static TddXt.AnyRoot.Root;
+
+//bug add convenient factory methods
 
 namespace AtmaFileSystemSpecification
 {
@@ -83,11 +84,11 @@ namespace AtmaFileSystemSpecification
       var relativePath = RelativeDirectoryPath.Value(@"Directory\Subdirectory\Subsubdirectory");
       
       //WHEN
-      AtmaFileSystem.Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.ParentDirectory();
+      Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.ParentDirectory();
 
       //THEN
-      Assert.True(pathWithoutLastDir.Found);
-      Assert.Equal(RelativeDirectoryPath.Value(@"Directory\Subdirectory"), pathWithoutLastDir.Value());
+      Assert.True(pathWithoutLastDir.HasValue);
+      Assert.Equal(RelativeDirectoryPath.Value(@"Directory\Subdirectory"), pathWithoutLastDir.Value);
 
     }
 
@@ -98,11 +99,11 @@ namespace AtmaFileSystemSpecification
       var relativePath = RelativeDirectoryPath.Value(@"Directory");
 
       //WHEN
-      AtmaFileSystem.Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.ParentDirectory();
+      Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.ParentDirectory();
 
       //THEN
-      Assert.False(pathWithoutLastDir.Found);
-      Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value());
+      Assert.False(pathWithoutLastDir.HasValue);
+      Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value);
     }
 
     [Theory,

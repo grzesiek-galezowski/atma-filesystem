@@ -10,11 +10,18 @@
     <PackageProjectUrl>https://github.com/grzesiek-galezowski/atma-filesystem</PackageProjectUrl>
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>1.0.0</PackageTags>
+    <PackageTags>2.0.0</PackageTags>
+    <Version>2.0.0</Version>
+    <PackageReleaseNotes>migrated to Functional.Maybe</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Functional.Maybe" Version="2.0.10" />
+    <PackageReference Include="Functional.Maybe.Just" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

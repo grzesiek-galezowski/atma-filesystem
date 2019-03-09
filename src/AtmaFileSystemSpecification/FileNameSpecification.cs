@@ -64,8 +64,8 @@ namespace AtmaFileSystemSpecification
       var maybeExtension = fileNameWithExtension.Extension();
 
       //THEN
-      Assert.True(maybeExtension.Found);
-      Assert.Equal(FileExtension.Value(extensionString), maybeExtension.Value());
+      Assert.True(maybeExtension.HasValue);
+      Assert.Equal(FileExtension.Value(extensionString), maybeExtension.Value);
     }
 
     [Fact]
@@ -80,8 +80,8 @@ namespace AtmaFileSystemSpecification
       var maybeExtension = fileNameWithoutExtension.Extension();
 
       //THEN
-      Assert.False(maybeExtension.Found);
-      Assert.Throws<InvalidOperationException>(() => maybeExtension.Value());
+      Assert.False(maybeExtension.HasValue);
+      Assert.Throws<InvalidOperationException>(() => maybeExtension.Value);
     }
 
     [Fact]

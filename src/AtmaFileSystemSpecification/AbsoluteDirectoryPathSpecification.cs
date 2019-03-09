@@ -6,11 +6,18 @@ using AtmaFileSystem;
 using AtmaFileSystemSpecification;
 using FluentAssertions;
 using NSubstitute;
+using NSubstitute.Core;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
 using TddXt.XFluentAssert.Root;
 using Xunit;
+using static AtmaFileSystem.AtmaFileSystemPaths;
 using static TddXt.AnyRoot.Root;
+using AbsoluteDirectoryPath = AtmaFileSystem.AbsoluteDirectoryPath;
+using DirectoryName = AtmaFileSystem.DirectoryName;
+using FileName = AtmaFileSystem.FileName;
+using RelativeDirectoryPath = AtmaFileSystem.RelativeDirectoryPath;
+using RelativeFilePath = AtmaFileSystem.RelativeFilePath;
 
 namespace AtmaFileSystemSpecification
 {
@@ -108,8 +115,8 @@ namespace AtmaFileSystemSpecification
       var parent = dir.ParentDirectory();
 
       //THEN
-      Assert.True(parent.Found);
-      Assert.Equal(AbsoluteDirectoryPath.Value(expected), parent.Value());
+      Assert.True(parent.HasValue);
+      Assert.Equal(AbsoluteDirectoryPath.Value(expected), parent.Value);
     }
 
     [Fact]
@@ -123,8 +130,8 @@ namespace AtmaFileSystemSpecification
       var parent = dir.ParentDirectory();
 
       //THEN
-      Assert.False(parent.Found);
-      Assert.Throws<InvalidOperationException>(() => parent.Value());
+      Assert.False(parent.HasValue);
+      Assert.Throws<InvalidOperationException>(() => parent.Value);
     }
 
     [Theory,
@@ -186,6 +193,48 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(@"G:\Directory\Subdirectory\Lolek\Lolek2", newDirectoryPath.ToString());
+    }
+
+    [Fact]
+    public void ShouldAllowAddingRelativeDirectoryWithNavigationMarks()
+    {
+      //GIVEN
+      var directoryPath = AbsoluteDirectoryPath.Value(@"G:\Directory\Subdirectory");
+
+      //WHEN
+      var relativePath = RelativeDirectoryPath.Value(@"..\Lolek\Lolek2");
+      AbsoluteDirectoryPath newDirectoryPath = directoryPath + relativePath;
+
+      //THEN
+      Assert.Equal(@"G:\Directory\Lolek\Lolek2", newDirectoryPath.ToString());
+    }
+
+    [Fact]
+    public void ShouldAllowGettingPathEndingOnLastOccurenceOfDirectoryName()
+    {
+      //GIVEN
+      var pathString = @"C:\lolek1\lolek2\lolek2\lolek3\";
+      var pathWithFilename = AbsoluteDirectoryPath(pathString);
+
+      //WHEN
+      var fragment = pathWithFilename.FragmentEndingOnLast(DirectoryName("lolek2"));
+
+      //THEN
+      fragment.Value.Should().Be(AbsoluteDirectoryPath(@"C:\lolek1\lolek2\lolek2"));
+    }
+
+    [Fact]
+    public void ShouldThrowExceptionWhenGettingFragmentEndingOnNonExistentDirectoryName()
+    {
+      //GIVEN
+      var pathString = @"C:\lolek1\lolek2\lolek3\";
+      var pathWithFilename = AbsoluteDirectoryPath(pathString);
+
+      //WHEN
+      var fragment = pathWithFilename.FragmentEndingOnLast(DirectoryName("Trolololo"));
+
+      //THEN
+      fragment.Should().Be(Functional.Maybe.Maybe<AbsoluteDirectoryPath>.Nothing);
     }
 
     [Fact]

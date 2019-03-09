@@ -3,7 +3,7 @@ using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
-  public class DirectoryName : IEquatable<DirectoryName>, IEquatableAccordingToFileSystem<DirectoryName>
+  public sealed class DirectoryName : IEquatable<DirectoryName>, IEquatableAccordingToFileSystem<DirectoryName>
   {
     private readonly string _directoryName;
 

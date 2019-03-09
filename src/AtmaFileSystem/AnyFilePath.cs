@@ -1,10 +1,14 @@
+//bug add Split() method, e.g. "A/B/C".Split("B") => A/B
+//bug make transition to functional maybe
 using System;
 using System.IO;
 using AtmaFileSystem.Assertions;
+using Functional.Maybe;
+using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
-  public class AnyFilePath
+  public sealed class AnyFilePath
     : IEquatable<AnyFilePath>, IEquatableAccordingToFileSystem<AnyFilePath>
   {
     private readonly string _path;
@@ -87,8 +91,14 @@ namespace AtmaFileSystem
     public Maybe<AnyDirectoryPath> ParentDirectory() //bug allow file names only, but put Maybe<T> here!!
     {
       var directoryName = Path.GetDirectoryName(_path);
-      if (directoryName != string.Empty) return AnyDirectoryPath.Value(directoryName);
-      else return null;
+      if (directoryName != string.Empty)
+      {
+        return AnyDirectoryPath.Value(directoryName).Just();
+      }
+      else
+      {
+        return Maybe<AnyDirectoryPath>.Nothing;
+      }
     }
 
     public FileInfo Info()

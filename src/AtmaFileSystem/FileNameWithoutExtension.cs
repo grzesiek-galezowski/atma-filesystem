@@ -2,7 +2,7 @@
 
 namespace AtmaFileSystem
 {
-  public class FileNameWithoutExtension : IEquatable<FileNameWithoutExtension>,
+  public sealed class FileNameWithoutExtension : IEquatable<FileNameWithoutExtension>,
     IEquatableAccordingToFileSystem<FileNameWithoutExtension>
   {
     private readonly string _value;

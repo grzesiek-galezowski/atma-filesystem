@@ -1,10 +1,12 @@
 using System;
 using System.IO;
 using AtmaFileSystem.Assertions;
+using Functional.Maybe;
+using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
-  public class AbsoluteDirectoryPath : IEquatable<AbsoluteDirectoryPath>,
+  public sealed class AbsoluteDirectoryPath : IEquatable<AbsoluteDirectoryPath>,
     IEquatableAccordingToFileSystem<AbsoluteDirectoryPath>
   {
     private readonly DirectoryInfo _directoryInfo;
@@ -12,7 +14,7 @@ namespace AtmaFileSystem
 
     internal AbsoluteDirectoryPath(string path)
     {
-      _path = path;
+      _path = Path.GetFullPath(path);
       _directoryInfo = new DirectoryInfo(_path);
     }
 
@@ -31,6 +33,8 @@ namespace AtmaFileSystem
     private static string Combine(object part1, object part2)
     {
       return Path.Combine(part1.ToString(), part2.ToString());
+      //bug ~same for Relative directory path
+      //bug think about any paths
     }
 
 
@@ -71,7 +75,7 @@ namespace AtmaFileSystem
 
     private static Maybe<AbsoluteDirectoryPath> AsMaybe(DirectoryInfo directoryName)
     {
-      return directoryName != null ? Maybe.Wrap(Value(directoryName.FullName)) : null;
+      return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AbsoluteDirectoryPath>.Nothing;
     }
 
     public AbsoluteDirectoryPath Root()
@@ -135,6 +139,24 @@ namespace AtmaFileSystem
     public AnyPath AsAnyPath()
     {
       return new AnyPath(_path);
+    }
+
+    public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
+    {
+      var result = this.ToMaybe();
+      while (result.HasValue && !result.Value.DirectoryName().Equals(directoryName))
+      {
+        result = result.Value.ParentDirectory();
+      }
+
+      if (result.HasValue)
+      {
+        return result;
+      }
+      else
+      {
+        return Maybe<AbsoluteDirectoryPath>.Nothing;
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using AtmaFileSystem;
 using FluentAssertions;
+using Functional.Maybe;
 using NSubstitute;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssert.Root;
@@ -37,8 +38,8 @@ namespace AtmaFileSystemSpecification
       Maybe<AnyDirectoryPath> parentDirectory = anyPath.ParentDirectory();
 
       //THEN
-      Assert.True(parentDirectory.Found);
-      Assert.Equal(AnyDirectoryPath.Value(@"Directory\Subdirectory"), parentDirectory.Value());
+      Assert.True(parentDirectory.HasValue);
+      Assert.Equal(AnyDirectoryPath.Value(@"Directory\Subdirectory"), parentDirectory.Value);
 
     }
 
@@ -49,11 +50,11 @@ namespace AtmaFileSystemSpecification
       var anyPath = AnyPath.Value(@"Directory");
 
       //WHEN
-      AtmaFileSystem.Maybe<AnyDirectoryPath> parentDirectoryPath = anyPath.ParentDirectory();
+      Maybe<AnyDirectoryPath> parentDirectoryPath = anyPath.ParentDirectory();
 
       //THEN
-      Assert.False(parentDirectoryPath.Found);
-      Assert.Throws<InvalidOperationException>(() => parentDirectoryPath.Value());
+      Assert.False(parentDirectoryPath.HasValue);
+      Assert.Throws<InvalidOperationException>(() => parentDirectoryPath.Value);
     }
 
     [Fact]

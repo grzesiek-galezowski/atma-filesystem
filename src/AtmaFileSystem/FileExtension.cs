@@ -3,7 +3,7 @@ using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
-  public class FileExtension
+  public sealed class FileExtension
     : IEquatable<FileExtension>, IEquatableAccordingToFileSystem<FileExtension>
   {
     private readonly string _extension;

@@ -1,18 +1,20 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using AtmaFileSystem.Assertions;
+using Functional.Maybe;
 
 namespace AtmaFileSystem
 {
-  public class AbsoluteFilePath : IEquatable<AbsoluteFilePath>, IEquatableAccordingToFileSystem<AbsoluteFilePath>
+  public sealed class AbsoluteFilePath : IEquatable<AbsoluteFilePath>, IEquatableAccordingToFileSystem<AbsoluteFilePath>
   {
     private readonly string _path;
 
     // ReSharper disable once MemberCanBePrivate.Global
     internal AbsoluteFilePath(string path)
     {
-      _path = path;
+      _path = Path.GetFullPath(path);
     }
 
     public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, FileName fileName)
@@ -119,5 +121,23 @@ namespace AtmaFileSystem
     {
       return new AbsoluteFilePath(Path.ChangeExtension(_path, value.ToString()));
     }
+
+    public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
+    {
+      return this.ParentDirectory().FragmentEndingOnLast(directoryName);
+    }
+  }
+}
+
+internal interface X
+{
+  void Lol();
+}
+
+public class Y : X
+{
+  public void Lol()
+  {
+    throw new NotImplementedException();
   }
 }

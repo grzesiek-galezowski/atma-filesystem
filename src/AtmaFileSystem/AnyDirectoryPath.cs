@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
 using AtmaFileSystem.Assertions;
+using Functional.Maybe;
+using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
-  public class AnyDirectoryPath : IEquatable<AnyDirectoryPath>, IEquatableAccordingToFileSystem<AnyDirectoryPath>
+  public sealed class AnyDirectoryPath : IEquatable<AnyDirectoryPath>, IEquatableAccordingToFileSystem<AnyDirectoryPath>
   {
     private readonly string _path;
 
@@ -111,7 +113,7 @@ namespace AtmaFileSystem
 
     private static Maybe<AnyDirectoryPath> AsMaybe(DirectoryInfo directoryName)
     {
-      return directoryName != null ? Maybe.Wrap(Value(directoryName.FullName)) : null;
+      return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AnyDirectoryPath>.Nothing;
     }
 
     public DirectoryInfo Info()
