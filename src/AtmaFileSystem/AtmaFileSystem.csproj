@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -10,9 +10,14 @@
     <PackageProjectUrl>https://github.com/grzesiek-galezowski/atma-filesystem</PackageProjectUrl>
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>2.0.0</PackageTags>
-    <Version>2.0.0</Version>
-    <PackageReleaseNotes>migrated to Functional.Maybe</PackageReleaseNotes>
+    <PackageTags>2.0.1</PackageTags>
+    <Version>2.0.1</Version>
+    <PackageReleaseNotes>Fixed a small bug</PackageReleaseNotes>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
