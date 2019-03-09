@@ -1,15 +1,16 @@
-//bug add Split() method, e.g. "A/B/C".Split("B") => A/B
-//bug make transition to functional maybe
 using System;
 using System.IO;
 using AtmaFileSystem.Assertions;
+using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
   public sealed class AnyFilePath
-    : IEquatable<AnyFilePath>, IEquatableAccordingToFileSystem<AnyFilePath>
+    : IEquatable<AnyFilePath>, 
+      IEquatableAccordingToFileSystem<AnyFilePath>,
+      IExtensionChangable<AnyFilePath>
   {
     private readonly string _path;
 

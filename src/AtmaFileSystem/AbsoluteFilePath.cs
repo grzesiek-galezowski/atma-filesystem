@@ -1,13 +1,17 @@
 using System;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
 using AtmaFileSystem.Assertions;
+using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
 
 namespace AtmaFileSystem
 {
-  public sealed class AbsoluteFilePath : IEquatable<AbsoluteFilePath>, IEquatableAccordingToFileSystem<AbsoluteFilePath>
+  public sealed class AbsoluteFilePath : 
+    IEquatable<AbsoluteFilePath>, 
+    IEquatableAccordingToFileSystem<AbsoluteFilePath>, 
+    IFilePath, 
+    IAbsolutePath,
+    IExtensionChangable<AbsoluteFilePath>
   {
     private readonly string _path;
 
@@ -126,18 +130,5 @@ namespace AtmaFileSystem
     {
       return this.ParentDirectory().FragmentEndingOnLast(directoryName);
     }
-  }
-}
-
-internal interface X
-{
-  void Lol();
-}
-
-public class Y : X
-{
-  public void Lol()
-  {
-    throw new NotImplementedException();
   }
 }

@@ -1,13 +1,17 @@
 using System;
 using System.IO;
 using AtmaFileSystem.Assertions;
+using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
-  public sealed class AbsoluteDirectoryPath : IEquatable<AbsoluteDirectoryPath>,
-    IEquatableAccordingToFileSystem<AbsoluteDirectoryPath>
+  public sealed class AbsoluteDirectoryPath : 
+    IEquatable<AbsoluteDirectoryPath>,
+    IEquatableAccordingToFileSystem<AbsoluteDirectoryPath>, 
+    IAbsolutePath, 
+    IDirectoryPath<AbsoluteDirectoryPath>
   {
     private readonly DirectoryInfo _directoryInfo;
     private readonly string _path;
@@ -36,7 +40,6 @@ namespace AtmaFileSystem
       //bug ~same for Relative directory path
       //bug think about any paths
     }
-
 
     public static AbsoluteDirectoryPath Value(string path)
     {

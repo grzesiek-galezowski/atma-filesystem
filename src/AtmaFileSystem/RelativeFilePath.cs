@@ -1,12 +1,17 @@
 ﻿using System;
 using AtmaFileSystem.Assertions;
 using System.IO;
+using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
-  public sealed class RelativeFilePath : IEquatable<RelativeFilePath>, IEquatableAccordingToFileSystem<RelativeFilePath>
+  public sealed class RelativeFilePath : 
+    IEquatable<RelativeFilePath>, 
+    IEquatableAccordingToFileSystem<RelativeFilePath>, 
+    IFilePath, 
+    IExtensionChangable<RelativeFilePath>
   {
     private readonly string _path;
 
