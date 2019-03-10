@@ -2,6 +2,12 @@ namespace AtmaFileSystem
 {
   public class AtmaFileSystemPaths
   {
+    public static AnyDirectoryPath AnyDirectoryPath(string value) =>
+      AtmaFileSystem.AnyDirectoryPath.Value(value);
+    public static AnyFilePath AnyFilePath(string value) =>
+      AtmaFileSystem.AnyFilePath.Value(value);
+    public static AnyPath AnyPath(string value) =>
+      AtmaFileSystem.AnyPath.Value(value);
     public static AbsoluteDirectoryPath AbsoluteDirectoryPath(string value) =>
       AtmaFileSystem.AbsoluteDirectoryPath.Value(value);
     public static AbsoluteFilePath AbsoluteFilePath(string value) =>

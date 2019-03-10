@@ -10,9 +10,9 @@
     <PackageProjectUrl>https://github.com/grzesiek-galezowski/atma-filesystem</PackageProjectUrl>
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>2.0.1</PackageTags>
-    <Version>2.0.1</Version>
-    <PackageReleaseNotes>Fixed a small bug</PackageReleaseNotes>
+    <PackageTags>2.1.1</PackageTags>
+    <Version>2.1.1</Version>
+    <PackageReleaseNotes>More factory methods</PackageReleaseNotes>
   </PropertyGroup>
   
   <PropertyGroup>
