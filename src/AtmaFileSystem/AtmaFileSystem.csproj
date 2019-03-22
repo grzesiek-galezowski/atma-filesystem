@@ -18,6 +18,8 @@
   <PropertyGroup>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <NullableContextOptions>enable</NullableContextOptions>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

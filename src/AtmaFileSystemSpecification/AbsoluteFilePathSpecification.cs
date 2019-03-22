@@ -3,7 +3,6 @@ using System.IO;
 using AtmaFileSystem;
 using FluentAssertions;
 using NSubstitute;
-using NSubstitute.Core;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssert.Root;
 using Xunit;
@@ -11,8 +10,6 @@ using static AtmaFileSystem.AtmaFileSystemPaths;
 using static TddXt.AnyRoot.Root;
 using AbsoluteDirectoryPath = AtmaFileSystem.AbsoluteDirectoryPath;
 using AbsoluteFilePath = AtmaFileSystem.AbsoluteFilePath;
-using DirectoryName = AtmaFileSystem.DirectoryName;
-using FileExtension = AtmaFileSystem.FileExtension;
 
 namespace AtmaFileSystemSpecification
 {
