@@ -5,6 +5,7 @@ using Functional.Maybe;
 using NSubstitute;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssert.Root;
+using TddXt.XFluentAssertRoot;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 

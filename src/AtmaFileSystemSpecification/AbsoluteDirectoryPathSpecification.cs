@@ -10,6 +10,7 @@ using NSubstitute.Core;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
 using TddXt.XFluentAssert.Root;
+using TddXt.XFluentAssertRoot;
 using Xunit;
 using static AtmaFileSystem.AtmaFileSystemPaths;
 using static TddXt.AnyRoot.Root;
