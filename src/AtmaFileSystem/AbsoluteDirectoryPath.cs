@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
@@ -11,7 +12,8 @@ namespace AtmaFileSystem
     IEquatable<AbsoluteDirectoryPath>,
     IEquatableAccordingToFileSystem<AbsoluteDirectoryPath>, 
     IAbsolutePath, 
-    IDirectoryPath<AbsoluteDirectoryPath>
+    IDirectoryPath<AbsoluteDirectoryPath>,
+    IComparable<AbsoluteDirectoryPath>, IComparable
   {
     private readonly DirectoryInfo _directoryInfo;
     private readonly string _path;
@@ -160,6 +162,40 @@ namespace AtmaFileSystem
       {
         return Maybe<AbsoluteDirectoryPath>.Nothing;
       }
+    }
+
+    public int CompareTo(AbsoluteDirectoryPath other)
+    {
+      if (ReferenceEquals(this, other)) return 0;
+      if (ReferenceEquals(null, other)) return 1;
+      return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+    }
+
+    public int CompareTo(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return 1;
+      if (ReferenceEquals(this, obj)) return 0;
+      return obj is AbsoluteDirectoryPath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AbsoluteDirectoryPath)}");
+    }
+
+    public static bool operator <(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
+    {
+      return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) < 0;
+    }
+
+    public static bool operator >(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
+    {
+      return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) > 0;
+    }
+
+    public static bool operator <=(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
+    {
+      return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) <= 0;
+    }
+
+    public static bool operator >=(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
+    {
+      return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) >= 0;
     }
   }
 }

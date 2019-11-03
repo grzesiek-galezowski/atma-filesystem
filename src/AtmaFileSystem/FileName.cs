@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AtmaFileSystem.Assertions;
 using System.IO;
 using AtmaFileSystem.InternalInterfaces;
@@ -10,7 +11,8 @@ namespace AtmaFileSystem
   public sealed class FileName : 
     IEquatable<FileName>, 
     IEquatableAccordingToFileSystem<FileName>,
-    IExtensionChangable<FileName>
+    IExtensionChangable<FileName>,
+    IComparable<FileName>, IComparable
   {
     private readonly string _path;
 
@@ -98,6 +100,40 @@ namespace AtmaFileSystem
     public FileName ChangeExtensionTo(FileExtension value)
     {
       return new FileName(Path.ChangeExtension(_path, value.ToString()));
+    }
+
+    public int CompareTo(FileName other)
+    {
+      if (ReferenceEquals(this, other)) return 0;
+      if (ReferenceEquals(null, other)) return 1;
+      return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+    }
+
+    public int CompareTo(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return 1;
+      if (ReferenceEquals(this, obj)) return 0;
+      return obj is FileName other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(FileName)}");
+    }
+
+    public static bool operator <(FileName left, FileName right)
+    {
+      return Comparer<FileName>.Default.Compare(left, right) < 0;
+    }
+
+    public static bool operator >(FileName left, FileName right)
+    {
+      return Comparer<FileName>.Default.Compare(left, right) > 0;
+    }
+
+    public static bool operator <=(FileName left, FileName right)
+    {
+      return Comparer<FileName>.Default.Compare(left, right) <= 0;
+    }
+
+    public static bool operator >=(FileName left, FileName right)
+    {
+      return Comparer<FileName>.Default.Compare(left, right) >= 0;
     }
   }
 

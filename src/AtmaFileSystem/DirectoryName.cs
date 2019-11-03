@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
-  public sealed class DirectoryName : IEquatable<DirectoryName>, IEquatableAccordingToFileSystem<DirectoryName>
+  public sealed class DirectoryName : 
+    IEquatable<DirectoryName>, 
+    IEquatableAccordingToFileSystem<DirectoryName>,
+    IComparable<DirectoryName>, IComparable
   {
     private readonly string _directoryName;
 
@@ -62,6 +66,40 @@ namespace AtmaFileSystem
     public static bool operator !=(DirectoryName left, DirectoryName right)
     {
       return !Equals(left, right);
+    }
+
+    public int CompareTo(DirectoryName other)
+    {
+      if (ReferenceEquals(this, other)) return 0;
+      if (ReferenceEquals(null, other)) return 1;
+      return string.Compare(_directoryName, other._directoryName, StringComparison.InvariantCulture);
+    }
+
+    public int CompareTo(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return 1;
+      if (ReferenceEquals(this, obj)) return 0;
+      return obj is DirectoryName other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(DirectoryName)}");
+    }
+
+    public static bool operator <(DirectoryName left, DirectoryName right)
+    {
+      return Comparer<DirectoryName>.Default.Compare(left, right) < 0;
+    }
+
+    public static bool operator >(DirectoryName left, DirectoryName right)
+    {
+      return Comparer<DirectoryName>.Default.Compare(left, right) > 0;
+    }
+
+    public static bool operator <=(DirectoryName left, DirectoryName right)
+    {
+      return Comparer<DirectoryName>.Default.Compare(left, right) <= 0;
+    }
+
+    public static bool operator >=(DirectoryName left, DirectoryName right)
+    {
+      return Comparer<DirectoryName>.Default.Compare(left, right) >= 0;
     }
   }
 }

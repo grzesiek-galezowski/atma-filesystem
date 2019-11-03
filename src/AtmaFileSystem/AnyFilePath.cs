@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
@@ -10,7 +11,8 @@ namespace AtmaFileSystem
   public sealed class AnyFilePath
     : IEquatable<AnyFilePath>, 
       IEquatableAccordingToFileSystem<AnyFilePath>,
-      IExtensionChangable<AnyFilePath>
+      IExtensionChangable<AnyFilePath>,
+      IComparable<AnyFilePath>, IComparable
   {
     private readonly string _path;
 
@@ -115,6 +117,40 @@ namespace AtmaFileSystem
     public bool ShallowEquals(AnyFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
+    }
+
+    public int CompareTo(AnyFilePath other)
+    {
+      if (ReferenceEquals(this, other)) return 0;
+      if (ReferenceEquals(null, other)) return 1;
+      return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+    }
+
+    public int CompareTo(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return 1;
+      if (ReferenceEquals(this, obj)) return 0;
+      return obj is AnyFilePath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AnyFilePath)}");
+    }
+
+    public static bool operator <(AnyFilePath left, AnyFilePath right)
+    {
+      return Comparer<AnyFilePath>.Default.Compare(left, right) < 0;
+    }
+
+    public static bool operator >(AnyFilePath left, AnyFilePath right)
+    {
+      return Comparer<AnyFilePath>.Default.Compare(left, right) > 0;
+    }
+
+    public static bool operator <=(AnyFilePath left, AnyFilePath right)
+    {
+      return Comparer<AnyFilePath>.Default.Compare(left, right) <= 0;
+    }
+
+    public static bool operator >=(AnyFilePath left, AnyFilePath right)
+    {
+      return Comparer<AnyFilePath>.Default.Compare(left, right) >= 0;
     }
   }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
@@ -11,7 +12,8 @@ namespace AtmaFileSystem
     IEquatableAccordingToFileSystem<AbsoluteFilePath>, 
     IFilePath, 
     IAbsolutePath,
-    IExtensionChangable<AbsoluteFilePath>
+    IExtensionChangable<AbsoluteFilePath>,
+    IComparable<AbsoluteFilePath>, IComparable
   {
     private readonly string _path;
 
@@ -129,6 +131,40 @@ namespace AtmaFileSystem
     public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
     {
       return this.ParentDirectory().FragmentEndingOnLast(directoryName);
+    }
+
+    public int CompareTo(AbsoluteFilePath other)
+    {
+      if (ReferenceEquals(this, other)) return 0;
+      if (ReferenceEquals(null, other)) return 1;
+      return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+    }
+
+    public int CompareTo(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return 1;
+      if (ReferenceEquals(this, obj)) return 0;
+      return obj is AbsoluteFilePath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AbsoluteFilePath)}");
+    }
+
+    public static bool operator <(AbsoluteFilePath left, AbsoluteFilePath right)
+    {
+      return Comparer<AbsoluteFilePath>.Default.Compare(left, right) < 0;
+    }
+
+    public static bool operator >(AbsoluteFilePath left, AbsoluteFilePath right)
+    {
+      return Comparer<AbsoluteFilePath>.Default.Compare(left, right) > 0;
+    }
+
+    public static bool operator <=(AbsoluteFilePath left, AbsoluteFilePath right)
+    {
+      return Comparer<AbsoluteFilePath>.Default.Compare(left, right) <= 0;
+    }
+
+    public static bool operator >=(AbsoluteFilePath left, AbsoluteFilePath right)
+    {
+      return Comparer<AbsoluteFilePath>.Default.Compare(left, right) >= 0;
     }
   }
 }

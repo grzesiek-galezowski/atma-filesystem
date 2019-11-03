@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 using Functional.Maybe;
@@ -6,7 +7,10 @@ using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
-  public sealed class AnyDirectoryPath : IEquatable<AnyDirectoryPath>, IEquatableAccordingToFileSystem<AnyDirectoryPath>
+  public sealed class AnyDirectoryPath : 
+    IEquatable<AnyDirectoryPath>, 
+    IEquatableAccordingToFileSystem<AnyDirectoryPath>,
+    IComparable<AnyDirectoryPath>, IComparable
   {
     private readonly string _path;
 
@@ -119,6 +123,40 @@ namespace AtmaFileSystem
     public DirectoryInfo Info()
     {
       return new DirectoryInfo(_path);
+    }
+
+    public int CompareTo(AnyDirectoryPath other)
+    {
+      if (ReferenceEquals(this, other)) return 0;
+      if (ReferenceEquals(null, other)) return 1;
+      return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+    }
+
+    public int CompareTo(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return 1;
+      if (ReferenceEquals(this, obj)) return 0;
+      return obj is AnyDirectoryPath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AnyDirectoryPath)}");
+    }
+
+    public static bool operator <(AnyDirectoryPath left, AnyDirectoryPath right)
+    {
+      return Comparer<AnyDirectoryPath>.Default.Compare(left, right) < 0;
+    }
+
+    public static bool operator >(AnyDirectoryPath left, AnyDirectoryPath right)
+    {
+      return Comparer<AnyDirectoryPath>.Default.Compare(left, right) > 0;
+    }
+
+    public static bool operator <=(AnyDirectoryPath left, AnyDirectoryPath right)
+    {
+      return Comparer<AnyDirectoryPath>.Default.Compare(left, right) <= 0;
+    }
+
+    public static bool operator >=(AnyDirectoryPath left, AnyDirectoryPath right)
+    {
+      return Comparer<AnyDirectoryPath>.Default.Compare(left, right) >= 0;
     }
   }
 }

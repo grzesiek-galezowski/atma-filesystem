@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem
 {
   public sealed class FileExtension
-    : IEquatable<FileExtension>, IEquatableAccordingToFileSystem<FileExtension>
+    : IEquatable<FileExtension>, 
+      IEquatableAccordingToFileSystem<FileExtension>,
+      IComparable<FileExtension>, IComparable
   {
     private readonly string _extension;
 
@@ -60,6 +63,40 @@ namespace AtmaFileSystem
     public static bool operator !=(FileExtension left, FileExtension right)
     {
       return !Equals(left, right);
+    }
+
+    public int CompareTo(FileExtension other)
+    {
+      if (ReferenceEquals(this, other)) return 0;
+      if (ReferenceEquals(null, other)) return 1;
+      return string.Compare(_extension, other._extension, StringComparison.InvariantCulture);
+    }
+
+    public int CompareTo(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return 1;
+      if (ReferenceEquals(this, obj)) return 0;
+      return obj is FileExtension other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(FileExtension)}");
+    }
+
+    public static bool operator <(FileExtension left, FileExtension right)
+    {
+      return Comparer<FileExtension>.Default.Compare(left, right) < 0;
+    }
+
+    public static bool operator >(FileExtension left, FileExtension right)
+    {
+      return Comparer<FileExtension>.Default.Compare(left, right) > 0;
+    }
+
+    public static bool operator <=(FileExtension left, FileExtension right)
+    {
+      return Comparer<FileExtension>.Default.Compare(left, right) <= 0;
+    }
+
+    public static bool operator >=(FileExtension left, FileExtension right)
+    {
+      return Comparer<FileExtension>.Default.Compare(left, right) >= 0;
     }
   }
 }
