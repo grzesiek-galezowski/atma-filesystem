@@ -35,7 +35,7 @@ namespace AtmaFileSystem
     public static RelativeDirectoryPath Value(string relativePath)
     {
       Asserts.NotNull(relativePath, "path");
-      Asserts.NotEmpty(relativePath, "relative path cannot be empty");
+      Asserts.NotWhitespace(relativePath, "relative path cannot consist of whitespaces");
       Asserts.NotRooted(relativePath, "Expected relative path, but got " + relativePath);
       Asserts.DoesNotContainInvalidChars(relativePath);
 
@@ -70,6 +70,10 @@ namespace AtmaFileSystem
 
     public Maybe<RelativeDirectoryPath> ParentDirectory()
     {
+      if (_path == string.Empty)
+      {
+        return Maybe<RelativeDirectoryPath>.Nothing;
+      }
       var directoryName = Path.GetDirectoryName(_path);
       if (directoryName == string.Empty)
       {
@@ -78,9 +82,13 @@ namespace AtmaFileSystem
       return Value(directoryName).Just();
     }
 
-    public DirectoryInfo Info()
+    public Maybe<DirectoryInfo> Info()
     {
-      return new DirectoryInfo(_path);
+      if (_path == string.Empty)
+      {
+        return Maybe<DirectoryInfo>.Nothing;
+      }
+      return new DirectoryInfo(_path).Just();
     }
 
     public AnyDirectoryPath AsAnyDirectoryPath()
@@ -95,6 +103,10 @@ namespace AtmaFileSystem
 
     public DirectoryName DirectoryName()
     {
+      if (_path == string.Empty)
+      {
+        return AtmaFileSystem.DirectoryName.Value(string.Empty);
+      }
       return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
     }
 

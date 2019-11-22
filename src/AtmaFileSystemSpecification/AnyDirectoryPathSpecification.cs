@@ -3,6 +3,7 @@ using AtmaFileSystem;
 using NSubstitute;
 using System.IO;
 using FluentAssertions;
+using Functional.Maybe;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssertRoot;
 using Xunit;
@@ -14,7 +15,7 @@ namespace AtmaFileSystemSpecification
   {
     [Theory,
       InlineData(null, typeof(ArgumentNullException)),
-      InlineData("", typeof(ArgumentException)),
+      InlineData(" ", typeof(ArgumentException)),
       InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
     ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
@@ -28,12 +29,15 @@ namespace AtmaFileSystemSpecification
       //GIVEN
       const string relativePath = @"Dir\Subdir";
       const string absolutePath = @"C:\Dir\Subdir";
+      const string emptyPath = @"C:\Dir\Subdir";
       var path = AnyDirectoryPath.Value(relativePath);
       var path2 = AnyDirectoryPath.Value(absolutePath);
+      var path3 = AnyDirectoryPath.Value(emptyPath);
 
       //THEN
       Assert.Equal(relativePath, path.ToString());
       Assert.Equal(absolutePath, path2.ToString());
+      Assert.Equal(emptyPath, path3.ToString());
     }
 
     [Fact]
@@ -63,8 +67,7 @@ namespace AtmaFileSystemSpecification
       var fileName = Any.Instance<FileName>();
 
       //WHEN
-      AnyFilePath anyFilePath
-        = anyDirectoryPath + fileName;
+      AnyFilePath anyFilePath = anyDirectoryPath + fileName;
 
       //THEN
       Assert.Equal(
@@ -123,6 +126,7 @@ namespace AtmaFileSystemSpecification
       InlineData(@"Segment1\Segment2\", "Segment2"),
       InlineData(@"Segment1\", "Segment1"),
       InlineData(@"C:\Segment1\", "Segment1"),
+      InlineData("", ""),
       ]
     public void ShouldAllowGettingTheNameOfCurrentDirectory(string fullPath, string expectedDirectoryName)
     {
@@ -149,14 +153,15 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.True(parent.HasValue);
-      Assert.Equal(AnyDirectoryPath.Value(expected), parent.Value);
+      parent.Value.Should().Be(AnyDirectoryPath.Value(expected));
     }
 
-    [Fact]
-    public void ShouldProduceParentWithoutValueThatThrowsOnAccessWhenThereIsNoParentInPath()
+    [Theory]
+    [InlineData(@"C:\")]
+    [InlineData(@"")]
+    public void ShouldProduceParentWithoutValueThatThrowsOnAccessWhenThereIsNoParentInPath(string pathString)
     {
       //GIVEN
-      const string pathString = @"C:\";
       var dir = AnyDirectoryPath.Value(pathString);
 
       //WHEN
@@ -168,7 +173,7 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldBeConvertibleToDirectoryInfo()
+    public void ShouldBeConvertibleToDirectoryInfoWhenPathExists()
     {
       //GIVEN
       var path = AnyDirectoryPath.Value(@"Dir\Subdir");
@@ -177,7 +182,20 @@ namespace AtmaFileSystemSpecification
       var directoryInfo = path.Info();
 
       //THEN
-      Assert.Equal(directoryInfo.FullName, FullNameFrom(path));
+      directoryInfo.Value.FullName.Should().Be(FullNameFrom(path));
+    }
+    
+    [Fact]
+    public void ShouldBeConvertibleToNothingOfDirectoryInfoWhenPathIsEmpty()
+    {
+      //GIVEN
+      var path = AnyDirectoryPath.Value("");
+
+      //WHEN
+      var directoryInfo = path.Info();
+
+      //THEN
+      directoryInfo.Should().Be(Maybe<DirectoryInfo>.Nothing);
     }
 
     [Fact]

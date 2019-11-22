@@ -26,7 +26,7 @@ namespace AtmaFileSystemSpecification
 
     [Theory,
       InlineData(null, typeof(ArgumentNullException)),
-      InlineData("", typeof(ArgumentException)),
+      InlineData(" ", typeof(ArgumentException)),
       InlineData(@"C:\a", typeof(ArgumentException))]
     public void ShouldNotLetCreateInvalidInstance(string input, Type exceptionType)
     {

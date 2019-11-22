@@ -48,10 +48,13 @@ namespace AtmaFileSystem.Assertions
 
     public static void ValidDirectoryName(string value, string message)
     {
-      var directoryName = new DirectoryInfo(value).Name;
-      if (directoryName != value)
+      if (value != string.Empty)
       {
-        throw new ArgumentException(message);
+        var directoryName = new DirectoryInfo(value).Name;
+        if (directoryName != value)
+        {
+          throw new ArgumentException(message);
+        }
       }
     }
 
@@ -90,6 +93,15 @@ namespace AtmaFileSystem.Assertions
       {
         throw new ArgumentException(
           $"Path {path} contains invalid char {path[invalidCharIndex]} at index {invalidCharIndex}");
+      }
+    }
+
+    // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Global
+    public static void NotWhitespace(string path, string message)
+    {
+      if (path != string.Empty && path.All(char.IsWhiteSpace))
+      {
+        throw new ArgumentException(message);
       }
     }
   }

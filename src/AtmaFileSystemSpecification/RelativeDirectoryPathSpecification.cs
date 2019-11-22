@@ -21,60 +21,68 @@ namespace AtmaFileSystemSpecification
       typeof(RelativeDirectoryPath).Should().HaveValueSemantics();
     }
 
-    [Fact]
-    public void ShouldAllowAddingDirectoryNameToIt()
+    [Theory]
+    [InlineData(@"lolek\bolek", @"lolek\bolek\")]
+    [InlineData(@"", @"")]
+    public void ShouldAllowAddingDirectoryNameToIt(string path, string expectedPathPrefix)
     {
       //GIVEN
-      var relativeDir = RelativeDirectoryPath.Value(@"lolek\bolek");
+      var relativeDir = RelativeDirectoryPath.Value(path);
       var dirName = DirectoryName.Value("zenek");
 
       //WHEN
       RelativeDirectoryPath mergedPath = relativeDir + dirName;
 
       //THEN
-      Assert.Equal(@"lolek\bolek\zenek", mergedPath.ToString());
+      Assert.Equal(@$"{expectedPathPrefix}zenek", mergedPath.ToString());
     }
 
-    [Fact]
-    public void ShouldAllowAddingFileNameToIt()
+    [Theory]
+    [InlineData(@"lolek\bolek", @"lolek\bolek\")]
+    [InlineData(@"", @"")]
+    public void ShouldAllowAddingFileNameToIt(string path, string expectedPathPrefix)
     {
       //GIVEN
-      var relativeDir = RelativeDirectoryPath.Value(@"lolek\bolek");
+      var relativeDir = RelativeDirectoryPath.Value(path);
       var fileName = FileName.Value("zenek.txt");
 
       //WHEN
       RelativeFilePath mergedFilePath = relativeDir + fileName;
 
       //THEN
-      Assert.Equal(@"lolek\bolek\zenek.txt", mergedFilePath.ToString());
+      Assert.Equal(@$"{expectedPathPrefix}zenek.txt", mergedFilePath.ToString());
     }
 
-    [Fact]
-    public void ShouldAllowAddingRelativeDirectoryPathToIt()
+    [Theory]
+    [InlineData(@"Dir1\dir2", @"dir3\dir4", @"Dir1\dir2\dir3\dir4")]
+    [InlineData("", "", "")]
+    public void ShouldAllowAddingRelativeDirectoryPathToIt(string p1, string p2, string expected)
     {
       //GIVEN
-      var relativeDir1 = RelativeDirectoryPath.Value(@"Dir1\dir2");
-      var relativeDir2 = RelativeDirectoryPath.Value(@"dir3\dir4");
+      var relativeDir1 = RelativeDirectoryPath.Value(p1);
+      var relativeDir2 = RelativeDirectoryPath.Value(p2);
 
       //WHEN
       RelativeDirectoryPath mergedPath = relativeDir1 + relativeDir2;
 
       //THEN
-      Assert.Equal(@"Dir1\dir2\dir3\dir4", mergedPath.ToString());
+      Assert.Equal(expected, mergedPath.ToString());
     }
 
-    [Fact]
-    public void ShouldAllowAddingRelativePathWithFileNameToIt()
+    [Theory]
+    [InlineData(@"Dir1\dir2", @"Dir1\dir2\")]
+    [InlineData("", "")]
+    public void ShouldAllowAddingRelativePathWithFileNameToIt(string path, string expectedPathPrefix)
     {
       //GIVEN
-      var relativeDir1 = RelativeDirectoryPath.Value(@"Dir1\dir2");
+      var relativeDir1 = RelativeDirectoryPath.Value(path);
       var relativePathWithFileName = RelativeFilePath.Value(@"dir3\dir4\file.txt");
 
       //WHEN
       RelativeFilePath mergedFilePath = relativeDir1 + relativePathWithFileName;
 
       //THEN
-      Assert.Equal(@"Dir1\dir2\dir3\dir4\file.txt", mergedFilePath.ToString());
+      Assert.Equal(@$"{expectedPathPrefix}dir3\dir4\file.txt", mergedFilePath.ToString());
     }
 
     [Fact]
@@ -106,9 +114,24 @@ namespace AtmaFileSystemSpecification
       Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value);
     }
 
+    //bug disallow whitespace when creating
+    [Fact]
+    public void ShouldReturnNothingWhenGettingPathWithoutLastDirectoryFromEmptyPath()
+    {
+      //GIVEN
+      var relativePath = RelativeDirectoryPath.Value(string.Empty);
+
+      //WHEN
+      Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.ParentDirectory();
+
+      //THEN
+      Assert.False(pathWithoutLastDir.HasValue);
+      Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value);
+    }
+
     [Theory,
       InlineData(null, typeof(ArgumentNullException)),
-      InlineData("", typeof(ArgumentException)),
+      InlineData("  ", typeof(ArgumentException)),
       InlineData(@"C:\", typeof(ArgumentException))]
     public void ShouldNotAllowCreatingInvalidInstance(string input, Type exceptionType)
     {
@@ -116,7 +139,7 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldBeConvertibleToDirectoryInfo()
+    public void ShouldBeConvertibleToDirectoryInfoWhenNonEmpty()
     {
       //GIVEN
       var path = RelativeDirectoryPath.Value(@"Dir\Subdir");
@@ -125,17 +148,32 @@ namespace AtmaFileSystemSpecification
       var directoryInfo = path.Info();
 
       //THEN
-      Assert.Equal(directoryInfo.FullName, FullNameFrom(path));
+      Assert.Equal(directoryInfo.Value.FullName, FullNameFrom(path));
+    }
+
+    [Fact]
+    public void ShouldBeConvertToNothingOfDirectoryInfoWhenEmpty()
+    {
+      //GIVEN
+      var path = RelativeDirectoryPath.Value(string.Empty);
+
+      //WHEN
+      var directoryInfo = path.Info();
+
+      //THEN
+      Assert.Equal(directoryInfo, Maybe<DirectoryInfo>.Nothing);
     }
 
     //bug check for Info() returning internally held object that it cannot be modified externally!!!!
 
 
-    [Fact]
-    public void ShouldBeConvertibleToAnyDirectoryPath()
+    [Theory]
+    [InlineData("trolololo")]
+    [InlineData("")]
+    public void ShouldBeConvertibleToAnyDirectoryPath(string path)
     {
       //GIVEN
-      var dirPath = Any.Instance<RelativeDirectoryPath>();
+      var dirPath = RelativeDirectoryPath.Value(path);
 
       //WHEN
       AnyDirectoryPath anyDirectoryPath = dirPath.AsAnyDirectoryPath();
@@ -144,11 +182,13 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(dirPath.ToString(), anyDirectoryPath.ToString());
     }
 
-    [Fact]
-    public void ShouldBeConvertibleToAnyPath()
+    [Theory]
+    [InlineData("trolololo")]
+    [InlineData("")]
+    public void ShouldBeConvertibleToAnyPath(string path)
     {
       //GIVEN
-      var directorypath = Any.Instance<RelativeDirectoryPath>();
+      var directorypath = RelativeDirectoryPath.Value(path);
 
       //WHEN
       AnyPath anyPathWithFileName = directorypath.AsAnyPath();
@@ -160,6 +200,7 @@ namespace AtmaFileSystemSpecification
     [Theory,
       InlineData(@"Segment1\Segment2\", "Segment2"),
       InlineData(@"Segment1\", "Segment1"),
+      InlineData(@"", ""),
       ]
     public void ShouldAllowGettingTheNameOfCurrentDirectory(string fullPath, string expectedDirectoryName)
     {
@@ -191,13 +232,14 @@ namespace AtmaFileSystemSpecification
         .ArePathStringsEqual(path1.ToString(), path2.ToString())
         .Returns(comparisonResult);
 
-
       //WHEN
       var equality = path1.ShallowEquals(path2, fileSystemComparisonRules);
 
       //THEN
       Assert.Equal(comparisonResult, equality);
     }
+
+
   }
 
   //todo cut out first directory from relative directory path = relative directory path

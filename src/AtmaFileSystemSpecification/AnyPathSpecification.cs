@@ -21,7 +21,7 @@ namespace AtmaFileSystemSpecification
 
     [Theory,
      InlineData(null, typeof (ArgumentNullException)),
-     InlineData("", typeof (ArgumentException)),
+     InlineData(" ", typeof (ArgumentException)),
      InlineData(@"\\\\\\\\\?|/\/|", typeof (ArgumentException)),
     ]
     public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string invalidInput, Type exceptionType)
@@ -41,8 +41,21 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.True(parentDirectory.HasValue);
       Assert.Equal(AnyDirectoryPath.Value(@"Directory\Subdirectory"), parentDirectory.Value);
-
     }
+
+    [Fact]
+    public void ShouldCreateNothingOfParentDirectoryPathWhenEmpty()
+    {
+      //GIVEN
+      var anyPath = AnyPath.Value("");
+
+      //WHEN
+      Maybe<AnyDirectoryPath> parentDirectory = anyPath.ParentDirectory();
+
+      //THEN
+      Assert.Equal(Maybe<AnyDirectoryPath>.Nothing, parentDirectory);
+     }
+
 
     [Fact]
     public void ShouldReturnNothingWhenGettingPathWithoutLastDirectoryButCurrentDirectoryIsTheOnlyLeft()

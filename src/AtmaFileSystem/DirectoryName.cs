@@ -34,7 +34,7 @@ namespace AtmaFileSystem
     public static DirectoryName Value(string directoryName)
     {
       Asserts.NotNull(directoryName, "directoryName");
-      Asserts.NotEmpty(directoryName, "directory name cannot be empty");
+      Asserts.NotWhitespace(directoryName, "directory name cannot be whitespace");
       Asserts.ValidDirectoryName(directoryName,
         "The value " + directoryName + " does not constitute a valid directory name");
       return new DirectoryName(directoryName);

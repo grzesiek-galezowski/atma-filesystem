@@ -62,7 +62,7 @@ namespace AtmaFileSystem
     public static AnyPath Value(string path)
     {
       Asserts.NotNull(path, "path");
-      Asserts.NotEmpty(path, "Path cannot be empty");
+      Asserts.NotWhitespace(path, "Path cannot be whitespace");
       Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
       Asserts.DoesNotContainInvalidChars(path);
 
@@ -71,6 +71,10 @@ namespace AtmaFileSystem
 
     public Maybe<AnyDirectoryPath> ParentDirectory()
     {
+      if (_path == string.Empty)
+      {
+        return Maybe<AnyDirectoryPath>.Nothing;
+      }
       var directoryName = Path.GetDirectoryName(_path);
       if (directoryName == string.Empty)
       {
