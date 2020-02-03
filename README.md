@@ -1,5 +1,7 @@
 # Atma Filesystem - a path library for .NET
 
+[NuGet Package](https://www.nuget.org/packages/AtmaFilesystem/)
+
 ## Why was this library created?
 
 First of all, I do not claim that Atma Filesystem is a better path library than .NET's `Path` or some others. There are many use cases for paths and different APIs address different use cases best.
