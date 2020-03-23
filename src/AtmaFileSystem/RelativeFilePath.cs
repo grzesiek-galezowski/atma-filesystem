@@ -166,5 +166,17 @@ namespace AtmaFileSystem
     {
       return Comparer<RelativeFilePath>.Default.Compare(left, right) >= 0;
     }
+
+    public Maybe<RelativeDirectoryPath> FindCommonRelativeDirectoryPathWith(RelativeFilePath path2)
+    {
+      return from thisFileDir in this.ParentDirectory()
+        from otherFileDir in path2.ParentDirectory()
+        select thisFileDir.FindCommonRelativeDirectoryPathWith(otherFileDir);
+    }
+
+    public bool StartsWith(RelativeDirectoryPath currentPathValue)
+    {
+      return this._path.StartsWith(currentPathValue.ToString());
+    }
   }
 }

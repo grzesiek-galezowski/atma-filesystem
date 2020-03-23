@@ -187,5 +187,22 @@ namespace AtmaFileSystem
     {
       return Comparer<RelativeDirectoryPath>.Default.Compare(left, right) >= 0;
     }
+
+    public Maybe<RelativeDirectoryPath> FindCommonRelativeDirectoryPathWith(RelativeDirectoryPath path2)
+    {
+      var currentPath = this.Just();
+      while (currentPath.HasValue && !path2.StartsWith(currentPath.Value))
+      {
+        currentPath = currentPath.Value.ParentDirectory();
+      }
+
+      return currentPath;
+
+    }
+
+    private bool StartsWith(RelativeDirectoryPath currentPathValue)
+    {
+      return _path.StartsWith(currentPathValue._path);
+    }
   }
 }

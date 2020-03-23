@@ -3,6 +3,7 @@ using AtmaFileSystem;
 using NSubstitute;
 using System.IO;
 using FluentAssertions;
+using Functional.Maybe;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssert.Root;
 using TddXt.XFluentAssertRoot;
@@ -178,6 +179,27 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.Equal(comparisonResult, equality);
     }
+
+    [Theory]
+    [InlineData("lol\\lol.txt", "lol\\lol.txt", "lol")]
+    [InlineData("lol\\lol2\\lol.txt", "lol\\lol3\\lol.txt", "lol")]
+    [InlineData("lol\\lol2\\lol2\\lol.txt", "lol\\lol2\\lol3\\lol.txt", "lol")]
+    [InlineData("lol\\lol2\\lol.txt", "lol2\\lol2\\lol.txt", null)]
+    public void ShouldAllowGettingCommonDirectoryPath(string left, string right, string expected)
+    {
+      //GIVEN
+      var path1 = RelativeFilePath.Value(left);
+      var path2 = RelativeFilePath.Value(right);
+
+      //WHEN
+      var commonLeftRight = path1.FindCommonRelativeDirectoryPathWith(path2);
+      var commonRightLeft = path2.FindCommonRelativeDirectoryPathWith(path1);
+
+      //THEN
+      Assert.Equal(commonRightLeft, commonLeftRight);
+      Assert.Equal(expected, commonLeftRight.Select(v => v.ToString()).OrElseDefault());
+    }
+
 
   }
 

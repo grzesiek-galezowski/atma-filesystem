@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
+using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
@@ -49,7 +51,6 @@ namespace AtmaFileSystem
     {
       return Path.Combine(part1.ToString(), part2.ToString());
     }
-
 
     public static AbsoluteFilePath Value(string path)
     {
@@ -165,6 +166,16 @@ namespace AtmaFileSystem
     public static bool operator >=(AbsoluteFilePath left, AbsoluteFilePath right)
     {
       return Comparer<AbsoluteFilePath>.Default.Compare(left, right) >= 0;
+    }
+
+    public Maybe<AbsoluteDirectoryPath> FindCommonDirectoryWith(AbsoluteFilePath path2)
+    {
+      return this.ParentDirectory().FindCommonDirectoryPathWith(path2.ParentDirectory());
+    }
+
+    public bool StartsWith(AbsoluteDirectoryPath currentPath)
+    {
+      return this._path.StartsWith(currentPath.ToString(), StringComparison.InvariantCulture);
     }
   }
 }
