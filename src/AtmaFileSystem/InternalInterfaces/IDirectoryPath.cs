@@ -7,5 +7,7 @@ namespace AtmaFileSystem.InternalInterfaces
   {
     DirectoryName DirectoryName();
     Maybe<T> ParentDirectory();
+    Maybe<T> FindCommonDirectoryPathWith(T path2);
+    bool StartsWith(T path2);
   }
 }

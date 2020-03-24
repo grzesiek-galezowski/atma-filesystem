@@ -183,7 +183,7 @@ namespace AtmaFileSystemSpecification
     [Theory]
     [InlineData("lol\\lol.txt", "lol\\lol.txt", "lol")]
     [InlineData("lol\\lol2\\lol.txt", "lol\\lol3\\lol.txt", "lol")]
-    [InlineData("lol\\lol2\\lol2\\lol.txt", "lol\\lol2\\lol3\\lol.txt", "lol")]
+    [InlineData("lol\\lol2\\lol2\\lol.txt", "lol\\lol2\\lol3\\lol.txt", "lol\\lol2")]
     [InlineData("lol\\lol2\\lol.txt", "lol2\\lol2\\lol.txt", null)]
     public void ShouldAllowGettingCommonDirectoryPath(string left, string right, string expected)
     {

@@ -171,7 +171,7 @@ namespace AtmaFileSystem
     {
       return from thisFileDir in this.ParentDirectory()
         from otherFileDir in path2.ParentDirectory()
-        select thisFileDir.FindCommonRelativeDirectoryPathWith(otherFileDir);
+        select thisFileDir.FindCommonDirectoryPathWith(otherFileDir);
     }
 
     public bool StartsWith(RelativeDirectoryPath currentPathValue)

@@ -188,21 +188,15 @@ namespace AtmaFileSystem
       return Comparer<RelativeDirectoryPath>.Default.Compare(left, right) >= 0;
     }
 
-    public Maybe<RelativeDirectoryPath> FindCommonRelativeDirectoryPathWith(RelativeDirectoryPath path2)
+    public Maybe<RelativeDirectoryPath> FindCommonDirectoryPathWith(RelativeDirectoryPath path2)
     {
-      var currentPath = this.Just();
-      while (currentPath.HasValue && !path2.StartsWith(currentPath.Value))
-      {
-        currentPath = currentPath.Value.ParentDirectory();
-      }
-
-      return currentPath;
-
+      return DirectoryPathAlgorithms<RelativeDirectoryPath>.FindCommonDirectoryPathWith(
+        this, path2, path => (RelativeDirectoryPath)path, path => path);
     }
 
-    private bool StartsWith(RelativeDirectoryPath currentPathValue)
+    public bool StartsWith(RelativeDirectoryPath subPath)
     {
-      return _path.StartsWith(currentPathValue._path);
+      return DirectoryPathAlgorithms<RelativeDirectoryPath>.StartsWith(this, subPath, path => path);
     }
   }
 }
