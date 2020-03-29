@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using AtmaFileSystem.Assertions;
 using System.IO;
+using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
+  //bug mixed/different path separators
   public sealed class AnyPath
     : IEquatable<AnyPath>, 
       IEquatableAccordingToFileSystem<AnyPath>,
@@ -61,12 +63,12 @@ namespace AtmaFileSystem
 
     public static AnyPath Value(string path)
     {
-      Asserts.NotNull(path, "path");
+      Asserts.NotNull(path, nameof(path));
       Asserts.NotWhitespace(path, "Path cannot be whitespace");
       Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
       Asserts.DoesNotContainInvalidChars(path);
 
-      return new AnyPath(path);
+      return new AnyPath(PathAlgorithms.NormalizeSeparators(path));
     }
 
     public Maybe<AnyDirectoryPath> ParentDirectory()

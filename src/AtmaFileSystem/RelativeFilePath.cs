@@ -20,7 +20,7 @@ namespace AtmaFileSystem
 
     internal RelativeFilePath(string pathString)
     {
-      _path = pathString;
+      _path = pathString.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
     }
 
     public static RelativeFilePath From(RelativeDirectoryPath relativeDirectoryPath, FileName fileName)
@@ -58,7 +58,7 @@ namespace AtmaFileSystem
 
     public static RelativeFilePath Value(string path)
     {
-      Asserts.NotNull(path, "path");
+      Asserts.NotNull(path, nameof(path));
       Asserts.NotEmpty(path, ExceptionMessages.PathCannotBeAnEmptyString);
       Asserts.NotRooted(path, ExceptionMessages.RootedPathsAreIllegalPleasePassARelativePath);
       return new RelativeFilePath(path);
@@ -177,6 +177,12 @@ namespace AtmaFileSystem
     public bool StartsWith(RelativeDirectoryPath currentPathValue)
     {
       return this._path.StartsWith(currentPathValue.ToString());
+    }
+
+    public Maybe<RelativeDirectoryPath> TrimStart(RelativeDirectoryPath startPath)
+    {
+      return PathAlgorithms.TrimStart(_path, startPath.ToString())
+        .Select(s => new RelativeDirectoryPath(s));
     }
   }
 }

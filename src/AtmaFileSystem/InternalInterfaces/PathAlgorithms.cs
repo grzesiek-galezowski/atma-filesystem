@@ -1,17 +1,18 @@
 using System;
+using System.IO;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
 namespace AtmaFileSystem.InternalInterfaces
 {
-  internal class DirectoryPathAlgorithms<TPath> where TPath : IDirectoryPath<TPath>
+  internal static class PathAlgorithms
   {
-    public static Maybe<TPath> FindCommonDirectoryPathWith(
+    public static Maybe<TPath> FindCommonDirectoryPathWith<TPath>(
       IDirectoryPath<TPath> path1, 
       IDirectoryPath<TPath> path2,
       Func<IDirectoryPath<TPath>, TPath> convToTPath,
       Func<TPath, IDirectoryPath<TPath>> convToIDirectoryPath
-    )
+    ) where TPath : IDirectoryPath<TPath>
     {
       var currentPath = path1.Just();
       while (currentPath.HasValue && !StartsWith(path2, currentPath.Value, convToIDirectoryPath))
@@ -22,11 +23,11 @@ namespace AtmaFileSystem.InternalInterfaces
       return currentPath.Select(convToTPath);
     }
 
-    public static bool StartsWith(
-      IDirectoryPath<TPath> path, 
+    public static bool StartsWith<TPath>(
+      IDirectoryPath<TPath> path,
       IDirectoryPath<TPath> path2,
       Func<TPath, IDirectoryPath<TPath>> convToIDirectoryPath
-    )
+    ) where TPath : IDirectoryPath<TPath>
     {
       if (!path.ToString().StartsWith(path2.ToString()))
       {
@@ -47,6 +48,29 @@ namespace AtmaFileSystem.InternalInterfaces
       return false;
     }
 
+    public static Maybe<string> TrimStart(string originalPathString, string startPathString)
+    {
+      if (originalPathString.Equals(startPathString))
+      {
+        return Maybe<string>.Nothing;
+      }
 
+      if (originalPathString.StartsWith(startPathString))
+      {
+        return originalPathString.Substring(
+          startPathString.Length,
+          originalPathString.Length - startPathString.Length).Just();
+      }
+      else
+      {
+        return Maybe<string>.Nothing;
+      }
+
+    }
+
+    public static string NormalizeSeparators(string relativePath)
+    {
+      return relativePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+    }
   }
 }

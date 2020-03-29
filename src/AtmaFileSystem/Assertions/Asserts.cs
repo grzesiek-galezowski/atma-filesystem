@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AtmaFileSystem.Assertions
 {
-  static class Asserts
+  internal static class Asserts
   {
     public static void Rooted(string path, string message)
     {
@@ -32,9 +32,9 @@ namespace AtmaFileSystem.Assertions
 
     public static void NotEmpty(string path, string message)
     {
-      if (path == String.Empty)
+      if (path == string.Empty)
       {
-        throw new ArgumentException(message, "path");
+        throw new ArgumentException(message, nameof(path));
       }
     }
 

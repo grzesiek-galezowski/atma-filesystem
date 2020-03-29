@@ -45,7 +45,7 @@ namespace AtmaFileSystem
 
     public static AbsoluteDirectoryPath Value(string path)
     {
-      Asserts.NotNull(path, "path");
+      Asserts.NotNull(path, nameof(path));
       Asserts.NotEmpty(path, "Path cannot be empty");
       Asserts.Rooted(path, "Expected absolute path, but got " + path);
       Asserts.DoesNotContainInvalidChars(path);
@@ -200,13 +200,19 @@ namespace AtmaFileSystem
 
     public Maybe<AbsoluteDirectoryPath> FindCommonDirectoryPathWith(AbsoluteDirectoryPath path2)
     {
-      return DirectoryPathAlgorithms<AbsoluteDirectoryPath>.FindCommonDirectoryPathWith(
+      return PathAlgorithms.FindCommonDirectoryPathWith(
         this, path2, path => (AbsoluteDirectoryPath)path, path => path);
+    }
+
+    public Maybe<RelativeDirectoryPath> TrimStart(AbsoluteDirectoryPath startPath)
+    {
+      return PathAlgorithms.TrimStart(this.ToString(), startPath.ToString())
+        .Select(s => new RelativeDirectoryPath(s));
     }
 
     public bool StartsWith(AbsoluteDirectoryPath subPath)
     {
-      return DirectoryPathAlgorithms<AbsoluteDirectoryPath>.StartsWith(this, subPath, path => path);
+      return PathAlgorithms.StartsWith(this, subPath, path => path);
     }
   }
 }

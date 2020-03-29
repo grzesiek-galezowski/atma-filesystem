@@ -8,6 +8,7 @@ using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
+  //bug mixed/different path separators
   public sealed class AnyFilePath
     : IEquatable<AnyFilePath>, 
       IEquatableAccordingToFileSystem<AnyFilePath>,
@@ -73,12 +74,12 @@ namespace AtmaFileSystem
 
     public static AnyFilePath Value(string path)
     {
-      Asserts.NotNull(path, "path");
+      Asserts.NotNull(path, nameof(path));
       Asserts.NotEmpty(path, "Path cannot be empty");
       Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
       Asserts.DoesNotContainInvalidChars(path);
 
-      return new AnyFilePath(path);
+      return new AnyFilePath(PathAlgorithms.NormalizeSeparators(path));
     }
 
     public bool Has(FileExtension extensionValue)

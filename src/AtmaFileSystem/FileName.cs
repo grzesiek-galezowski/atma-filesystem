@@ -40,7 +40,7 @@ namespace AtmaFileSystem
 
     public static FileName Value(string path)
     {
-      Asserts.NotNull(path, "path");
+      Asserts.NotNull(path, nameof(path));
       Asserts.NotEmpty(path, "File name should not be empty");
       Asserts.ConsistsSolelyOfFileName(path);
 

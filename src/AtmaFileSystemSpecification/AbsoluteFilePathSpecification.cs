@@ -249,5 +249,17 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(expected, commonLeftRight.Select(v => v.ToString()).OrElseDefault());
     }
 
+    [Theory]
+    [InlineData("C:\\d1\\d2", "C:\\", "d1\\d2")]
+    [InlineData("C:\\a", "C:\\a", null)]
+    [InlineData("C:\\a", "C:\\b", null)]
+    public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
+    {
+      Maybe<RelativeFilePath> trimmedPath = AbsoluteFilePath(p1)
+        .TrimStart(AbsoluteDirectoryPath(p2));
+
+      trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
+    }
+
   }
 }

@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
-using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
@@ -54,7 +52,7 @@ namespace AtmaFileSystem
 
     public static AbsoluteFilePath Value(string path)
     {
-      Asserts.NotNull(path, "path");
+      Asserts.NotNull(path, nameof(path));
       Asserts.Rooted(path, path + " is not an absolute path");
       Asserts.DoesNotContainInvalidChars(path);
 
@@ -176,6 +174,12 @@ namespace AtmaFileSystem
     public bool StartsWith(AbsoluteDirectoryPath currentPath)
     {
       return this._path.StartsWith(currentPath.ToString(), StringComparison.InvariantCulture);
+    }
+
+    public Maybe<RelativeFilePath> TrimStart(AbsoluteDirectoryPath startPath)
+    {
+      return PathAlgorithms.TrimStart(_path, startPath.ToString())
+        .Select(s => new RelativeFilePath(s));
     }
   }
 }

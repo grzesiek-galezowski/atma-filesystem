@@ -1,6 +1,6 @@
 namespace AtmaFileSystem.Assertions
 {
-  static class ExceptionMessages
+  internal static class ExceptionMessages
   {
     public static readonly string RootedPathsAreIllegalPleasePassARelativePath =
       "Rooted paths are illegal, please pass a relative path";

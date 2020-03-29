@@ -23,6 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Internals\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

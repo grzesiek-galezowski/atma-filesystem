@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AtmaFileSystem.Assertions;
 using System.IO;
+using System.Linq;
 using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
 using Functional.Maybe.Just;
@@ -32,14 +33,14 @@ namespace AtmaFileSystem
       _path = relativePath;
     }
 
-    public static RelativeDirectoryPath Value(string relativePath)
+    public static RelativeDirectoryPath Value(string path)
     {
-      Asserts.NotNull(relativePath, "path");
-      Asserts.NotWhitespace(relativePath, "relative path cannot consist of whitespaces");
-      Asserts.NotRooted(relativePath, "Expected relative path, but got " + relativePath);
-      Asserts.DoesNotContainInvalidChars(relativePath);
+      Asserts.NotNull(path, nameof(path));
+      Asserts.NotWhitespace(path, "relative path cannot consist of whitespaces");
+      Asserts.NotRooted(path, "Expected relative path, but got " + path);
+      Asserts.DoesNotContainInvalidChars(path);
 
-      return new RelativeDirectoryPath(relativePath);
+      return new RelativeDirectoryPath(PathAlgorithms.NormalizeSeparators(path));
     }
 
     private static string Combine(object part1, object part2)
@@ -190,13 +191,19 @@ namespace AtmaFileSystem
 
     public Maybe<RelativeDirectoryPath> FindCommonDirectoryPathWith(RelativeDirectoryPath path2)
     {
-      return DirectoryPathAlgorithms<RelativeDirectoryPath>.FindCommonDirectoryPathWith(
+      return PathAlgorithms.FindCommonDirectoryPathWith(
         this, path2, path => (RelativeDirectoryPath)path, path => path);
     }
 
     public bool StartsWith(RelativeDirectoryPath subPath)
     {
-      return DirectoryPathAlgorithms<RelativeDirectoryPath>.StartsWith(this, subPath, path => path);
+      return PathAlgorithms.StartsWith(this, subPath, path => path);
+    }
+
+    public Maybe<RelativeDirectoryPath> TrimStart(RelativeDirectoryPath startPath)
+    {
+      return PathAlgorithms.TrimStart(_path, startPath._path)
+        .Select(s => new RelativeDirectoryPath(s));
     }
   }
 }

@@ -239,6 +239,26 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(comparisonResult, equality);
     }
 
+    [Theory]
+    [InlineData("d1\\d2", "d1/d2")]
+    public void ShouldBeEqualToSamePathWithDifferentSeparators(string left, string right)
+    {
+      RelativeDirectoryPath.Value(left).Equals(RelativeDirectoryPath.Value(right))
+        .Should().BeTrue();
+    }
+
+    [Theory]
+    [InlineData("d0\\d1\\d2", "d0\\", "d1\\d2")]
+    [InlineData("d0\\", "d0\\", null)]
+    [InlineData("d0\\", "f0", null)]
+    public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
+    {
+      Maybe<RelativeDirectoryPath> trimmedPath = RelativeDirectoryPath.Value(p1)
+        .TrimStart(RelativeDirectoryPath.Value(p2));
+
+      trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
+    }
+
 
   }
 

@@ -5,6 +5,8 @@ using System.Linq;
 using AtmaFileSystem;
 using AtmaFileSystemSpecification;
 using FluentAssertions;
+using Functional.Maybe;
+using Functional.Maybe.Just;
 using NSubstitute;
 using NSubstitute.Core;
 using TddXt.AnyRoot;
@@ -291,7 +293,6 @@ namespace AtmaFileSystemSpecification
         .ArePathStringsEqual(directoryPath1.ToString(), directoryPath2.ToString())
         .Returns(comparisonResult);
 
-
       //WHEN
       var equality = directoryPath1.ShallowEquals(directoryPath2, fileSystemComparisonRules);
 
@@ -299,8 +300,27 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(comparisonResult, equality);
     }
 
-  }
+    [Theory]
+    [InlineData("C:\\d1\\d2", "C:/d1/d2")]
+    public void ShouldBeEqualToAnotherPathWithDifferentSeparators(string p1, string p2)
+    {
+      AbsoluteDirectoryPath(p1).Equals(AbsoluteDirectoryPath(p2)).Should().BeTrue();
+    }
 
+    [Theory]
+    [InlineData("C:\\d1\\d2", "C:\\", "d1\\d2")]
+    [InlineData("C:\\", "C:\\", null)]
+    [InlineData("C:\\", "D:", null)]
+    public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
+    {
+      Functional.Maybe.Maybe<RelativeDirectoryPath> trimmedPath = AbsoluteDirectoryPath(p1)
+        .TrimStart(AbsoluteDirectoryPath(p2));
+
+      trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
+    }
+    //bug strange behavior when passing "C:" instead of "C:\\"
+
+  }
 }
 
 

@@ -162,6 +162,13 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(comparisonResult, equality);
     }
 
+    [Theory]
+    [InlineData("d1\\d2", "d1/d2")]
+    public void ShouldBeEqualToSamePathWithDifferentSeparators(string left, string right)
+    {
+      AnyFilePath.Value(left).Equals(AnyFilePath.Value(right)).Should().BeTrue();
+    }
+
 
   }
 }
