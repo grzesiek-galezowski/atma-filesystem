@@ -1,9 +1,10 @@
 using System;
 using System.IO;
+using AtmaFileSystem.InternalInterfaces;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
-namespace AtmaFileSystem.InternalInterfaces
+namespace AtmaFileSystem.Internals
 {
   internal static class PathAlgorithms
   {

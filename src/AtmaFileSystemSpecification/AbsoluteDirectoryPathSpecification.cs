@@ -31,6 +31,7 @@ namespace AtmaFileSystemSpecification
      InlineData(null, typeof (ArgumentNullException)),
      InlineData("", typeof (ArgumentException)),
      InlineData(@"\\\\\\\\\?|/\/|", typeof (ArgumentException)),
+     InlineData("C:", typeof (ArgumentException)),
     ]
     public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
     {
@@ -49,18 +50,21 @@ namespace AtmaFileSystemSpecification
       typeof(AbsoluteDirectoryPath).Should().HaveValueSemantics();
     }
 
-    [Fact]
-    public void ShouldReturnTheStringItWasCreatedWithWhenConvertedToString()
+    [Theory]
+    [InlineData("C:\\", "C:\\")]
+    [InlineData("C:\\lol\\", "C:\\lol\\")]
+    [InlineData("C:\\lol", "C:\\lol")] //...hmmm
+    [InlineData("C:/lol", "C:\\lol")]
+    public void ShouldReturnTheStringItWasCreatedWithWhenConvertedToString(string input, string expected)
     {
       //GIVEN
-      var initialValue = Path.Combine(@"C:\", Any.String());
-      var path = AbsoluteDirectoryPath.Value(initialValue);
+      var path = AbsoluteDirectoryPath.Value(input);
 
       //WHEN
       var convertedToString = path.ToString();
 
       //THEN
-      Assert.Equal(initialValue, convertedToString);
+      Assert.Equal(expected, convertedToString);
     }
 
     [Fact]
@@ -310,7 +314,7 @@ namespace AtmaFileSystemSpecification
     [Theory]
     [InlineData("C:\\d1\\d2", "C:\\", "d1\\d2")]
     [InlineData("C:\\", "C:\\", null)]
-    [InlineData("C:\\", "D:", null)]
+    [InlineData("C:\\", "D:\\", null)]
     public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
     {
       Functional.Maybe.Maybe<RelativeDirectoryPath> trimmedPath = AbsoluteDirectoryPath(p1)

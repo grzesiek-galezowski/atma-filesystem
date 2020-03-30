@@ -1,13 +1,13 @@
 using System.IO;
+using Functional.Maybe;
 
 namespace AtmaFileSystem.InternalInterfaces
 {
-  internal interface IFilePath
+  internal interface IFilePath<out TPath>
   {
     FileInfo Info();
     FileName FileName();
     bool Has(FileExtension extensionValue);
-    //bug AbsoluteFilePath ChangeExtensionTo(FileExtension value);
-    //bug Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName);
+    TPath ChangeExtensionTo(FileExtension value);
   }
 }

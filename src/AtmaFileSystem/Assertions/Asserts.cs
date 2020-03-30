@@ -1,14 +1,15 @@
 using System;
 using System.IO;
 using System.Linq;
+using AtmaFileSystem.Internals;
 
 namespace AtmaFileSystem.Assertions
 {
   internal static class Asserts
   {
-    public static void Rooted(string path, string message)
+    public static void FullyQualified(string path, string message)
     {
-      if (!Path.IsPathRooted(path))
+      if (PathInternal.IsPartiallyQualified(path))
       {
         throw new ArgumentException(message);
       }

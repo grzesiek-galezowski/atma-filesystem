@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using AtmaFileSystem.Assertions;
 using System.IO;
 using AtmaFileSystem.InternalInterfaces;
+using AtmaFileSystem.Internals;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
 namespace AtmaFileSystem
 {
-  //bug mixed/different path separators
   public sealed class AnyPath
     : IEquatable<AnyPath>, 
       IEquatableAccordingToFileSystem<AnyPath>,

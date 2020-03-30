@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
+using AtmaFileSystem.Internals;
 using Functional.Maybe;
 
 namespace AtmaFileSystem
@@ -10,7 +11,7 @@ namespace AtmaFileSystem
   public sealed class AbsoluteFilePath : 
     IEquatable<AbsoluteFilePath>, 
     IEquatableAccordingToFileSystem<AbsoluteFilePath>, 
-    IFilePath, 
+    IFilePath<AbsoluteFilePath>, 
     IAbsolutePath,
     IExtensionChangable<AbsoluteFilePath>,
     IComparable<AbsoluteFilePath>, IComparable
@@ -53,7 +54,7 @@ namespace AtmaFileSystem
     public static AbsoluteFilePath Value(string path)
     {
       Asserts.NotNull(path, nameof(path));
-      Asserts.Rooted(path, path + " is not an absolute path");
+      Asserts.FullyQualified(path, path + " is not an absolute path");
       Asserts.DoesNotContainInvalidChars(path);
 
       return new AbsoluteFilePath(path);

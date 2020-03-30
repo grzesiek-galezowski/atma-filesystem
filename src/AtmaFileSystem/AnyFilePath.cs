@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
+using AtmaFileSystem.Internals;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
@@ -13,7 +14,9 @@ namespace AtmaFileSystem
     : IEquatable<AnyFilePath>, 
       IEquatableAccordingToFileSystem<AnyFilePath>,
       IExtensionChangable<AnyFilePath>,
-      IComparable<AnyFilePath>, IComparable
+      IFilePath<AnyFilePath>,
+      IComparable<AnyFilePath>, 
+      IComparable
   {
     private readonly string _path;
 

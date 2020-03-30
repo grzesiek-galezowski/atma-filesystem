@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
+using AtmaFileSystem.Internals;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
@@ -47,7 +48,7 @@ namespace AtmaFileSystem
     {
       Asserts.NotNull(path, nameof(path));
       Asserts.NotEmpty(path, "Path cannot be empty");
-      Asserts.Rooted(path, "Expected absolute path, but got " + path);
+      Asserts.FullyQualified(path, "Expected absolute path, but got " + path);
       Asserts.DoesNotContainInvalidChars(path);
       return new AbsoluteDirectoryPath(path);
     }
