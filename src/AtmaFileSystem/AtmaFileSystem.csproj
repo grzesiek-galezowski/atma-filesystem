@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags></PackageTags>
-    <Version>3.2.1</Version>
-    <PackageReleaseNotes>New methods and rooted vs qualified path bugfix</PackageReleaseNotes>
+    <Version>3.2.2</Version>
+    <PackageReleaseNotes>Fixes for StartsWith()</PackageReleaseNotes>
   </PropertyGroup>
   
   <PropertyGroup>

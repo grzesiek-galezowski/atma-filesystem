@@ -174,7 +174,7 @@ namespace AtmaFileSystem
 
     public bool StartsWith(AbsoluteDirectoryPath currentPath)
     {
-      return this._path.StartsWith(currentPath.ToString(), StringComparison.InvariantCulture);
+      return PathAlgorithms.StartsWith(this, currentPath);
     }
 
     public Maybe<RelativeFilePath> TrimStart(AbsoluteDirectoryPath startPath)

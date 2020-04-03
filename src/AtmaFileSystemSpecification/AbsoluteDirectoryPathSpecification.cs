@@ -322,7 +322,20 @@ namespace AtmaFileSystemSpecification
 
       trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
     }
-    //bug strange behavior when passing "C:" instead of "C:\\"
+    
+    [Theory]
+    [InlineData("C:\\d1\\d2", "C:\\", true)]
+    [InlineData("C:\\d1\\d2", "C:\\d1", true)]
+    [InlineData("C:\\", "D:\\", false)]
+    [InlineData("C:\\lolek", "C:\\lol", false)]
+    public void ShouldCorrectlyRespondsWhetherPathStartsWithAnother(
+        string p1, string p2, bool expected)
+    {
+        var result = AbsoluteDirectoryPath(p1)
+            .StartsWith(AbsoluteDirectoryPath(p2));
+
+        result.Should().Be(expected);
+    }
 
   }
 }

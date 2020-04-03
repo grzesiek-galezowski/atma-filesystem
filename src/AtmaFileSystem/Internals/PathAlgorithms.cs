@@ -48,6 +48,57 @@ namespace AtmaFileSystem.Internals
 
       return false;
     }
+    
+    public static bool StartsWith(
+      RelativeFilePath path,
+      RelativeDirectoryPath path2
+    )
+    {
+      if (!path.ToString().StartsWith(path2.ToString()))
+      {
+        return false;
+      }
+
+      var currentPath = path.ParentDirectory();
+      while (currentPath.HasValue)
+      {
+        if (currentPath.Value.Equals(path2))
+        {
+          return true;
+        }
+
+        currentPath = currentPath.Value.ParentDirectory();
+      }
+
+      return false;
+    }
+    
+    //bug some duplication with the methods above
+    public static bool StartsWith(
+      AbsoluteFilePath path,
+      AbsoluteDirectoryPath path2
+    )
+    {
+      if (!path.ToString().StartsWith(path2.ToString()))
+      {
+        return false;
+      }
+
+      var currentPath = path.ParentDirectory().Just();
+      while (currentPath.HasValue)
+      {
+        if (currentPath.Value.Equals(path2))
+        {
+          return true;
+        }
+
+        currentPath = currentPath.Value.ParentDirectory();
+      }
+
+      return false;
+    }
+    
+    //bug invariant culture everywhere
 
     public static Maybe<string> TrimStart(string originalPathString, string startPathString)
     {
@@ -73,5 +124,6 @@ namespace AtmaFileSystem.Internals
     {
       return relativePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
     }
+
   }
 }

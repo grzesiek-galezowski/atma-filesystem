@@ -14,7 +14,6 @@ namespace AtmaFileSystem
     : IEquatable<AnyFilePath>, 
       IEquatableAccordingToFileSystem<AnyFilePath>,
       IExtensionChangable<AnyFilePath>,
-      IFilePath<AnyFilePath>,
       IComparable<AnyFilePath>, 
       IComparable
   {
@@ -98,7 +97,7 @@ namespace AtmaFileSystem
     public Maybe<AnyDirectoryPath> ParentDirectory() //bug allow file names only, but put Maybe<T> here!!
     {
       var directoryName = Path.GetDirectoryName(_path);
-      if (directoryName != string.Empty)
+      if (directoryName.Length == 0)
       {
         return AnyDirectoryPath.Value(directoryName).Just();
       }

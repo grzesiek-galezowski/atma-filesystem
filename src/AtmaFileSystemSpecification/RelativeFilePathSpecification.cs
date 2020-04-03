@@ -220,6 +220,20 @@ namespace AtmaFileSystemSpecification
       trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
     }
 
+    [Theory]
+    [InlineData("d1\\d2", "d1", true)]
+    [InlineData("d1\\d2", "d1\\d2", false)]
+    [InlineData("d1\\", "d2\\", false)]
+    [InlineData("lolek", "lol", false)]
+    public void ShouldCorrectlyRespondsWhetherPathStartsWithAnother(
+        string p1, string p2, bool expected)
+    {
+        var result = RelativeFilePath.Value(p1)
+            .StartsWith(RelativeDirectoryPath.Value(p2));
+
+        result.Should().Be(expected);
+    }
+
   }
 
 }

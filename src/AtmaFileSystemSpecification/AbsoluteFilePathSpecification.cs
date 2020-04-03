@@ -11,6 +11,8 @@ using static AtmaFileSystem.AtmaFileSystemPaths;
 using static TddXt.AnyRoot.Root;
 using AbsoluteDirectoryPath = AtmaFileSystem.AbsoluteDirectoryPath;
 using AbsoluteFilePath = AtmaFileSystem.AbsoluteFilePath;
+using RelativeDirectoryPath = AtmaFileSystem.RelativeDirectoryPath;
+using RelativeFilePath = AtmaFileSystem.RelativeFilePath;
 
 namespace AtmaFileSystemSpecification
 {
@@ -259,6 +261,21 @@ namespace AtmaFileSystemSpecification
         .TrimStart(AbsoluteDirectoryPath(p2));
 
       trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
+    }
+
+    [Theory]
+    [InlineData("C:\\d1", "C:\\", true)]
+    [InlineData("C:\\d1\\d2", "C:\\d1", true)]
+    [InlineData("C:\\d1\\d2", "C:\\d1\\d2", false)]
+    [InlineData("C:\\", "D:\\d2", false)]
+    [InlineData("C:\\lolek", "C:\\lol", false)]
+    public void ShouldCorrectlyRespondsWhetherPathStartsWithAnother(
+        string p1, string p2, bool expected)
+    {
+        var result = AbsoluteFilePath.Value(p1)
+            .StartsWith(AbsoluteDirectoryPath.Value(p2));
+
+        result.Should().Be(expected);
     }
 
   }
