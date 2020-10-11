@@ -79,6 +79,32 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
+    public void ShouldAllowAccessingDirectoryOfThePathAtSpecifiedLevel()
+    {
+      //GIVEN
+      var dirPath = AbsoluteDirectoryPath("C:\\");
+      var dirName1 = Any.Instance<DirectoryName>();
+      var dirName2 = Any.Instance<DirectoryName>();
+      var dirName3 = Any.Instance<DirectoryName>();
+      var fileName = Any.Instance<FileName>();
+      AbsoluteFilePath absoluteFilePath = dirPath + dirName1 + dirName2 + dirName3 + fileName;
+      
+      //WHEN
+      var dirIndex0 = absoluteFilePath.ParentDirectory(0);
+      var dirIndex1 = absoluteFilePath.ParentDirectory(1);
+      var dirIndex2 = absoluteFilePath.ParentDirectory(2);
+      var dirIndex3 = absoluteFilePath.ParentDirectory(3);
+      var dirIndex4 = absoluteFilePath.ParentDirectory(4);
+
+      //THEN
+      dirIndex0.Value.Should().Be(dirPath + dirName1 + dirName2 + dirName3);
+      dirIndex1.Value.Should().Be(dirPath + dirName1 + dirName2);
+      dirIndex2.Value.Should().Be(dirPath + dirName1);
+      dirIndex3.Value.Should().Be(dirPath);
+      dirIndex4.Should().Be(Maybe<AbsoluteDirectoryPath>.Nothing);
+    }
+
+    [Fact]
     public void ShouldAllowAccessingFileNameOfThePath()
     {
       //GIVEN

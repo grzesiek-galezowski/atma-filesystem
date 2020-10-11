@@ -5,7 +5,9 @@ using System.Runtime.CompilerServices;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
+using AtmaFileSystem.Lib;
 using Functional.Maybe;
+using NullableReferenceTypesExtensions;
 
 namespace AtmaFileSystem
 {
@@ -64,6 +66,13 @@ namespace AtmaFileSystem
     public AbsoluteDirectoryPath ParentDirectory()
     {
       return new AbsoluteDirectoryPath(Path.GetDirectoryName(_path));
+    }
+
+    public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index)
+    {
+      var parent = ParentDirectory().ToMaybe();
+      index.Times(() => parent = parent.Select(p => p.ParentDirectory()));
+      return parent;
     }
 
     public FileInfo Info()

@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags></PackageTags>
-    <Version>4.1.0</Version>
-    <PackageReleaseNotes>Added file and directory paths .OfThisFile()</PackageReleaseNotes>
+    <Version>4.2.0</Version>
+    <PackageReleaseNotes>Added getting directory paths at indexes</PackageReleaseNotes>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -23,6 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Lib\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

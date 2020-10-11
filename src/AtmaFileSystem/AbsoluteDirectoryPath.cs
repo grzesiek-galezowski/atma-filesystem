@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
+using AtmaFileSystem.Lib;
 using Functional.Maybe;
 using Functional.Maybe.Just;
 
@@ -80,7 +81,15 @@ namespace AtmaFileSystem
       return AsMaybe(directoryName);
     }
 
-    private static Maybe<AbsoluteDirectoryPath> AsMaybe(DirectoryInfo directoryName)
+    public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index) //bug extract to common interface?
+    {
+      var parent = ParentDirectory();
+      index.Times(() => parent = parent.Select(p => p.ParentDirectory()));
+      return parent;
+    }
+
+
+    private static Maybe<AbsoluteDirectoryPath> AsMaybe(FileSystemInfo? directoryName)
     {
       return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AbsoluteDirectoryPath>.Nothing;
     }
