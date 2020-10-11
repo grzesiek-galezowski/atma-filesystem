@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using AtmaFileSystem.Internals;
 
 namespace AtmaFileSystem.Assertions
 {
@@ -9,7 +8,7 @@ namespace AtmaFileSystem.Assertions
   {
     public static void FullyQualified(string path, string message)
     {
-      if (PathInternal.IsPartiallyQualified(path))
+      if (!Path.IsPathFullyQualified(path))
       {
         throw new ArgumentException(message);
       }

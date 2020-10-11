@@ -11,7 +11,6 @@ using static AtmaFileSystem.AtmaFileSystemPaths;
 using static TddXt.AnyRoot.Root;
 using AbsoluteDirectoryPath = AtmaFileSystem.AbsoluteDirectoryPath;
 using AbsoluteFilePath = AtmaFileSystem.AbsoluteFilePath;
-using RelativeDirectoryPath = AtmaFileSystem.RelativeDirectoryPath;
 using RelativeFilePath = AtmaFileSystem.RelativeFilePath;
 
 namespace AtmaFileSystemSpecification

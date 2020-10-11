@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using AtmaFileSystem;
-using AtmaFileSystemSpecification;
 using FluentAssertions;
 using Functional.Maybe;
-using Functional.Maybe.Just;
 using NSubstitute;
-using NSubstitute.Core;
 using TddXt.AnyRoot;
-using TddXt.AnyRoot.Strings;
-using TddXt.XFluentAssert.Root;
 using TddXt.XFluentAssertRoot;
 using Xunit;
 using static AtmaFileSystem.AtmaFileSystemPaths;
