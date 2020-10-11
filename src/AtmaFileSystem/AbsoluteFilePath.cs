@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
@@ -181,6 +182,11 @@ namespace AtmaFileSystem
     {
       return PathAlgorithms.TrimStart(_path, startPath.ToString())
         .Select(s => new RelativeFilePath(s));
+    }
+
+    public static AbsoluteFilePath OfThisFile([CallerFilePath] string callerFilePath = "")
+    {
+      return Value(callerFilePath);
     }
   }
 }

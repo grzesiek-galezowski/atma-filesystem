@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using AtmaFileSystem;
 using FluentAssertions;
 using Functional.Maybe;
 using NSubstitute;
+using NullableReferenceTypesExtensions;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssertRoot;
 using Xunit;
@@ -210,7 +212,7 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldAllowGettingPathEndingOnLastOccurenceOfDirectoryName()
+    public void ShouldAllowGettingPathEndingOnLastOccurrenceOfDirectoryName()
     {
       //GIVEN
       var pathString = @"C:\lolek1\lolek2\lolek2\lolek3\";
@@ -329,6 +331,22 @@ namespace AtmaFileSystemSpecification
 
         result.Should().Be(expected);
     }
+
+    [Fact]
+    public void ShouldBeAbleToCreateDirectoryPathForCurrentFile()
+    {
+      //GIVEN
+      var thisDirPath = AbsoluteDirectoryPath.OfThisFile();
+      
+      //THEN
+      thisDirPath.Should().Be(AbsoluteDirectoryPath(Path.GetDirectoryName(CurrentFilePath()).OrThrow()));
+    }
+
+    private static string CurrentFilePath([CallerFilePath] string path = "")
+    {
+      return path;
+    }
+
 
   }
 }

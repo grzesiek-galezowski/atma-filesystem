@@ -37,7 +37,7 @@ namespace AtmaFileSystem
     {
       Asserts.NotNull(path, nameof(path));
       Asserts.NotWhitespace(path, "relative path cannot consist of whitespaces");
-      Asserts.NotRooted(path, "Expected relative path, but got " + path);
+      Asserts.NotFullyQualified(path, "Expected relative path, but got " + path);
       Asserts.DoesNotContainInvalidChars(path);
 
       return new RelativeDirectoryPath(PathAlgorithms.NormalizeSeparators(path));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using AtmaFileSystem;
 using FluentAssertions;
 using Functional.Maybe;
@@ -97,6 +98,5 @@ namespace AtmaFileSystemSpecification
     {
       AnyPath.Value(left).Equals(AnyPath.Value(right)).Should().BeTrue();
     }
-
   }
 }

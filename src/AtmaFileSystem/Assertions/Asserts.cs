@@ -14,9 +14,9 @@ namespace AtmaFileSystem.Assertions
       }
     }
 
-    public static void NotRooted(string path, string message)
+    public static void NotFullyQualified(string path, string message)
     {
-      if (Path.IsPathRooted(path))
+      if (Path.IsPathFullyQualified(path))
       {
         throw new ArgumentException(message);
       }

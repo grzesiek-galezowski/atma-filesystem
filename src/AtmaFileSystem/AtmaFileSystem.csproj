@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags></PackageTags>
-    <Version>4.0.0</Version>
-    <PackageReleaseNotes>Migrated to .net standard 2.0, which allowed addressing multiplatform bug</PackageReleaseNotes>
+    <Version>4.1.0</Version>
+    <PackageReleaseNotes>Added file and directory paths .OfThisFile()</PackageReleaseNotes>
   </PropertyGroup>
   
   <PropertyGroup>

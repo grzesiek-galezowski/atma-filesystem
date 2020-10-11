@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
@@ -214,6 +215,11 @@ namespace AtmaFileSystem
     public bool StartsWith(AbsoluteDirectoryPath subPath)
     {
       return PathAlgorithms.StartsWith(this, subPath, path => path);
+    }
+
+    public static AbsoluteDirectoryPath OfThisFile([CallerFilePath] string callerFilePath = "")
+    {
+      return AbsoluteFilePath.Value(callerFilePath).ParentDirectory();
     }
   }
 }

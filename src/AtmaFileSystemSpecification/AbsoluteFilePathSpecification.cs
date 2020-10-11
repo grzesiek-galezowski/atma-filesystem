@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using AtmaFileSystem;
 using FluentAssertions;
 using Functional.Maybe;
@@ -15,10 +16,8 @@ using RelativeFilePath = AtmaFileSystem.RelativeFilePath;
 
 namespace AtmaFileSystemSpecification
 {
-
   public class AbsoluteFilePathSpecification
   {
-
     [Fact]
     public void ShouldNotAllowToBeCreatedWithNullValue()
     {
@@ -122,7 +121,7 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldAllowGettingPathEndingOnLastOccurenceOfDirectoryName()
+    public void ShouldAllowGettingPathEndingOnLastOccurrenceOfDirectoryName()
     {
       //GIVEN
       var pathString = @"C:\lolek1\lolek2\lolek3\lolek3\lol.txt";
@@ -275,6 +274,21 @@ namespace AtmaFileSystemSpecification
             .StartsWith(AbsoluteDirectoryPath.Value(p2));
 
         result.Should().Be(expected);
+    }
+
+    [Fact]
+    public void ShouldBeAbleToCreatePathForCurrentFile()
+    {
+      //GIVEN
+      var thisFilePath = AbsoluteFilePath.OfThisFile();
+      
+      //THEN
+      thisFilePath.Should().Be(AbsoluteFilePath.Value(CurrentFilePath()));
+    }
+
+    private static string CurrentFilePath([CallerFilePath] string path = "")
+    {
+      return path;
     }
 
   }

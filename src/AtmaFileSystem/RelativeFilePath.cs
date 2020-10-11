@@ -61,7 +61,7 @@ namespace AtmaFileSystem
     {
       Asserts.NotNull(path, nameof(path));
       Asserts.NotEmpty(path, ExceptionMessages.PathCannotBeAnEmptyString);
-      Asserts.NotRooted(path, ExceptionMessages.RootedPathsAreIllegalPleasePassARelativePath);
+      Asserts.NotFullyQualified(path, ExceptionMessages.RootedPathsAreIllegalPleasePassARelativePath);
       return new RelativeFilePath(path);
     }
 
