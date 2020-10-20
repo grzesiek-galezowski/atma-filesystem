@@ -262,7 +262,7 @@ namespace AtmaFileSystemSpecification
       var fragment = pathWithFilename.FragmentEndingOnLast(DirectoryName("Trolololo"));
 
       //THEN
-      fragment.Should().Be(Functional.Maybe.Maybe<AbsoluteDirectoryPath>.Nothing);
+      fragment.Should().Be(Maybe<AbsoluteDirectoryPath>.Nothing);
     }
 
     [Fact]
@@ -338,7 +338,7 @@ namespace AtmaFileSystemSpecification
     [InlineData("C:\\", "D:\\", null)]
     public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
     {
-      Functional.Maybe.Maybe<RelativeDirectoryPath> trimmedPath = AbsoluteDirectoryPath(p1)
+      Maybe<RelativeDirectoryPath> trimmedPath = AbsoluteDirectoryPath(p1)
         .TrimStart(AbsoluteDirectoryPath(p2));
 
       trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());

@@ -171,7 +171,7 @@ namespace AtmaFileSystemSpecification
       var fragment = pathWithFilename.FragmentEndingOnLast(DirectoryName("lol.txt"));
 
       //THEN
-      fragment.Should().Be(Functional.Maybe.Maybe<AbsoluteDirectoryPath>.Nothing);
+      fragment.Should().Be(Maybe<AbsoluteDirectoryPath>.Nothing);
     }
 
     [Fact]
