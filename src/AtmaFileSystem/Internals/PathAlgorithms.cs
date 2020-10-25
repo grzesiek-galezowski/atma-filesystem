@@ -8,6 +8,8 @@ namespace AtmaFileSystem.Internals
 {
   internal static class PathAlgorithms
   {
+    private static readonly StringComparison _culture = StringComparison.InvariantCulture;
+
     public static Maybe<TPath> FindCommonDirectoryPathWith<TPath>(
       IDirectoryPath<TPath> path1, 
       IDirectoryPath<TPath> path2,
@@ -30,7 +32,7 @@ namespace AtmaFileSystem.Internals
       Func<TPath, IDirectoryPath<TPath>> convToIDirectoryPath
     ) where TPath : IDirectoryPath<TPath>
     {
-      if (!path.ToString().StartsWith(path2.ToString()))
+      if (!path.ToString().StartsWith(path2.ToString(), _culture))
       {
         return false;
       }
@@ -54,7 +56,7 @@ namespace AtmaFileSystem.Internals
       RelativeDirectoryPath path2
     )
     {
-      if (!path.ToString().StartsWith(path2.ToString()))
+      if (!path.ToString().StartsWith(path2.ToString(), _culture))
       {
         return false;
       }
@@ -79,7 +81,7 @@ namespace AtmaFileSystem.Internals
       AbsoluteDirectoryPath path2
     )
     {
-      if (!path.ToString().StartsWith(path2.ToString()))
+      if (!path.ToString().StartsWith(path2.ToString(), _culture))
       {
         return false;
       }
@@ -99,15 +101,14 @@ namespace AtmaFileSystem.Internals
     }
     
     //bug invariant culture everywhere
-
     public static Maybe<string> TrimStart(string originalPathString, string startPathString)
     {
-      if (originalPathString.Equals(startPathString))
+      if (originalPathString.Equals(startPathString, _culture))
       {
         return Maybe<string>.Nothing;
       }
 
-      if (originalPathString.StartsWith(startPathString))
+      if (originalPathString.StartsWith(startPathString, _culture))
       {
         return originalPathString.Substring(
           startPathString.Length,

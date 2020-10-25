@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -151,66 +152,187 @@ namespace AtmaFileSystem.IO
       return File.Open(path.ToString(), mode, access, share);
     }
 
-    //bug
-    //internal static DateTimeOffset GetUtcDateTimeOffset(DateTime dateTime)
-    //{
-    //}
-    //
-    //public static void SetCreationTime(string path, DateTime creationTime)
-    //{
-    //}
-    //
-    //public static void SetCreationTimeUtc(string path, DateTime creationTimeUtc)
-    //{
-    //}
-    //
-    //public static DateTime GetCreationTime(string path)
-    //{
-    //}
-    //
-    //public static DateTime GetCreationTimeUtc(string path)
-    //{
-    //}
-    //
-    //public static void SetLastAccessTime(string path, DateTime lastAccessTime)
-    //{
-    //}
-    //
-    //public static void SetLastAccessTimeUtc(string path, DateTime lastAccessTimeUtc)
-    //{
-    //}
-    //
-    //public static DateTime GetLastAccessTime(string path)
-    //{
-    //}
-    //
-    //public static DateTime GetLastAccessTimeUtc(string path)
-    //{
-    //}
-    //
-    //public static void SetLastWriteTime(string path, DateTime lastWriteTime)
-    //{
-    //}
-    //
-    //public static void SetLastWriteTimeUtc(string path, DateTime lastWriteTimeUtc)
-    //{
-    //}
-    //
-    //public static DateTime GetLastWriteTime(string path)
-    //{
-    //}
-    //
-    //public static DateTime GetLastWriteTimeUtc(string path)
-    //{
-    //}
-    //
-    //public static FileAttributes GetAttributes(string path)
-    //{
-    //}
-    //
-    //public static void SetAttributes(string path, FileAttributes fileAttributes)
-    //{
-    //}
+    public static void SetCreationTime(this AbsoluteFilePath path, DateTime creationTime)
+    {
+      File.SetCreationTime(path.ToString(), creationTime);
+    }
+    public static void SetCreationTime(this RelativeFilePath path, DateTime creationTime)
+    {
+      File.SetCreationTime(path.ToString(), creationTime);
+    }
+    public static void SetCreationTime(this AnyFilePath path, DateTime creationTime)
+    {
+      File.SetCreationTime(path.ToString(), creationTime);
+    }
+    
+    public static void SetCreationTimeUtc(this AbsoluteFilePath path, DateTime creationTimeUtc)
+    {
+      File.SetCreationTimeUtc(path.ToString(), creationTimeUtc);
+    }
+    public static void SetCreationTimeUtc(this RelativeFilePath path, DateTime creationTimeUtc)
+    {
+      File.SetCreationTimeUtc(path.ToString(), creationTimeUtc);
+    }
+    public static void SetCreationTimeUtc(this AnyFilePath path, DateTime creationTimeUtc)
+    {
+      File.SetCreationTimeUtc(path.ToString(), creationTimeUtc);
+    }
+    
+    public static DateTime GetCreationTime(this AbsoluteFilePath path)
+    {
+      return File.GetCreationTime(path.ToString());
+    }
+    public static DateTime GetCreationTime(this RelativeFilePath path)
+    {
+      return File.GetCreationTime(path.ToString());
+    }
+    public static DateTime GetCreationTime(this AnyFilePath path)
+    {
+      return File.GetCreationTime(path.ToString());
+    }
+    
+    public static DateTime GetCreationTimeUtc(this AbsoluteFilePath path)
+    {
+      return File.GetCreationTimeUtc(path.ToString());
+    }
+    public static DateTime GetCreationTimeUtc(this RelativeFilePath path)
+    {
+      return File.GetCreationTimeUtc(path.ToString());
+    }
+    public static DateTime GetCreationTimeUtc(this AnyFilePath path)
+    {
+      return File.GetCreationTimeUtc(path.ToString());
+    }
+    
+    public static void SetLastAccessTime(this AbsoluteFilePath path, DateTime lastAccessTime)
+    {
+      File.SetLastAccessTime(path.ToString(), lastAccessTime);
+    }
+    public static void SetLastAccessTime(this RelativeFilePath path, DateTime lastAccessTime)
+    {
+      File.SetLastAccessTime(path.ToString(), lastAccessTime);
+    }
+    public static void SetLastAccessTime(this AnyFilePath path, DateTime lastAccessTime)
+    {
+      File.SetLastAccessTime(path.ToString(), lastAccessTime);
+    }
+
+    public static void SetLastAccessTimeUtc(this AbsoluteFilePath path, DateTime lastAccessTime)
+    {
+      File.SetLastAccessTimeUtc(path.ToString(), lastAccessTime);
+    }
+    public static void SetLastAccessTimeUtc(this RelativeFilePath path, DateTime lastAccessTime)
+    {
+      File.SetLastAccessTimeUtc(path.ToString(), lastAccessTime);
+    }
+    public static void SetLastAccessTimeUtc(this AnyFilePath path, DateTime lastAccessTime)
+    {
+      File.SetLastAccessTimeUtc(path.ToString(), lastAccessTime);
+    }
+    
+    public static DateTime GetLastAccessTime(this AbsoluteFilePath path)
+    {
+      return File.GetLastAccessTime(path.ToString());
+    }
+    public static DateTime GetLastAccessTime(this RelativeFilePath path)
+    {
+      return File.GetLastAccessTime(path.ToString());
+    }
+    public static DateTime GetLastAccessTime(this AnyFilePath path)
+    {
+      return File.GetLastAccessTime(path.ToString());
+    }
+
+    public static DateTime GetLastAccessTimeUtc(this AbsoluteFilePath path)
+    {
+      return File.GetLastAccessTimeUtc(path.ToString());
+    }
+    public static DateTime GetLastAccessTimeUtc(this RelativeFilePath path)
+    {
+      return File.GetLastAccessTimeUtc(path.ToString());
+    }
+    public static DateTime GetLastAccessTimeUtc(this AnyFilePath path)
+    {
+      return File.GetLastAccessTimeUtc(path.ToString());
+    }
+
+    public static void SetLastWriteTime(this AbsoluteFilePath path, DateTime lastWriteTime)
+    {
+      File.SetLastWriteTime(path.ToString(), lastWriteTime);
+    }
+    public static void SetLastWriteTime(this RelativeFilePath path, DateTime lastWriteTime)
+    {
+      File.SetLastWriteTime(path.ToString(), lastWriteTime);
+    }
+    public static void SetLastWriteTime(this AnyFilePath path, DateTime lastWriteTime)
+    {
+      File.SetLastWriteTime(path.ToString(), lastWriteTime);
+    }
+    
+    public static void SetLastWriteTimeUtc(this AbsoluteFilePath path, DateTime lastWriteTime)
+    {
+      File.SetLastWriteTimeUtc(path.ToString(), lastWriteTime);
+    }
+    public static void SetLastWriteTimeUtc(this RelativeFilePath path, DateTime lastWriteTime)
+    {
+      File.SetLastWriteTimeUtc(path.ToString(), lastWriteTime);
+    }
+    public static void SetLastWriteTimeUtc(this AnyFilePath path, DateTime lastWriteTime)
+    {
+      File.SetLastWriteTimeUtc(path.ToString(), lastWriteTime);
+    }
+    
+    public static DateTime GetLastWriteTime(this AbsoluteFilePath path)
+    {
+      return File.GetLastWriteTime(path.ToString());
+    }
+    public static DateTime GetLastWriteTime(this RelativeFilePath path)
+    {
+      return File.GetLastWriteTime(path.ToString());
+    }
+    public static DateTime GetLastWriteTime(this AnyFilePath path)
+    {
+      return File.GetLastWriteTime(path.ToString());
+    }
+    
+    public static DateTime GetLastWriteTimeUtc(this AbsoluteFilePath path)
+    {
+      return File.GetLastWriteTimeUtc(path.ToString());
+    }
+    public static DateTime GetLastWriteTimeUtc(this RelativeFilePath path)
+    {
+      return File.GetLastWriteTimeUtc(path.ToString());
+    }
+    public static DateTime GetLastWriteTimeUtc(this AnyFilePath path)
+    {
+      return File.GetLastWriteTimeUtc(path.ToString());
+    }
+    
+    public static FileAttributes GetAttributes(this AbsoluteFilePath path)
+    {
+      return File.GetAttributes(path.ToString());
+    }
+    public static FileAttributes GetAttributes(this RelativeFilePath path)
+    {
+      return File.GetAttributes(path.ToString());
+    }
+    public static FileAttributes GetAttributes(this AnyFilePath path)
+    {
+      return File.GetAttributes(path.ToString());
+    }
+    
+    public static void SetAttributes(this AbsoluteFilePath path, FileAttributes fileAttributes)
+    {
+      File.SetAttributes(path.ToString(), fileAttributes);
+    }
+    public static void SetAttributes(this RelativeFilePath path, FileAttributes fileAttributes)
+    {
+      File.SetAttributes(path.ToString(), fileAttributes);
+    }
+    public static void SetAttributes(this AnyFilePath path, FileAttributes fileAttributes)
+    {
+      File.SetAttributes(path.ToString(), fileAttributes);
+    }
 
     public static FileStream OpenRead(this AbsoluteFilePath path)
     {

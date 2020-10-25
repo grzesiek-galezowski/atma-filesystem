@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags></PackageTags>
-    <Version>4.3.0</Version>
+    <Version>4.4.0</Version>
     <PackageReleaseNotes>Ported most of System.IO.File and System.IO.Directory as extension methods</PackageReleaseNotes>
   </PropertyGroup>
   
