@@ -13,7 +13,7 @@ namespace AtmaFileSystem.IO
     {
       return File.OpenText(path.ToString());
     }
-    public static StreamReader OpenText(RelativeFilePath path)
+    public static StreamReader OpenText(this RelativeFilePath path)
     {
       return File.OpenText(path.ToString());
     }
@@ -26,7 +26,7 @@ namespace AtmaFileSystem.IO
     {
       return File.CreateText(path.ToString());
     }
-    public static StreamWriter CreateText(RelativeFilePath path)
+    public static StreamWriter CreateText(this RelativeFilePath path)
     {
       return File.CreateText(path.ToString());
     }
@@ -39,7 +39,7 @@ namespace AtmaFileSystem.IO
     {
       return File.AppendText(path.ToString());
     }
-    public static StreamWriter AppendText(RelativeFilePath path)
+    public static StreamWriter AppendText(this RelativeFilePath path)
     {
       return File.AppendText(path.ToString());
     }
@@ -52,7 +52,7 @@ namespace AtmaFileSystem.IO
     {
       return File.Create(path.ToString());
     }
-    public static FileStream Create(RelativeFilePath path)
+    public static FileStream Create(this RelativeFilePath path)
     {
       return File.Create(path.ToString());
     }
@@ -91,7 +91,7 @@ namespace AtmaFileSystem.IO
     {
       File.Delete(path.ToString());
     }
-    public static void Delete(RelativeFilePath path)
+    public static void Delete(this RelativeFilePath path)
     {
       File.Delete(path.ToString());
     }
@@ -104,7 +104,7 @@ namespace AtmaFileSystem.IO
     {
       return File.Exists(path.ToString());
     }
-    public static bool Exists(RelativeFilePath path)
+    public static bool Exists(this RelativeFilePath path)
     {
       return File.Exists(path.ToString());
     }
@@ -178,7 +178,7 @@ namespace AtmaFileSystem.IO
       File.SetCreationTimeUtc(path.ToString(), creationTimeUtc);
     }
     
-    public static DateTime GetCreationTime(this AbsoluteFilePath path)
+    public static DateTime  GetCreationTime(this AbsoluteFilePath path)
     {
       return File.GetCreationTime(path.ToString());
     }
@@ -338,7 +338,7 @@ namespace AtmaFileSystem.IO
     {
       return File.OpenRead(path.ToString());
     }
-    public static FileStream OpenRead(RelativeFilePath path)
+    public static FileStream OpenRead(this RelativeFilePath path)
     {
       return File.OpenRead(path.ToString());
     }
@@ -351,7 +351,7 @@ namespace AtmaFileSystem.IO
     {
       return File.OpenWrite(path.ToString());
     }
-    public static FileStream OpenWrite(RelativeFilePath path)
+    public static FileStream OpenWrite(this RelativeFilePath path)
     {
       return File.OpenWrite(path.ToString());
     }
@@ -364,7 +364,7 @@ namespace AtmaFileSystem.IO
     {
       return File.ReadAllText(path.ToString());
     }
-    public static string ReadAllText(RelativeFilePath path)
+    public static string ReadAllText(this RelativeFilePath path)
     {
       return File.ReadAllText(path.ToString());
     }
@@ -416,7 +416,7 @@ namespace AtmaFileSystem.IO
     {
       return File.ReadAllBytes(path.ToString());
     }
-    public static byte[] ReadAllBytes(RelativeFilePath path)
+    public static byte[] ReadAllBytes(this RelativeFilePath path)
     {
       return File.ReadAllBytes(path.ToString());
     }
@@ -443,7 +443,7 @@ namespace AtmaFileSystem.IO
     {
       return File.ReadAllLines(path.ToString());
     }
-    public static string[] ReadAllLines(RelativeFilePath path)
+    public static string[] ReadAllLines(this RelativeFilePath path)
     {
       return File.ReadAllLines(path.ToString());
     }
@@ -469,7 +469,7 @@ namespace AtmaFileSystem.IO
     {
       return File.ReadLines(path.ToString());
     }
-    public static IEnumerable<string> ReadLines(RelativeFilePath path)
+    public static IEnumerable<string> ReadLines(this RelativeFilePath path)
     {
       return File.ReadLines(path.ToString());
     }

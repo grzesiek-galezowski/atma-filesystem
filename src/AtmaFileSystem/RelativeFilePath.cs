@@ -31,12 +31,7 @@ namespace AtmaFileSystem
 
     public static RelativeFilePath From(RelativeDirectoryPath relativeDirectoryPath, RelativeFilePath relativeFilePath)
     {
-      return new RelativeFilePath(Combine(relativeDirectoryPath, relativeFilePath));
-    }
-
-    private static string Combine(object part1, object part2)
-    {
-      return Path.Combine(part1.ToString(), part2.ToString());
+      return new RelativeFilePath(PathAlgorithms.Combine(relativeDirectoryPath, relativeFilePath));
     }
 
     public Maybe<RelativeDirectoryPath> ParentDirectory()
@@ -106,7 +101,7 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
+      return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public override bool Equals(object obj)

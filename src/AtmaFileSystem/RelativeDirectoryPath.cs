@@ -18,13 +18,13 @@ namespace AtmaFileSystem
     private readonly string _path;
 
     private RelativeDirectoryPath(RelativeDirectoryPath relativePath, DirectoryName dirName)
-      : this(Combine(relativePath, dirName))
+      : this(PathAlgorithms.Combine(relativePath, dirName))
     {
     }
 
     private RelativeDirectoryPath(RelativeDirectoryPath relativeDirectoryPath,
       RelativeDirectoryPath relativeDirectoryPath2)
-      : this(Combine(relativeDirectoryPath, relativeDirectoryPath2))
+      : this(PathAlgorithms.Combine(relativeDirectoryPath, relativeDirectoryPath2))
     {
     }
 
@@ -41,11 +41,6 @@ namespace AtmaFileSystem
       Asserts.DoesNotContainInvalidChars(path);
 
       return new RelativeDirectoryPath(PathAlgorithms.NormalizeSeparators(path));
-    }
-
-    private static string Combine(object part1, object part2)
-    {
-      return Path.Combine(part1.ToString(), part2.ToString());
     }
 
     public static RelativeDirectoryPath operator +(RelativeDirectoryPath path, DirectoryName dirName)
@@ -127,7 +122,7 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
+      return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public override bool Equals(object obj)
@@ -204,6 +199,16 @@ namespace AtmaFileSystem
     {
       return PathAlgorithms.TrimStart(_path, startPath._path)
         .Select(s => new RelativeDirectoryPath(s));
+    }
+
+    public RelativeDirectoryPath AddDirectoryName(string directoryName)
+    {
+      return this + AtmaFileSystemPaths.DirectoryName(directoryName);
+    }
+
+    public RelativeFilePath AddFileName(string fileName)
+    {
+      return this + AtmaFileSystemPaths.FileName(fileName);
     }
   }
 }

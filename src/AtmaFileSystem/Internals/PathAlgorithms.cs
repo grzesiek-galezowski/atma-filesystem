@@ -74,7 +74,7 @@ namespace AtmaFileSystem.Internals
 
       return false;
     }
-    
+
     //bug some duplication with the methods above
     public static bool StartsWith(
       AbsoluteFilePath path,
@@ -126,5 +126,9 @@ namespace AtmaFileSystem.Internals
       return relativePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
     }
 
+    public static string Combine(object part1, object part2)
+    {
+      return Path.Combine(part1.ToString(), part2.ToString());
+    }
   }
 }

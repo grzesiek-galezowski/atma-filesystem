@@ -5,15 +5,15 @@ namespace AtmaFileSystem.IO
 {
   public static class DirectoryIo
   {
-    public static DirectoryInfo CreateDirectory(this AbsoluteDirectoryPath path)
+    public static DirectoryInfo Create(this AbsoluteDirectoryPath path)
     {
       return Directory.CreateDirectory(path.ToString());
     }
-    public static DirectoryInfo CreateDirectory(this RelativeDirectoryPath path)
+    public static DirectoryInfo Create(this RelativeDirectoryPath path)
     {
       return Directory.CreateDirectory(path.ToString());
     }
-    public static DirectoryInfo CreateDirectory(this AnyDirectoryPath path)
+    public static DirectoryInfo Create(this AnyDirectoryPath path)
     {
       return Directory.CreateDirectory(path.ToString());
     }
@@ -190,15 +190,15 @@ namespace AtmaFileSystem.IO
     public static AbsoluteDirectoryPath GetCurrentDirectory() 
       => AtmaFileSystemPaths.AbsoluteDirectoryPath(Environment.CurrentDirectory);
 
-    public static void SetCurrentDirectory(this AbsoluteDirectoryPath path)
+    public static void SetAsCurrentDirectory(this AbsoluteDirectoryPath path)
     {
       Directory.SetCurrentDirectory(path.ToString());
     }
-    public static void SetCurrentDirectory(this RelativeDirectoryPath path)
+    public static void SetAsCurrentDirectory(this RelativeDirectoryPath path)
     {
       Directory.SetCurrentDirectory(path.ToString());
     }
-    public static void SetCurrentDirectory(this AnyDirectoryPath path)
+    public static void SetAsCurrentDirectory(this AnyDirectoryPath path)
     {
       Directory.SetCurrentDirectory(path.ToString());
     }

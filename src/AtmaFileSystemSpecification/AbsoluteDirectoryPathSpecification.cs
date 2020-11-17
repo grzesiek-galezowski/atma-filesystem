@@ -7,6 +7,7 @@ using Functional.Maybe;
 using NSubstitute;
 using NullableReferenceTypesExtensions;
 using TddXt.AnyRoot;
+using TddXt.AnyRoot.Strings;
 using TddXt.XFluentAssertRoot;
 using Xunit;
 using static AtmaFileSystem.AtmaFileSystemPaths;
@@ -76,7 +77,21 @@ namespace AtmaFileSystemSpecification
       //THEN
       Assert.Equal(Path.Combine(path.ToString(), fileName.ToString()), convertedToString);
     }
+    
+    [Fact]
+    public void ShouldAllowAddingConcatenatingFileName()
+    {
+      //GIVEN
+      var path = Any.Instance<AbsoluteDirectoryPath>();
+      var fileName = Any.String();
+      AbsoluteFilePath absoluteFilePath = path.AddFileName(fileName);
 
+      //WHEN
+      var convertedToString = absoluteFilePath.ToString();
+
+      //THEN
+      Assert.Equal(Path.Combine(path.ToString(), fileName), convertedToString);
+    }
 
     [Fact]
     public void ShouldBeConvertibleToDirectoryInfo()
@@ -180,7 +195,7 @@ namespace AtmaFileSystemSpecification
     }
 
     [Fact]
-    public void ShouldAllowAddingDirectoryName()
+    public void ShouldAllowAddingDirectoryNameUsingPlusOperator()
     {
       //GIVEN
       var directoryPath = AbsoluteDirectoryPath.Value(@"G:\Directory\Subdirectory");
@@ -190,7 +205,20 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(@"G:\Directory\Subdirectory\Subdir2", directoryPathWithAnotherDirectoryName.ToString());
+    }
 
+    [Fact]
+    public void ShouldAllowAppendingDirectoryName()
+    {
+      //GIVEN
+      var directoryPath = AbsoluteDirectoryPath.Value(@"G:\Directory\Subdirectory");
+
+      //WHEN
+      AbsoluteDirectoryPath directoryPathWithAnotherDirectoryName = 
+        directoryPath.AddDirectoryName("Subdir2");
+
+      //THEN
+      Assert.Equal(@"G:\Directory\Subdirectory\Subdir2", directoryPathWithAnotherDirectoryName.ToString());
     }
 
     [Fact]

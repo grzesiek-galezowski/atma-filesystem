@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags></PackageTags>
-    <Version>4.4.0</Version>
-    <PackageReleaseNotes>Ported most of System.IO.File and System.IO.Directory as extension methods</PackageReleaseNotes>
+    <Version>4.5.0</Version>
+    <PackageReleaseNotes>Added appending directory and file names using methods for easier chaining</PackageReleaseNotes>
   </PropertyGroup>
   
   <PropertyGroup>

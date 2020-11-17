@@ -29,29 +29,24 @@ namespace AtmaFileSystem
 
     public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, FileName fileName)
     {
-      return new AbsoluteFilePath(Combine(dirPath, fileName));
+      return new AbsoluteFilePath(PathAlgorithms.Combine(dirPath, fileName));
     }
 
     public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, RelativeFilePath relativeFilePath)
     {
-      return new AbsoluteFilePath(Combine(dirPath, relativeFilePath));
+      return new AbsoluteFilePath(PathAlgorithms.Combine(dirPath, relativeFilePath));
     }
 
     public bool Equals(AbsoluteFilePath other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
+      return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public bool ShallowEquals(AbsoluteFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(this.ToString(), other.ToString());
-    }
-
-    private static string Combine(object part1, object part2)
-    {
-      return Path.Combine(part1.ToString(), part2.ToString());
     }
 
     public static AbsoluteFilePath Value(string path)

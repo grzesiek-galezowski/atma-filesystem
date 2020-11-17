@@ -25,7 +25,7 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_extension, other._extension);
+      return string.Equals(_extension, other._extension, StringComparison.InvariantCulture);
     }
 
     public override string ToString()

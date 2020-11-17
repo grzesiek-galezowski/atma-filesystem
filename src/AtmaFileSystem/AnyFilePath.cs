@@ -38,7 +38,7 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
+      return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public override bool Equals(object obj)
@@ -94,7 +94,7 @@ namespace AtmaFileSystem
       return AtmaFileSystem.FileName.Value(Path.GetFileName(_path));
     }
 
-    public Maybe<AnyDirectoryPath> ParentDirectory() //bug allow file names only, but put Maybe<T> here!!
+    public Maybe<AnyDirectoryPath> ParentDirectory()
     {
       var directoryName = Path.GetDirectoryName(_path);
       if (directoryName.Length != 0)

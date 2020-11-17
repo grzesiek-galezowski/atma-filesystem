@@ -28,7 +28,7 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_directoryName, other._directoryName);
+      return string.Equals(_directoryName, other._directoryName, StringComparison.InvariantCulture);
     }
 
     public static DirectoryName Value(string directoryName)

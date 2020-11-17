@@ -9,8 +9,6 @@ using TddXt.XFluentAssertRoot;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
-//bug add convenient factory methods
-
 namespace AtmaFileSystemSpecification
 {
   public class RelativeDirectoryPathSpecification
@@ -40,6 +38,21 @@ namespace AtmaFileSystemSpecification
     [Theory]
     [InlineData(@"lolek\bolek", @"lolek\bolek\")]
     [InlineData(@"", @"")]
+    public void ShouldAllowAppendingDirectoryNameToIt(string path, string expectedPathPrefix)
+    {
+      //GIVEN
+      var relativeDir = RelativeDirectoryPath.Value(path);
+
+      //WHEN
+      RelativeDirectoryPath mergedPath = relativeDir.AddDirectoryName("zenek");
+
+      //THEN
+      Assert.Equal($"{expectedPathPrefix}zenek", mergedPath.ToString());
+    }
+
+    [Theory]
+    [InlineData(@"lolek\bolek", @"lolek\bolek\")]
+    [InlineData(@"", @"")]
     public void ShouldAllowAddingFileNameToIt(string path, string expectedPathPrefix)
     {
       //GIVEN
@@ -48,6 +61,21 @@ namespace AtmaFileSystemSpecification
 
       //WHEN
       RelativeFilePath mergedFilePath = relativeDir + fileName;
+
+      //THEN
+      Assert.Equal(@$"{expectedPathPrefix}zenek.txt", mergedFilePath.ToString());
+    }
+
+    [Theory]
+    [InlineData(@"lolek\bolek", @"lolek\bolek\")]
+    [InlineData(@"", @"")]
+    public void ShouldAllowAppendingFileNameToIt(string path, string expectedPathPrefix)
+    {
+      //GIVEN
+      var relativeDir = RelativeDirectoryPath.Value(path);
+
+      //WHEN
+      RelativeFilePath mergedFilePath = relativeDir.AddFileName("zenek.txt");
 
       //THEN
       Assert.Equal(@$"{expectedPathPrefix}zenek.txt", mergedFilePath.ToString());
@@ -164,9 +192,6 @@ namespace AtmaFileSystemSpecification
       Assert.Equal(directoryInfo, Maybe<DirectoryInfo>.Nothing);
     }
 
-    //bug check for Info() returning internally held object that it cannot be modified externally!!!!
-
-
     [Theory]
     [InlineData("trolololo")]
     [InlineData("")]
@@ -258,10 +283,5 @@ namespace AtmaFileSystemSpecification
 
       trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
     }
-
-
   }
-
-  //todo cut out first directory from relative directory path = relative directory path
-  //bug go back to using System.IO.DirectoryInfo? Or make two methods?
 }

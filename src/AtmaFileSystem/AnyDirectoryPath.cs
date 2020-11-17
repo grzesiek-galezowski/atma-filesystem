@@ -34,7 +34,7 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
+      return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public bool ShallowEquals(AnyDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)

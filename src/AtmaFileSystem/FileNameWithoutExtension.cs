@@ -19,7 +19,7 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_value, other._value);
+      return string.Equals(_value, other._value, StringComparison.InvariantCulture);
     }
 
 

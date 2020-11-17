@@ -8,5 +8,6 @@ namespace AtmaFileSystem.InternalInterfaces
     Maybe<T> ParentDirectory();
     Maybe<T> FindCommonDirectoryPathWith(T path2);
     bool StartsWith(T path2);
+    T AddDirectoryName(string dirName);
   }
 }

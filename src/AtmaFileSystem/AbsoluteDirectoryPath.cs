@@ -31,19 +31,12 @@ namespace AtmaFileSystem
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path);
+      return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public bool ShallowEquals(AbsoluteDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
-    }
-
-    private static string Combine(object part1, object part2)
-    {
-      return Path.Combine(part1.ToString(), part2.ToString());
-      //bug ~same for Relative directory path
-      //bug think about any paths
     }
 
     public static AbsoluteDirectoryPath Value(string path)
@@ -57,12 +50,12 @@ namespace AtmaFileSystem
 
     public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, DirectoryName directoryName)
     {
-      return new AbsoluteDirectoryPath(Combine(path, directoryName));
+      return new AbsoluteDirectoryPath(PathAlgorithms.Combine(path, directoryName));
     }
 
     public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, RelativeDirectoryPath directoryName)
     {
-      return new AbsoluteDirectoryPath(Combine(path, directoryName));
+      return new AbsoluteDirectoryPath(PathAlgorithms.Combine(path, directoryName));
     }
 
     public override string ToString()
@@ -81,13 +74,12 @@ namespace AtmaFileSystem
       return AsMaybe(directoryName);
     }
 
-    public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index) //bug extract to common interface?
+    public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index)
     {
       var parent = ParentDirectory();
       index.Times(() => parent = parent.Select(p => p.ParentDirectory()));
       return parent;
     }
-
 
     private static Maybe<AbsoluteDirectoryPath> AsMaybe(FileSystemInfo? directoryName)
     {
@@ -229,6 +221,16 @@ namespace AtmaFileSystem
     public static AbsoluteDirectoryPath OfThisFile([CallerFilePath] string callerFilePath = "")
     {
       return AbsoluteFilePath.Value(callerFilePath).ParentDirectory();
+    }
+
+    public AbsoluteDirectoryPath AddDirectoryName(string fileName)
+    {
+      return this + AtmaFileSystemPaths.DirectoryName(fileName);
+    }
+
+    public AbsoluteFilePath AddFileName(string fileName)
+    {
+      return this + AtmaFileSystemPaths.FileName(fileName);
     }
   }
 }
