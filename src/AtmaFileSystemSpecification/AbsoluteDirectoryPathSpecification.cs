@@ -117,7 +117,7 @@ namespace AtmaFileSystemSpecification
       AbsoluteDirectoryPath root = dir.Root();
 
       //THEN
-      Assert.Equal(AbsoluteDirectoryPath.Value(Path.GetPathRoot(pathString)), root);
+      Assert.Equal(AbsoluteDirectoryPath.Value(Path.GetPathRoot(pathString).OrThrow()), root);
     }
 
     [Theory,

@@ -22,10 +22,7 @@ namespace AtmaFileSystem
     private readonly string _path;
 
     // ReSharper disable once MemberCanBePrivate.Global
-    internal AbsoluteFilePath(string path)
-    {
-      _path = Path.GetFullPath(path);
-    }
+    internal AbsoluteFilePath(string path) => _path = Path.GetFullPath(path);
 
     public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, FileName fileName)
     {
@@ -37,7 +34,7 @@ namespace AtmaFileSystem
       return new AbsoluteFilePath(PathAlgorithms.Combine(dirPath, relativeFilePath));
     }
 
-    public bool Equals(AbsoluteFilePath other)
+    public bool Equals(AbsoluteFilePath? other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -58,10 +55,7 @@ namespace AtmaFileSystem
       return new AbsoluteFilePath(path);
     }
 
-    public AbsoluteDirectoryPath ParentDirectory()
-    {
-      return new AbsoluteDirectoryPath(Path.GetDirectoryName(_path));
-    }
+    public AbsoluteDirectoryPath ParentDirectory() => new(Path.GetDirectoryName(_path));
 
     public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index)
     {
@@ -70,37 +64,17 @@ namespace AtmaFileSystem
       return parent;
     }
 
-    public FileInfo Info()
-    {
-      return new FileInfo(_path);
-    }
+    public FileInfo Info() => new(_path);
+    public FileName FileName() => new(Path.GetFileName(_path));
+    public AbsoluteDirectoryPath Root() => new(Path.GetPathRoot(_path));
+    public AnyFilePath AsAnyFilePath() => new(_path);
+    public AnyPath AsAnyPath() => new(_path);
 
-    public FileName FileName()
-    {
-      return new FileName(Path.GetFileName(_path));
-    }
+    public override string ToString() => _path;
+    
+    public override int GetHashCode() => _path.GetHashCode();
 
-    public AbsoluteDirectoryPath Root()
-    {
-      return new AbsoluteDirectoryPath(Path.GetPathRoot(_path));
-    }
-
-    public AnyFilePath AsAnyFilePath()
-    {
-      return new AnyFilePath(_path);
-    }
-
-    public AnyPath AsAnyPath()
-    {
-      return new AnyPath(_path);
-    }
-
-    public override string ToString()
-    {
-      return _path;
-    }
-
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -108,17 +82,12 @@ namespace AtmaFileSystem
       return Equals((AbsoluteFilePath) obj);
     }
 
-    public override int GetHashCode()
-    {
-      return _path.GetHashCode();
-    }
-
-    public static bool operator ==(AbsoluteFilePath left, AbsoluteFilePath right)
+    public static bool operator ==(AbsoluteFilePath? left, AbsoluteFilePath? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(AbsoluteFilePath left, AbsoluteFilePath right)
+    public static bool operator !=(AbsoluteFilePath? left, AbsoluteFilePath? right)
     {
       return !Equals(left, right);
     }
@@ -130,7 +99,8 @@ namespace AtmaFileSystem
 
     public AbsoluteFilePath ChangeExtensionTo(FileExtension value)
     {
-      return new AbsoluteFilePath(Path.ChangeExtension(_path, value.ToString()));
+      var pathWithNewExtension = Path.ChangeExtension(_path, value.ToString());
+      return new AbsoluteFilePath(pathWithNewExtension);
     }
 
     public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
@@ -138,14 +108,14 @@ namespace AtmaFileSystem
       return this.ParentDirectory().FragmentEndingOnLast(directoryName);
     }
 
-    public int CompareTo(AbsoluteFilePath other)
+    public int CompareTo(AbsoluteFilePath? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;

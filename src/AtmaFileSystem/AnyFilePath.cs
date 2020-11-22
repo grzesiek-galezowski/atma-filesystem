@@ -6,6 +6,7 @@ using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
 using Functional.Maybe;
 using Functional.Maybe.Just;
+using NullableReferenceTypesExtensions;
 
 namespace AtmaFileSystem
 {
@@ -34,14 +35,14 @@ namespace AtmaFileSystem
     {
     }
 
-    public bool Equals(AnyFilePath other)
+    public bool Equals(AnyFilePath? other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
       return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -54,12 +55,12 @@ namespace AtmaFileSystem
       return (_path != null ? _path.GetHashCode() : 0);
     }
 
-    public static bool operator ==(AnyFilePath left, AnyFilePath right)
+    public static bool operator ==(AnyFilePath? left, AnyFilePath? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(AnyFilePath left, AnyFilePath right)
+    public static bool operator !=(AnyFilePath? left, AnyFilePath? right)
     {
       return !Equals(left, right);
     }
@@ -69,10 +70,7 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public AnyPath AsAnyPath()
-    {
-      return new AnyPath(_path);
-    }
+    public AnyPath AsAnyPath() => new(_path);
 
     public static AnyFilePath Value(string path)
     {
@@ -91,7 +89,7 @@ namespace AtmaFileSystem
 
     public FileName FileName()
     {
-      return AtmaFileSystem.FileName.Value(Path.GetFileName(_path));
+      return AtmaFileSystemPaths.FileName(Path.GetFileName(_path));
     }
 
     public Maybe<AnyDirectoryPath> ParentDirectory()
@@ -107,14 +105,12 @@ namespace AtmaFileSystem
       }
     }
 
-    public FileInfo Info()
-    {
-      return new FileInfo(_path);
-    }
+    public FileInfo Info() => new(_path);
 
     public AnyFilePath ChangeExtensionTo(FileExtension value)
     {
-      return new AnyFilePath(Path.ChangeExtension(_path, value.ToString()));
+      var pathWithNewExtension = Path.ChangeExtension(_path, value.ToString());
+      return new AnyFilePath(pathWithNewExtension);
     }
 
     public bool ShallowEquals(AnyFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
@@ -122,14 +118,14 @@ namespace AtmaFileSystem
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
-    public int CompareTo(AnyFilePath other)
+    public int CompareTo(AnyFilePath? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;

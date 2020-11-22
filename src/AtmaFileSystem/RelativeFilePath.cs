@@ -85,8 +85,6 @@ namespace AtmaFileSystem
       return new RelativeFilePath(Path.ChangeExtension(_path, value.ToString()));
     }
 
-    #region Generated members
-
     public bool ShallowEquals(RelativeFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
@@ -97,14 +95,14 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public bool Equals(RelativeFilePath other)
+    public bool Equals(RelativeFilePath? other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
       return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -117,26 +115,24 @@ namespace AtmaFileSystem
       return (_path != null ? _path.GetHashCode() : 0);
     }
 
-    public static bool operator ==(RelativeFilePath left, RelativeFilePath right)
+    public static bool operator ==(RelativeFilePath? left, RelativeFilePath? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(RelativeFilePath left, RelativeFilePath right)
+    public static bool operator !=(RelativeFilePath? left, RelativeFilePath? right)
     {
       return !Equals(left, right);
     }
 
-    #endregion
-
-    public int CompareTo(RelativeFilePath other)
+    public int CompareTo(RelativeFilePath? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;

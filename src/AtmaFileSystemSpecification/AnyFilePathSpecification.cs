@@ -31,7 +31,6 @@ namespace AtmaFileSystemSpecification
       Assert.Equal("file.txt", value.ToString());
 
     }
-    //bug parent directory returns maybe!
 
     [Fact]
     public void ShouldBehaveLikeValue()

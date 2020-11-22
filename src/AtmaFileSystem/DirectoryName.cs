@@ -24,7 +24,7 @@ namespace AtmaFileSystem
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
-    public bool Equals(DirectoryName other)
+    public bool Equals(DirectoryName? other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -45,7 +45,7 @@ namespace AtmaFileSystem
       return _directoryName;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -58,24 +58,24 @@ namespace AtmaFileSystem
       return (_directoryName != null ? _directoryName.GetHashCode() : 0);
     }
 
-    public static bool operator ==(DirectoryName left, DirectoryName right)
+    public static bool operator ==(DirectoryName? left, DirectoryName? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(DirectoryName left, DirectoryName right)
+    public static bool operator !=(DirectoryName? left, DirectoryName? right)
     {
       return !Equals(left, right);
     }
 
-    public int CompareTo(DirectoryName other)
+    public int CompareTo(DirectoryName? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_directoryName, other._directoryName, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;

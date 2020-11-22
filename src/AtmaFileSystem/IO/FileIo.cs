@@ -597,228 +597,228 @@ namespace AtmaFileSystem.IO
     }
     
     public static Task<string> ReadAllTextAsync(this AbsoluteFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllTextAsync(path.ToString(), cancellationToken);
     }
     public static Task<string> ReadAllTextAsync(this RelativeFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllTextAsync(path.ToString(), cancellationToken);
     }
     public static Task<string> ReadAllTextAsync(this AnyFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllTextAsync(path.ToString(), cancellationToken);
     }
 
     public static Task<string> ReadAllTextAsync(this AbsoluteFilePath path, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllTextAsync(path.ToString(), encoding, cancellationToken);
     }
     public static Task<string> ReadAllTextAsync(this RelativeFilePath path, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllTextAsync(path.ToString(), encoding, cancellationToken);
     }
     public static Task<string> ReadAllTextAsync(this AnyFilePath path, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllTextAsync(path.ToString(), encoding, cancellationToken);
     }
     
     public static Task WriteAllTextAsync(this AbsoluteFilePath path, string contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllTextAsync(path.ToString(), contents, cancellationToken);
     }
     public static Task WriteAllTextAsync(this RelativeFilePath path, string contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllTextAsync(path.ToString(), contents, cancellationToken);
     }
     public static Task WriteAllTextAsync(this AnyFilePath path, string contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllTextAsync(path.ToString(), contents, cancellationToken);
     }
     
     public static Task WriteAllTextAsync(this AbsoluteFilePath path, string contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllTextAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     public static Task WriteAllTextAsync(this RelativeFilePath path, string contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllTextAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     public static Task WriteAllTextAsync(this AnyFilePath path, string contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllTextAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     
     public static Task<byte[]> ReadAllBytesAsync(this AbsoluteFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllBytesAsync(path.ToString(), cancellationToken);
     }
     public static Task<byte[]> ReadAllBytesAsync(this RelativeFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllBytesAsync(path.ToString(), cancellationToken);
     }
     public static Task<byte[]> ReadAllBytesAsync(this AnyFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllBytesAsync(path.ToString(), cancellationToken);
     }
     
     public static Task WriteAllBytesAsync(this AbsoluteFilePath path, byte[] bytes,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllBytesAsync(path.ToString(), bytes, cancellationToken);
     }
     public static Task WriteAllBytesAsync(this RelativeFilePath path, byte[] bytes,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllBytesAsync(path.ToString(), bytes, cancellationToken);
     }
     public static Task WriteAllBytesAsync(this AnyFilePath path, byte[] bytes,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllBytesAsync(path.ToString(), bytes, cancellationToken);
     }
     
     public static Task<string[]> ReadAllLinesAsync(this AbsoluteFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllLinesAsync(path.ToString(), cancellationToken);
     }
     public static Task<string[]> ReadAllLinesAsync(this RelativeFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllLinesAsync(path.ToString(), cancellationToken);
     }
     public static Task<string[]> ReadAllLinesAsync(this AnyFilePath path,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllLinesAsync(path.ToString(), cancellationToken);
     }
 
     
     public static Task<string[]> ReadAllLinesAsync(this AbsoluteFilePath path, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllLinesAsync(path.ToString(), encoding, cancellationToken);
     }
     public static Task<string[]> ReadAllLinesAsync(this RelativeFilePath path, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllLinesAsync(path.ToString(), encoding, cancellationToken);
     }
     public static Task<string[]> ReadAllLinesAsync(this AnyFilePath path, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.ReadAllLinesAsync(path.ToString(), encoding, cancellationToken);
     }
 
     public static Task WriteAllLinesAsync(this AbsoluteFilePath path, IEnumerable<string> contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllLinesAsync(path.ToString(), contents, cancellationToken);
     }
     public static Task WriteAllLinesAsync(this RelativeFilePath path, IEnumerable<string> contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllLinesAsync(path.ToString(), contents, cancellationToken);
     }
     public static Task WriteAllLinesAsync(this AnyFilePath path, IEnumerable<string> contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllLinesAsync(path.ToString(), contents, cancellationToken);
     }
 
     
     public static Task WriteAllLinesAsync(this AbsoluteFilePath path, IEnumerable<string> contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllLinesAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     public static Task WriteAllLinesAsync(this RelativeFilePath path, IEnumerable<string> contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllLinesAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     public static Task WriteAllLinesAsync(this AnyFilePath path, IEnumerable<string> contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.WriteAllLinesAsync(path.ToString(), contents, encoding, cancellationToken);
     }
 
     public static Task AppendAllTextAsync(this AbsoluteFilePath path, string contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllTextAsync(path.ToString(), contents, cancellationToken);
     }
     public static Task AppendAllTextAsync(this RelativeFilePath path, string contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllTextAsync(path.ToString(), contents, cancellationToken);
     }
     public static Task AppendAllTextAsync(this AnyFilePath path, string contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllTextAsync(path.ToString(), contents, cancellationToken);
     }
     
     public static Task AppendAllTextAsync(this AbsoluteFilePath path, string contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllTextAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     public static Task AppendAllTextAsync(this RelativeFilePath path, string contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllTextAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     public static Task AppendAllTextAsync(this AnyFilePath path, string contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllTextAsync(path.ToString(), contents, encoding, cancellationToken);
     }
 
     public static Task AppendAllLinesAsync(this AbsoluteFilePath path, IEnumerable<string> contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllLinesAsync(path.ToString(), contents, cancellationToken);
     }
     public static Task AppendAllLinesAsync(this RelativeFilePath path, IEnumerable<string> contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllLinesAsync(path.ToString(), contents, cancellationToken);
     }
     public static Task AppendAllLinesAsync(this AnyFilePath path, IEnumerable<string> contents,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllLinesAsync(path.ToString(), contents, cancellationToken);
     }
 
     
     public static Task AppendAllLinesAsync(this AbsoluteFilePath path, IEnumerable<string> contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllLinesAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     public static Task AppendAllLinesAsync(this RelativeFilePath path, IEnumerable<string> contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllLinesAsync(path.ToString(), contents, encoding, cancellationToken);
     }
     public static Task AppendAllLinesAsync(this AnyFilePath path, IEnumerable<string> contents, Encoding encoding,
-      CancellationToken cancellationToken = default(CancellationToken))
+      CancellationToken cancellationToken = default)
     {
       return File.AppendAllLinesAsync(path.ToString(), contents, encoding, cancellationToken);
     }

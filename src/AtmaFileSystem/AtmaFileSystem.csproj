@@ -11,8 +11,11 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags></PackageTags>
-    <Version>4.5.0</Version>
     <PackageReleaseNotes>Added appending directory and file names using methods for easier chaining</PackageReleaseNotes>
+    <Version>4.5.0</Version>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
   
   <PropertyGroup>

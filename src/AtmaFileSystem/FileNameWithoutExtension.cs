@@ -15,7 +15,7 @@ namespace AtmaFileSystem
       _value = value;
     }
 
-    public bool Equals(FileNameWithoutExtension other)
+    public bool Equals(FileNameWithoutExtension? other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -33,7 +33,7 @@ namespace AtmaFileSystem
       return new FileNameWithoutExtension(fileNameWithoutExtensionString);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -46,12 +46,12 @@ namespace AtmaFileSystem
       return _value.GetHashCode();
     }
 
-    public static bool operator ==(FileNameWithoutExtension left, FileNameWithoutExtension right)
+    public static bool operator ==(FileNameWithoutExtension? left, FileNameWithoutExtension? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(FileNameWithoutExtension left, FileNameWithoutExtension right)
+    public static bool operator !=(FileNameWithoutExtension? left, FileNameWithoutExtension? right)
     {
       return !Equals(left, right);
     }
@@ -71,14 +71,14 @@ namespace AtmaFileSystem
       return new FileName(_value);
     }
 
-    public int CompareTo(FileNameWithoutExtension other)
+    public int CompareTo(FileNameWithoutExtension? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_value, other._value, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;

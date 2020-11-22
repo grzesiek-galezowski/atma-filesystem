@@ -106,8 +106,6 @@ namespace AtmaFileSystem
       return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
     }
 
-    #region Generated members
-
     public bool ShallowEquals(RelativeDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
@@ -118,14 +116,14 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public bool Equals(RelativeDirectoryPath other)
+    public bool Equals(RelativeDirectoryPath? other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
       return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -138,26 +136,24 @@ namespace AtmaFileSystem
       return (_path != null ? _path.GetHashCode() : 0);
     }
 
-    public static bool operator ==(RelativeDirectoryPath left, RelativeDirectoryPath right)
+    public static bool operator ==(RelativeDirectoryPath? left, RelativeDirectoryPath? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(RelativeDirectoryPath left, RelativeDirectoryPath right)
+    public static bool operator !=(RelativeDirectoryPath? left, RelativeDirectoryPath? right)
     {
       return !Equals(left, right);
     }
 
-    #endregion
-
-    public int CompareTo(RelativeDirectoryPath other)
+    public int CompareTo(RelativeDirectoryPath? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;

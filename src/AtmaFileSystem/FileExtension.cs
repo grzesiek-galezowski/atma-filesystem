@@ -21,7 +21,7 @@ namespace AtmaFileSystem
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
-    public bool Equals(FileExtension other)
+    public bool Equals(FileExtension? other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -42,7 +42,7 @@ namespace AtmaFileSystem
       return new FileExtension(extensionString);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -55,24 +55,24 @@ namespace AtmaFileSystem
       return (_extension != null ? _extension.GetHashCode() : 0);
     }
 
-    public static bool operator ==(FileExtension left, FileExtension right)
+    public static bool operator ==(FileExtension? left, FileExtension? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(FileExtension left, FileExtension right)
+    public static bool operator !=(FileExtension? left, FileExtension? right)
     {
       return !Equals(left, right);
     }
 
-    public int CompareTo(FileExtension other)
+    public int CompareTo(FileExtension? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_extension, other._extension, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;

@@ -5,6 +5,7 @@ using AtmaFileSystem;
 using FluentAssertions;
 using Functional.Maybe;
 using NSubstitute;
+using NullableReferenceTypesExtensions;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssertRoot;
 using Xunit;
@@ -21,7 +22,7 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldNotAllowToBeCreatedWithNullValue()
     {
-      Assert.Throws<ArgumentNullException>(() => AbsoluteFilePath(null));
+      Assert.Throws<ArgumentNullException>(() => AbsoluteFilePath(null!));
     }
 
     [Fact]
@@ -143,7 +144,7 @@ namespace AtmaFileSystemSpecification
       var root = pathWithFilename.Root();
 
       //THEN
-      Assert.Equal(AbsoluteDirectoryPath.Value(Path.GetPathRoot(pathString)), root);
+      Assert.Equal(AbsoluteDirectoryPath.Value(Path.GetPathRoot(pathString).OrThrow()), root);
     }
 
     [Fact]

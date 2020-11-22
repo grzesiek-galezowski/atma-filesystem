@@ -15,7 +15,7 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldNotAllowToBeCreatedWithNullValue()
     {
-      Assert.Throws<ArgumentNullException>(() => FileName.Value(null));
+      Assert.Throws<ArgumentNullException>(() => FileName.Value(null!));
     }
 
     [Fact]

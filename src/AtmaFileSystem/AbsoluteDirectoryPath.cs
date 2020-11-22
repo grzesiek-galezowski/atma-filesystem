@@ -50,12 +50,12 @@ namespace AtmaFileSystem
 
     public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, DirectoryName directoryName)
     {
-      return new AbsoluteDirectoryPath(PathAlgorithms.Combine(path, directoryName));
+      return new(PathAlgorithms.Combine(path, directoryName));
     }
 
     public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, RelativeDirectoryPath directoryName)
     {
-      return new AbsoluteDirectoryPath(PathAlgorithms.Combine(path, directoryName));
+      return new(PathAlgorithms.Combine(path, directoryName));
     }
 
     public override string ToString()
@@ -86,10 +86,7 @@ namespace AtmaFileSystem
       return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AbsoluteDirectoryPath>.Nothing;
     }
 
-    public AbsoluteDirectoryPath Root()
-    {
-      return new AbsoluteDirectoryPath(Path.GetPathRoot(_path));
-    }
+    public AbsoluteDirectoryPath Root() => new (Path.GetPathRoot(_path));
 
     public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, FileName fileName)
     {
@@ -111,7 +108,7 @@ namespace AtmaFileSystem
       return AbsoluteFilePath.From(path, relativeFilePath);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -124,30 +121,19 @@ namespace AtmaFileSystem
       return _path.GetHashCode();
     }
 
-    public static bool operator ==(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
+    public static bool operator ==(AbsoluteDirectoryPath? left, AbsoluteDirectoryPath? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
+    public static bool operator !=(AbsoluteDirectoryPath? left, AbsoluteDirectoryPath? right)
     {
       return !Equals(left, right);
     }
 
-    public DirectoryName DirectoryName()
-    {
-      return new DirectoryName(_directoryInfo.Name);
-    }
-
-    public AnyDirectoryPath AsAnyDirectoryPath()
-    {
-      return new AnyDirectoryPath(_path);
-    }
-
-    public AnyPath AsAnyPath()
-    {
-      return new AnyPath(_path);
-    }
+    public DirectoryName DirectoryName() => new(_directoryInfo.Name);
+    public AnyDirectoryPath AsAnyDirectoryPath() => new(_path);
+    public AnyPath AsAnyPath() => new(_path);
 
     public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
     {
@@ -167,14 +153,14 @@ namespace AtmaFileSystem
       }
     }
 
-    public int CompareTo(AbsoluteDirectoryPath other)
+    public int CompareTo(AbsoluteDirectoryPath? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;

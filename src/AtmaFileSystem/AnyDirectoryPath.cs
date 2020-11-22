@@ -30,7 +30,7 @@ namespace AtmaFileSystem
       _path = path;
     }
 
-    public bool Equals(AnyDirectoryPath other)
+    public bool Equals(AnyDirectoryPath? other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
@@ -42,7 +42,7 @@ namespace AtmaFileSystem
       return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
@@ -55,12 +55,12 @@ namespace AtmaFileSystem
       return (_path != null ? _path.GetHashCode() : 0);
     }
 
-    public static bool operator ==(AnyDirectoryPath left, AnyDirectoryPath right)
+    public static bool operator ==(AnyDirectoryPath? left, AnyDirectoryPath? right)
     {
       return Equals(left, right);
     }
 
-    public static bool operator !=(AnyDirectoryPath left, AnyDirectoryPath right)
+    public static bool operator !=(AnyDirectoryPath? left, AnyDirectoryPath? right)
     {
       return !Equals(left, right);
     }
@@ -90,10 +90,7 @@ namespace AtmaFileSystem
       return _path;
     }
 
-    public AnyPath AsAnyPath()
-    {
-      return new AnyPath(_path);
-    }
+    public AnyPath AsAnyPath() => new(_path);
 
     public static AnyDirectoryPath Value(string path)
     {
@@ -124,28 +121,28 @@ namespace AtmaFileSystem
       return AsMaybe(directoryName);
     }
 
-    private static Maybe<AnyDirectoryPath> AsMaybe(DirectoryInfo directoryName)
+    private static Maybe<AnyDirectoryPath> AsMaybe(DirectoryInfo? directoryName)
     {
       return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AnyDirectoryPath>.Nothing;
     }
 
     public Maybe<DirectoryInfo> Info()
     {
-      if (_path == String.Empty)
+      if (_path == string.Empty)
       {
         return Maybe<DirectoryInfo>.Nothing;
       }
       return new DirectoryInfo(_path).Just();
     }
 
-    public int CompareTo(AnyDirectoryPath other)
+    public int CompareTo(AnyDirectoryPath? other)
     {
       if (ReferenceEquals(this, other)) return 0;
       if (ReferenceEquals(null, other)) return 1;
       return string.Compare(_path, other._path, StringComparison.InvariantCulture);
     }
 
-    public int CompareTo(object obj)
+    public int CompareTo(object? obj)
     {
       if (ReferenceEquals(null, obj)) return 1;
       if (ReferenceEquals(this, obj)) return 0;
