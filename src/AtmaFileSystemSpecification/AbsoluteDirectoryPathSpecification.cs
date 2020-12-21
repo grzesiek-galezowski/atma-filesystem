@@ -29,15 +29,15 @@ namespace AtmaFileSystemSpecification
      InlineData(@"\\\\\\\\\?|/\/|", typeof (ArgumentException)),
      InlineData("C:", typeof (ArgumentException)),
     ]
-    public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
+    public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string invalidInput, Type exceptionType)
     {
       Assert.Throws(exceptionType, () => AbsoluteDirectoryPath.Value(invalidInput));
     }
 
-    [Fact]
-    public void ShouldReturnNonNullPathToFileNameWhenCreatedWithWellFormedPathString()
+    [Theory, InlineData(@"c:\lolek\")]
+    public void ShouldReturnNonNullPathToFileNameWhenCreatedWithWellFormedPathString(string path)
     {
-      Assert.NotNull(AbsoluteDirectoryPath.Value(@"c:\lolek\"));
+      Assert.NotNull(AbsoluteDirectoryPath.Value(path));
     }
 
     [Fact]

@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Any" Version="4.4.0" />
+    <PackageReference Include="Any" Version="5.0.0" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" />
     <PackageReference Include="Functional.Maybe" Version="2.0.20" />
     <PackageReference Include="Functional.Maybe.FluentAssertions" Version="1.1.0" />
     <PackageReference Include="Functional.Maybe.Just" Version="1.5.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />
     <PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.14" />
     <PackageReference Include="XFluentAssert" Version="3.2.0" />
