@@ -225,154 +225,149 @@ namespace AtmaFileSystem.IO
       Directory.Delete(path.ToString(), recursive);
     }
     
-    public static ImmutableArray<AbsoluteFilePath> GetFiles(AbsoluteDirectoryPath path)
+    public static ImmutableArray<AbsoluteFilePath> GetFiles(this AbsoluteDirectoryPath path)
     {
       return Directory.GetFiles(path.ToString())
         .Select(AbsoluteFilePath.Value).ToImmutableArray();
     }
-    public static ImmutableArray<RelativeFilePath> GetFiles(RelativeDirectoryPath path)
+    public static ImmutableArray<RelativeFilePath> GetFiles(this RelativeDirectoryPath path)
     {
       return Directory.GetFiles(path.ToString())
         .Select(RelativeFilePath.Value).ToImmutableArray();
     }
     
-    public static ImmutableArray<AnyFilePath> GetFiles(AnyDirectoryPath path)
+    public static ImmutableArray<AnyFilePath> GetFiles(this AnyDirectoryPath path)
     {
       return Directory.GetFiles(path.ToString())
         .Select(AnyFilePath.Value).ToImmutableArray();
     }
     
-    public static ImmutableArray<AbsoluteFilePath> GetFiles(AbsoluteDirectoryPath path, string searchPattern)
+    public static ImmutableArray<AbsoluteFilePath> GetFiles(this AbsoluteDirectoryPath path, string searchPattern)
     {
       return Directory.GetFiles(path.ToString(), searchPattern)
         .Select(AbsoluteFilePath.Value).ToImmutableArray();
     }
-    public static ImmutableArray<RelativeFilePath> GetFiles(RelativeDirectoryPath path, string searchPattern)
+    public static ImmutableArray<RelativeFilePath> GetFiles(this RelativeDirectoryPath path, string searchPattern)
     {
       return Directory.GetFiles(path.ToString(), searchPattern)
         .Select(RelativeFilePath.Value).ToImmutableArray();
     }
     
-    public static ImmutableArray<AnyFilePath> GetFiles(AnyDirectoryPath path, string searchPattern)
+    public static ImmutableArray<AnyFilePath> GetFiles(this AnyDirectoryPath path, string searchPattern)
     {
       return Directory.GetFiles(path.ToString(), searchPattern)
         .Select(AnyFilePath.Value).ToImmutableArray();
     }
 
     public static ImmutableArray<AbsoluteFilePath> GetFiles(
-      AbsoluteDirectoryPath path, string searchPattern, SearchOption searchOption)
+      this AbsoluteDirectoryPath path, string searchPattern, SearchOption searchOption)
     {
       return Directory.GetFiles(path.ToString(), searchPattern, searchOption)
         .Select(AbsoluteFilePath.Value).ToImmutableArray();
     }
     public static ImmutableArray<RelativeFilePath> GetFiles(
-      RelativeDirectoryPath path, string searchPattern, SearchOption searchOption)
+      this RelativeDirectoryPath path, string searchPattern, SearchOption searchOption)
     {
       return Directory.GetFiles(path.ToString(), searchPattern, searchOption)
         .Select(RelativeFilePath.Value).ToImmutableArray();
     }
     
     public static ImmutableArray<AnyFilePath> GetFiles(
-      AnyDirectoryPath path, string searchPattern, SearchOption searchOption)
+      this AnyDirectoryPath path, string searchPattern, SearchOption searchOption)
     {
       return Directory.GetFiles(path.ToString(), searchPattern, searchOption)
         .Select(AnyFilePath.Value).ToImmutableArray();
     }
-    
     
     public static ImmutableArray<AbsoluteFilePath> GetFiles(
-      AbsoluteDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
+      this AbsoluteDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
     {
       return Directory.GetFiles(path.ToString(), searchPattern, enumerationOptions)
         .Select(AbsoluteFilePath.Value).ToImmutableArray();
     }
     public static ImmutableArray<RelativeFilePath> GetFiles(
-      RelativeDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
+      this RelativeDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
     {
       return Directory.GetFiles(path.ToString(), searchPattern, enumerationOptions)
         .Select(RelativeFilePath.Value).ToImmutableArray();
     }
     
     public static ImmutableArray<AnyFilePath> GetFiles(
-      AnyDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
+      this AnyDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
     {
       return Directory.GetFiles(path.ToString(), searchPattern, enumerationOptions)
         .Select(AnyFilePath.Value).ToImmutableArray();
     }
     
-
-    
-    
-    public static ImmutableArray<AbsoluteDirectoryPath> GetDirectories(AbsoluteDirectoryPath path)
+    public static ImmutableArray<AbsoluteDirectoryPath> GetDirectories(this AbsoluteDirectoryPath path)
     {
       return Directory.GetDirectories(path.ToString())
         .Select(AbsoluteDirectoryPath.Value).ToImmutableArray();
     }
-    public static ImmutableArray<RelativeDirectoryPath> GetDirectories(RelativeDirectoryPath path)
+    public static ImmutableArray<RelativeDirectoryPath> GetDirectories(this RelativeDirectoryPath path)
     {
       return Directory.GetDirectories(path.ToString())
         .Select(RelativeDirectoryPath.Value).ToImmutableArray();
     }
     
-    public static ImmutableArray<AnyDirectoryPath> GetDirectories(AnyDirectoryPath path)
+    public static ImmutableArray<AnyDirectoryPath> GetDirectories(this AnyDirectoryPath path)
     {
       return Directory.GetDirectories(path.ToString())
         .Select(AnyDirectoryPath.Value).ToImmutableArray();
     }
     
-    public static ImmutableArray<AbsoluteDirectoryPath> GetDirectories(AbsoluteDirectoryPath path, string searchPattern)
+    public static ImmutableArray<AbsoluteDirectoryPath> GetDirectories(this AbsoluteDirectoryPath path, string searchPattern)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern)
         .Select(AbsoluteDirectoryPath.Value).ToImmutableArray();
     }
-    public static ImmutableArray<RelativeDirectoryPath> GetDirectories(RelativeDirectoryPath path, string searchPattern)
+    public static ImmutableArray<RelativeDirectoryPath> GetDirectories(this RelativeDirectoryPath path, string searchPattern)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern)
         .Select(RelativeDirectoryPath.Value).ToImmutableArray();
     }
     
-    public static ImmutableArray<AnyDirectoryPath> GetDirectories(AnyDirectoryPath path, string searchPattern)
+    public static ImmutableArray<AnyDirectoryPath> GetDirectories(this AnyDirectoryPath path, string searchPattern)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern)
         .Select(AnyDirectoryPath.Value).ToImmutableArray();
     }
 
     public static ImmutableArray<AbsoluteDirectoryPath> GetDirectories(
-      AbsoluteDirectoryPath path, string searchPattern, SearchOption searchOption)
+      this AbsoluteDirectoryPath path, string searchPattern, SearchOption searchOption)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern, searchOption)
         .Select(AbsoluteDirectoryPath.Value).ToImmutableArray();
     }
     public static ImmutableArray<RelativeDirectoryPath> GetDirectories(
-      RelativeDirectoryPath path, string searchPattern, SearchOption searchOption)
+      this RelativeDirectoryPath path, string searchPattern, SearchOption searchOption)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern, searchOption)
         .Select(RelativeDirectoryPath.Value).ToImmutableArray();
     }
     
     public static ImmutableArray<AnyDirectoryPath> GetDirectories(
-      AnyDirectoryPath path, string searchPattern, SearchOption searchOption)
+      this AnyDirectoryPath path, string searchPattern, SearchOption searchOption)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern, searchOption)
         .Select(AnyDirectoryPath.Value).ToImmutableArray();
     }
     
-    
     public static ImmutableArray<AbsoluteDirectoryPath> GetDirectories(
-      AbsoluteDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
+      this AbsoluteDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern, enumerationOptions)
         .Select(AbsoluteDirectoryPath.Value).ToImmutableArray();
     }
     public static ImmutableArray<RelativeDirectoryPath> GetDirectories(
-      RelativeDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
+      this RelativeDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern, enumerationOptions)
         .Select(RelativeDirectoryPath.Value).ToImmutableArray();
     }
     
     public static ImmutableArray<AnyDirectoryPath> GetDirectories(
-      AnyDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
+      this AnyDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
     {
       return Directory.GetDirectories(path.ToString(), searchPattern, enumerationOptions)
         .Select(AnyDirectoryPath.Value).ToImmutableArray();
