@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -373,5 +374,105 @@ namespace AtmaFileSystem.IO
         .Select(AnyDirectoryPath.Value).ToImmutableArray();
     }
 
+
+    ///////////////////////////////////////
+
+    public static IEnumerable<AbsoluteDirectoryPath> EnumerateDirectories(string path)
+    {
+      return Directory.EnumerateDirectories(path.ToString())
+        .Select(AbsoluteDirectoryPath.Value);
+    }
+
+    public static IEnumerable<AbsoluteDirectoryPath> EnumerateDirectories(
+      string path,
+      string searchPattern)
+    {
+      return Directory.EnumerateDirectories(path.ToString(), searchPattern)
+        .Select(AbsoluteDirectoryPath.Value);
+    }
+
+
+    public static IEnumerable<AbsoluteDirectoryPath> EnumerateDirectories(
+      string path,
+      string searchPattern,
+      EnumerationOptions enumerationOptions)
+    {
+      return Directory.EnumerateDirectories(path.ToString(), searchPattern, enumerationOptions)
+        .Select(AbsoluteDirectoryPath.Value);
+    }
+
+    public static IEnumerable<AbsoluteDirectoryPath> EnumerateDirectories(
+      string path,
+      string searchPattern,
+      SearchOption searchOption)
+    {
+      return Directory.EnumerateDirectories(path.ToString(), searchPattern, searchOption)
+        .Select(AbsoluteDirectoryPath.Value);
+    }
+
+    public static IEnumerable<AbsoluteFilePath> EnumerateFiles(string path)
+    {
+      return Directory.EnumerateFiles(path.ToString())
+        .Select(AbsoluteFilePath.Value);
+    }
+
+    public static IEnumerable<AbsoluteFilePath> EnumerateFiles(string path, string searchPattern)
+    {
+      return Directory.EnumerateFiles(path.ToString(), searchPattern)
+        .Select(AbsoluteFilePath.Value);
+    }
+
+    public static IEnumerable<AbsoluteFilePath> EnumerateFiles(
+      string path,
+      string searchPattern,
+      EnumerationOptions enumerationOptions)
+    {
+      return Directory.EnumerateFiles(path.ToString(), searchPattern, enumerationOptions)
+        .Select(AbsoluteFilePath.Value);
+    }
+
+    public static IEnumerable<AbsoluteFilePath> EnumerateFiles(
+      string path,
+      string searchPattern,
+      SearchOption searchOption)
+    {
+      return Directory.EnumerateFiles(path.ToString(), searchPattern, searchOption)
+        .Select(AbsoluteFilePath.Value);
+    }
+
+
+    public static IEnumerable<AnyPath> EnumerateFileSystemEntries(string path)
+    {
+      return Directory.EnumerateFileSystemEntries(path.ToString())
+        .Select(AnyPath.Value);
+    }
+
+    public static IEnumerable<AnyPath> EnumerateFileSystemEntries(
+      string path,
+      string searchPattern)
+    {
+      return Directory.EnumerateFileSystemEntries(path.ToString(), searchPattern)
+        .Select(AnyPath.Value);
+    }
+
+    public static IEnumerable<AnyPath> EnumerateFileSystemEntries(
+      string path,
+      string searchPattern,
+      EnumerationOptions enumerationOptions)
+    {
+      return Directory.EnumerateFileSystemEntries(path.ToString(), searchPattern, enumerationOptions)
+        .Select(AnyPath.Value);
+    }
+
+    public static IEnumerable<AnyPath> EnumerateFileSystemEntries(
+      string path,
+      string searchPattern,
+      SearchOption searchOption)
+    {
+      return Directory.EnumerateFileSystemEntries(path.ToString(), searchPattern, searchOption)
+        .Select(AnyPath.Value);
+    }
   }
+
+  //bug create AnyAbsolutePath and AnyRelativePath
 }
