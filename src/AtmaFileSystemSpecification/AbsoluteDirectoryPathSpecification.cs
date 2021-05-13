@@ -75,7 +75,7 @@ namespace AtmaFileSystemSpecification
       var convertedToString = absoluteFilePath.ToString();
 
       //THEN
-      Assert.Equal(Path.Combine(path.ToString(), fileName.ToString()), convertedToString);
+      Assert.Equal(Path.Join(path.ToString(), fileName.ToString()), convertedToString);
     }
     
     [Fact]
@@ -90,7 +90,7 @@ namespace AtmaFileSystemSpecification
       var convertedToString = absoluteFilePath.ToString();
 
       //THEN
-      Assert.Equal(Path.Combine(path.ToString(), fileName), convertedToString);
+      Assert.Equal(Path.Join(path.ToString(), fileName), convertedToString);
     }
 
     [Fact]

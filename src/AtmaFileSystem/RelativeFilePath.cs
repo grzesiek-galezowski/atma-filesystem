@@ -26,7 +26,7 @@ namespace AtmaFileSystem
 
     public static RelativeFilePath From(RelativeDirectoryPath relativeDirectoryPath, FileName fileName)
     {
-      return new RelativeFilePath(Path.Combine(relativeDirectoryPath.ToString(), fileName.ToString()));
+      return new RelativeFilePath(Path.Join(relativeDirectoryPath.ToString(), fileName.ToString()));
     }
 
     public static RelativeFilePath From(RelativeDirectoryPath relativeDirectoryPath, RelativeFilePath relativeFilePath)

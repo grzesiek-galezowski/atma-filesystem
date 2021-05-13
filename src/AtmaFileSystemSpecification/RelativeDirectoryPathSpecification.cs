@@ -241,7 +241,7 @@ namespace AtmaFileSystemSpecification
 
     private static string FullNameFrom(RelativeDirectoryPath path)
     {
-      return Path.Combine(new DirectoryInfo(".").FullName, path.ToString());
+      return Path.Join(new DirectoryInfo(".").FullName, path.ToString());
     }
 
     [Fact]

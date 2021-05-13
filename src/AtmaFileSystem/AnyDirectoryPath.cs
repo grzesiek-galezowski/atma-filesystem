@@ -16,12 +16,12 @@ namespace AtmaFileSystem
     private readonly string _path;
 
     private AnyDirectoryPath(AnyDirectoryPath left, DirectoryName right)
-      : this(Path.Combine(left.ToString(), right.ToString()))
+      : this(Path.Join(left.ToString(), right.ToString()))
     {
     }
 
     private AnyDirectoryPath(AnyDirectoryPath left, RelativeDirectoryPath right)
-      : this(Path.Combine(left.ToString(), right.ToString()))
+      : this(Path.Join(left.ToString(), right.ToString()))
     {
     }
 
