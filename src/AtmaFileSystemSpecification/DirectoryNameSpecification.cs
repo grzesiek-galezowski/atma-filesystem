@@ -3,7 +3,8 @@ using AtmaFileSystem;
 using FluentAssertions;
 using NSubstitute;
 using TddXt.AnyRoot;
-using TddXt.XFluentAssertRoot;
+using TddXt.AnyRoot.Strings;
+using TddXt.XFluentAssert.Api;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
@@ -14,8 +15,19 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      typeof(DirectoryName).Should().HaveValueSemantics();
+      var anyString = Any.String();
+      var anyOtherString = Any.OtherThan(anyString);
+      ObjectsOfType<DirectoryName>.ShouldHaveValueSemantics(
+        new Func<DirectoryName>[]
+        {
+          () => DirectoryName.Value(anyString) 
+        },
+        new Func<DirectoryName>[]
+        {
+          () => DirectoryName.Value(anyOtherString) 
+        });
     }
+
 
     [Theory,
       InlineData(null, typeof(ArgumentNullException)),

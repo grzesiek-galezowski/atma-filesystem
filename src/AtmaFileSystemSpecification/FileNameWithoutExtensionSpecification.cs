@@ -1,9 +1,10 @@
-﻿using AtmaFileSystem;
+﻿using System;
+using AtmaFileSystem;
 using FluentAssertions;
 using NSubstitute;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
-using TddXt.XFluentAssertRoot;
+using TddXt.XFluentAssert.Api;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
@@ -14,7 +15,17 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      typeof(FileNameWithoutExtension).Should().HaveValueSemantics();
+      var anyString = Any.String();
+      var anyOtherString = Any.OtherThan(anyString);
+      ObjectsOfType<FileNameWithoutExtension>.ShouldHaveValueSemantics(
+        new Func<FileNameWithoutExtension>[]
+        {
+          () => FileNameWithoutExtension.Value(anyString) 
+        },
+        new Func<FileNameWithoutExtension>[]
+        {
+          () => FileNameWithoutExtension.Value(anyOtherString) 
+        });
     }
 
     [Fact]

@@ -60,9 +60,10 @@ namespace AtmaFileSystem.Assertions
 
     public static void ConsistsSolelyOfExtension(string extensionString, string message)
     {
-      if (Path.GetExtension(extensionString) != extensionString)
+      var extractedExtension = Path.GetExtension(extensionString);
+      if (extractedExtension != extensionString)
       {
-        throw new ArgumentException(message);
+        throw new ArgumentException(message + ". Expected extension: " + extractedExtension);
       }
     }
 

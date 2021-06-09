@@ -6,7 +6,6 @@ using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
 using Functional.Maybe;
 using Functional.Maybe.Just;
-using NullableReferenceTypesExtensions;
 
 namespace AtmaFileSystem
 {

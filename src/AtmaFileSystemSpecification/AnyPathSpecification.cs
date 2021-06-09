@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using AtmaFileSystem;
 using FluentAssertions;
 using Functional.Maybe;
 using NSubstitute;
 using TddXt.AnyRoot;
-using TddXt.XFluentAssertRoot;
+using TddXt.AnyRoot.Strings;
+using TddXt.XFluentAssert.Api;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
@@ -16,7 +16,17 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      typeof(AnyPath).Should().HaveValueSemantics();
+      var pathString = Any.String();
+      var otherPathString = Any.OtherThan(pathString);
+      ObjectsOfType<AnyPath>.ShouldHaveValueSemantics(
+        new Func<AnyPath>[]
+        {
+          () => AnyPath.Value(pathString), 
+        },
+        new Func<AnyPath>[]
+        {
+          () => AnyPath.Value(otherPathString), 
+        });
     }
 
     [Theory,

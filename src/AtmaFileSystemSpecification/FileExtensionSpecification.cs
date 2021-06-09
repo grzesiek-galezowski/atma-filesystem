@@ -3,7 +3,8 @@ using AtmaFileSystem;
 using FluentAssertions;
 using NSubstitute;
 using TddXt.AnyRoot;
-using TddXt.XFluentAssertRoot;
+using TddXt.AnyRoot.Strings;
+using TddXt.XFluentAssert.Api;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
@@ -14,8 +15,19 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      typeof(FileExtension).Should().HaveValueSemantics();
+      var anyString = "." + Any.AlphaString();
+      var anyOtherString = "." + Any.AlphaString();
+      ObjectsOfType<FileExtension>.ShouldHaveValueSemantics(
+        new Func<FileExtension>[]
+        {
+          () => FileExtension.Value(anyString) 
+        },
+        new Func<FileExtension>[]
+        {
+          () => FileExtension.Value(anyOtherString) 
+        });
     }
+
 
     [Fact]
     public void ShouldAllowAccessingItsContentAsString()
