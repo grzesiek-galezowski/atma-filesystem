@@ -8,7 +8,8 @@ using NSubstitute;
 using NullableReferenceTypesExtensions;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
-using TddXt.XFluentAssertRoot;
+using TddXt.TypeReflection;
+using TddXt.XFluentAssert.Api;
 using Xunit;
 using static AtmaFileSystem.AtmaFileSystemPaths;
 using static TddXt.AnyRoot.Root;
@@ -43,7 +44,16 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValueObject()
     {
-      typeof(AbsoluteDirectoryPath).Should().HaveValueSemantics();
+      ObjectsOfType<AbsoluteDirectoryPath>.ShouldHaveValueSemantics(
+        new Func<AbsoluteDirectoryPath>[]
+        {
+          () => AbsoluteDirectoryPath.Value("C:\\")
+        },
+        new Func<AbsoluteDirectoryPath>[]
+        {
+          () => AbsoluteDirectoryPath.Value("C:\\a"),
+          () => AbsoluteDirectoryPath.Value("C:/a")
+        });
     }
 
     [Theory]

@@ -7,7 +7,7 @@ using Functional.Maybe;
 using NSubstitute;
 using NullableReferenceTypesExtensions;
 using TddXt.AnyRoot;
-using TddXt.XFluentAssertRoot;
+using TddXt.XFluentAssert.Api;
 using Xunit;
 using static AtmaFileSystem.AtmaFileSystemPaths;
 using static TddXt.AnyRoot.Root;
@@ -47,7 +47,16 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValueObject()
     {
-      typeof(AbsoluteFilePath).Should().HaveValueSemantics();
+      ObjectsOfType<AbsoluteFilePath>.ShouldHaveValueSemantics(
+        new Func<AbsoluteFilePath>[]
+        {
+          () => AbsoluteFilePath.Value("C:\\1"), 
+        },
+        new Func<AbsoluteFilePath>[]
+        {
+          () => AbsoluteFilePath.Value("C:\\2"), 
+          () => AbsoluteFilePath.Value("c:\\1"), 
+        });
     }
 
     [Fact]

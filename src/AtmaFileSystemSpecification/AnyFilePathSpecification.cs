@@ -3,7 +3,7 @@ using AtmaFileSystem;
 using FluentAssertions;
 using NSubstitute;
 using TddXt.AnyRoot;
-using TddXt.XFluentAssertRoot;
+using TddXt.XFluentAssert.Api;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
@@ -35,7 +35,16 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      typeof(AnyFilePath).Should().HaveValueSemantics();
+      ObjectsOfType<AnyFilePath>.ShouldHaveValueSemantics(
+        new Func<AnyFilePath>[]
+        {
+          () => AnyFilePath.Value("a.txt"), 
+        },
+        new Func<AnyFilePath>[]
+        {
+          () => AnyFilePath.Value("b.txt"), 
+          () => AnyFilePath.Value("B.txt"), 
+        });
     }
 
     [Fact]

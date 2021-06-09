@@ -5,7 +5,7 @@ using System.IO;
 using FluentAssertions;
 using Functional.Maybe;
 using TddXt.AnyRoot;
-using TddXt.XFluentAssertRoot;
+using TddXt.XFluentAssert.Api;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
@@ -43,7 +43,16 @@ namespace AtmaFileSystemSpecification
     [Fact]
     public void ShouldBehaveLikeValue()
     {
-      typeof(AnyDirectoryPath).Should().HaveValueSemantics();
+      ObjectsOfType<AnyDirectoryPath>.ShouldHaveValueSemantics(
+        new Func<AnyDirectoryPath>[]
+        {
+          () => AnyDirectoryPath.Value("C:\\"), 
+        },
+        new Func<AnyDirectoryPath>[]
+        {
+          () => AnyDirectoryPath.Value("c:\\"), 
+          () => AnyDirectoryPath.Value("D:\\"), 
+        });
     }
 
     [Fact]
