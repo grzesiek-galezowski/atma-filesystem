@@ -80,7 +80,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(
-        Path.Combine(anyDirectoryPath.ToString(), fileName.ToString()), anyFilePath.ToString());
+        Path.Join(anyDirectoryPath.ToString(), fileName.ToString()), anyFilePath.ToString());
     }
 
     [Fact]
@@ -96,7 +96,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(
-        Path.Combine(anyDirectoryPath.ToString(), directoryName.ToString()), directoryPath.ToString());
+        Path.Join(anyDirectoryPath.ToString(), directoryName.ToString()), directoryPath.ToString());
     }
 
     [Fact]
@@ -112,7 +112,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(
-        Path.Combine(anyDirectoryPath.ToString(), directoryName.ToString()), directoryPath.ToString());
+        Path.Join(anyDirectoryPath.ToString(), directoryName.ToString()), directoryPath.ToString());
     }
 
     [Fact]
@@ -128,7 +128,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.Equal(
-        Path.Combine(anyDirectoryPath.ToString(), pathWithFileName.ToString()), anyFilePath.ToString());
+        Path.Join(anyDirectoryPath.ToString(), pathWithFileName.ToString()), anyFilePath.ToString());
     }
 
     [Theory,
@@ -231,7 +231,7 @@ namespace AtmaFileSystemSpecification
 
     private static string FullNameFrom(AnyDirectoryPath path)
     {
-      return Path.Combine(new DirectoryInfo(".").FullName, path.ToString());
+      return Path.Join(new DirectoryInfo(".").FullName, path.ToString());
     }
 
 

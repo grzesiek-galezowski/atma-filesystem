@@ -98,7 +98,7 @@ namespace AtmaFileSystemSpecification
       var fileInfo = pathWithFilename.Info();
 
       //THEN
-      Assert.Equal(fileInfo.FullName, Path.Combine(new DirectoryInfo(".").FullName, pathWithFilename.ToString()));
+      Assert.Equal(fileInfo.FullName, Path.Join(new DirectoryInfo(".").FullName, pathWithFilename.ToString()));
     }
 
     [Fact]

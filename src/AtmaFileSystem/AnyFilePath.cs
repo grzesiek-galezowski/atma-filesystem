@@ -26,12 +26,12 @@ namespace AtmaFileSystem
     }
 
     internal AnyFilePath(AnyDirectoryPath left, FileName right)
-      : this(Path.Combine(left.ToString(), right.ToString()))
+      : this(Path.Join(left.ToString(), right.ToString()))
     {
     }
 
     public AnyFilePath(AnyDirectoryPath left, RelativeFilePath right)
-      : this(Path.Combine(left.ToString(), right.ToString()))
+      : this(Path.Join(left.ToString(), right.ToString()))
     {
     }
 

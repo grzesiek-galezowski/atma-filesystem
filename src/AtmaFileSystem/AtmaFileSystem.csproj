@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags></PackageTags>
-    <PackageReleaseNotes>More Directory methods ported</PackageReleaseNotes>
-    <Version>4.7.0</Version>
+    <PackageReleaseNotes>Using Path.Join instead of Path.Combine</PackageReleaseNotes>
+    <Version>4.8.0</Version>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
@@ -24,10 +24,15 @@
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Lib\" />
-    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>

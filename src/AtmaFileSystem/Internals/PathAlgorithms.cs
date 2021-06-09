@@ -128,7 +128,7 @@ namespace AtmaFileSystem.Internals
 
     public static string Combine(object part1, object part2)
     {
-      return Path.Combine(part1.ToString(), part2.ToString());
+      return Path.Join(part1.ToString(), part2.ToString());
     }
   }
 }
