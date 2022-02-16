@@ -104,7 +104,7 @@ namespace AtmaFileSystemSpecification
       var dirObtainedFromPath = filePath.ParentDirectory();
 
       //THEN
-      Assert.Equal(dirPath, dirObtainedFromPath.Value);
+      Assert.Equal(dirPath, dirObtainedFromPath.Value());
     }
 
     [Fact]
@@ -118,7 +118,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.False(dirObtainedFromPath.HasValue);
-      Assert.Throws<InvalidOperationException>(() => dirObtainedFromPath.Value);
+      Assert.Throws<InvalidOperationException>(() => dirObtainedFromPath.Value());
     }
 
     [Fact]

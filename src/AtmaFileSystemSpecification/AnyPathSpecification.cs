@@ -1,7 +1,7 @@
 ﻿using System;
 using AtmaFileSystem;
 using FluentAssertions;
-using Functional.Maybe;
+using Core.Maybe;
 using NSubstitute;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
@@ -50,7 +50,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.True(parentDirectory.HasValue);
-      Assert.Equal(AnyDirectoryPath.Value(@"Directory\Subdirectory"), parentDirectory.Value);
+      Assert.Equal(AnyDirectoryPath.Value(@"Directory\Subdirectory"), parentDirectory.Value());
     }
 
     [Fact]
@@ -78,7 +78,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.False(parentDirectoryPath.HasValue);
-      Assert.Throws<InvalidOperationException>(() => parentDirectoryPath.Value);
+      Assert.Throws<InvalidOperationException>(() => parentDirectoryPath.Value());
     }
 
     [Fact]

@@ -1,6 +1,5 @@
 ﻿using System;
 using AtmaFileSystem;
-using FluentAssertions;
 using NSubstitute;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
@@ -75,7 +74,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.True(maybeExtension.HasValue);
-      Assert.Equal(FileExtension.Value(extensionString), maybeExtension.Value);
+      Assert.Equal(FileExtension.Value(extensionString), maybeExtension.Value());
     }
 
     [Fact]
@@ -91,7 +90,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.False(maybeExtension.HasValue);
-      Assert.Throws<InvalidOperationException>(() => maybeExtension.Value);
+      Assert.Throws<InvalidOperationException>(() => maybeExtension.Value());
     }
 
     [Fact]

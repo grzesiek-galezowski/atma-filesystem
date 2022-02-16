@@ -1,5 +1,5 @@
 ﻿using AtmaFileSystem;
-using Functional.Maybe;
+using Core.Maybe;
 using Xunit;
 
 namespace AtmaFileSystemSpecification
@@ -27,7 +27,7 @@ namespace AtmaFileSystemSpecification
       ////////////////////////
 
       
-      AbsoluteFilePath fullPathAssembled = directoryPath + (fileNameWithoutExtension + extension.Value);
+      AbsoluteFilePath fullPathAssembled = directoryPath + (fileNameWithoutExtension + extension.Value());
 
       DirectoryName dirName = DirectoryName.Value("Subdirectory");
       AbsoluteFilePath fileMovedToSubdirectory = directoryPath + dirName + fileName;
@@ -49,10 +49,10 @@ namespace AtmaFileSystemSpecification
 
       if (parent.HasValue)
       {
-        Maybe<AbsoluteDirectoryPath> parentParent = parent.Value.ParentDirectory();
+        Maybe<AbsoluteDirectoryPath> parentParent = parent.Value().ParentDirectory();
         if (parentParent.HasValue)
         {
-          Maybe<AbsoluteDirectoryPath> parentParentParent = parentParent.Value.ParentDirectory();
+          Maybe<AbsoluteDirectoryPath> parentParentParent = parentParent.Value().ParentDirectory();
         }
       }
 

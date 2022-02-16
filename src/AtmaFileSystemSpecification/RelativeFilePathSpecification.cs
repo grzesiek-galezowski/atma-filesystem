@@ -3,7 +3,7 @@ using AtmaFileSystem;
 using NSubstitute;
 using System.IO;
 using FluentAssertions;
-using Functional.Maybe;
+using Core.Maybe;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
 using TddXt.XFluentAssert.Api;
@@ -67,7 +67,7 @@ namespace AtmaFileSystemSpecification
 
 
       //THEN
-      Assert.Equal(dirPath, dirObtainedFromPath.Value);
+      Assert.Equal(dirPath, dirObtainedFromPath.Value());
     }
 
     [Fact]
@@ -81,7 +81,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.False(dirObtainedFromPath.HasValue);
-      Assert.Throws<InvalidOperationException>(() => dirObtainedFromPath.Value);
+      Assert.Throws<InvalidOperationException>(() => dirObtainedFromPath.Value());
     }
 
     [Fact]

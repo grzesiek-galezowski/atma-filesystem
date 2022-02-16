@@ -11,9 +11,9 @@
     <RepositoryUrl>https://github.com/grzesiek-galezowski/atma-filesystem</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/grzesiek-galezowski/atma-filesystem/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags></PackageTags>
-    <PackageReleaseNotes>Using Path.Join instead of Path.Combine</PackageReleaseNotes>
-    <Version>4.8.0</Version>
-    <LangVersion>9.0</LangVersion>
+    <PackageReleaseNotes>Using Core.Maybe instead of Functional.Maybe</PackageReleaseNotes>
+    <Version>5.0.0</Version>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
@@ -36,9 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Functional.Maybe" Version="2.0.20" />
-    <PackageReference Include="Functional.Maybe.Just" Version="1.5.0" />
-    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+    <PackageReference Include="Core.Maybe" Version="2.3.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

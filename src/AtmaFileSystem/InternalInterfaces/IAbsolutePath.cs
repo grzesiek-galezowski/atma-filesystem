@@ -1,10 +1,9 @@
-using Functional.Maybe;
+using Core.Maybe;
 
-namespace AtmaFileSystem.InternalInterfaces
+namespace AtmaFileSystem.InternalInterfaces;
+
+internal interface IAbsolutePath
 {
-  internal interface IAbsolutePath
-  {
     AbsoluteDirectoryPath Root();
     Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index);
-  }
 }

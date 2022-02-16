@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using AtmaFileSystem;
 using FluentAssertions;
-using Functional.Maybe;
+using Core.Maybe;
 using NSubstitute;
 using NullableReferenceTypesExtensions;
 using TddXt.AnyRoot;
@@ -107,10 +107,10 @@ namespace AtmaFileSystemSpecification
       var dirIndex4 = absoluteFilePath.ParentDirectory(4);
 
       //THEN
-      dirIndex0.Value.Should().Be(dirPath + dirName1 + dirName2 + dirName3);
-      dirIndex1.Value.Should().Be(dirPath + dirName1 + dirName2);
-      dirIndex2.Value.Should().Be(dirPath + dirName1);
-      dirIndex3.Value.Should().Be(dirPath);
+      dirIndex0.Value().Should().Be(dirPath + dirName1 + dirName2 + dirName3);
+      dirIndex1.Value().Should().Be(dirPath + dirName1 + dirName2);
+      dirIndex2.Value().Should().Be(dirPath + dirName1);
+      dirIndex3.Value().Should().Be(dirPath);
       dirIndex4.Should().Be(Maybe<AbsoluteDirectoryPath>.Nothing);
     }
 
@@ -167,7 +167,7 @@ namespace AtmaFileSystemSpecification
       var fragment = pathWithFilename.FragmentEndingOnLast(DirectoryName("lolek3"));
 
       //THEN
-      fragment.Value.Should().Be(AbsoluteDirectoryPath(@"C:\lolek1\lolek2\lolek3\lolek3"));
+      fragment.Value().Should().Be(AbsoluteDirectoryPath(@"C:\lolek1\lolek2\lolek3\lolek3"));
     }
 
     [Fact]

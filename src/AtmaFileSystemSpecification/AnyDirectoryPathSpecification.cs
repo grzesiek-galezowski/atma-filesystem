@@ -3,7 +3,7 @@ using AtmaFileSystem;
 using NSubstitute;
 using System.IO;
 using FluentAssertions;
-using Functional.Maybe;
+using Core.Maybe;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssert.Api;
 using Xunit;
@@ -162,7 +162,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.True(parent.HasValue);
-      parent.Value.Should().Be(AnyDirectoryPath.Value(expected));
+      parent.Value().Should().Be(AnyDirectoryPath.Value(expected));
     }
 
     [Theory]
@@ -178,7 +178,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.False(parent.HasValue);
-      Assert.Throws<InvalidOperationException>(() => parent.Value);
+      Assert.Throws<InvalidOperationException>(() => parent.Value());
     }
 
     [Fact]
@@ -191,7 +191,7 @@ namespace AtmaFileSystemSpecification
       var directoryInfo = path.Info();
 
       //THEN
-      directoryInfo.Value.FullName.Should().Be(FullNameFrom(path));
+      directoryInfo.Value().FullName.Should().Be(FullNameFrom(path));
     }
     
     [Fact]

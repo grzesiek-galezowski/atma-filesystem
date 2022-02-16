@@ -6,129 +6,124 @@ using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
 using AtmaFileSystem.Lib;
-using Functional.Maybe;
-using Functional.Maybe.Just;
+using Core.Maybe;
 
-namespace AtmaFileSystem
-{
-  public sealed class AbsoluteDirectoryPath : 
+namespace AtmaFileSystem;
+
+public sealed class AbsoluteDirectoryPath : 
     IEquatable<AbsoluteDirectoryPath>,
     IEquatableAccordingToFileSystem<AbsoluteDirectoryPath>, 
     IAbsolutePath, 
     IDirectoryPath<AbsoluteDirectoryPath>,
     IComparable<AbsoluteDirectoryPath>, IComparable
-  {
+{
     private readonly DirectoryInfo _directoryInfo;
     private readonly string _path;
 
     internal AbsoluteDirectoryPath(string path)
     {
-      _path = Path.GetFullPath(path);
-      _directoryInfo = new DirectoryInfo(_path);
+        _path = Path.GetFullPath(path);
+        _directoryInfo = new DirectoryInfo(_path);
     }
 
     public bool Equals(AbsoluteDirectoryPath other)
     {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path, StringComparison.InvariantCulture);
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public bool ShallowEquals(AbsoluteDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
-      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
+        return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
     public static AbsoluteDirectoryPath Value(string path)
     {
-      Asserts.NotNull(path, nameof(path));
-      Asserts.NotEmpty(path, "Path cannot be empty");
-      Asserts.FullyQualified(path, "Expected absolute path, but got " + path);
-      Asserts.DoesNotContainInvalidChars(path);
-      return new AbsoluteDirectoryPath(path);
+        Asserts.NotNull(path, nameof(path));
+        Asserts.NotEmpty(path, "Path cannot be empty");
+        Asserts.FullyQualified(path, "Expected absolute path, but got " + path);
+        Asserts.DoesNotContainInvalidChars(path);
+        return new AbsoluteDirectoryPath(path);
     }
 
-    public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, DirectoryName directoryName)
-    {
-      return new(PathAlgorithms.Combine(path, directoryName));
-    }
+    public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, DirectoryName directoryName) 
+        => new(PathAlgorithms.Combine(path, directoryName));
 
-    public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, RelativeDirectoryPath directoryName)
-    {
-      return new(PathAlgorithms.Combine(path, directoryName));
-    }
+    public static AbsoluteDirectoryPath From(AbsoluteDirectoryPath path, RelativeDirectoryPath directoryName) 
+        => new(PathAlgorithms.Combine(path, directoryName));
 
     public override string ToString()
     {
-      return _path;
+        return _path;
     }
 
     public DirectoryInfo Info()
     {
-      return _directoryInfo;
+        return _directoryInfo;
     }
 
     public Maybe<AbsoluteDirectoryPath> ParentDirectory()
     {
-      var directoryName = _directoryInfo.Parent;
-      return AsMaybe(directoryName);
+        var directoryName = _directoryInfo.Parent;
+        return AsMaybe(directoryName);
     }
 
     public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index)
     {
-      var parent = ParentDirectory();
-      index.Times(() => parent = parent.Select(p => p.ParentDirectory()));
-      return parent;
+        var parent = ParentDirectory();
+        index.Times(() => parent = parent.Select(p => p.ParentDirectory()));
+        return parent;
     }
 
     private static Maybe<AbsoluteDirectoryPath> AsMaybe(FileSystemInfo? directoryName)
     {
-      return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AbsoluteDirectoryPath>.Nothing;
+        return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AbsoluteDirectoryPath>.Nothing;
     }
 
     public AbsoluteDirectoryPath Root() => new (Path.GetPathRoot(_path));
 
     public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, FileName fileName)
     {
-      return AbsoluteFilePath.From(path, fileName);
+        return AbsoluteFilePath.From(path, fileName);
     }
 
     public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, DirectoryName directoryName)
     {
-      return From(path, directoryName);
+        return From(path, directoryName);
     }
 
     public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, RelativeDirectoryPath relativePath)
     {
-      return From(path, relativePath);
+        return From(path, relativePath);
     }
 
     public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, RelativeFilePath relativeFilePath)
     {
-      return AbsoluteFilePath.From(path, relativeFilePath);
+        return AbsoluteFilePath.From(path, relativeFilePath);
     }
 
     public override bool Equals(object? obj)
     {
-      if (ReferenceEquals(null, obj)) return false;
-      if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != this.GetType()) return false;
-      return Equals((AbsoluteDirectoryPath) obj);
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((AbsoluteDirectoryPath) obj);
     }
 
     public override int GetHashCode()
     {
-      return _path.GetHashCode();
+        return _path.GetHashCode();
     }
 
     public static bool operator ==(AbsoluteDirectoryPath? left, AbsoluteDirectoryPath? right)
     {
-      return Equals(left, right);
+        return Equals(left, right);
     }
 
     public static bool operator !=(AbsoluteDirectoryPath? left, AbsoluteDirectoryPath? right)
     {
-      return !Equals(left, right);
+        return !Equals(left, right);
     }
 
     public DirectoryName DirectoryName() => new(_directoryInfo.Name);
@@ -137,86 +132,85 @@ namespace AtmaFileSystem
 
     public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
     {
-      var result = this.ToMaybe();
-      while (result.HasValue && !result.Value.DirectoryName().Equals(directoryName))
-      {
-        result = result.Value.ParentDirectory();
-      }
+        var result = this.ToMaybe();
+        while (result.HasValue && !result.Value().DirectoryName().Equals(directoryName))
+        {
+            result = result.Value().ParentDirectory();
+        }
 
-      if (result.HasValue)
-      {
-        return result;
-      }
-      else
-      {
-        return Maybe<AbsoluteDirectoryPath>.Nothing;
-      }
+        if (result.HasValue)
+        {
+            return result;
+        }
+        else
+        {
+            return Maybe<AbsoluteDirectoryPath>.Nothing;
+        }
     }
 
     public int CompareTo(AbsoluteDirectoryPath? other)
     {
-      if (ReferenceEquals(this, other)) return 0;
-      if (ReferenceEquals(null, other)) return 1;
-      return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+        if (ReferenceEquals(this, other)) return 0;
+        if (ReferenceEquals(null, other)) return 1;
+        return string.Compare(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public int CompareTo(object? obj)
     {
-      if (ReferenceEquals(null, obj)) return 1;
-      if (ReferenceEquals(this, obj)) return 0;
-      return obj is AbsoluteDirectoryPath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AbsoluteDirectoryPath)}");
+        if (ReferenceEquals(null, obj)) return 1;
+        if (ReferenceEquals(this, obj)) return 0;
+        return obj is AbsoluteDirectoryPath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AbsoluteDirectoryPath)}");
     }
 
     public static bool operator <(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
     {
-      return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) < 0;
+        return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) < 0;
     }
 
     public static bool operator >(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
     {
-      return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) > 0;
+        return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) > 0;
     }
 
     public static bool operator <=(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
     {
-      return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) <= 0;
+        return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) <= 0;
     }
 
     public static bool operator >=(AbsoluteDirectoryPath left, AbsoluteDirectoryPath right)
     {
-      return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) >= 0;
+        return Comparer<AbsoluteDirectoryPath>.Default.Compare(left, right) >= 0;
     }
 
     public Maybe<AbsoluteDirectoryPath> FindCommonDirectoryPathWith(AbsoluteDirectoryPath path2)
     {
-      return PathAlgorithms.FindCommonDirectoryPathWith(
-        this, path2, path => (AbsoluteDirectoryPath)path, path => path);
+        return PathAlgorithms.FindCommonDirectoryPathWith(
+            this, path2, path => (AbsoluteDirectoryPath)path, path => path);
     }
 
     public Maybe<RelativeDirectoryPath> TrimStart(AbsoluteDirectoryPath startPath)
     {
-      return PathAlgorithms.TrimStart(this.ToString(), startPath.ToString())
-        .Select(s => new RelativeDirectoryPath(s));
+        return PathAlgorithms.TrimStart(this.ToString(), startPath.ToString())
+            .Select(s => new RelativeDirectoryPath(s));
     }
 
     public bool StartsWith(AbsoluteDirectoryPath subPath)
     {
-      return PathAlgorithms.StartsWith(this, subPath, path => path);
+        return PathAlgorithms.StartsWith(this, subPath, path => path);
     }
 
     public static AbsoluteDirectoryPath OfThisFile([CallerFilePath] string callerFilePath = "")
     {
-      return AbsoluteFilePath.Value(callerFilePath).ParentDirectory();
+        return AbsoluteFilePath.Value(callerFilePath).ParentDirectory();
     }
 
     public AbsoluteDirectoryPath AddDirectoryName(string fileName)
     {
-      return this + AtmaFileSystemPaths.DirectoryName(fileName);
+        return this + AtmaFileSystemPaths.DirectoryName(fileName);
     }
 
     public AbsoluteFilePath AddFileName(string fileName)
     {
-      return this + AtmaFileSystemPaths.FileName(fileName);
+        return this + AtmaFileSystemPaths.FileName(fileName);
     }
-  }
 }

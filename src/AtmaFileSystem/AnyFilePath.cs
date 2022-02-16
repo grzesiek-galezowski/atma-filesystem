@@ -4,153 +4,152 @@ using System.IO;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
-using Functional.Maybe;
-using Functional.Maybe.Just;
+using Core.Maybe;
 
-namespace AtmaFileSystem
-{
-  //bug mixed/different path separators
-  public sealed class AnyFilePath
+namespace AtmaFileSystem;
+
+//bug mixed/different path separators
+public sealed class AnyFilePath
     : IEquatable<AnyFilePath>, 
-      IEquatableAccordingToFileSystem<AnyFilePath>,
-      IExtensionChangable<AnyFilePath>,
-      IComparable<AnyFilePath>, 
-      IComparable
-  {
+        IEquatableAccordingToFileSystem<AnyFilePath>,
+        IExtensionChangable<AnyFilePath>,
+        IComparable<AnyFilePath>, 
+        IComparable
+{
     private readonly string _path;
 
     internal AnyFilePath(string path)
     {
-      _path = path;
+        _path = path;
     }
 
     internal AnyFilePath(AnyDirectoryPath left, FileName right)
-      : this(Path.Join(left.ToString(), right.ToString()))
+        : this(Path.Join(left.ToString(), right.ToString()))
     {
     }
 
     public AnyFilePath(AnyDirectoryPath left, RelativeFilePath right)
-      : this(Path.Join(left.ToString(), right.ToString()))
+        : this(Path.Join(left.ToString(), right.ToString()))
     {
     }
 
     public bool Equals(AnyFilePath? other)
     {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return string.Equals(_path, other._path, StringComparison.InvariantCulture);
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return string.Equals(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public override bool Equals(object? obj)
     {
-      if (ReferenceEquals(null, obj)) return false;
-      if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != this.GetType()) return false;
-      return Equals((AnyFilePath) obj);
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((AnyFilePath) obj);
     }
 
     public override int GetHashCode()
     {
-      return (_path != null ? _path.GetHashCode() : 0);
+        return (_path != null ? _path.GetHashCode() : 0);
     }
 
     public static bool operator ==(AnyFilePath? left, AnyFilePath? right)
     {
-      return Equals(left, right);
+        return Equals(left, right);
     }
 
     public static bool operator !=(AnyFilePath? left, AnyFilePath? right)
     {
-      return !Equals(left, right);
+        return !Equals(left, right);
     }
 
     public override string ToString()
     {
-      return _path;
+        return _path;
     }
 
     public AnyPath AsAnyPath() => new(_path);
 
     public static AnyFilePath Value(string path)
     {
-      Asserts.NotNull(path, nameof(path));
-      Asserts.NotEmpty(path, "Path cannot be empty");
-      Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
-      Asserts.DoesNotContainInvalidChars(path);
+        Asserts.NotNull(path, nameof(path));
+        Asserts.NotEmpty(path, "Path cannot be empty");
+        Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
+        Asserts.DoesNotContainInvalidChars(path);
 
-      return new AnyFilePath(PathAlgorithms.NormalizeSeparators(path));
+        return new AnyFilePath(PathAlgorithms.NormalizeSeparators(path));
     }
 
     public bool Has(FileExtension extensionValue)
     {
-      return FileName().Has(extensionValue);
+        return FileName().Has(extensionValue);
     }
 
     public FileName FileName()
     {
-      return AtmaFileSystemPaths.FileName(Path.GetFileName(_path));
+        return AtmaFileSystemPaths.FileName(Path.GetFileName(_path));
     }
 
     public Maybe<AnyDirectoryPath> ParentDirectory()
     {
-      var directoryName = Path.GetDirectoryName(_path);
-      if (directoryName.Length != 0)
-      {
-        return AnyDirectoryPath.Value(directoryName).Just();
-      }
-      else
-      {
-        return Maybe<AnyDirectoryPath>.Nothing;
-      }
+        var directoryName = Path.GetDirectoryName(_path);
+        if (directoryName.Length != 0)
+        {
+            return AnyDirectoryPath.Value(directoryName).Just();
+        }
+        else
+        {
+            return Maybe<AnyDirectoryPath>.Nothing;
+        }
     }
 
     public FileInfo Info() => new(_path);
 
     public AnyFilePath ChangeExtensionTo(FileExtension value)
     {
-      var pathWithNewExtension = Path.ChangeExtension(_path, value.ToString());
-      return new AnyFilePath(pathWithNewExtension);
+        var pathWithNewExtension = Path.ChangeExtension(_path, value.ToString());
+        return new AnyFilePath(pathWithNewExtension);
     }
 
     public bool ShallowEquals(AnyFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
     {
-      return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
+        return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
     }
 
     public int CompareTo(AnyFilePath? other)
     {
-      if (ReferenceEquals(this, other)) return 0;
-      if (ReferenceEquals(null, other)) return 1;
-      return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+        if (ReferenceEquals(this, other)) return 0;
+        if (ReferenceEquals(null, other)) return 1;
+        return string.Compare(_path, other._path, StringComparison.InvariantCulture);
     }
 
     public int CompareTo(object? obj)
     {
-      if (ReferenceEquals(null, obj)) return 1;
-      if (ReferenceEquals(this, obj)) return 0;
-      return obj is AnyFilePath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AnyFilePath)}");
+        if (ReferenceEquals(null, obj)) return 1;
+        if (ReferenceEquals(this, obj)) return 0;
+        return obj is AnyFilePath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AnyFilePath)}");
     }
 
     public static bool operator <(AnyFilePath left, AnyFilePath right)
     {
-      return Comparer<AnyFilePath>.Default.Compare(left, right) < 0;
+        return Comparer<AnyFilePath>.Default.Compare(left, right) < 0;
     }
 
     public static bool operator >(AnyFilePath left, AnyFilePath right)
     {
-      return Comparer<AnyFilePath>.Default.Compare(left, right) > 0;
+        return Comparer<AnyFilePath>.Default.Compare(left, right) > 0;
     }
 
     public static bool operator <=(AnyFilePath left, AnyFilePath right)
     {
-      return Comparer<AnyFilePath>.Default.Compare(left, right) <= 0;
+        return Comparer<AnyFilePath>.Default.Compare(left, right) <= 0;
     }
 
     public static bool operator >=(AnyFilePath left, AnyFilePath right)
     {
-      return Comparer<AnyFilePath>.Default.Compare(left, right) >= 0;
+        return Comparer<AnyFilePath>.Default.Compare(left, right) >= 0;
     }
-  }
+}
 
 /* TODO missing methods:
 AnyPath:
@@ -158,4 +157,3 @@ AnyPath:
   <> Parent()
 
 */
-}

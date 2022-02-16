@@ -3,7 +3,7 @@ using AtmaFileSystem;
 using NSubstitute;
 using System.IO;
 using FluentAssertions;
-using Functional.Maybe;
+using Core.Maybe;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
 using TddXt.XFluentAssert.Api;
@@ -135,7 +135,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.True(pathWithoutLastDir.HasValue);
-      Assert.Equal(RelativeDirectoryPath.Value(@"Directory\Subdirectory"), pathWithoutLastDir.Value);
+      Assert.Equal(RelativeDirectoryPath.Value(@"Directory\Subdirectory"), pathWithoutLastDir.Value());
 
     }
 
@@ -150,7 +150,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.False(pathWithoutLastDir.HasValue);
-      Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value);
+      Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value());
     }
 
     //bug disallow whitespace when creating
@@ -165,7 +165,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.False(pathWithoutLastDir.HasValue);
-      Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value);
+      Assert.Throws<InvalidOperationException>(() => pathWithoutLastDir.Value());
     }
 
     [Theory,
@@ -187,7 +187,7 @@ namespace AtmaFileSystemSpecification
       var directoryInfo = path.Info();
 
       //THEN
-      Assert.Equal(directoryInfo.Value.FullName, FullNameFrom(path));
+      Assert.Equal(directoryInfo.Value().FullName, FullNameFrom(path));
     }
 
     [Fact]

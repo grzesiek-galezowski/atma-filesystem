@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using AtmaFileSystem;
 using FluentAssertions;
-using Functional.Maybe;
+using Core.Maybe;
 using NSubstitute;
 using NullableReferenceTypesExtensions;
 using TddXt.AnyRoot;
@@ -142,7 +142,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.True(parent.HasValue);
-      Assert.Equal(AbsoluteDirectoryPath.Value(expected), parent.Value);
+      Assert.Equal(AbsoluteDirectoryPath.Value(expected), parent.Value());
     }
 
     [Fact]
@@ -164,10 +164,10 @@ namespace AtmaFileSystemSpecification
       var dirIndex4 = absoluteFilePath.ParentDirectory(4);
 
       //THEN
-      dirIndex0.Value.Should().Be(dirPath + dirName1 + dirName2 + dirName3);
-      dirIndex1.Value.Should().Be(dirPath + dirName1 + dirName2);
-      dirIndex2.Value.Should().Be(dirPath + dirName1);
-      dirIndex3.Value.Should().Be(dirPath);
+      dirIndex0.Value().Should().Be(dirPath + dirName1 + dirName2 + dirName3);
+      dirIndex1.Value().Should().Be(dirPath + dirName1 + dirName2);
+      dirIndex2.Value().Should().Be(dirPath + dirName1);
+      dirIndex3.Value().Should().Be(dirPath);
       dirIndex4.Should().Be(Maybe<AbsoluteDirectoryPath>.Nothing);
     }
 
@@ -183,7 +183,7 @@ namespace AtmaFileSystemSpecification
 
       //THEN
       Assert.False(parent.HasValue);
-      Assert.Throws<InvalidOperationException>(() => parent.Value);
+      Assert.Throws<InvalidOperationException>(() => parent.Value());
     }
 
     [Theory,
@@ -285,7 +285,7 @@ namespace AtmaFileSystemSpecification
       var fragment = pathWithFilename.FragmentEndingOnLast(DirectoryName("lolek2"));
 
       //THEN
-      fragment.Value.Should().Be(AbsoluteDirectoryPath(@"C:\lolek1\lolek2\lolek2"));
+      fragment.Value().Should().Be(AbsoluteDirectoryPath(@"C:\lolek1\lolek2\lolek2"));
     }
 
     [Fact]
