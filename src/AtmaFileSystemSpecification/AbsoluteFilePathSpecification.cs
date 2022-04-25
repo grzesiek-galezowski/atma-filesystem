@@ -5,7 +5,7 @@ using AtmaFileSystem;
 using FluentAssertions;
 using Core.Maybe;
 using NSubstitute;
-using NullableReferenceTypesExtensions;
+using Core.NullableReferenceTypesExtensions;
 using TddXt.AnyRoot;
 using TddXt.XFluentAssert.Api;
 using Xunit;
