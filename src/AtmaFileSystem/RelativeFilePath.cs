@@ -55,7 +55,7 @@ public sealed class RelativeFilePath :
     {
         Asserts.NotNull(path, nameof(path));
         Asserts.NotEmpty(path, ExceptionMessages.PathCannotBeAnEmptyString);
-        Asserts.NotFullyQualified(path, ExceptionMessages.RootedPathsAreIllegalPleasePassARelativePath);
+        Asserts.NotFullyQualified(path);
         return new RelativeFilePath(path);
     }
 

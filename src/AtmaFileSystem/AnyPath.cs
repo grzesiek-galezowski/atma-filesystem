@@ -62,8 +62,8 @@ public sealed class AnyPath
     public static AnyPath Value(string path)
     {
         Asserts.NotNull(path, nameof(path));
-        Asserts.NotWhitespace(path, "Path cannot be whitespace");
-        Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
+        Asserts.NotAllWhitespace(path, "Path cannot be whitespace");
+        Asserts.DirectoryPathValid(path);
         Asserts.DoesNotContainInvalidChars(path);
 
         return new AnyPath(PathAlgorithms.NormalizeSeparators(path));

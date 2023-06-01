@@ -35,8 +35,8 @@ public sealed class RelativeDirectoryPath :
     public static RelativeDirectoryPath Value(string path)
     {
         Asserts.NotNull(path, nameof(path));
-        Asserts.NotWhitespace(path, "relative path cannot consist of whitespaces");
-        Asserts.NotFullyQualified(path, "Expected relative path, but got " + path);
+        Asserts.NotAllWhitespace(path, "relative path cannot consist of whitespaces");
+        Asserts.NotFullyQualified(path);
         Asserts.DoesNotContainInvalidChars(path);
 
         return new RelativeDirectoryPath(PathAlgorithms.NormalizeSeparators(path));

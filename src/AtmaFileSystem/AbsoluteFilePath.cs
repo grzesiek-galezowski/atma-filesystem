@@ -48,7 +48,7 @@ public sealed class AbsoluteFilePath :
     public static AbsoluteFilePath Value(string path)
     {
         Asserts.NotNull(path, nameof(path));
-        Asserts.FullyQualified(path, path + " is not an absolute path");
+        Asserts.FullyQualified(path);
         Asserts.DoesNotContainInvalidChars(path);
 
         return new AbsoluteFilePath(path);

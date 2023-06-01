@@ -73,8 +73,8 @@ public sealed class AnyFilePath
     public static AnyFilePath Value(string path)
     {
         Asserts.NotNull(path, nameof(path));
-        Asserts.NotEmpty(path, "Path cannot be empty");
-        Asserts.DirectoryPathValid(path, "The path value " + path + " is invalid");
+        Asserts.NotEmpty(path, ExceptionMessages.PathCannotBeAnEmptyString);
+        Asserts.DirectoryPathValid(path);
         Asserts.DoesNotContainInvalidChars(path);
 
         return new AnyFilePath(PathAlgorithms.NormalizeSeparators(path));

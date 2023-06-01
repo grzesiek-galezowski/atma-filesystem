@@ -6,27 +6,19 @@ namespace AtmaFileSystem.Assertions;
 
 internal static class Asserts
 {
-    public static void FullyQualified(string path, string message)
+    public static void FullyQualified(string path)
     {
         if (!Path.IsPathFullyQualified(path))
         {
-            throw new ArgumentException(message);
+            throw new ArgumentException("Expected an absolute path, but got " + path);
         }
     }
 
-    public static void NotFullyQualified(string path, string message)
+    public static void NotFullyQualified(string path)
     {
         if (Path.IsPathFullyQualified(path))
         {
-            throw new ArgumentException(message);
-        }
-    }
-
-    public static void DoesNotConsistSolelyOfFileName(string path, string message)
-    {
-        if (Path.GetFileName(path) == path)
-        {
-            throw new ArgumentException(message);
+            throw new ArgumentException(PathFragment(path, "is fully qualified") + ExceptionMessages.RootedPathsAreIllegalPleasePassARelativePath);
         }
     }
 
@@ -34,7 +26,7 @@ internal static class Asserts
     {
         if (path == string.Empty)
         {
-            throw new ArgumentException(message, nameof(path));
+            throw new ArgumentException(PathFragment(path, "is empty") + message, nameof(path));
         }
     }
 
@@ -53,7 +45,8 @@ internal static class Asserts
             var directoryName = new DirectoryInfo(value).Name;
             if (directoryName != value)
             {
-                throw new ArgumentException(message);
+                throw new ArgumentException(
+                  ValueFragment(value, "is not a valid directory name") + message);
             }
         }
     }
@@ -75,7 +68,7 @@ internal static class Asserts
         }
     }
 
-    public static void DirectoryPathValid(string path, string message)
+    public static void DirectoryPathValid(string path)
     {
         try
         {
@@ -83,7 +76,7 @@ internal static class Asserts
         }
         catch (ArgumentException e)
         {
-            throw new ArgumentException(message, e);
+            throw new ArgumentException(PathFragment(path, "is not a valid directory path"), e);
         }
     }
 
@@ -98,11 +91,21 @@ internal static class Asserts
     }
 
     // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Global
-    public static void NotWhitespace(string path, string message)
+    public static void NotAllWhitespace(string path, string message)
     {
         if (path != string.Empty && path.All(char.IsWhiteSpace))
         {
-            throw new ArgumentException(message);
+            throw new ArgumentException(ValueFragment(path, "consists only of whitespace") + message);
         }
+    }
+
+    private static string PathFragment(string path, string constaintBreak)
+    {
+      return $"Path {path} {constaintBreak}. ";
+    }
+
+    private static string ValueFragment(string value, string constaintBreak)
+    {
+      return $"Value {value} {constaintBreak}. ";
     }
 }

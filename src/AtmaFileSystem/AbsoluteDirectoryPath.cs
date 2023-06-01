@@ -42,7 +42,7 @@ public sealed class AbsoluteDirectoryPath :
     {
         Asserts.NotNull(path, nameof(path));
         Asserts.NotEmpty(path, "Path cannot be empty");
-        Asserts.FullyQualified(path, "Expected absolute path, but got " + path);
+        Asserts.FullyQualified(path );
         Asserts.DoesNotContainInvalidChars(path);
         return new AbsoluteDirectoryPath(path);
     }
