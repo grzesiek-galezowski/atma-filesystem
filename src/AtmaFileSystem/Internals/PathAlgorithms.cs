@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using AtmaFileSystem.InternalInterfaces;
 using Core.Maybe;
+using Core.NullableReferenceTypesExtensions;
 
 namespace AtmaFileSystem.Internals;
 
@@ -31,7 +32,7 @@ internal static class PathAlgorithms
         Func<TPath, IDirectoryPath<TPath>> convToIDirectoryPath
     ) where TPath : IDirectoryPath<TPath>
     {
-        if (!path.ToString().StartsWith(path2.ToString(), _culture))
+        if (!path.ToString().OrThrow().StartsWith(path2.ToString().OrThrow(), _culture))
         {
             return false;
         }

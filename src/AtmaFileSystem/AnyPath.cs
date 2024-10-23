@@ -76,7 +76,7 @@ public sealed class AnyPath
             return Maybe<AnyDirectoryPath>.Nothing;
         }
         var directoryName = Path.GetDirectoryName(_path);
-        if (directoryName == string.Empty)
+        if (string.IsNullOrEmpty(directoryName))
         {
             return Maybe<AnyDirectoryPath>.Nothing;
         }

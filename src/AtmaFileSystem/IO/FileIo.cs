@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AtmaFileSystem.InternalInterfaces;
 
 namespace AtmaFileSystem.IO;
 
@@ -821,5 +822,10 @@ public static class FileIo
         CancellationToken cancellationToken = default)
     {
         return File.AppendAllLinesAsync(path.ToString(), contents, encoding, cancellationToken);
+    }
+    
+    public static void Copy(this IFilePath source, IFilePath destination, bool overwrite = false)
+    {
+        File.Copy(source.ToString(), destination.ToString(), overwrite);
     }
 }

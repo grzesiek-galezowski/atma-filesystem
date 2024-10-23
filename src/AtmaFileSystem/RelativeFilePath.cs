@@ -11,7 +11,7 @@ namespace AtmaFileSystem;
 public sealed class RelativeFilePath : 
     IEquatable<RelativeFilePath>, 
     IEquatableAccordingToFileSystem<RelativeFilePath>, 
-    IFilePath<RelativeFilePath>, 
+    IInternalFilePath<RelativeFilePath>, 
     IExtensionChangable<RelativeFilePath>,
     IComparable<RelativeFilePath>, IComparable
 {
@@ -36,7 +36,7 @@ public sealed class RelativeFilePath :
     public Maybe<RelativeDirectoryPath> ParentDirectory()
     {
         var directoryName = Path.GetDirectoryName(_path);
-        if (directoryName != string.Empty)
+        if (!string.IsNullOrEmpty(directoryName))
         {
             return new RelativeDirectoryPath(directoryName).Just();
         }

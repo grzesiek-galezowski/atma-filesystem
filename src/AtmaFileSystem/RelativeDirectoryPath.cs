@@ -70,7 +70,7 @@ public sealed class RelativeDirectoryPath :
             return Maybe<RelativeDirectoryPath>.Nothing;
         }
         var directoryName = Path.GetDirectoryName(_path);
-        if (directoryName == string.Empty)
+        if (string.IsNullOrEmpty(directoryName))
         {
             return Maybe<RelativeDirectoryPath>.Nothing;
         }

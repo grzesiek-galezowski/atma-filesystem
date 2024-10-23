@@ -7,6 +7,7 @@ using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
 using AtmaFileSystem.Lib;
 using Core.Maybe;
+using Core.NullableReferenceTypesExtensions;
 
 namespace AtmaFileSystem;
 
@@ -26,7 +27,7 @@ public sealed class AbsoluteDirectoryPath :
         _directoryInfo = new DirectoryInfo(_path);
     }
 
-    public bool Equals(AbsoluteDirectoryPath other)
+    public bool Equals(AbsoluteDirectoryPath? other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
@@ -81,7 +82,7 @@ public sealed class AbsoluteDirectoryPath :
         return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AbsoluteDirectoryPath>.Nothing;
     }
 
-    public AbsoluteDirectoryPath Root() => new (Path.GetPathRoot(_path));
+    public AbsoluteDirectoryPath Root() => new (Path.GetPathRoot(_path).OrThrow());
 
     public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, FileName fileName)
     {

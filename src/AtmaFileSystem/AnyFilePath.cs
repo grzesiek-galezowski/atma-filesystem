@@ -14,7 +14,8 @@ public sealed class AnyFilePath
         IEquatableAccordingToFileSystem<AnyFilePath>,
         IExtensionChangable<AnyFilePath>,
         IComparable<AnyFilePath>, 
-        IComparable
+        IComparable,
+        IInternalFilePath<AnyFilePath>
 {
     private readonly string _path;
 
@@ -93,7 +94,7 @@ public sealed class AnyFilePath
     public Maybe<AnyDirectoryPath> ParentDirectory()
     {
         var directoryName = Path.GetDirectoryName(_path);
-        if (directoryName.Length != 0)
+        if (!string.IsNullOrEmpty(directoryName))
         {
             return AnyDirectoryPath.Value(directoryName).Just();
         }

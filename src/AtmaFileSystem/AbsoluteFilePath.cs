@@ -7,13 +7,14 @@ using AtmaFileSystem.InternalInterfaces;
 using AtmaFileSystem.Internals;
 using AtmaFileSystem.Lib;
 using Core.Maybe;
+using Core.NullableReferenceTypesExtensions;
 
 namespace AtmaFileSystem;
 
 public sealed class AbsoluteFilePath : 
     IEquatable<AbsoluteFilePath>, 
     IEquatableAccordingToFileSystem<AbsoluteFilePath>, 
-    IFilePath<AbsoluteFilePath>, 
+    IInternalFilePath<AbsoluteFilePath>, 
     IAbsolutePath,
     IExtensionChangable<AbsoluteFilePath>,
     IComparable<AbsoluteFilePath>, IComparable
@@ -54,7 +55,7 @@ public sealed class AbsoluteFilePath :
         return new AbsoluteFilePath(path);
     }
 
-    public AbsoluteDirectoryPath ParentDirectory() => new(Path.GetDirectoryName(_path));
+    public AbsoluteDirectoryPath ParentDirectory() => new(Path.GetDirectoryName(_path).OrThrow());
 
     public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index)
     {
@@ -65,7 +66,7 @@ public sealed class AbsoluteFilePath :
 
     public FileInfo Info() => new(_path);
     public FileName FileName() => new(Path.GetFileName(_path));
-    public AbsoluteDirectoryPath Root() => new(Path.GetPathRoot(_path));
+    public AbsoluteDirectoryPath Root() => new(Path.GetPathRoot(_path).OrThrow());
     public AnyFilePath AsAnyFilePath() => new(_path);
     public AnyPath AsAnyPath() => new(_path);
 
