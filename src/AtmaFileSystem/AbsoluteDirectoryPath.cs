@@ -214,4 +214,9 @@ public sealed class AbsoluteDirectoryPath :
     {
         return this + AtmaFileSystemPaths.FileName(fileName);
     }
+
+    public static AbsoluteFilePath OfCurrentWorkingDirectory()
+    {
+        return new AbsoluteFilePath(Directory.GetCurrentDirectory());
+    }
 }
