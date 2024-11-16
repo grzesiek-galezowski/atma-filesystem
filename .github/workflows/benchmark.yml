@@ -1,0 +1,39 @@
+name: Benchmarks
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  benchmark:
+    name: Run Benchmarks
+    runs-on: windows-latest  # Using windows since the project is Windows-based
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Setup .NET 9
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.0.x'
+        
+    - name: Run Build and Benchmarks
+      run: |
+        cd src
+        dotnet build build/Build.csproj
+        dotnet run --project build/Build.csproj -- bench-only
+      
+    - name: Upload Benchmark Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark-results
+        path: src/AtmaFileSystem.Benchmarks/BenchmarkDotNet.Artifacts/**
+        if-no-files-found: error  # Fail the workflow if benchmarks didn't generate results
