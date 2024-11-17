@@ -32,7 +32,7 @@ jobs:
         
     - name: Run Build and Benchmarks
       run: |
-        cd src/build
+        cd src/BuildScript
         dotnet run -- bench-only
       
     - name: Upload Benchmark Results
