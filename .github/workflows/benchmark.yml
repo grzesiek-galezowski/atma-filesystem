@@ -27,9 +27,8 @@ jobs:
         
     - name: Run Build and Benchmarks
       run: |
-        cd src
-        dotnet build build/Build.csproj
-        dotnet run --project build/Build.csproj -- bench-only
+        cd src/build
+        dotnet run -- bench-only
       
     - name: Upload Benchmark Results
       uses: actions/upload-artifact@v3
