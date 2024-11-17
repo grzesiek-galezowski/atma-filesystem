@@ -25,6 +25,11 @@ jobs:
       with:
         dotnet-version: '9.0.x'
         
+    - name: List directory contents
+      run: |
+        ls
+        pwd
+        
     - name: Run Build and Benchmarks
       run: |
         cd src/build
