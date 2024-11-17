@@ -26,12 +26,12 @@ class Program
             Run("dotnet", $"test {TestProject} -c {Configuration} --no-build"));
 
         Target("benchmark", DependsOn("build"), () =>
-            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --no-build --framework net8.0"));
+            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --framework net8.0"));
 
         Target("default", DependsOn("test"));
 
         Target("bench-only", DependsOn("build"), () =>
-            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --no-build --framework net8.0"));
+            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --framework net8.0"));
 
         await RunTargetsAndExitAsync(args);
     }
