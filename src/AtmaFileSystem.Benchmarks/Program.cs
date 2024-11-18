@@ -3,6 +3,7 @@ using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Toolchains.InProcess.NoEmit;
 using System;
+using System.Linq;
 
 namespace AtmaFileSystem.Benchmarks;
 
@@ -22,7 +23,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var config = args.Length > 0 && args[0] == "--short" 
+        var config = args.Contains("--short")
             ? BenchmarkConfigs.ShortConfig 
             : DefaultConfig.Instance;
 

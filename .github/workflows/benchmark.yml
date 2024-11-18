@@ -36,7 +36,7 @@ jobs:
         dotnet run -- bench-only
       
     - name: Upload Benchmark Results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.4.3
       with:
         name: benchmark-results
         path: src/AtmaFileSystem.Benchmarks/BenchmarkDotNet.Artifacts/**

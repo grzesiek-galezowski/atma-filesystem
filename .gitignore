@@ -197,3 +197,4 @@ FakesAssemblies/
 src/CodeGraphData/*
 /src/AtmaFileSystem.Benchmarks/BenchmarkDotNet.Artifacts
 /src/BenchmarkDotNet.Artifacts
+/src/BuildScript/BenchmarkDotNet.Artifacts
