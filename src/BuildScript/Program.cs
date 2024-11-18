@@ -26,13 +26,23 @@ class Program
             Run("dotnet", $"test {TestProject} -c {Configuration} --no-build"));
 
         Target("benchmark", DependsOn("build"), () =>
-            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --framework net8.0 -- --short --runtimes net8.0 net9.0"));
+            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --framework net8.0 -- --short --runtimes net8.0 net9.0 {GetArtifactsArg(args)}"));
 
         Target("default", DependsOn("test"));
 
         Target("bench-only", DependsOn("build"), () =>
-            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --framework net8.0 -- --short --runtimes net8.0 net9.0"));
+            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --framework net8.0 -- --short --runtimes net8.0 net9.0 {GetArtifactsArg(args)}"));
 
         await RunTargetsAndExitAsync(args);
+    }
+
+    private static string GetArtifactsArg(string[] args)
+    {
+        var artifactsIndex = Array.IndexOf(args, "--artifacts");
+        if (artifactsIndex >= 0 && artifactsIndex + 1 < args.Length)
+        {
+            return $"--artifacts {args[artifactsIndex + 1]}";
+        }
+        return string.Empty;
     }
 }

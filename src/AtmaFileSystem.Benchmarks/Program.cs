@@ -4,6 +4,7 @@ using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Toolchains.InProcess.NoEmit;
 using System;
 using System.Linq;
+using System.IO;
 
 namespace AtmaFileSystem.Benchmarks;
 
@@ -26,6 +27,10 @@ public class Program
         var config = args.Contains("--short")
             ? BenchmarkConfigs.ShortConfig 
             : DefaultConfig.Instance;
+
+        // Ensure artifacts are saved in a consistent location relative to the solution root
+        var artifactPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "BenchmarkDotNet.Artifacts");
+        config = config.WithArtifactsPath(artifactPath);
 
         BenchmarkRunner.Run<AbsoluteDirectoryPathBenchmarks>(config);
         BenchmarkRunner.Run<AbsoluteFilePathBenchmarks>(config);

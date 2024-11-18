@@ -33,11 +33,11 @@ jobs:
     - name: Run Build and Benchmarks
       run: |
         cd src/BuildScript
-        dotnet run -- bench-only
+        dotnet run -- bench-only --artifacts ../BenchmarkDotNet.Artifacts
       
     - name: Upload Benchmark Results
       uses: actions/upload-artifact@v4.4.3
       with:
         name: benchmark-results
-        path: src/AtmaFileSystem.Benchmarks/BenchmarkDotNet.Artifacts/**
+        path: src/BenchmarkDotNet.Artifacts/**
         if-no-files-found: error  # Fail the workflow if benchmarks didn't generate results
