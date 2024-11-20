@@ -9,73 +9,73 @@ namespace AtmaFileSystem.Benchmarks;
 [RankColumn]
 public class AbsoluteDirectoryPathBenchmarks
 {
-    private const string BasePath = @"C:\TestDirectory";
-    private const string ChildPath = @"C:\TestDirectory\SubDirectory";
-    private const string DeepPath = @"C:\TestDirectory\SubDirectory\DeepDirectory\VeryDeepDirectory";
-    
-    private AbsoluteDirectoryPath _basePath;
-    private AbsoluteDirectoryPath _childPath;
-    private AbsoluteDirectoryPath _deepPath;
+  private const string BasePath = @"C:\TestDirectory";
+  private const string ChildPath = @"C:\TestDirectory\SubDirectory";
+  private const string DeepPath = @"C:\TestDirectory\SubDirectory\DeepDirectory\VeryDeepDirectory";
 
-    [GlobalSetup]
-    public void Setup()
-    {
-        _basePath = AbsoluteDirectoryPath.Value(BasePath);
-        _childPath = AbsoluteDirectoryPath.Value(ChildPath);
-        _deepPath = AbsoluteDirectoryPath.Value(DeepPath);
-    }
+  private AbsoluteDirectoryPath _basePath;
+  private AbsoluteDirectoryPath _childPath;
+  private AbsoluteDirectoryPath _deepPath;
 
-    [Benchmark]
-    public AbsoluteDirectoryPath CreatePath()
-    {
-        return AbsoluteDirectoryPath.Value(BasePath);
-    }
+  [GlobalSetup]
+  public void Setup()
+  {
+    _basePath = AbsoluteDirectoryPath.Value(BasePath);
+    _childPath = AbsoluteDirectoryPath.Value(ChildPath);
+    _deepPath = AbsoluteDirectoryPath.Value(DeepPath);
+  }
 
-    [Benchmark]
-    public AbsoluteDirectoryPath AddDirectoryName()
-    {
-        return _basePath.AddDirectoryName("NewDirectory");
-    }
+  [Benchmark]
+  public AbsoluteDirectoryPath CreatePath()
+  {
+    return AbsoluteDirectoryPath.Value(BasePath);
+  }
 
-    [Benchmark]
-    public AbsoluteFilePath AddFileName()
-    {
-        return _basePath.AddFileName("test.txt");
-    }
+  [Benchmark]
+  public AbsoluteDirectoryPath AddDirectoryName()
+  {
+    return _basePath.AddDirectoryName("NewDirectory");
+  }
 
-    [Benchmark]
-    public string GetDirectoryName()
-    {
-        return _childPath.DirectoryName().ToString();
-    }
+  [Benchmark]
+  public AbsoluteFilePath AddFileName()
+  {
+    return _basePath.AddFileName("test.txt");
+  }
 
-    [Benchmark]
-    public AbsoluteDirectoryPath GetRoot()
-    {
-        return _deepPath.Root();
-    }
+  [Benchmark]
+  public string GetDirectoryName()
+  {
+    return _childPath.DirectoryName().ToString();
+  }
 
-    [Benchmark]
-    public Maybe<AbsoluteDirectoryPath> GetParentDirectory()
-    {
-        return _deepPath.ParentDirectory();
-    }
+  [Benchmark]
+  public AbsoluteDirectoryPath GetRoot()
+  {
+    return _deepPath.Root();
+  }
 
-    [Benchmark]
-    public Maybe<AbsoluteDirectoryPath> GetParentDirectoryAtLevel()
-    {
-        return _deepPath.ParentDirectory(2);
-    }
+  [Benchmark]
+  public Maybe<AbsoluteDirectoryPath> GetParentDirectory()
+  {
+    return _deepPath.ParentDirectory();
+  }
 
-    [Benchmark]
-    public DirectoryInfo GetDirectoryInfo()
-    {
-        return _deepPath.Info();
-    }
+  [Benchmark]
+  public Maybe<AbsoluteDirectoryPath> GetParentDirectoryAtLevel()
+  {
+    return _deepPath.ParentDirectory(2);
+  }
 
-    [Benchmark]
-    public AnyPath ConvertToAnyPath()
-    {
-        return _deepPath.AsAnyPath();
-    }
+  [Benchmark]
+  public DirectoryInfo GetDirectoryInfo()
+  {
+    return _deepPath.Info();
+  }
+
+  [Benchmark]
+  public AnyPath ConvertToAnyPath()
+  {
+    return _deepPath.AsAnyPath();
+  }
 }

@@ -9,55 +9,55 @@ namespace AtmaFileSystem.Benchmarks;
 [RankColumn]
 public class AbsoluteFilePathBenchmarks
 {
-    private const string BasePath = @"C:\TestDirectory\test.txt";
-    private const string ChildPath = @"C:\TestDirectory\SubDirectory\test.txt";
-    private const string DeepPath = @"C:\TestDirectory\SubDirectory\DeepDirectory\VeryDeepDirectory\test.txt";
-    
-    private AbsoluteFilePath _basePath;
-    private AbsoluteFilePath _childPath;
-    private AbsoluteFilePath _deepPath;
+  private const string BasePath = @"C:\TestDirectory\test.txt";
+  private const string ChildPath = @"C:\TestDirectory\SubDirectory\test.txt";
+  private const string DeepPath = @"C:\TestDirectory\SubDirectory\DeepDirectory\VeryDeepDirectory\test.txt";
 
-    [GlobalSetup]
-    public void Setup()
-    {
-        _basePath = AbsoluteFilePath.Value(BasePath);
-        _childPath = AbsoluteFilePath.Value(ChildPath);
-        _deepPath = AbsoluteFilePath.Value(DeepPath);
-    }
+  private AbsoluteFilePath _basePath;
+  private AbsoluteFilePath _childPath;
+  private AbsoluteFilePath _deepPath;
 
-    [Benchmark]
-    public AbsoluteFilePath CreatePath()
-    {
-        return AbsoluteFilePath.Value(BasePath);
-    }
+  [GlobalSetup]
+  public void Setup()
+  {
+    _basePath = AbsoluteFilePath.Value(BasePath);
+    _childPath = AbsoluteFilePath.Value(ChildPath);
+    _deepPath = AbsoluteFilePath.Value(DeepPath);
+  }
 
-    [Benchmark]
-    public string GetFileName()
-    {
-        return _childPath.FileName().ToString();
-    }
+  [Benchmark]
+  public AbsoluteFilePath CreatePath()
+  {
+    return AbsoluteFilePath.Value(BasePath);
+  }
 
-    [Benchmark]
-    public AbsoluteDirectoryPath GetParentDirectory()
-    {
-        return _deepPath.ParentDirectory();
-    }
+  [Benchmark]
+  public string GetFileName()
+  {
+    return _childPath.FileName().ToString();
+  }
 
-    [Benchmark]
-    public Maybe<AbsoluteDirectoryPath> GetParentDirectoryAtLevel()
-    {
-        return _deepPath.ParentDirectory(2);
-    }
+  [Benchmark]
+  public AbsoluteDirectoryPath GetParentDirectory()
+  {
+    return _deepPath.ParentDirectory();
+  }
 
-    [Benchmark]
-    public FileInfo GetFileInfo()
-    {
-        return _deepPath.Info();
-    }
+  [Benchmark]
+  public Maybe<AbsoluteDirectoryPath> GetParentDirectoryAtLevel()
+  {
+    return _deepPath.ParentDirectory(2);
+  }
 
-    [Benchmark]
-    public AnyPath AsAnyPath()
-    {
-        return _deepPath.AsAnyPath();
-    }
+  [Benchmark]
+  public FileInfo GetFileInfo()
+  {
+    return _deepPath.Info();
+  }
+
+  [Benchmark]
+  public AnyPath AsAnyPath()
+  {
+    return _deepPath.AsAnyPath();
+  }
 }
