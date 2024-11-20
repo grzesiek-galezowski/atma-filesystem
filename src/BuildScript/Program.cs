@@ -1,48 +1,72 @@
 using Bullseye;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
+using System.IO;
+using AtmaFileSystem;
+using AtmaFileSystem.IO;
 
 namespace BuildScript;
 
 class Program
 {
-    const string Configuration = "Release";
-    const string SolutionPath = "../AtmaFileSystem.sln";
-    const string TestProject = "../AtmaFileSystemSpecification/AtmaFileSystemSpecification.csproj";
-    const string BenchmarkProject = "../AtmaFileSystem.Benchmarks/AtmaFileSystem.Benchmarks.csproj";
+  const string Configuration = "Release";
 
-    static async Task Main(string[] args)
+  static readonly AbsoluteFilePath SolutionPath =
+    AbsoluteFilePath.OfThisFile().ParentDirectory().ParentDirectory().Value().AddFileName("AtmaFileSystem.sln");
+
+  static readonly AbsoluteFilePath BenchmarkProject = SolutionPath.ParentDirectory()
+    .AddDirectoryName("AtmaFileSystem.Benchmarks").AddFileName("AtmaFileSystem.Benchmarks.csproj");
+
+  static async Task Main(string[] args)
+  {
+    // Split args into targets and options
+    var targets = new List<string>();
+    var options = new List<string>();
+
+    for (int i = 0; i < args.Length; i++)
     {
-        // Define targets
-        Target("clean", () => Run("dotnet", $"clean {SolutionPath} -c {Configuration}"));
-
-        Target("restore", DependsOn("clean"), () =>
-            Run("dotnet", $"restore {SolutionPath}"));
-
-        Target("build", DependsOn("restore"), () =>
-            Run("dotnet", $"build {SolutionPath} -c {Configuration} --no-restore"));
-
-        Target("test", DependsOn("build"), () =>
-            Run("dotnet", $"test {TestProject} -c {Configuration} --no-build"));
-
-        Target("benchmark", DependsOn("build"), () =>
-            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --framework net8.0 -- --short --runtimes net8.0 net9.0 {GetArtifactsArg(args)}"));
-
-        Target("default", DependsOn("test"));
-
-        Target("bench-only", DependsOn("build"), () =>
-            Run("dotnet", $"run -c {Configuration} --project {BenchmarkProject} --framework net8.0 -- --short --runtimes net8.0 net9.0 {GetArtifactsArg(args)}"));
-
-        await RunTargetsAndExitAsync(args);
-    }
-
-    private static string GetArtifactsArg(string[] args)
-    {
-        var artifactsIndex = Array.IndexOf(args, "--artifacts");
-        if (artifactsIndex >= 0 && artifactsIndex + 1 < args.Length)
+      if (args[i].StartsWith("--"))
+      {
+        options.Add(args[i]);
+        if (i + 1 < args.Length && !args[i + 1].StartsWith("--"))
         {
-            return $"--artifacts {args[artifactsIndex + 1]}";
+          options.Add(args[i + 1]);
+          i++; // Skip the next argument as it's a value
         }
-        return string.Empty;
+      }
+      else
+      {
+        targets.Add(args[i]);
+      }
     }
+
+    var benchmarkArgs = GetBenchmarkArgs(options.ToArray());
+
+    // Define targets
+    Target("clean", () => Run("dotnet", $"clean {SolutionPath} -c {Configuration}"));
+
+    Target("restore", DependsOn("clean"), () =>
+      Run("dotnet", $"restore {SolutionPath}"));
+
+    Target("build", DependsOn("restore"), () =>
+      Run("dotnet", $"build {SolutionPath} -c {Configuration} --no-restore"));
+
+    Target("test", DependsOn("build"), () =>
+      Run("dotnet", $"test {SolutionPath} -c {Configuration} --no-build"));
+
+    Target("default", DependsOn("test"));
+
+    Target("bench-only", DependsOn("build"), async () =>
+    {
+      BenchmarkProject.ParentDirectory().SetAsCurrentDirectory();
+      await RunAsync("dotnet", $"run {BenchmarkProject} -c {Configuration} --no-build --framework net8.0 -- --short --runtimes net8.0 net9.0 {benchmarkArgs}");
+    });
+
+    await RunTargetsAndExitAsync(targets.ToArray());
+  }
+
+  private static string GetBenchmarkArgs(string[] args)
+  {
+    return string.Join(" ", args);
+  }
 }

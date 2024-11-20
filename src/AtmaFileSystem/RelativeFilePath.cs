@@ -27,7 +27,7 @@ public sealed class RelativeFilePath :
     {
         return new RelativeFilePath(Path.Join(relativeDirectoryPath.ToString(), fileName.ToString()));
     }
-
+   
     public static RelativeFilePath From(RelativeDirectoryPath relativeDirectoryPath, RelativeFilePath relativeFilePath)
     {
         return new RelativeFilePath(PathAlgorithms.Combine(relativeDirectoryPath, relativeFilePath));

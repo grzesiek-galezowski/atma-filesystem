@@ -28,9 +28,12 @@ public class Program
             ? BenchmarkConfigs.ShortConfig 
             : DefaultConfig.Instance;
 
-        // Ensure artifacts are saved in a consistent location relative to the solution root
-        var artifactPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "BenchmarkDotNet.Artifacts");
-        config = config.WithArtifactsPath(artifactPath);
+        // Get artifacts path from command line args
+        var artifactsArg = args.SkipWhile(arg => arg != "--artifacts").Skip(1).FirstOrDefault();
+        if (!string.IsNullOrEmpty(artifactsArg))
+        {
+            config = config.WithArtifactsPath(artifactsArg);
+        }
 
         BenchmarkRunner.Run<AbsoluteDirectoryPathBenchmarks>(config);
         BenchmarkRunner.Run<AbsoluteFilePathBenchmarks>(config);
