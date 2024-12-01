@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using AtmaFileSystem.Assertions;
 using AtmaFileSystem.InternalInterfaces;
@@ -218,5 +219,11 @@ public sealed class AbsoluteDirectoryPath :
     public static AbsoluteDirectoryPath OfCurrentWorkingDirectory()
     {
         return new AbsoluteDirectoryPath(Directory.GetCurrentDirectory());
+    }
+
+    public static AbsoluteDirectoryPath OfExecutingAssembly()
+    {
+      //bug refactor
+      return new AbsoluteDirectoryPath(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location).OrThrow());
     }
 }

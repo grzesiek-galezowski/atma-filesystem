@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using AtmaFileSystem;
 using FluentAssertions;
@@ -403,6 +404,16 @@ namespace AtmaFileSystemSpecification
       
       //THEN
       thisDirPath.Should().Be(AbsoluteDirectoryPath(Path.GetDirectoryName(CurrentFilePath()).OrThrow()));
+    }
+
+    [Fact]
+    public void ShouldAllowCreatingItselfWithCurrentExecutingAssemblyPath()
+    {
+      //GIVEN
+      var assemblyPathDir = AbsoluteDirectoryPath.OfExecutingAssembly();
+
+      //THEN
+      assemblyPathDir.Should().Be(AbsoluteDirectoryPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).OrThrow()));
     }
 
     private static string CurrentFilePath([CallerFilePath] string path = "")
