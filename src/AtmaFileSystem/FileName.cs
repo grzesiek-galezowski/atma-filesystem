@@ -134,6 +134,16 @@ public sealed class FileName :
     {
         return Comparer<FileName>.Default.Compare(left, right) >= 0;
     }
+
+    public static FileName operator +(FileName fileName, FileExtension fileExtension)
+    {
+      return new FileName(FileNameWithoutExtension.Value(fileName.ToString()), fileExtension);
+    }
+
+    public FileName AddExtension(string extensionString)
+    {
+      return this + FileExtension.Value(extensionString);
+    }
 }
 
 //TODO implement file system

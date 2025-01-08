@@ -175,4 +175,15 @@ public sealed class RelativeFilePath :
         return PathAlgorithms.TrimStart(_path, startPath.ToString())
             .Select(s => new RelativeDirectoryPath(s));
     }
+
+    public static RelativeFilePath operator +(RelativeFilePath path, FileExtension fileExtension)
+    {
+      return path.ParentDirectory().Select(x => x + (path.FileName() + fileExtension))
+        .OrElse(new RelativeFilePath((path.FileName() + fileExtension).ToString()));
+    }
+
+    public RelativeFilePath AddExtension(string extensionString)
+    {
+      return this + FileExtension.Value(extensionString);
+    }
 }

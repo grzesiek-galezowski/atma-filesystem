@@ -162,4 +162,14 @@ public sealed class AbsoluteFilePath :
     {
         return Value(callerFilePath);
     }
+
+    public static AbsoluteFilePath operator+(AbsoluteFilePath path, FileExtension fileExtension)
+    {
+      return path.ParentDirectory() + (path.FileName() + fileExtension);
+    }
+
+    public AbsoluteFilePath AddExtension(string extensionString)
+    {
+      return this + FileExtension.Value(extensionString);
+    }
 }

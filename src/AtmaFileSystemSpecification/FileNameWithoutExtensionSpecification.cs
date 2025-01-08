@@ -7,90 +7,87 @@ using TddXt.XFluentAssert.Api;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
-namespace AtmaFileSystemSpecification
+namespace AtmaFileSystemSpecification;
+
+public class FileNameWithoutExtensionSpecification
 {
-  public class FileNameWithoutExtensionSpecification
+  [Fact]
+  public void ShouldBehaveLikeValue()
   {
-    [Fact]
-    public void ShouldBehaveLikeValue()
-    {
-      var anyString = Any.String();
-      var anyOtherString = Any.OtherThan(anyString);
-      ObjectsOfType<FileNameWithoutExtension>.ShouldHaveValueSemantics(
-        new Func<FileNameWithoutExtension>[]
-        {
-          () => FileNameWithoutExtension.Value(anyString) 
-        },
-        new Func<FileNameWithoutExtension>[]
-        {
-          () => FileNameWithoutExtension.Value(anyOtherString) 
-        });
-    }
+    var anyString = Any.String();
+    var anyOtherString = Any.OtherThan(anyString);
+    ObjectsOfType<FileNameWithoutExtension>.ShouldHaveValueSemantics(
+      [
+        () => FileNameWithoutExtension.Value(anyString)
+      ],
+      [
+        () => FileNameWithoutExtension.Value(anyOtherString)
+      ]);
+  }
 
-    [Fact]
-    public void ShouldAllowAccessingTheNameAsString()
-    {
-      //GIVEN
-      var fileName = Any.String();
-      var fileNameObject = FileNameWithoutExtension.Value(fileName);
+  [Fact]
+  public void ShouldAllowAccessingTheNameAsString()
+  {
+    //GIVEN
+    var fileName = Any.String();
+    var fileNameObject = FileNameWithoutExtension.Value(fileName);
 
-      //WHEN
-      var nameObtainedFromConversion = fileNameObject.ToString();
+    //WHEN
+    var nameObtainedFromConversion = fileNameObject.ToString();
 
-      //THEN
-      Assert.Equal(fileName, nameObtainedFromConversion);
-    }
+    //THEN
+    Assert.Equal(fileName, nameObtainedFromConversion);
+  }
 
-    [Fact]
-    public void ShouldConvertIntoFileNameWhenExtensionIsAdded()
-    {
-      //GIVEN
-      var fileNameWithoutExtensionString = Any.String();
-      var extensionString = "." + Any.String();
-      var fileNameWithoutExtension = FileNameWithoutExtension.Value(fileNameWithoutExtensionString);
-      var extension = FileExtension.Value(extensionString);
+  [Fact]
+  public void ShouldConvertIntoFileNameWhenExtensionIsAdded()
+  {
+    //GIVEN
+    var fileNameWithoutExtensionString = Any.String();
+    var extensionString = "." + Any.String();
+    var fileNameWithoutExtension = FileNameWithoutExtension.Value(fileNameWithoutExtensionString);
+    var extension = FileExtension.Value(extensionString);
 
-      //WHEN
-      FileName nameObtainedFromConversion = fileNameWithoutExtension + extension;
+    //WHEN
+    FileName nameObtainedFromConversion = fileNameWithoutExtension + extension;
 
-      //THEN
-      Assert.Equal(fileNameWithoutExtensionString + extensionString, nameObtainedFromConversion.ToString());
-    }
+    //THEN
+    Assert.Equal(fileNameWithoutExtensionString + extensionString, nameObtainedFromConversion.ToString());
+  }
 
-    [Fact]
-    public void ShouldBeConvertibleToFileNameAsIs()
-    {
-      //GIVEN
-      var fileNameWithoutExtension = Any.Instance<FileNameWithoutExtension>();
+  [Fact]
+  public void ShouldBeConvertibleToFileNameAsIs()
+  {
+    //GIVEN
+    var fileNameWithoutExtension = Any.Instance<FileNameWithoutExtension>();
       
-      //WHEN
-      FileName fileName = fileNameWithoutExtension.AsFileName();
+    //WHEN
+    FileName fileName = fileNameWithoutExtension.AsFileName();
       
-      //THEN
-      Assert.Equal(fileNameWithoutExtension.ToString(), fileName.ToString());
-
-    }
-
-    [Fact]
-    public void ShouldDetermineEqualityToAnotherInstanceUsingFileSystemComparisonRules()
-    {
-      //GIVEN
-      var path1 = Any.Instance<FileNameWithoutExtension>();
-      var path2 = Any.Instance<FileNameWithoutExtension>();
-      var fileSystemComparisonRules = Substitute.For<FileSystemComparisonRules>();
-      var comparisonResult = Any.Boolean();
-
-      fileSystemComparisonRules
-        .ArePathStringsEqual(path1.ToString(), path2.ToString())
-        .Returns(comparisonResult);
-
-
-      //WHEN
-      var equality = path1.ShallowEquals(path2, fileSystemComparisonRules);
-
-      //THEN
-      Assert.Equal(comparisonResult, equality);
-    }
+    //THEN
+    Assert.Equal(fileNameWithoutExtension.ToString(), fileName.ToString());
 
   }
+
+  [Fact]
+  public void ShouldDetermineEqualityToAnotherInstanceUsingFileSystemComparisonRules()
+  {
+    //GIVEN
+    var path1 = Any.Instance<FileNameWithoutExtension>();
+    var path2 = Any.Instance<FileNameWithoutExtension>();
+    var fileSystemComparisonRules = Substitute.For<FileSystemComparisonRules>();
+    var comparisonResult = Any.Boolean();
+
+    fileSystemComparisonRules
+      .ArePathStringsEqual(path1.ToString(), path2.ToString())
+      .Returns(comparisonResult);
+
+
+    //WHEN
+    var equality = path1.ShallowEquals(path2, fileSystemComparisonRules);
+
+    //THEN
+    Assert.Equal(comparisonResult, equality);
+  }
+
 }

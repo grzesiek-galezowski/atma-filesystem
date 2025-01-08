@@ -150,6 +150,17 @@ public sealed class AnyFilePath
     {
         return Comparer<AnyFilePath>.Default.Compare(left, right) >= 0;
     }
+
+    public static AnyFilePath operator +(AnyFilePath path, FileExtension fileExtension)
+    {
+      return path.ParentDirectory().Select(x => x + (path.FileName() + fileExtension))
+        .OrElse(new AnyFilePath((path.FileName() + fileExtension).ToString()));
+    }
+
+    public AnyFilePath AddExtension(string extensionString)
+    {
+      return this + FileExtension.Value(extensionString);
+    }
 }
 
 /* TODO missing methods:
