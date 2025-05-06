@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using AtmaFileSystem.Assertions;
 
 namespace AtmaFileSystem;
@@ -17,8 +18,7 @@ public sealed class DirectoryName :
     }
 
     //operators cannot return relative or non relative because dir name can be root as well
-
-
+    
     public bool ShallowEquals(DirectoryName other, FileSystemComparisonRules fileSystemComparisonRules)
     {
         return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
@@ -101,4 +101,6 @@ public sealed class DirectoryName :
     {
         return Comparer<DirectoryName>.Default.Compare(left, right) >= 0;
     }
+
+    public static DirectoryName Random() => Value(Path.GetRandomFileName());
 }

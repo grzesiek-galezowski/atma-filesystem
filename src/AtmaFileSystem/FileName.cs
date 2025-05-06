@@ -85,6 +85,8 @@ public sealed class FileName :
         return extension == string.Empty ? Maybe<FileExtension>.Nothing : new FileExtension(extension).Just();
     }
 
+    public static FileName Random() => Value(Path.GetRandomFileName());
+    
     public FileNameWithoutExtension WithoutExtension()
     {
         return FileNameWithoutExtension.Value(Path.GetFileNameWithoutExtension(_path));

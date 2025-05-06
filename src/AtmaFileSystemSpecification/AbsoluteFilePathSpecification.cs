@@ -268,7 +268,7 @@ public class AbsoluteFilePathSpecification
   [InlineData("C:\\LOL\\lol.txt", "C:\\lol\\lol.txt", "C:\\")]
   [InlineData("C:\\lol\\lol2\\lol.txt", "C:\\lol\\lol3\\lol.txt", "C:\\lol")]
   [InlineData("C:\\lol\\lol2\\lol.txt", "D:\\lol\\lol3\\lol.txt", null)]
-  public void ShouldAllowGettingCommonDirectoryPath(string left, string right, string expected)
+  public void ShouldAllowGettingCommonDirectoryPath(string left, string right, string? expected)
   {
     //GIVEN
     var path1 = AbsoluteFilePath(left);
@@ -287,7 +287,7 @@ public class AbsoluteFilePathSpecification
   [InlineData("C:\\d1\\d2", "C:\\", "d1\\d2")]
   [InlineData("C:\\a", "C:\\a", null)]
   [InlineData("C:\\a", "C:\\b", null)]
-  public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
+  public void ShouldAllowTrimmingStart(string p1, string p2, string? expected)
   {
     Maybe<RelativeFilePath> trimmedPath = AbsoluteFilePath(p1)
       .TrimStart(AbsoluteDirectoryPath(p2));

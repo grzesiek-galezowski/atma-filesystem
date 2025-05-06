@@ -18,9 +18,9 @@ public class AnyDirectoryPathSpecification
    InlineData(" ", typeof(ArgumentException)),
    InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
   ]
-  public void ShouldThrowExceptionWhenCreatedWithNullValue(string invalidInput, Type exceptionType)
+  public void ShouldThrowExceptionWhenCreatedWithNullValue(string? invalidInput, Type exceptionType)
   {
-    Assert.Throws(exceptionType, () => AnyDirectoryPath.Value(invalidInput));
+    Assert.Throws(exceptionType, () => AnyDirectoryPath.Value(invalidInput!));
   }
 
   [Fact]

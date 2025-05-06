@@ -30,9 +30,9 @@ public class DirectoryNameSpecification
    InlineData(null, typeof(ArgumentNullException)),
    InlineData(" ", typeof(ArgumentException)),
    InlineData(@"C:\a", typeof(ArgumentException))]
-  public void ShouldNotLetCreateInvalidInstance(string input, Type exceptionType)
+  public void ShouldNotLetCreateInvalidInstance(string? input, Type exceptionType)
   {
-    Assert.Throws(exceptionType, () => DirectoryName.Value(input));
+    Assert.Throws(exceptionType, () => DirectoryName.Value(input!));
   }
 
   [Fact]

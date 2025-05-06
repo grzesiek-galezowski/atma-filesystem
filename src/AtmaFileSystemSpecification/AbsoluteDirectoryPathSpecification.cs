@@ -30,9 +30,9 @@ public class AbsoluteDirectoryPathSpecification
    InlineData(@"\\\\\\\\\?|/\/|", typeof (ArgumentException)),
    InlineData("C:", typeof (ArgumentException)),
   ]
-  public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string invalidInput, Type exceptionType)
+  public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string? invalidInput, Type exceptionType)
   {
-    Assert.Throws(exceptionType, () => AbsoluteDirectoryPath.Value(invalidInput));
+    Assert.Throws(exceptionType, () => AbsoluteDirectoryPath.Value(invalidInput!));
   }
 
   [Theory, InlineData(@"c:\lolek\")]
@@ -372,7 +372,7 @@ public class AbsoluteDirectoryPathSpecification
   [InlineData("C:\\d1\\d2", "C:\\", "d1\\d2")]
   [InlineData("C:\\", "C:\\", null)]
   [InlineData("C:\\", "D:\\", null)]
-  public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
+  public void ShouldAllowTrimmingStart(string p1, string p2, string? expected)
   {
     Maybe<RelativeDirectoryPath> trimmedPath = AbsoluteDirectoryPath(p1)
       .TrimStart(AbsoluteDirectoryPath(p2));
@@ -412,6 +412,16 @@ public class AbsoluteDirectoryPathSpecification
 
     //THEN
     assemblyPathDir.Should().Be(AbsoluteDirectoryPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).OrThrow()));
+  }
+
+  [Fact]
+  public void ShouldBeAbleToCreatePathToTempFolder()
+  {
+    //WHEN
+    var tempFolderPath = AbsoluteDirectoryPath.OfTemp();
+
+    //THEN
+    tempFolderPath.Should().Be(AbsoluteDirectoryPath.Value(Path.GetTempPath()));
   }
 
   private static string CurrentFilePath([CallerFilePath] string path = "")

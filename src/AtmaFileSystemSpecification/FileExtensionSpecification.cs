@@ -50,9 +50,9 @@ public class FileExtensionSpecification
    InlineData(null, typeof(ArgumentNullException)),
   ]
   public void ShouldThrowExceptionWhenCreatedUsingCreationMethodWithInvalidInput(
-    string extensionString, Type exceptionType)
+    string? extensionString, Type exceptionType)
   {
-    Assert.Throws(exceptionType, () => FileExtension.Value(extensionString));
+    Assert.Throws(exceptionType, () => FileExtension.Value(extensionString!));
   }
 
   [Theory, 

@@ -170,9 +170,9 @@ public class RelativeDirectoryPathSpecification
    InlineData(null, typeof(ArgumentNullException)),
    InlineData("  ", typeof(ArgumentException)),
    InlineData(@"C:\", typeof(ArgumentException))]
-  public void ShouldNotAllowCreatingInvalidInstance(string input, Type exceptionType)
+  public void ShouldNotAllowCreatingInvalidInstance(string? input, Type exceptionType)
   {
-    Assert.Throws(exceptionType, () => RelativeDirectoryPath.Value(input));
+    Assert.Throws(exceptionType, () => RelativeDirectoryPath.Value(input!));
   }
 
   [Fact]
@@ -285,7 +285,7 @@ public class RelativeDirectoryPathSpecification
   [InlineData("d0\\d1\\d2", "d0\\", "d1\\d2")]
   [InlineData("d0\\", "d0\\", null)]
   [InlineData("d0\\", "f0", null)]
-  public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
+  public void ShouldAllowTrimmingStart(string p1, string p2, string? expected)
   {
     Maybe<RelativeDirectoryPath> trimmedPath = RelativeDirectoryPath.Value(p1)
       .TrimStart(RelativeDirectoryPath.Value(p2));

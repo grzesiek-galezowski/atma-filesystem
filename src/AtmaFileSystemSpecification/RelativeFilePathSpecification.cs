@@ -193,7 +193,7 @@ public class RelativeFilePathSpecification
   [InlineData("lol\\lol2\\lol.txt", "lol\\lol3\\lol.txt", "lol")]
   [InlineData("lol\\lol2\\lol2\\lol.txt", "lol\\lol2\\lol3\\lol.txt", "lol\\lol2")]
   [InlineData("lol\\lol2\\lol.txt", "lol2\\lol2\\lol.txt", null)]
-  public void ShouldAllowGettingCommonDirectoryPath(string left, string right, string expected)
+  public void ShouldAllowGettingCommonDirectoryPath(string left, string right, string? expected)
   {
     //GIVEN
     var path1 = RelativeFilePath.Value(left);
@@ -220,7 +220,7 @@ public class RelativeFilePathSpecification
   [InlineData("d0\\d1\\d2", "d0\\", "d1\\d2")]
   [InlineData("d0\\", "d0\\", null)]
   [InlineData("d0\\", "f0", null)]
-  public void ShouldAllowTrimmingStart(string p1, string p2, string expected)
+  public void ShouldAllowTrimmingStart(string p1, string p2, string? expected)
   {
     Maybe<RelativeDirectoryPath> trimmedPath = RelativeFilePath.Value(p1)
       .TrimStart(RelativeDirectoryPath.Value(p2));

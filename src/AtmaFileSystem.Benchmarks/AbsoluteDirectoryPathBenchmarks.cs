@@ -13,16 +13,13 @@ public class AbsoluteDirectoryPathBenchmarks
   private const string ChildPath = @"C:\TestDirectory\SubDirectory";
   private const string DeepPath = @"C:\TestDirectory\SubDirectory\DeepDirectory\VeryDeepDirectory";
 
-  private AbsoluteDirectoryPath _basePath;
-  private AbsoluteDirectoryPath _childPath;
-  private AbsoluteDirectoryPath _deepPath;
+  private readonly AbsoluteDirectoryPath _basePath = AbsoluteDirectoryPath.Value(BasePath);
+  private readonly AbsoluteDirectoryPath _childPath = AbsoluteDirectoryPath.Value(ChildPath);
+  private readonly AbsoluteDirectoryPath _deepPath = AbsoluteDirectoryPath.Value(DeepPath);
 
   [GlobalSetup]
   public void Setup()
   {
-    _basePath = AbsoluteDirectoryPath.Value(BasePath);
-    _childPath = AbsoluteDirectoryPath.Value(ChildPath);
-    _deepPath = AbsoluteDirectoryPath.Value(DeepPath);
   }
 
   [Benchmark]

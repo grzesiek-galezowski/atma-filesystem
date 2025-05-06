@@ -32,9 +32,9 @@ public class AnyPathSpecification
    InlineData(" ", typeof (ArgumentException)),
    InlineData(@"\\\\\\\\\?|/\/|", typeof (ArgumentException)),
   ]
-  public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string invalidInput, Type exceptionType)
+  public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string? invalidInput, Type exceptionType)
   {
-    Assert.Throws(exceptionType, () => AnyPath.Value(invalidInput));
+    Assert.Throws(exceptionType, () => AnyPath.Value(invalidInput!));
   }
 
   [Fact]
@@ -69,7 +69,7 @@ public class AnyPathSpecification
   public void ShouldReturnNothingWhenGettingPathWithoutLastDirectoryButCurrentDirectoryIsTheOnlyLeft()
   {
     //GIVEN
-    var anyPath = AnyPath.Value(@"Directory");
+    var anyPath = AnyPath.Value("Directory");
 
     //WHEN
     Maybe<AnyDirectoryPath> parentDirectoryPath = anyPath.ParentDirectory();

@@ -226,4 +226,9 @@ public sealed class AbsoluteDirectoryPath :
       //bug refactor
       return new AbsoluteDirectoryPath(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location).OrThrow());
     }
+
+    public static AbsoluteDirectoryPath OfTemp()
+    {
+      return Value(Path.GetTempPath());
+    }
 }
