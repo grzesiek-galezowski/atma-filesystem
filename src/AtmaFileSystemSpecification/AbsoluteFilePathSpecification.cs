@@ -346,6 +346,39 @@ public class AbsoluteFilePathSpecification
     Assert.Equal(AbsoluteFilePath.Value("C:\\archive.tar.gz"), newFileName);
   }
 
+  [Theory]
+  [InlineData("C:\\Dir\\file.txt", "_test", "C:\\Dir\\file_test.txt")]
+  [InlineData("C:\\Dir\\file", "_test", "C:\\Dir\\file_test")]
+  [InlineData("C:\\file.txt.tar", "_test", "C:\\file.txt_test.tar")]
+  public void ShouldAppendToFileNameBeforeExtension(string initial, string suffix, string expected)
+  {
+    //GIVEN
+    var path = AbsoluteFilePath.Value(initial);
+
+    //WHEN
+    var result = path.AppendToFileNameBeforeExtension(suffix);
+
+    //THEN
+    result.Should().Be(AbsoluteFilePath.Value(expected));
+  }
+
+  [Theory]
+  [InlineData("C:\\Dir\\oldname.txt", "newname.txt", "C:\\Dir\\newname.txt")]
+  [InlineData("C:\\oldname.txt", "newname.doc", "C:\\newname.doc")]
+  [InlineData("C:\\Dir\\Sub\\oldname", "newname", "C:\\Dir\\Sub\\newname")]
+  public void ShouldChangeFileName(string initial, string newName, string expected)
+  {
+    //GIVEN
+    var path = AbsoluteFilePath.Value(initial);
+    var fileName = FileName(newName);
+
+    //WHEN
+    var result = path.ChangeFileNameTo(fileName);
+
+    //THEN
+    result.Should().Be(AbsoluteFilePath.Value(expected));
+  }
+
   private static string CurrentFilePath([CallerFilePath] string path = "")
   {
     return path;

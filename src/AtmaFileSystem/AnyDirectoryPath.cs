@@ -167,4 +167,9 @@ public sealed class AnyDirectoryPath :
     {
         return Comparer<AnyDirectoryPath>.Default.Compare(left, right) >= 0;
     }
+
+    public AnyFilePath Add(FileName fileName) => this + fileName;
+    public AnyDirectoryPath Add(DirectoryName directoryName) => this + directoryName;
+    public AnyDirectoryPath Add(RelativeDirectoryPath relativePath) => this + relativePath;
+    public AnyFilePath Add(RelativeFilePath relativeFilePath) => this + relativeFilePath;
 }

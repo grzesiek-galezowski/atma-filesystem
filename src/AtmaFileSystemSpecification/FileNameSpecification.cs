@@ -1,5 +1,6 @@
 ﻿using System;
 using AtmaFileSystem;
+using FluentAssertions;
 using NSubstitute;
 using TddXt.AnyRoot;
 using TddXt.AnyRoot.Strings;
@@ -168,5 +169,106 @@ public class FileNameSpecification
 
     //THEN
     Assert.Equal(FileName.Value("archive.tar.gz"), newFileName);
+  }
+  
+  [Fact]
+  public void ShouldGetOnlyTheLastExtension()
+  {
+    //GIVEN
+    var fileName = FileName.Value("archive.tar.gz");
+
+    //WHEN
+    var extension = fileName.Extension();
+
+    //THEN
+    Assert.Equal(FileExtension.Value(".gz"), extension.Value());
+  }
+
+  [Theory]
+  [InlineData("file.txt", "_suffix", "file_suffix.txt")]
+  [InlineData("file", "_suffix", "file_suffix")]
+  [InlineData("file.tar.gz", "_suffix", "file.tar_suffix.gz")]
+  [InlineData("file.multiple.dots.txt", "_suffix", "file.multiple.dots_suffix.txt")]
+  public void ShouldAppendBeforeExtension(string fileName, string suffix, string expected)
+  {
+    //GIVEN
+    var name = FileName.Value(fileName);
+
+    //WHEN
+    var result = name.AppendBeforeExtension(suffix);
+
+    //THEN
+    result.Should().Be(FileName.Value(expected));
+  }
+
+  [Fact]
+  public void ShouldAcceptEmptySuffixWhenAppendingBeforeExtension()
+  {
+    //GIVEN
+    var name = FileName.Value("file.txt");
+
+    //WHEN
+    var result = name.AppendBeforeExtension(string.Empty);
+
+    //THEN
+    result.Should().Be(name);
+  }
+
+  [Theory]
+  [InlineData(null)]
+  public void ShouldThrowWhenAppendingNullSuffix(string suffix)
+  {
+    //GIVEN
+    var name = FileName.Value("file.txt");
+
+    //WHEN
+    var action = () => name.AppendBeforeExtension(suffix);
+
+    //THEN
+    action.Should().Throw<ArgumentNullException>();
+  }
+
+  [Theory]
+  [InlineData("file.txt", "prefix_", "prefix_file.txt")]
+  [InlineData("file", "prefix_", "prefix_file")]
+  [InlineData("file.tar.gz", "prefix_", "prefix_file.tar.gz")]
+  [InlineData("multiple.dots.in.name.txt", "prefix_", "prefix_multiple.dots.in.name.txt")]
+  public void ShouldPrependToFileName(string fileName, string prefix, string expected)
+  {
+    //GIVEN
+    var name = FileName.Value(fileName);
+
+    //WHEN
+    var result = name.Prepend(prefix);
+
+    //THEN
+    result.Should().Be(FileName.Value(expected));
+  }
+
+  [Fact]
+  public void ShouldAcceptEmptyPrefixWhenPrepending()
+  {
+    //GIVEN
+    var name = FileName.Value("file.txt");
+
+    //WHEN
+    var result = name.Prepend(string.Empty);
+
+    //THEN
+    result.Should().Be(name);
+  }
+
+  [Theory]
+  [InlineData(null)]
+  public void ShouldThrowWhenPrependingNullPrefix(string prefix)
+  {
+    //GIVEN
+    var name = FileName.Value("file.txt");
+
+    //WHEN
+    var action = () => name.Prepend(prefix);
+
+    //THEN
+    action.Should().Throw<ArgumentNullException>();
   }
 }

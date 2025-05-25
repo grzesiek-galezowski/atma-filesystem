@@ -85,25 +85,14 @@ public sealed class AbsoluteDirectoryPath :
 
     public AbsoluteDirectoryPath Root() => new (Path.GetPathRoot(_path).OrThrow());
 
-    public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, FileName fileName)
-    {
-        return AbsoluteFilePath.From(path, fileName);
-    }
-
-    public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, DirectoryName directoryName)
-    {
-        return From(path, directoryName);
-    }
-
-    public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, RelativeDirectoryPath relativePath)
-    {
-        return From(path, relativePath);
-    }
-
-    public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, RelativeFilePath relativeFilePath)
-    {
-        return AbsoluteFilePath.From(path, relativeFilePath);
-    }
+    public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, FileName fileName) => 
+      AbsoluteFilePath.From(path, fileName);
+    public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, DirectoryName directoryName) => 
+      From(path, directoryName);
+    public static AbsoluteDirectoryPath operator +(AbsoluteDirectoryPath path, RelativeDirectoryPath relativePath) => 
+      From(path, relativePath);
+    public static AbsoluteFilePath operator +(AbsoluteDirectoryPath path, RelativeFilePath relativeFilePath) => 
+      AbsoluteFilePath.From(path, relativeFilePath);
 
     public override bool Equals(object? obj)
     {
@@ -215,6 +204,11 @@ public sealed class AbsoluteDirectoryPath :
     {
         return this + AtmaFileSystemPaths.FileName(fileName);
     }
+
+    public AbsoluteFilePath Add(FileName fileName) => this + fileName;
+    public AbsoluteDirectoryPath Add(DirectoryName directoryName) => this + directoryName;
+    public AbsoluteDirectoryPath Add(RelativeDirectoryPath relativePath) => this + relativePath;
+    public AbsoluteFilePath Add(RelativeFilePath relativeFilePath) => this + relativeFilePath;
 
     public static AbsoluteDirectoryPath OfCurrentWorkingDirectory()
     {

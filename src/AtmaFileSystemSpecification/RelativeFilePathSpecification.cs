@@ -273,4 +273,37 @@ public class RelativeFilePathSpecification
     //THEN
     Assert.Equal(RelativeFilePath.Value(expectedString), newFileName);
   }
+
+  [Theory]
+  [InlineData("Dir\\file.txt", "_test", "Dir\\file_test.txt")]
+  [InlineData("Dir\\file", "_test", "Dir\\file_test")]
+  [InlineData("file.txt.tar", "_test", "file.txt_test.tar")]
+  public void ShouldAppendToFileNameBeforeExtension(string initial, string suffix, string expected)
+  {
+    //GIVEN
+    var path = RelativeFilePath.Value(initial);
+
+    //WHEN
+    var result = path.AppendToFileNameBeforeExtension(suffix);
+
+    //THEN
+    result.Should().Be(RelativeFilePath.Value(expected));
+  }
+
+  [Theory]
+  [InlineData("Dir\\oldname.txt", "newname.txt", "Dir\\newname.txt")]
+  [InlineData("oldname.txt", "newname.doc", "newname.doc")]
+  [InlineData("Dir\\Sub\\oldname", "newname", "Dir\\Sub\\newname")]
+  public void ShouldChangeFileName(string initial, string newName, string expected)
+  {
+    //GIVEN
+    var path = RelativeFilePath.Value(initial);
+    var fileName = FileName.Value(newName);
+
+    //WHEN
+    var result = path.ChangeFileNameTo(fileName);
+
+    //THEN
+    result.Should().Be(RelativeFilePath.Value(expected));
+  }
 }

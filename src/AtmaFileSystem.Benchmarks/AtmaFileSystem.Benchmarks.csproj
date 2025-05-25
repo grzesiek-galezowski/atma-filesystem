@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.0" />
     <PackageReference Include="Core.Maybe" Version="7.0.0" />
   </ItemGroup>
 

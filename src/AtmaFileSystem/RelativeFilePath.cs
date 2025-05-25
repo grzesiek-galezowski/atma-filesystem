@@ -27,6 +27,11 @@ public sealed class RelativeFilePath :
     {
         return new RelativeFilePath(Path.Join(relativeDirectoryPath.ToString(), fileName.ToString()));
     }
+
+    public static RelativeFilePath From(FileName fileName)
+    {
+        return new RelativeFilePath(fileName.ToString());
+    }
    
     public static RelativeFilePath From(RelativeDirectoryPath relativeDirectoryPath, RelativeFilePath relativeFilePath)
     {
@@ -186,4 +191,16 @@ public sealed class RelativeFilePath :
     {
       return this + FileExtension.Value(extensionString);
     }
+
+    public RelativeFilePath AppendToFileNameBeforeExtension(string suffix)
+    {
+      var newFileName = this.FileName().AppendBeforeExtension(suffix);
+      return ChangeFileNameTo(newFileName);
+    }
+
+    public RelativeFilePath ChangeFileNameTo(FileName fileName)
+    {
+      return ParentDirectory().Select(d => d + fileName).OrElse(From(fileName));
+    }
+
 }

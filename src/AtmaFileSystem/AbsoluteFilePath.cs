@@ -11,165 +11,177 @@ using Core.NullableReferenceTypesExtensions;
 
 namespace AtmaFileSystem;
 
-public sealed class AbsoluteFilePath : 
-    IEquatable<AbsoluteFilePath>, 
-    IEquatableAccordingToFileSystem<AbsoluteFilePath>, 
-    IInternalFilePath<AbsoluteFilePath>, 
-    IAbsolutePath,
-    IExtensionChangable<AbsoluteFilePath>,
-    IComparable<AbsoluteFilePath>, IComparable
+public sealed class AbsoluteFilePath :
+  IEquatable<AbsoluteFilePath>,
+  IEquatableAccordingToFileSystem<AbsoluteFilePath>,
+  IInternalFilePath<AbsoluteFilePath>,
+  IAbsolutePath,
+  IExtensionChangable<AbsoluteFilePath>,
+  IComparable<AbsoluteFilePath>, IComparable
 {
-    private readonly string _path;
+  private readonly string _path;
 
-    // ReSharper disable once MemberCanBePrivate.Global
-    internal AbsoluteFilePath(string path) => _path = Path.GetFullPath(path);
+  // ReSharper disable once MemberCanBePrivate.Global
+  internal AbsoluteFilePath(string path) => _path = Path.GetFullPath(path);
 
-    public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, FileName fileName)
-    {
-        return new AbsoluteFilePath(PathAlgorithms.Combine(dirPath, fileName));
-    }
+  public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, FileName fileName)
+  {
+    return new AbsoluteFilePath(PathAlgorithms.Combine(dirPath, fileName));
+  }
 
-    public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, RelativeFilePath relativeFilePath)
-    {
-        return new AbsoluteFilePath(PathAlgorithms.Combine(dirPath, relativeFilePath));
-    }
+  public static AbsoluteFilePath From(AbsoluteDirectoryPath dirPath, RelativeFilePath relativeFilePath)
+  {
+    return new AbsoluteFilePath(PathAlgorithms.Combine(dirPath, relativeFilePath));
+  }
 
-    public bool Equals(AbsoluteFilePath? other)
-    {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return string.Equals(_path, other._path, StringComparison.InvariantCulture);
-    }
+  public bool Equals(AbsoluteFilePath? other)
+  {
+    if (ReferenceEquals(null, other)) return false;
+    if (ReferenceEquals(this, other)) return true;
+    return string.Equals(_path, other._path, StringComparison.InvariantCulture);
+  }
 
-    public bool ShallowEquals(AbsoluteFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
-    {
-        return fileSystemComparisonRules.ArePathStringsEqual(this.ToString(), other.ToString());
-    }
+  public bool ShallowEquals(AbsoluteFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
+  {
+    return fileSystemComparisonRules.ArePathStringsEqual(this.ToString(), other.ToString());
+  }
 
-    public static AbsoluteFilePath Value(string path)
-    {
-        Asserts.NotNull(path, nameof(path));
-        Asserts.FullyQualified(path);
-        Asserts.DoesNotContainInvalidChars(path);
+  public static AbsoluteFilePath Value(string path)
+  {
+    Asserts.NotNull(path, nameof(path));
+    Asserts.FullyQualified(path);
+    Asserts.DoesNotContainInvalidChars(path);
 
-        return new AbsoluteFilePath(path);
-    }
+    return new AbsoluteFilePath(path);
+  }
 
-    public AbsoluteDirectoryPath ParentDirectory() => new(Path.GetDirectoryName(_path).OrThrow());
+  public AbsoluteDirectoryPath ParentDirectory() => new(Path.GetDirectoryName(_path).OrThrow());
 
-    public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index)
-    {
-        var parent = ParentDirectory().ToMaybe();
-        index.Times(() => parent = parent.Select(p => p.ParentDirectory()));
-        return parent;
-    }
+  public Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index)
+  {
+    var parent = ParentDirectory().ToMaybe();
+    index.Times(() => parent = parent.Select(p => p.ParentDirectory()));
+    return parent;
+  }
 
-    public FileInfo Info() => new(_path);
-    public FileName FileName() => new(Path.GetFileName(_path));
-    public AbsoluteDirectoryPath Root() => new(Path.GetPathRoot(_path).OrThrow());
-    public AnyFilePath AsAnyFilePath() => new(_path);
-    public AnyPath AsAnyPath() => new(_path);
+  public FileInfo Info() => new(_path);
+  public FileName FileName() => new(Path.GetFileName(_path));
+  public AbsoluteDirectoryPath Root() => new(Path.GetPathRoot(_path).OrThrow());
+  public AnyFilePath AsAnyFilePath() => new(_path);
+  public AnyPath AsAnyPath() => new(_path);
 
-    public override string ToString() => _path;
-    
-    public override int GetHashCode() => _path.GetHashCode();
+  public override string ToString() => _path;
 
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((AbsoluteFilePath) obj);
-    }
+  public override int GetHashCode() => _path.GetHashCode();
 
-    public static bool operator ==(AbsoluteFilePath? left, AbsoluteFilePath? right)
-    {
-        return Equals(left, right);
-    }
+  public override bool Equals(object? obj)
+  {
+    if (ReferenceEquals(null, obj)) return false;
+    if (ReferenceEquals(this, obj)) return true;
+    if (obj.GetType() != this.GetType()) return false;
+    return Equals((AbsoluteFilePath)obj);
+  }
 
-    public static bool operator !=(AbsoluteFilePath? left, AbsoluteFilePath? right)
-    {
-        return !Equals(left, right);
-    }
+  public static bool operator ==(AbsoluteFilePath? left, AbsoluteFilePath? right)
+  {
+    return Equals(left, right);
+  }
 
-    public bool Has(FileExtension extensionValue)
-    {
-        return FileName().Has(extensionValue);
-    }
+  public static bool operator !=(AbsoluteFilePath? left, AbsoluteFilePath? right)
+  {
+    return !Equals(left, right);
+  }
 
-    public AbsoluteFilePath ChangeExtensionTo(FileExtension value)
-    {
-        var pathWithNewExtension = Path.ChangeExtension(_path, value.ToString());
-        return new AbsoluteFilePath(pathWithNewExtension);
-    }
+  public bool Has(FileExtension extensionValue)
+  {
+    return FileName().Has(extensionValue);
+  }
 
-    public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
-    {
-        return this.ParentDirectory().FragmentEndingOnLast(directoryName);
-    }
+  public AbsoluteFilePath ChangeExtensionTo(FileExtension value)
+  {
+    var pathWithNewExtension = Path.ChangeExtension(_path, value.ToString());
+    return new AbsoluteFilePath(pathWithNewExtension);
+  }
 
-    public int CompareTo(AbsoluteFilePath? other)
-    {
-        if (ReferenceEquals(this, other)) return 0;
-        if (ReferenceEquals(null, other)) return 1;
-        return string.Compare(_path, other._path, StringComparison.InvariantCulture);
-    }
+  public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
+  {
+    return this.ParentDirectory().FragmentEndingOnLast(directoryName);
+  }
 
-    public int CompareTo(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return 1;
-        if (ReferenceEquals(this, obj)) return 0;
-        return obj is AbsoluteFilePath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AbsoluteFilePath)}");
-    }
+  public int CompareTo(AbsoluteFilePath? other)
+  {
+    if (ReferenceEquals(this, other)) return 0;
+    if (ReferenceEquals(null, other)) return 1;
+    return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+  }
 
-    public static bool operator <(AbsoluteFilePath left, AbsoluteFilePath right)
-    {
-        return Comparer<AbsoluteFilePath>.Default.Compare(left, right) < 0;
-    }
+  public int CompareTo(object? obj)
+  {
+    if (ReferenceEquals(null, obj)) return 1;
+    if (ReferenceEquals(this, obj)) return 0;
+    return obj is AbsoluteFilePath other
+      ? CompareTo(other)
+      : throw new ArgumentException($"Object must be of type {nameof(AbsoluteFilePath)}");
+  }
 
-    public static bool operator >(AbsoluteFilePath left, AbsoluteFilePath right)
-    {
-        return Comparer<AbsoluteFilePath>.Default.Compare(left, right) > 0;
-    }
+  public static bool operator <(AbsoluteFilePath left, AbsoluteFilePath right)
+  {
+    return Comparer<AbsoluteFilePath>.Default.Compare(left, right) < 0;
+  }
 
-    public static bool operator <=(AbsoluteFilePath left, AbsoluteFilePath right)
-    {
-        return Comparer<AbsoluteFilePath>.Default.Compare(left, right) <= 0;
-    }
+  public static bool operator >(AbsoluteFilePath left, AbsoluteFilePath right)
+  {
+    return Comparer<AbsoluteFilePath>.Default.Compare(left, right) > 0;
+  }
 
-    public static bool operator >=(AbsoluteFilePath left, AbsoluteFilePath right)
-    {
-        return Comparer<AbsoluteFilePath>.Default.Compare(left, right) >= 0;
-    }
+  public static bool operator <=(AbsoluteFilePath left, AbsoluteFilePath right)
+  {
+    return Comparer<AbsoluteFilePath>.Default.Compare(left, right) <= 0;
+  }
 
-    public Maybe<AbsoluteDirectoryPath> FindCommonDirectoryWith(AbsoluteFilePath path2)
-    {
-        return this.ParentDirectory().FindCommonDirectoryPathWith(path2.ParentDirectory());
-    }
+  public static bool operator >=(AbsoluteFilePath left, AbsoluteFilePath right)
+  {
+    return Comparer<AbsoluteFilePath>.Default.Compare(left, right) >= 0;
+  }
 
-    public bool StartsWith(AbsoluteDirectoryPath currentPath)
-    {
-        return PathAlgorithms.StartsWith(this, currentPath);
-    }
+  public Maybe<AbsoluteDirectoryPath> FindCommonDirectoryWith(AbsoluteFilePath path2)
+  {
+    return this.ParentDirectory().FindCommonDirectoryPathWith(path2.ParentDirectory());
+  }
 
-    public Maybe<RelativeFilePath> TrimStart(AbsoluteDirectoryPath startPath)
-    {
-        return PathAlgorithms.TrimStart(_path, startPath.ToString())
-            .Select(s => new RelativeFilePath(s));
-    }
+  public bool StartsWith(AbsoluteDirectoryPath currentPath)
+  {
+    return PathAlgorithms.StartsWith(this, currentPath);
+  }
 
-    public static AbsoluteFilePath OfThisFile([CallerFilePath] string callerFilePath = "")
-    {
-        return Value(callerFilePath);
-    }
+  public Maybe<RelativeFilePath> TrimStart(AbsoluteDirectoryPath startPath)
+  {
+    return PathAlgorithms.TrimStart(_path, startPath.ToString())
+      .Select(s => new RelativeFilePath(s));
+  }
 
-    public static AbsoluteFilePath operator+(AbsoluteFilePath path, FileExtension fileExtension)
-    {
-      return path.ParentDirectory() + (path.FileName() + fileExtension);
-    }
+  public static AbsoluteFilePath OfThisFile([CallerFilePath] string callerFilePath = "")
+  {
+    return Value(callerFilePath);
+  }
 
-    public AbsoluteFilePath AddExtension(string extensionString)
-    {
-      return this + FileExtension.Value(extensionString);
-    }
+  public static AbsoluteFilePath operator +(AbsoluteFilePath path, FileExtension fileExtension)
+  {
+    return path.ParentDirectory() + (path.FileName() + fileExtension);
+  }
+
+  public AbsoluteFilePath AddExtension(string extensionString)
+  {
+    return this + FileExtension.Value(extensionString);
+  }
+
+  public AbsoluteFilePath AppendToFileNameBeforeExtension(string suffix)
+  {
+    return ParentDirectory() + FileName().AppendBeforeExtension(suffix);
+  }
+
+  public AbsoluteFilePath ChangeFileNameTo(FileName fileName)
+  {
+    return ParentDirectory() + fileName;
+  }
 }

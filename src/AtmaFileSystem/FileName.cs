@@ -146,6 +146,27 @@ public sealed class FileName :
     {
       return this + FileExtension.Value(extensionString);
     }
+
+    public FileName AppendBeforeExtension(string suffix)
+    {
+      ArgumentNullException.ThrowIfNull(suffix);
+      var fileNameWithoutExtension = WithoutExtension();
+      var extension = Extension();
+      var newFileName = AtmaFileSystemPaths.FileName(fileNameWithoutExtension + suffix);
+    
+      if (extension.HasValue)
+      {
+        newFileName += extension.Value();
+      }
+
+      return newFileName;
+    }
+
+    public FileName Prepend(string prefix)
+    {
+        ArgumentNullException.ThrowIfNull(prefix);
+        return AtmaFileSystemPaths.FileName(prefix + _path);
+    }
 }
 
 //TODO implement file system
