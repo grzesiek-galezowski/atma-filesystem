@@ -2,7 +2,12 @@ using Core.Maybe;
 
 namespace AtmaFileSystem.InternalInterfaces;
 
-internal interface IDirectoryPath<T> where T : IDirectoryPath<T>
+public interface IDirectoryPath
+{
+  public string ToString();
+}
+
+internal interface IDirectoryPath<T> : IDirectoryPath where T : IDirectoryPath<T>
 {
     DirectoryName DirectoryName();
     Maybe<T> ParentDirectory();
