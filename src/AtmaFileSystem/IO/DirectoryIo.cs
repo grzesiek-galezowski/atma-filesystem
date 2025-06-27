@@ -172,34 +172,32 @@ public static class DirectoryIo
   }
 
   /////////////////////////////
-
-  //bug these should return AnyAbsolutePath array
-  public static ImmutableArray<AnyPath> GetFileSystemEntries(this IDirectoryPath path)
+  public static ImmutableArray<AbsoluteAnyPath> GetFileSystemEntries(this IDirectoryPath path)
   {
     return
     [
       ..Directory.GetFileSystemEntries(path.ToString())
-        .Select(AnyPath.Value)
+        .Select(AbsoluteAnyPath.Value)
     ];
   }
 
-  public static ImmutableArray<AnyPath> GetFileSystemEntries(
+  public static ImmutableArray<AbsoluteAnyPath> GetFileSystemEntries(
     this IDirectoryPath path, string searchPattern, SearchOption searchOption)
   {
     return
     [
       ..Directory.GetFileSystemEntries(path.ToString(), searchPattern, searchOption)
-        .Select(AnyPath.Value)
+        .Select(AbsoluteAnyPath.Value)
     ];
   }
 
-  public static ImmutableArray<AnyPath> GetFileSystemEntries(
+  public static ImmutableArray<AbsoluteAnyPath> GetFileSystemEntries(
     this IDirectoryPath path, string searchPattern, EnumerationOptions enumerationOptions)
   {
     return
     [
       ..Directory.GetFileSystemEntries(path.ToString(), searchPattern, enumerationOptions)
-        .Select(AnyPath.Value)
+        .Select(AbsoluteAnyPath.Value)
     ];
   }
 
@@ -267,7 +265,7 @@ public static class DirectoryIo
       .Select(AbsoluteFilePath.Value);
   }
 
-  //bug should return AbsolutePath instead of AnyPath
+  //bug should return AbsoluteAnyPath instead of AnyPath
   public static IEnumerable<AnyPath> EnumerateFileSystemEntries(this IDirectoryPath path)
   {
     return Directory.EnumerateFileSystemEntries(path.ToString())

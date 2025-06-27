@@ -110,7 +110,7 @@ public sealed class RelativeFilePath :
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
+        if (obj.GetType() != GetType()) return false;
         return Equals((RelativeFilePath) obj);
     }
 
@@ -165,7 +165,7 @@ public sealed class RelativeFilePath :
 
     public Maybe<RelativeDirectoryPath> FindCommonRelativeDirectoryPathWith(RelativeFilePath path2)
     {
-        return from thisFileDir in this.ParentDirectory()
+        return from thisFileDir in ParentDirectory()
             from otherFileDir in path2.ParentDirectory()
             select thisFileDir.FindCommonDirectoryPathWith(otherFileDir);
     }
@@ -194,7 +194,7 @@ public sealed class RelativeFilePath :
 
     public RelativeFilePath AppendToFileNameBeforeExtension(string suffix)
     {
-      var newFileName = this.FileName().AppendBeforeExtension(suffix);
+      var newFileName = FileName().AppendBeforeExtension(suffix);
       return ChangeFileNameTo(newFileName);
     }
 
@@ -203,4 +203,5 @@ public sealed class RelativeFilePath :
       return ParentDirectory().Select(d => d + fileName).OrElse(From(fileName));
     }
 
+    public RelativeAnyPath AsRelativePath() => new(_path);
 }

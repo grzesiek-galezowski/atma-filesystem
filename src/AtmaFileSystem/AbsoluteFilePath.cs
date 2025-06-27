@@ -43,7 +43,7 @@ public sealed class AbsoluteFilePath :
 
   public bool ShallowEquals(AbsoluteFilePath other, FileSystemComparisonRules fileSystemComparisonRules)
   {
-    return fileSystemComparisonRules.ArePathStringsEqual(this.ToString(), other.ToString());
+    return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
   }
 
   public static AbsoluteFilePath Value(string path)
@@ -69,6 +69,7 @@ public sealed class AbsoluteFilePath :
   public AbsoluteDirectoryPath Root() => new(Path.GetPathRoot(_path).OrThrow());
   public AnyFilePath AsAnyFilePath() => new(_path);
   public AnyPath AsAnyPath() => new(_path);
+  public AbsoluteAnyPath AsAbsoluteAnyPath() => new(_path);
 
   public override string ToString() => _path;
 
@@ -78,7 +79,7 @@ public sealed class AbsoluteFilePath :
   {
     if (ReferenceEquals(null, obj)) return false;
     if (ReferenceEquals(this, obj)) return true;
-    if (obj.GetType() != this.GetType()) return false;
+    if (obj.GetType() != GetType()) return false;
     return Equals((AbsoluteFilePath)obj);
   }
 
@@ -105,7 +106,7 @@ public sealed class AbsoluteFilePath :
 
   public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
   {
-    return this.ParentDirectory().FragmentEndingOnLast(directoryName);
+    return ParentDirectory().FragmentEndingOnLast(directoryName);
   }
 
   public int CompareTo(AbsoluteFilePath? other)
@@ -146,7 +147,7 @@ public sealed class AbsoluteFilePath :
 
   public Maybe<AbsoluteDirectoryPath> FindCommonDirectoryWith(AbsoluteFilePath path2)
   {
-    return this.ParentDirectory().FindCommonDirectoryPathWith(path2.ParentDirectory());
+    return ParentDirectory().FindCommonDirectoryPathWith(path2.ParentDirectory());
   }
 
   public bool StartsWith(AbsoluteDirectoryPath currentPath)

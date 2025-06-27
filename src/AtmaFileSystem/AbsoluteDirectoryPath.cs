@@ -44,7 +44,7 @@ public sealed class AbsoluteDirectoryPath :
     {
         Asserts.NotNull(path, nameof(path));
         Asserts.NotEmpty(path, "Path cannot be empty");
-        Asserts.FullyQualified(path );
+        Asserts.FullyQualified(path);
         Asserts.DoesNotContainInvalidChars(path);
         return new AbsoluteDirectoryPath(path);
     }
@@ -98,7 +98,7 @@ public sealed class AbsoluteDirectoryPath :
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
+        if (obj.GetType() != GetType()) return false;
         return Equals((AbsoluteDirectoryPath) obj);
     }
 
@@ -120,8 +120,9 @@ public sealed class AbsoluteDirectoryPath :
     public DirectoryName DirectoryName() => new(_directoryInfo.Name);
     public AnyDirectoryPath AsAnyDirectoryPath() => new(_path);
     public AnyPath AsAnyPath() => new(_path);
+    public AbsoluteAnyPath AsAbsoluteAnyPath() => new(_path);
 
-    public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName)
+    public Maybe<AbsoluteDirectoryPath> FragmentEndingOnLast(DirectoryName directoryName) //bug move to path algorithms?
     {
         var result = this.ToMaybe();
         while (result.HasValue && !result.Value().DirectoryName().Equals(directoryName))
@@ -181,7 +182,7 @@ public sealed class AbsoluteDirectoryPath :
 
     public Maybe<RelativeDirectoryPath> TrimStart(AbsoluteDirectoryPath startPath)
     {
-        return PathAlgorithms.TrimStart(this.ToString(), startPath.ToString())
+        return PathAlgorithms.TrimStart(ToString(), startPath.ToString())
             .Select(s => new RelativeDirectoryPath(s));
     }
 

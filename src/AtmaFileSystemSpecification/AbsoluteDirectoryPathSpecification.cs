@@ -1,18 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using AtmaFileSystem;
-using FluentAssertions;
-using Core.Maybe;
-using NSubstitute;
 using Core.NullableReferenceTypesExtensions;
-using TddXt.AnyRoot;
-using TddXt.AnyRoot.Strings;
-using TddXt.XFluentAssert.Api;
-using Xunit;
 using static AtmaFileSystem.AtmaFileSystemPaths;
-using static TddXt.AnyRoot.Root;
 using AbsoluteDirectoryPath = AtmaFileSystem.AbsoluteDirectoryPath;
 using DirectoryName = AtmaFileSystem.DirectoryName;
 using FileName = AtmaFileSystem.FileName;
@@ -46,7 +36,8 @@ public class AbsoluteDirectoryPathSpecification
   {
     ObjectsOfType<AbsoluteDirectoryPath>.ShouldHaveValueSemantics(
       [
-        () => AbsoluteDirectoryPath.Value("C:\\")
+        () => AbsoluteDirectoryPath.Value("C:\\"),
+        //bug this fails () => AbsoluteDirectoryPath.Value("C:")
       ],
       [
         () => AbsoluteDirectoryPath.Value("C:\\a"),

@@ -12,10 +12,14 @@ public class AtmaFileSystemPaths
         AtmaFileSystem.AbsoluteDirectoryPath.Value(value);
     public static AbsoluteFilePath AbsoluteFilePath(string value) =>
         AtmaFileSystem.AbsoluteFilePath.Value(value);
+    public static AbsoluteAnyPath AbsoluteAnyPath(string value) =>
+        AtmaFileSystem.AbsoluteAnyPath.Value(value);
     public static RelativeDirectoryPath RelativeDirectoryPath(string value) =>
         AtmaFileSystem.RelativeDirectoryPath.Value(value);
     public static RelativeFilePath RelativeFilePath(string value) =>
         AtmaFileSystem.RelativeFilePath.Value(value);
+    public static RelativeAnyPath RelativeAnyPath(string value) =>
+        AtmaFileSystem.RelativeAnyPath.Value(value);
     public static DirectoryName DirectoryName(string value) =>
         AtmaFileSystem.DirectoryName.Value(value);
     public static FileName FileName(string value) =>

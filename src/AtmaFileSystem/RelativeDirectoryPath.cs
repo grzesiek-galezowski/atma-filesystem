@@ -95,15 +95,9 @@ public sealed class RelativeDirectoryPath :
     return new DirectoryInfo(_path).Just();
   }
 
-  public AnyDirectoryPath AsAnyDirectoryPath()
-  {
-    return new AnyDirectoryPath(_path);
-  }
-
-  public AnyPath AsAnyPath()
-  {
-    return new AnyPath(_path);
-  }
+  public AnyDirectoryPath AsAnyDirectoryPath() => new(_path);
+  public RelativeAnyPath AsRelativePath() => new(_path);
+  public AnyPath AsAnyPath() => new(_path);
 
   public DirectoryName DirectoryName()
   {
@@ -136,7 +130,7 @@ public sealed class RelativeDirectoryPath :
   {
     if (ReferenceEquals(null, obj)) return false;
     if (ReferenceEquals(this, obj)) return true;
-    if (obj.GetType() != this.GetType()) return false;
+    if (obj.GetType() != GetType()) return false;
     return Equals((RelativeDirectoryPath)obj);
   }
 

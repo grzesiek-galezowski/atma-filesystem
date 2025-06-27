@@ -1,16 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.CompilerServices;
-using AtmaFileSystem;
-using FluentAssertions;
-using Core.Maybe;
-using NSubstitute;
 using Core.NullableReferenceTypesExtensions;
-using TddXt.AnyRoot;
-using TddXt.XFluentAssert.Api;
-using Xunit;
 using static AtmaFileSystem.AtmaFileSystemPaths;
-using static TddXt.AnyRoot.Root;
 using AbsoluteDirectoryPath = AtmaFileSystem.AbsoluteDirectoryPath;
 using AbsoluteFilePath = AtmaFileSystem.AbsoluteFilePath;
 using RelativeFilePath = AtmaFileSystem.RelativeFilePath;
@@ -23,6 +14,17 @@ public class AbsoluteFilePathSpecification
   public void ShouldNotAllowToBeCreatedWithNullValue()
   {
     Assert.Throws<ArgumentNullException>(() => AbsoluteFilePath(null!));
+  }
+
+  [Theory,
+   InlineData(null, typeof(ArgumentNullException)),
+   InlineData("", typeof(ArgumentException)),
+   InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+   InlineData("C:", typeof(ArgumentException)),
+  ]
+  public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string? invalidInput, Type exceptionType)
+  {
+    Assert.Throws(exceptionType, () => AbsoluteFilePath(invalidInput!));
   }
 
   [Fact]
@@ -49,7 +51,7 @@ public class AbsoluteFilePathSpecification
   {
     ObjectsOfType<AbsoluteFilePath>.ShouldHaveValueSemantics(
       [
-        () => AbsoluteFilePath.Value("C:\\1")
+        () => AbsoluteFilePath.Value("C:\\1"),
       ],
       [
         () => AbsoluteFilePath.Value("C:\\2"), 

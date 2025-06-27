@@ -1,14 +1,4 @@
-﻿using System;
-using AtmaFileSystem;
-using FluentAssertions;
-using NSubstitute;
-using TddXt.AnyRoot;
-using TddXt.AnyRoot.Strings;
-using TddXt.XFluentAssert.Api;
-using Xunit;
-using static TddXt.AnyRoot.Root;
-
-namespace AtmaFileSystemSpecification;
+﻿namespace AtmaFileSystemSpecification;
 
 public class FileNameSpecification
 {

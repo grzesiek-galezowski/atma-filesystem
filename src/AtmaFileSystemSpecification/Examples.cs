@@ -1,8 +1,4 @@
-﻿using AtmaFileSystem;
-using Core.Maybe;
-using Xunit;
-
-namespace AtmaFileSystemSpecification;
+﻿namespace AtmaFileSystemSpecification;
 
 public class Examples
 {
