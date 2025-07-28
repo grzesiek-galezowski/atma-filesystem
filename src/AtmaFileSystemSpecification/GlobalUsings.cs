@@ -3,7 +3,7 @@
 global using System;
 global using AtmaFileSystem;
 global using Core.Maybe;
-global using FluentAssertions;
+global using AwesomeAssertions;
 global using NSubstitute;
 global using TddXt.AnyRoot;
 global using TddXt.AnyRoot.Strings;
