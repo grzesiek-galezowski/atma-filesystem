@@ -31,7 +31,7 @@ public class AnyFilePathSpecification
         () => AnyFilePath.Value("a.txt")
       ],
       [
-        () => AnyFilePath.Value("b.txt"), 
+        () => AnyFilePath.Value("b.txt"),
         () => AnyFilePath.Value("B.txt")
       ]);
   }

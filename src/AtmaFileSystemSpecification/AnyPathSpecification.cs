@@ -17,9 +17,9 @@ public class AnyPathSpecification
   }
 
   [Theory,
-   InlineData(null, typeof (ArgumentNullException)),
-   InlineData(" ", typeof (ArgumentException)),
-   InlineData(@"\\\\\\\\\?|/\/|", typeof (ArgumentException)),
+   InlineData(null, typeof(ArgumentNullException)),
+   InlineData(" ", typeof(ArgumentException)),
+   InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
   ]
   public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string? invalidInput, Type exceptionType)
   {

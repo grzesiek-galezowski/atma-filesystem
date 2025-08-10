@@ -8,7 +8,7 @@ public class TempDirectory
   {
     return AbsoluteDirectoryPath.Value(Directory.CreateTempSubdirectory(prefix).FullName);
   }
-  
+
   public static AbsoluteFilePath CreateTempFileName()
   {
     return AbsoluteFilePath.Value(Path.GetTempFileName());
@@ -18,5 +18,5 @@ public class TempDirectory
   {
     return AbsoluteDirectoryPath.OfTemp();
   }
- 
+
 }

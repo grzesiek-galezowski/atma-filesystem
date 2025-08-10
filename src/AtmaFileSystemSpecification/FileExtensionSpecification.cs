@@ -44,7 +44,7 @@ public class FileExtensionSpecification
     Assert.Throws(exceptionType, () => FileExtension.Value(extensionString!));
   }
 
-  [Theory, 
+  [Theory,
    InlineData(".zip")
   ]
   public void ShouldNotThrowExceptionWhenCreatedUsingCreationMethodWithValidInput(string extensionString)

@@ -160,7 +160,7 @@ public class FileNameSpecification
     //THEN
     Assert.Equal(FileName.Value("archive.tar.gz"), newFileName);
   }
-  
+
   [Fact]
   public void ShouldGetOnlyTheLastExtension()
   {

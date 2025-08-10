@@ -48,9 +48,7 @@ public sealed class AbsoluteFilePath :
 
   public static AbsoluteFilePath Value(string path)
   {
-    Asserts.NotNull(path, nameof(path));
-    Asserts.FullyQualified(path);
-    Asserts.DoesNotContainInvalidChars(path);
+    Asserts.AssertAreMet(ConditionSets.GetAbsoluteFilePathConditions(nameof(path)), path);
 
     return new AbsoluteFilePath(path);
   }

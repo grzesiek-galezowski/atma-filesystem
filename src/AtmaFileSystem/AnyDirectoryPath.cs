@@ -7,169 +7,166 @@ using Core.Maybe;
 namespace AtmaFileSystem;
 
 //bug mixed/different path separators
-public sealed class AnyDirectoryPath : 
-    IEquatable<AnyDirectoryPath>, 
+public sealed class AnyDirectoryPath :
+    IEquatable<AnyDirectoryPath>,
     IEquatableAccordingToFileSystem<AnyDirectoryPath>,
     IComparable<AnyDirectoryPath>, IComparable
 {
-    private readonly string _path;
+  private readonly string _path;
 
-    private AnyDirectoryPath(AnyDirectoryPath left, DirectoryName right)
-        : this(Path.Join(left.ToString(), right.ToString()))
+  private AnyDirectoryPath(AnyDirectoryPath left, DirectoryName right)
+      : this(Path.Join(left.ToString(), right.ToString()))
+  {
+  }
+
+  private AnyDirectoryPath(AnyDirectoryPath left, RelativeDirectoryPath right)
+      : this(Path.Join(left.ToString(), right.ToString()))
+  {
+  }
+
+  internal AnyDirectoryPath(string path)
+  {
+    _path = path;
+  }
+
+  public bool Equals(AnyDirectoryPath? other)
+  {
+    if (ReferenceEquals(null, other)) return false;
+    if (ReferenceEquals(this, other)) return true;
+    return string.Equals(_path, other._path, StringComparison.InvariantCulture);
+  }
+
+  public bool ShallowEquals(AnyDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
+  {
+    return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
+  }
+
+  public override bool Equals(object? obj)
+  {
+    if (ReferenceEquals(null, obj)) return false;
+    if (ReferenceEquals(this, obj)) return true;
+    if (obj.GetType() != GetType()) return false;
+    return Equals((AnyDirectoryPath)obj);
+  }
+
+  public override int GetHashCode()
+  {
+    return (_path != null ? _path.GetHashCode() : 0);
+  }
+
+  public static bool operator ==(AnyDirectoryPath? left, AnyDirectoryPath? right)
+  {
+    return Equals(left, right);
+  }
+
+  public static bool operator !=(AnyDirectoryPath? left, AnyDirectoryPath? right)
+  {
+    return !Equals(left, right);
+  }
+
+  public static AnyFilePath operator +(AnyDirectoryPath left, FileName right)
+  {
+    return new AnyFilePath(left, right);
+  }
+
+  public static AnyDirectoryPath operator +(AnyDirectoryPath left, DirectoryName right)
+  {
+    return new AnyDirectoryPath(left, right);
+  }
+
+  public static AnyDirectoryPath operator +(AnyDirectoryPath left, RelativeDirectoryPath right)
+  {
+    return new AnyDirectoryPath(left, right);
+  }
+
+  public static AnyFilePath operator +(AnyDirectoryPath left, RelativeFilePath right)
+  {
+    return new AnyFilePath(left, right);
+  }
+
+  public override string ToString()
+  {
+    return _path;
+  }
+
+  public AnyPath AsAnyPath() => new(_path);
+
+  public static AnyDirectoryPath Value(string path)
+  {
+    Asserts.AssertAreMet(ConditionSets.GetAnyDirectoryPathConditions(nameof(path)), path);
+
+    return new AnyDirectoryPath(path);
+  }
+
+  public DirectoryName DirectoryName()
+  {
+    if (_path == string.Empty)
     {
+      return AtmaFileSystem.DirectoryName.Value(string.Empty);
     }
+    return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
+  }
 
-    private AnyDirectoryPath(AnyDirectoryPath left, RelativeDirectoryPath right)
-        : this(Path.Join(left.ToString(), right.ToString()))
+  public Maybe<AnyDirectoryPath> ParentDirectory()
+  {
+    if (_path == string.Empty)
     {
+      return Maybe<AnyDirectoryPath>.Nothing;
     }
+    var directoryName = new DirectoryInfo(_path).Parent;
+    return AsMaybe(directoryName);
+  }
 
-    internal AnyDirectoryPath(string path)
+  private static Maybe<AnyDirectoryPath> AsMaybe(DirectoryInfo? directoryName)
+  {
+    return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AnyDirectoryPath>.Nothing;
+  }
+
+  public Maybe<DirectoryInfo> Info()
+  {
+    if (_path == string.Empty)
     {
-        _path = path;
+      return Maybe<DirectoryInfo>.Nothing;
     }
+    return new DirectoryInfo(_path).Just();
+  }
 
-    public bool Equals(AnyDirectoryPath? other)
-    {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return string.Equals(_path, other._path, StringComparison.InvariantCulture);
-    }
+  public int CompareTo(AnyDirectoryPath? other)
+  {
+    if (ReferenceEquals(this, other)) return 0;
+    if (ReferenceEquals(null, other)) return 1;
+    return string.Compare(_path, other._path, StringComparison.InvariantCulture);
+  }
 
-    public bool ShallowEquals(AnyDirectoryPath other, FileSystemComparisonRules fileSystemComparisonRules)
-    {
-        return fileSystemComparisonRules.ArePathStringsEqual(ToString(), other.ToString());
-    }
+  public int CompareTo(object? obj)
+  {
+    if (ReferenceEquals(null, obj)) return 1;
+    if (ReferenceEquals(this, obj)) return 0;
+    return obj is AnyDirectoryPath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AnyDirectoryPath)}");
+  }
 
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((AnyDirectoryPath) obj);
-    }
+  public static bool operator <(AnyDirectoryPath left, AnyDirectoryPath right)
+  {
+    return Comparer<AnyDirectoryPath>.Default.Compare(left, right) < 0;
+  }
 
-    public override int GetHashCode()
-    {
-        return (_path != null ? _path.GetHashCode() : 0);
-    }
+  public static bool operator >(AnyDirectoryPath left, AnyDirectoryPath right)
+  {
+    return Comparer<AnyDirectoryPath>.Default.Compare(left, right) > 0;
+  }
 
-    public static bool operator ==(AnyDirectoryPath? left, AnyDirectoryPath? right)
-    {
-        return Equals(left, right);
-    }
+  public static bool operator <=(AnyDirectoryPath left, AnyDirectoryPath right)
+  {
+    return Comparer<AnyDirectoryPath>.Default.Compare(left, right) <= 0;
+  }
 
-    public static bool operator !=(AnyDirectoryPath? left, AnyDirectoryPath? right)
-    {
-        return !Equals(left, right);
-    }
+  public static bool operator >=(AnyDirectoryPath left, AnyDirectoryPath right)
+  {
+    return Comparer<AnyDirectoryPath>.Default.Compare(left, right) >= 0;
+  }
 
-    public static AnyFilePath operator +(AnyDirectoryPath left, FileName right)
-    {
-        return new AnyFilePath(left, right);
-    }
-
-    public static AnyDirectoryPath operator +(AnyDirectoryPath left, DirectoryName right)
-    {
-        return new AnyDirectoryPath(left, right);
-    }
-
-    public static AnyDirectoryPath operator +(AnyDirectoryPath left, RelativeDirectoryPath right)
-    {
-        return new AnyDirectoryPath(left, right);
-    }
-
-    public static AnyFilePath operator +(AnyDirectoryPath left, RelativeFilePath right)
-    {
-        return new AnyFilePath(left, right);
-    }
-
-    public override string ToString()
-    {
-        return _path;
-    }
-
-    public AnyPath AsAnyPath() => new(_path);
-
-    public static AnyDirectoryPath Value(string path)
-    {
-        Asserts.NotNull(path, nameof(path));
-        Asserts.NotAllWhitespace(path, "Path cannot be whitespace");
-        Asserts.DirectoryPathValid(path);
-        Asserts.DoesNotContainInvalidChars(path);
-
-        return new AnyDirectoryPath(path);
-    }
-
-    public DirectoryName DirectoryName()
-    {
-        if (_path == string.Empty)
-        {
-            return AtmaFileSystem.DirectoryName.Value(string.Empty);
-        }
-        return AtmaFileSystem.DirectoryName.Value(new DirectoryInfo(_path).Name);
-    }
-
-    public Maybe<AnyDirectoryPath> ParentDirectory()
-    {
-        if (_path == string.Empty)
-        {
-            return Maybe<AnyDirectoryPath>.Nothing;
-        }
-        var directoryName = new DirectoryInfo(_path).Parent;
-        return AsMaybe(directoryName);
-    }
-
-    private static Maybe<AnyDirectoryPath> AsMaybe(DirectoryInfo? directoryName)
-    {
-        return directoryName != null ? Value(directoryName.FullName).Just() : Maybe<AnyDirectoryPath>.Nothing;
-    }
-
-    public Maybe<DirectoryInfo> Info()
-    {
-        if (_path == string.Empty)
-        {
-            return Maybe<DirectoryInfo>.Nothing;
-        }
-        return new DirectoryInfo(_path).Just();
-    }
-
-    public int CompareTo(AnyDirectoryPath? other)
-    {
-        if (ReferenceEquals(this, other)) return 0;
-        if (ReferenceEquals(null, other)) return 1;
-        return string.Compare(_path, other._path, StringComparison.InvariantCulture);
-    }
-
-    public int CompareTo(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return 1;
-        if (ReferenceEquals(this, obj)) return 0;
-        return obj is AnyDirectoryPath other ? CompareTo(other) : throw new ArgumentException($"Object must be of type {nameof(AnyDirectoryPath)}");
-    }
-
-    public static bool operator <(AnyDirectoryPath left, AnyDirectoryPath right)
-    {
-        return Comparer<AnyDirectoryPath>.Default.Compare(left, right) < 0;
-    }
-
-    public static bool operator >(AnyDirectoryPath left, AnyDirectoryPath right)
-    {
-        return Comparer<AnyDirectoryPath>.Default.Compare(left, right) > 0;
-    }
-
-    public static bool operator <=(AnyDirectoryPath left, AnyDirectoryPath right)
-    {
-        return Comparer<AnyDirectoryPath>.Default.Compare(left, right) <= 0;
-    }
-
-    public static bool operator >=(AnyDirectoryPath left, AnyDirectoryPath right)
-    {
-        return Comparer<AnyDirectoryPath>.Default.Compare(left, right) >= 0;
-    }
-
-    public AnyFilePath Add(FileName fileName) => this + fileName;
-    public AnyDirectoryPath Add(DirectoryName directoryName) => this + directoryName;
-    public AnyDirectoryPath Add(RelativeDirectoryPath relativePath) => this + relativePath;
-    public AnyFilePath Add(RelativeFilePath relativeFilePath) => this + relativeFilePath;
+  public AnyFilePath Add(FileName fileName) => this + fileName;
+  public AnyDirectoryPath Add(DirectoryName directoryName) => this + directoryName;
+  public AnyDirectoryPath Add(RelativeDirectoryPath relativePath) => this + relativePath;
+  public AnyFilePath Add(RelativeFilePath relativeFilePath) => this + relativeFilePath;
 }

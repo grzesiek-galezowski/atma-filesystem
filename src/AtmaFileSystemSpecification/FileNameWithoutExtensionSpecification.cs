@@ -51,10 +51,10 @@ public class FileNameWithoutExtensionSpecification
   {
     //GIVEN
     var fileNameWithoutExtension = Any.Instance<FileNameWithoutExtension>();
-      
+
     //WHEN
     FileName fileName = fileNameWithoutExtension.AsFileName();
-      
+
     //THEN
     Assert.Equal(fileNameWithoutExtension.ToString(), fileName.ToString());
 

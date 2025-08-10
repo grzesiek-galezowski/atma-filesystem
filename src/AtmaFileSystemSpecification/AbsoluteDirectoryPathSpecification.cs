@@ -15,10 +15,10 @@ public class AbsoluteDirectoryPathSpecification
 {
 
   [Theory,
-   InlineData(null, typeof (ArgumentNullException)),
-   InlineData("", typeof (ArgumentException)),
-   InlineData(@"\\\\\\\\\?|/\/|", typeof (ArgumentException)),
-   InlineData("C:", typeof (ArgumentException)),
+   InlineData(null, typeof(ArgumentNullException)),
+   InlineData("", typeof(ArgumentException)),
+   InlineData(@"\\\\\\\\\?|/\/|", typeof(ArgumentException)),
+   InlineData("C:", typeof(ArgumentException)),
   ]
   public void ShouldThrowExceptionWhenCreatedWithInvalidValue(string? invalidInput, Type exceptionType)
   {
@@ -76,7 +76,7 @@ public class AbsoluteDirectoryPathSpecification
     //THEN
     Assert.Equal(Path.Join(path.ToString(), fileName.ToString()), convertedToString);
   }
-    
+
   [Fact]
   public void ShouldAllowAddingConcatenatingFileName()
   {
@@ -145,7 +145,7 @@ public class AbsoluteDirectoryPathSpecification
     var dirName3 = Any.Instance<DirectoryName>();
     var dirName4 = Any.Instance<DirectoryName>();
     AbsoluteDirectoryPath absoluteFilePath = dirPath + dirName1 + dirName2 + dirName3 + dirName4;
-      
+
     //WHEN
     var dirIndex0 = absoluteFilePath.ParentDirectory(0);
     var dirIndex1 = absoluteFilePath.ParentDirectory(1);
@@ -213,7 +213,7 @@ public class AbsoluteDirectoryPathSpecification
     var directoryPath = AbsoluteDirectoryPath.Value(@"G:\Directory\Subdirectory");
 
     //WHEN
-    AbsoluteDirectoryPath directoryPathWithAnotherDirectoryName = 
+    AbsoluteDirectoryPath directoryPathWithAnotherDirectoryName =
       directoryPath.AddDirectoryName("Subdir2");
 
     //THEN
@@ -368,9 +368,9 @@ public class AbsoluteDirectoryPathSpecification
     Maybe<RelativeDirectoryPath> trimmedPath = AbsoluteDirectoryPath(p1)
       .TrimStart(AbsoluteDirectoryPath(p2));
 
-    trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
+    trimmedPath.Select(p => p.ToString()).Should().Be(expected.ToMaybe());
   }
-    
+
   [Theory]
   [InlineData("C:\\d1\\d2", "C:\\", true)]
   [InlineData("C:\\d1\\d2", "C:\\d1", true)]
@@ -390,7 +390,7 @@ public class AbsoluteDirectoryPathSpecification
   {
     //GIVEN
     var thisDirPath = AbsoluteDirectoryPath.OfThisFile();
-      
+
     //THEN
     thisDirPath.Should().Be(AbsoluteDirectoryPath(Path.GetDirectoryName(CurrentFilePath()).OrThrow()));
   }

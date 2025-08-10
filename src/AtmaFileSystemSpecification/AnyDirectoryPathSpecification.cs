@@ -39,7 +39,7 @@ public class AnyDirectoryPathSpecification
         () => AnyDirectoryPath.Value("C:\\")
       ],
       [
-        () => AnyDirectoryPath.Value("c:\\"), 
+        () => AnyDirectoryPath.Value("c:\\"),
         () => AnyDirectoryPath.Value("D:\\")
       ]);
   }
@@ -182,7 +182,7 @@ public class AnyDirectoryPathSpecification
     //THEN
     directoryInfo.Value().FullName.Should().Be(FullNameFrom(path));
   }
-    
+
   [Fact]
   public void ShouldBeConvertibleToNothingOfDirectoryInfoWhenPathIsEmpty()
   {

@@ -8,7 +8,7 @@ public class Examples
     ////////////////////////
     // Disassembling:
     ////////////////////////
-      
+
     AbsoluteFilePath fullPath = AbsoluteFilePath.Value(@"C:\Program Files\Lolokimono\Config.txt");
     AbsoluteDirectoryPath directoryPath = fullPath.ParentDirectory();
     FileName fileName = fullPath.FileName();
@@ -22,7 +22,7 @@ public class Examples
     // Assembling:
     ////////////////////////
 
-      
+
     AbsoluteFilePath fullPathAssembled = directoryPath + (fileNameWithoutExtension + extension.Value());
 
     DirectoryName dirName = DirectoryName.Value("Subdirectory");

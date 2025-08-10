@@ -35,9 +35,7 @@ public sealed class AbsoluteAnyPath :
 
   public static AbsoluteAnyPath Value(string path)
   {
-    Asserts.NotNull(path, nameof(path));
-    Asserts.FullyQualified(path);
-    Asserts.DoesNotContainInvalidChars(path);
+    Asserts.AssertAreMet(ConditionSets.GetAbsoluteAnyPathConditions(nameof(path)), path);
 
     return new AbsoluteAnyPath(path);
   }
@@ -55,7 +53,7 @@ public sealed class AbsoluteAnyPath :
   }
 
   public AbsoluteDirectoryPath Root() => new(Path.GetPathRoot(_path).OrThrow());
-  
+
   public AnyPath AsAnyPath() => new(_path);
 
   public override string ToString() => _path;
@@ -124,8 +122,8 @@ public sealed class AbsoluteAnyPath :
   public Maybe<AbsoluteDirectoryPath> FindCommonDirectoryWith(AbsoluteAnyPath path2)
   {
     return from thisFileDir in ParentDirectory()
-      from otherFileDir in path2.ParentDirectory()
-      select thisFileDir.FindCommonDirectoryPathWith(otherFileDir);
+           from otherFileDir in path2.ParentDirectory()
+           select thisFileDir.FindCommonDirectoryPathWith(otherFileDir);
   }
 
   public Maybe<RelativeAnyPath> TrimStart(AbsoluteDirectoryPath startPath)

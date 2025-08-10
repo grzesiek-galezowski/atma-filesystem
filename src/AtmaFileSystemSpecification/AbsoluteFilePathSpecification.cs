@@ -54,7 +54,7 @@ public class AbsoluteFilePathSpecification
         () => AbsoluteFilePath.Value("C:\\1"),
       ],
       [
-        () => AbsoluteFilePath.Value("C:\\2"), 
+        () => AbsoluteFilePath.Value("C:\\2"),
         () => AbsoluteFilePath.Value("c:\\1")
       ]);
   }
@@ -80,7 +80,7 @@ public class AbsoluteFilePathSpecification
     var dirPath = Any.Instance<AbsoluteDirectoryPath>();
     var fileName = Any.Instance<FileName>();
     AbsoluteFilePath absoluteFilePath = dirPath + fileName;
-      
+
     //WHEN
     var dirObtainedFromPath = absoluteFilePath.ParentDirectory();
 
@@ -98,7 +98,7 @@ public class AbsoluteFilePathSpecification
     var dirName3 = Any.Instance<DirectoryName>();
     var fileName = Any.Instance<FileName>();
     AbsoluteFilePath absoluteFilePath = dirPath + dirName1 + dirName2 + dirName3 + fileName;
-      
+
     //WHEN
     var dirIndex0 = absoluteFilePath.ParentDirectory(0);
     var dirIndex1 = absoluteFilePath.ParentDirectory(1);
@@ -263,7 +263,7 @@ public class AbsoluteFilePathSpecification
     //THEN
     Assert.Equal(comparisonResult, equality);
   }
-    
+
   [Theory]
   [InlineData("C:\\lol.txt", "C:\\lol.txt", "C:\\")]
   [InlineData("C:\\lol\\lol.txt", "C:\\lol\\lol.txt", "C:\\lol")]
@@ -294,7 +294,7 @@ public class AbsoluteFilePathSpecification
     Maybe<RelativeFilePath> trimmedPath = AbsoluteFilePath(p1)
       .TrimStart(AbsoluteDirectoryPath(p2));
 
-    trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
+    trimmedPath.Select(p => p.ToString()).Should().Be(expected.ToMaybe());
   }
 
   [Theory]
@@ -317,7 +317,7 @@ public class AbsoluteFilePathSpecification
   {
     //GIVEN
     var thisFilePath = AbsoluteFilePath.OfThisFile();
-      
+
     //THEN
     thisFilePath.Should().Be(AbsoluteFilePath.Value(CurrentFilePath()));
   }

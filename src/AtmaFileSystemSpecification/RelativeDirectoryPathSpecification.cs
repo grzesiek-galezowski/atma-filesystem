@@ -117,7 +117,7 @@ public class RelativeDirectoryPathSpecification
   {
     //GIVEN
     var relativePath = RelativeDirectoryPath.Value(@"Directory\Subdirectory\Subsubdirectory");
-      
+
     //WHEN
     Maybe<RelativeDirectoryPath> pathWithoutLastDir = relativePath.ParentDirectory();
 
@@ -280,6 +280,6 @@ public class RelativeDirectoryPathSpecification
     Maybe<RelativeDirectoryPath> trimmedPath = RelativeDirectoryPath.Value(p1)
       .TrimStart(RelativeDirectoryPath.Value(p2));
 
-    trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
+    trimmedPath.Select(p => p.ToString()).Should().Be(expected.ToMaybe());
   }
 }

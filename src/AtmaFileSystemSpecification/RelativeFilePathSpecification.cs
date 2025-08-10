@@ -78,7 +78,7 @@ public class RelativeFilePathSpecification
     //GIVEN
     var dirPath = Any.Instance<RelativeDirectoryPath>();
     var fileName = Any.Instance<FileName>();
-    RelativeFilePath filePath =dirPath + fileName;
+    RelativeFilePath filePath = dirPath + fileName;
 
     //WHEN
     FileName fileNameObtainedFromPath = filePath.FileName();
@@ -215,7 +215,7 @@ public class RelativeFilePathSpecification
     Maybe<RelativeDirectoryPath> trimmedPath = RelativeFilePath.Value(p1)
       .TrimStart(RelativeDirectoryPath.Value(p2));
 
-    trimmedPath.Select(p =>p.ToString()).Should().Be(expected.ToMaybe());
+    trimmedPath.Select(p => p.ToString()).Should().Be(expected.ToMaybe());
   }
 
   [Theory]
@@ -232,7 +232,7 @@ public class RelativeFilePathSpecification
     result.Should().Be(expected);
   }
 
-  [Theory, 
+  [Theory,
    InlineData("Dir\\archive.tar", ".gz", "Dir\\archive.tar.gz"),
    InlineData("archive.tar", ".gz", "archive.tar.gz")
   ]

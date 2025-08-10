@@ -4,6 +4,6 @@ namespace AtmaFileSystem.InternalInterfaces;
 
 internal interface IAbsolutePath
 {
-    AbsoluteDirectoryPath Root();
-    Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index);
+  AbsoluteDirectoryPath Root();
+  Maybe<AbsoluteDirectoryPath> ParentDirectory(uint index);
 }
