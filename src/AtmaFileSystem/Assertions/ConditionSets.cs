@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 
 namespace AtmaFileSystem.Assertions;
 
@@ -11,7 +10,7 @@ public static class ConditionSets
   private static readonly ValidDirectoryNameCondition ValidDirectoryNameCondition = new();
   private static readonly ConsistsSolelyOfExtensionCondition ConsistsSolelyOfExtensionCondition = new();
   private static readonly ConsistsSolelyOfFileNameCondition ConsistsSolelyOfFileNameCondition = new();
-  private static readonly DirectoryPathValidCondition DirectoryPathValidCondition = new();
+  private static readonly DirectoryPathRootedCondition DirectoryPathRootedCondition = new();
   private static readonly DoesNotContainInvalidCharsCondition DoesNotContainInvalidCharsCondition = new();
   private static readonly NotAllWhitespaceCondition NotAllWhitespaceCondition = new();
   
@@ -42,16 +41,16 @@ public static class ConditionSets
   {
     yield return new NotNullCondition(pathName);
     yield return NotAllWhitespaceCondition;
-    yield return DirectoryPathValidCondition;
     yield return DoesNotContainInvalidCharsCondition;
+    yield return DirectoryPathRootedCondition;
   }
 
   public static IEnumerable<IInitializerValueCondition> GetAnyPathConditions(string pathName)
   {
     yield return new NotNullCondition(pathName);
     yield return NotAllWhitespaceCondition;
-    yield return DirectoryPathValidCondition;
     yield return DoesNotContainInvalidCharsCondition;
+    yield return DirectoryPathRootedCondition;
   }
 
   public static IEnumerable<IInitializerValueCondition> GetDirectoryNameConditions(string directoryNameArgName)
@@ -95,7 +94,7 @@ public static class ConditionSets
   {
     yield return new NotNullCondition(pathName);
     yield return PathNotEmptyCondition;
-    yield return DirectoryPathValidCondition;
+    yield return DirectoryPathRootedCondition;
     yield return DoesNotContainInvalidCharsCondition;
   }
 

@@ -10,11 +10,11 @@ internal static class ExceptionMessages
 
   public static string PathFragment(string path, string constraintBreak)
   {
-    return $"Path {path} {constraintBreak}. ";
+    return $"Path {path} {constraintBreak}.";
   }
 
   public static string ValueFragment(string value, string constraintBreak)
   {
-    return $"Value {value} {constraintBreak}. ";
+    return $"Value {value} {constraintBreak}.";
   }
 }

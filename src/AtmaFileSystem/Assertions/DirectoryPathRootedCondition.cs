@@ -3,14 +3,14 @@ using System.IO;
 
 namespace AtmaFileSystem.Assertions;
 
-public class DirectoryPathValidCondition : IInitializerValueCondition
+public class DirectoryPathRootedCondition : IInitializerValueCondition
 {
   public Exception RuleException(string path)
   {
     return new ArgumentException(ExceptionMessages.PathFragment(path, "is not a valid directory path"));
   }
 
-  public bool FailsFor(string path)
+  public bool FailsFor(string? path)
   {
     var failed = false;
     try
